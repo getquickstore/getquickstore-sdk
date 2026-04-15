@@ -1,0 +1,1 @@
+# getquickstore-sdk
