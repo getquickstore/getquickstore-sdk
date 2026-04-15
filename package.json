@@ -1,0 +1,17 @@
+{
+  "name": "sdk-getquickstore",
+  "version": "0.1.0",
+  "private": false,
+  "main": "dist/client.js",
+  "types": "dist/client.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}

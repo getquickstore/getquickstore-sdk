@@ -1,3 +1,5 @@
+// src\client.ts
+
 import { OpenAPI } from "./generated/core/OpenAPI";
 import { ProductsService } from "./generated/services/ProductsService";
 import { OrdersService } from "./generated/services/OrdersService";
