@@ -1,0 +1,194 @@
+{
+  "baseUrl": "http://localhost:4001",
+  "auth": {
+    "email": "autotest_orders_rules_1776235750156@example.com",
+    "userId": "cmnzowkz6001ytmnkw3h0yhun"
+  },
+  "scope": {
+    "storeId": "cmnzowlio0024tmnkk3ycktxf"
+  },
+  "entities": {
+    "categoryId": "cmnzowlry0028tmnk5mojw613",
+    "productId": "cmnzowlw8002atmnk1m4aydvl",
+    "scenarioAOrderId": "cmnzowmeh002dtmnkodrcc7qf",
+    "scenarioBOrderId": "cmnzown0w002htmnk5dwromps",
+    "scenarioCOrderId": "cmnzownoe002ntmnkiuqf6w5p"
+  },
+  "counts": {
+    "total": 13,
+    "passed": 13,
+    "failed": 0,
+    "errors": 0,
+    "ok2xx": 11,
+    "conflict409": 2
+  },
+  "results": [
+    {
+      "step": "register",
+      "method": "POST",
+      "path": "/auth/register",
+      "status": 201,
+      "ok": true,
+      "expected": "201 created or acceptable duplicate",
+      "passed": true,
+      "sample": "{\"email\":\"autotest_orders_rules_1776235750156@example.com\"}"
+    },
+    {
+      "step": "login",
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200,
+      "ok": true,
+      "expected": "200 login",
+      "passed": true,
+      "sample": "{\"accessToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW56b3drejYwMDF5dG1ua3czaDB5aHVuIiwiZW1haWwiOiJhdXRvdGVzdF9vcmRlcnNfcnVsZXNfMTc3NjIzNTc1MDE1NkBleGFtcGxlLmNvbSIsInJvbGVzIjpbIlVTRVIiXSwiaWF0IjoxNzc2MjM1NzUxLCJleHAiOjE3NzYyMzY2NTF9.3IiiP1JkfJHHBXROg6BCypQmvFwin87Z6Q018hhr65I\",\"refreshToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW56b3drejYwMDF5dG1ua3czaDB5aHVuIiwidHlwIjoicmVmcmVzaCIsImp0aSI6IjNhMTY0NWUwLTdhMjktNGQzNC1hZDY3LTMzYjIyNTEyYjRkYyIsImlhdCI6MTc3NjIzNTc1MSwiZXhwIjoxNzc4ODI3NzUxfQ.3fMPLomV64izxsmLMTFKvPPWK0niBZdGePOK2m8Ggnw\",\"tokenType\":\"Bearer\",\"expiresIn\":900,\"user\":{\"id\":\"cmnzowkz6001ytmnkw3h0yhun\",\"email\":\"autotest_orders_rules_1776235750156@example.com\",",
+      "userId": "cmnzowkz6001ytmnkw3h0yhun"
+    },
+    {
+      "step": "create_store",
+      "method": "POST",
+      "path": "/stores",
+      "status": 201,
+      "ok": true,
+      "expected": "201 store created",
+      "passed": true,
+      "sample": "{\"ok\":true,\"store\":{\"id\":\"cmnzowlio0024tmnkk3ycktxf\",\"name\":\"Orders Rules Store 1776235751513\",\"slug\":\"orders-rules-store-1776235751513\",\"status\":\"ACTIVE\",\"ownerUserId\":\"cmnzowkz6001ytmnkw3h0yhun\",\"defaultCurrency\":\"EUR\",\"defaultLanguage\":\"en\",\"timezone\":\"Europe/Vilnius\",\"country\":null,\"createdAt\":\"2026-04-15T06:49:11.664Z\"}}",
+      "storeId": "cmnzowlio0024tmnkk3ycktxf"
+    },
+    {
+      "step": "create_category",
+      "method": "POST",
+      "path": "/categories",
+      "status": 201,
+      "ok": true,
+      "expected": "201 category created",
+      "passed": true,
+      "sample": "{\"id\":\"cmnzowlry0028tmnk5mojw613\",\"storeId\":\"cmnzowlio0024tmnkk3ycktxf\",\"name\":\"Orders Rules Category 1776235751876\",\"slug\":\"orders-rules-category-1776235751876\",\"parentId\":null,\"position\":1,\"createdAt\":\"2026-04-15T06:49:11.998Z\",\"updatedAt\":\"2026-04-15T06:49:11.998Z\",\"deletedAt\":null}",
+      "storeId": "cmnzowlio0024tmnkk3ycktxf",
+      "categoryId": "cmnzowlry0028tmnk5mojw613"
+    },
+    {
+      "step": "create_product",
+      "method": "POST",
+      "path": "/products",
+      "status": 201,
+      "ok": true,
+      "expected": "201 product created",
+      "passed": true,
+      "sample": "{\"id\":\"cmnzowlw8002atmnk1m4aydvl\",\"storeId\":\"cmnzowlio0024tmnkk3ycktxf\",\"brandId\":null,\"name\":\"Orders Rules Product 1776235752059\",\"slug\":\"orders-rules-product-1776235752059\",\"sku\":\"orders-rules-sku-1776235752059\",\"description\":\"Orders rules test product\",\"status\":\"PUBLISHED\",\"priceCents\":2999,\"currency\":\"EUR\",\"metaTitle\":null,\"metaDescription\":null,\"noindex\":false,\"createdAt\":\"2026-04-15T06:49:12.152Z\",\"updatedAt\":\"2026-04-15T06:49:12.152Z\",\"images\":[{\"id\":\"cmnzowlw8002btmnkekm42noa\",\"key\":\"products/cmnzowlio0024tmnkk3ycktxf/orders-rules-product-1776235752059.jpg\",\"url\":\"https://example.com/orders-rules-test.jpg\",\"alt\":\"Orders rules image\",\"isPrimary\":true,\"position\":0}],\"categories\":[{\"id\"",
+      "storeId": "cmnzowlio0024tmnkk3ycktxf",
+      "productId": "cmnzowlw8002atmnk1m4aydvl",
+      "priceCents": 2999
+    },
+    {
+      "step": "scenario_a_create_order",
+      "method": "POST",
+      "path": "/orders",
+      "status": 201,
+      "ok": true,
+      "expected": "201 pending order",
+      "passed": true,
+      "sample": "{\"ok\":true,\"item\":{\"id\":\"cmnzowmeh002dtmnkodrcc7qf\",\"storeId\":\"cmnzowlio0024tmnkk3ycktxf\",\"customerId\":null,\"userId\":\"cmnzowkz6001ytmnkw3h0yhun\",\"number\":\"ORD-20260415064912-ZCBOCP\",\"status\":\"PENDING\",\"paymentStatus\":\"PENDING\",\"currency\":\"EUR\",\"subtotalCents\":5998,\"discountCents\":0,\"shippingCents\":0,\"taxCents\":0,\"totalCents\":5998,\"notes\":\"Scenario A: cancel before payment\",\"shippingAddressId\":null,\"billingAddressId\":null,\"createdAt\":\"2026-04-15T06:49:12.810Z\",\"updatedAt\":\"2026-04-15T06:49:12.810Z\",\"cancelledAt\":null,\"items\":[{\"id\":\"cmnzowmeh002ftmnk5nokzopj\",\"orderId\":\"cmnzowmeh002dtmnkodrcc7qf\",\"productId\":\"cmnzowlw8002atmnk1m4aydvl\",\"variantId\":null,\"qty\":2,\"priceCents\":2999,\"sku\":\"orders-",
+      "storeId": "cmnzowlio0024tmnkk3ycktxf",
+      "productId": "cmnzowlw8002atmnk1m4aydvl",
+      "orderId": "cmnzowmeh002dtmnkodrcc7qf",
+      "orderStatus": "PENDING",
+      "paymentStatus": "PENDING"
+    },
+    {
+      "step": "scenario_a_cancel_before_payment",
+      "method": "POST",
+      "path": "/orders/cmnzowmeh002dtmnkodrcc7qf/cancel",
+      "status": 200,
+      "ok": true,
+      "expected": "200 cancel allowed before payment",
+      "passed": true,
+      "sample": "{\"ok\":true,\"item\":{\"id\":\"cmnzowmeh002dtmnkodrcc7qf\",\"storeId\":\"cmnzowlio0024tmnkk3ycktxf\",\"customerId\":null,\"userId\":\"cmnzowkz6001ytmnkw3h0yhun\",\"number\":\"ORD-20260415064912-ZCBOCP\",\"status\":\"CANCELLED\",\"paymentStatus\":\"PENDING\",\"currency\":\"EUR\",\"subtotalCents\":5998,\"discountCents\":0,\"shippingCents\":0,\"taxCents\":0,\"totalCents\":5998,\"notes\":\"Scenario A: cancel before payment\",\"shippingAddressId\":null,\"billingAddressId\":null,\"createdAt\":\"2026-04-15T06:49:12.810Z\",\"updatedAt\":\"2026-04-15T06:49:13.288Z\",\"cancelledAt\":\"2026-04-15T06:49:13.287Z\",\"items\":[{\"id\":\"cmnzowmeh002ftmnk5nokzopj\",\"orderId\":\"cmnzowmeh002dtmnkodrcc7qf\",\"productId\":\"cmnzowlw8002atmnk1m4aydvl\",\"variantId\":null,\"qty\":2,\"priceCe",
+      "storeId": "cmnzowlio0024tmnkk3ycktxf",
+      "orderId": "cmnzowmeh002dtmnkodrcc7qf",
+      "orderStatus": "CANCELLED",
+      "paymentStatus": "PENDING"
+    },
+    {
+      "step": "scenario_b_create_order",
+      "method": "POST",
+      "path": "/orders",
+      "status": 201,
+      "ok": true,
+      "expected": "201 pending order",
+      "passed": true,
+      "sample": "{\"ok\":true,\"item\":{\"id\":\"cmnzown0w002htmnk5dwromps\",\"storeId\":\"cmnzowlio0024tmnkk3ycktxf\",\"customerId\":null,\"userId\":\"cmnzowkz6001ytmnkw3h0yhun\",\"number\":\"ORD-20260415064913-WW6WO2\",\"status\":\"PENDING\",\"paymentStatus\":\"PENDING\",\"currency\":\"EUR\",\"subtotalCents\":5998,\"discountCents\":0,\"shippingCents\":0,\"taxCents\":0,\"totalCents\":5998,\"notes\":\"Scenario B: cancel after payment forbidden\",\"shippingAddressId\":null,\"billingAddressId\":null,\"createdAt\":\"2026-04-15T06:49:13.616Z\",\"updatedAt\":\"2026-04-15T06:49:13.616Z\",\"cancelledAt\":null,\"items\":[{\"id\":\"cmnzown0w002jtmnkhi0id15p\",\"orderId\":\"cmnzown0w002htmnk5dwromps\",\"productId\":\"cmnzowlw8002atmnk1m4aydvl\",\"variantId\":null,\"qty\":2,\"priceCents\":2999,\"sku\"",
+      "storeId": "cmnzowlio0024tmnkk3ycktxf",
+      "productId": "cmnzowlw8002atmnk1m4aydvl",
+      "orderId": "cmnzown0w002htmnk5dwromps",
+      "orderStatus": "PENDING",
+      "paymentStatus": "PENDING"
+    },
+    {
+      "step": "scenario_b_pay_order",
+      "method": "POST",
+      "path": "/orders/cmnzown0w002htmnk5dwromps/pay",
+      "status": 200,
+      "ok": true,
+      "expected": "200 pay succeeded",
+      "passed": true,
+      "sample": "{\"ok\":true,\"payment\":{\"id\":\"cmnzowna3002ltmnkci8qbxim\",\"storeId\":\"cmnzowlio0024tmnkk3ycktxf\",\"orderId\":\"cmnzown0w002htmnk5dwromps\",\"bookingId\":null,\"provider\":\"mock\",\"status\":\"SUCCEEDED\",\"amountCents\":5998,\"currency\":\"EUR\",\"externalId\":\"mock_1776235753947\",\"raw\":null,\"refundedCents\":0,\"createdAt\":\"2026-04-15T06:49:13.948Z\",\"updatedAt\":\"2026-04-15T06:49:13.948Z\",\"amount\":59.98},\"item\":{\"id\":\"cmnzown0w002htmnk5dwromps\",\"storeId\":\"cmnzowlio0024tmnkk3ycktxf\",\"customerId\":null,\"userId\":\"cmnzowkz6001ytmnkw3h0yhun\",\"number\":\"ORD-20260415064913-WW6WO2\",\"status\":\"PAID\",\"paymentStatus\":\"SUCCEEDED\",\"currency\":\"EUR\",\"subtotalCents\":5998,\"discountCents\":0,\"shippingCents\":0,\"taxCents\":0,\"totalCents\":5998,",
+      "storeId": "cmnzowlio0024tmnkk3ycktxf",
+      "orderId": "cmnzown0w002htmnk5dwromps",
+      "orderStatus": "PAID",
+      "paymentStatus": "SUCCEEDED",
+      "amountCents": 5998
+    },
+    {
+      "step": "scenario_b_cancel_after_payment",
+      "method": "POST",
+      "path": "/orders/cmnzown0w002htmnk5dwromps/cancel",
+      "status": 409,
+      "ok": true,
+      "expected": "409 ORDER_CANNOT_BE_CANCELLED_AFTER_PAYMENT",
+      "passed": true,
+      "sample": "{\"error\":\"ORDER_CANNOT_BE_CANCELLED_AFTER_PAYMENT\"}",
+      "storeId": "cmnzowlio0024tmnkk3ycktxf",
+      "orderId": "cmnzown0w002htmnk5dwromps",
+      "errorCode": "ORDER_CANNOT_BE_CANCELLED_AFTER_PAYMENT"
+    },
+    {
+      "step": "scenario_c_create_order",
+      "method": "POST",
+      "path": "/orders",
+      "status": 201,
+      "ok": true,
+      "expected": "201 pending order",
+      "passed": true,
+      "sample": "{\"ok\":true,\"item\":{\"id\":\"cmnzownoe002ntmnkiuqf6w5p\",\"storeId\":\"cmnzowlio0024tmnkk3ycktxf\",\"customerId\":null,\"userId\":\"cmnzowkz6001ytmnkw3h0yhun\",\"number\":\"ORD-20260415064914-FS8ZAX\",\"status\":\"PENDING\",\"paymentStatus\":\"PENDING\",\"currency\":\"EUR\",\"subtotalCents\":5998,\"discountCents\":0,\"shippingCents\":0,\"taxCents\":0,\"totalCents\":5998,\"notes\":\"Scenario C: double pay forbidden\",\"shippingAddressId\":null,\"billingAddressId\":null,\"createdAt\":\"2026-04-15T06:49:14.462Z\",\"updatedAt\":\"2026-04-15T06:49:14.462Z\",\"cancelledAt\":null,\"items\":[{\"id\":\"cmnzownoe002ptmnkfr7cx2k5\",\"orderId\":\"cmnzownoe002ntmnkiuqf6w5p\",\"productId\":\"cmnzowlw8002atmnk1m4aydvl\",\"variantId\":null,\"qty\":2,\"priceCents\":2999,\"sku\":\"orders-r",
+      "storeId": "cmnzowlio0024tmnkk3ycktxf",
+      "productId": "cmnzowlw8002atmnk1m4aydvl",
+      "orderId": "cmnzownoe002ntmnkiuqf6w5p"
+    },
+    {
+      "step": "scenario_c_first_pay",
+      "method": "POST",
+      "path": "/orders/cmnzownoe002ntmnkiuqf6w5p/pay",
+      "status": 200,
+      "ok": true,
+      "expected": "200 first pay succeeded",
+      "passed": true,
+      "sample": "{\"ok\":true,\"payment\":{\"id\":\"cmnzownwq002rtmnkp73s6vbo\",\"storeId\":\"cmnzowlio0024tmnkk3ycktxf\",\"orderId\":\"cmnzownoe002ntmnkiuqf6w5p\",\"bookingId\":null,\"provider\":\"mock\",\"status\":\"SUCCEEDED\",\"amountCents\":5998,\"currency\":\"EUR\",\"externalId\":\"mock_1776235754761\",\"raw\":null,\"refundedCents\":0,\"createdAt\":\"2026-04-15T06:49:14.762Z\",\"updatedAt\":\"2026-04-15T06:49:14.762Z\",\"amount\":59.98},\"item\":{\"id\":\"cmnzownoe002ntmnkiuqf6w5p\",\"storeId\":\"cmnzowlio0024tmnkk3ycktxf\",\"customerId\":null,\"userId\":\"cmnzowkz6001ytmnkw3h0yhun\",\"number\":\"ORD-20260415064914-FS8ZAX\",\"status\":\"PAID\",\"paymentStatus\":\"SUCCEEDED\",\"currency\":\"EUR\",\"subtotalCents\":5998,\"discountCents\":0,\"shippingCents\":0,\"taxCents\":0,\"totalCents\":5998,",
+      "storeId": "cmnzowlio0024tmnkk3ycktxf",
+      "orderId": "cmnzownoe002ntmnkiuqf6w5p"
+    },
+    {
+      "step": "scenario_c_second_pay",
+      "method": "POST",
+      "path": "/orders/cmnzownoe002ntmnkiuqf6w5p/pay",
+      "status": 409,
+      "ok": true,
+      "expected": "409 ORDER_ALREADY_PAID",
+      "passed": true,
+      "sample": "{\"error\":\"ORDER_ALREADY_PAID\"}",
+      "storeId": "cmnzowlio0024tmnkk3ycktxf",
+      "orderId": "cmnzownoe002ntmnkiuqf6w5p",
+      "errorCode": "ORDER_ALREADY_PAID"
+    }
+  ]
+}

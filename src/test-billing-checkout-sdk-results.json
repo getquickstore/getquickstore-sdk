@@ -1,0 +1,97 @@
+{
+  "ok": true,
+  "baseUrl": "http://localhost:4001",
+  "email": "autotest_billing_checkout_1775326429441@example.com",
+  "steps": [
+    {
+      "step": "register",
+      "status": 201,
+      "body": {
+        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW5rbmlvNmQwMDE3dmJuazh6aHliYm1nIiwiZW1haWwiOiJhdXRvdGVzdF9iaWxsaW5nX2NoZWNrb3V0XzE3NzUzMjY0Mjk0NDFAZXhhbXBsZS5jb20iLCJyb2xlcyI6WyJVU0VSIl0sInRlbmFudElkIjpudWxsLCJsaWNlbnNlVGllciI6IlNvbG8iLCJpYXQiOjE3NzUzMjY0MjksImV4cCI6MTc3NTMyNzMyOX0.pF0sR9pAYJIQLx0S__esaF6KZEUiz3lOjodAyNwIU60",
+        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW5rbmlvNmQwMDE3dmJuazh6aHliYm1nIiwidHlwIjoicmVmcmVzaCIsImp0aSI6IjQwYmFmMTZhLTlhMDktNDJhNi05YjlkLTQxYWQ5NGY3ZTI4ZiIsImlhdCI6MTc3NTMyNjQyOSwiZXhwIjoxNzc3OTE4NDI5fQ.FAnH4xpaB2euP6vXCaLFl8h7K1so236DglYEbNYsoP4",
+        "expiresIn": 900,
+        "user": {
+          "id": "cmnknio6d0017vbnk8zhybbmg",
+          "email": "autotest_billing_checkout_1775326429441@example.com",
+          "roles": [
+            "USER"
+          ],
+          "defaultStoreId": null
+        },
+        "stores": [],
+        "defaultStoreId": null
+      },
+      "sample": "{\"accessToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW5rbmlvNmQwMDE3dmJuazh6aHliYm1nIiwiZW1haWwiOiJhdXRvdGVzdF9iaWxsaW5nX2NoZWNrb3V0XzE3NzUzMjY0Mjk0NDFAZXhhbXBsZS5jb20iLCJyb2xlcyI6WyJVU0VSIl0sInRlbmFudElkIjpudWxsLCJsaWNlbnNlVGllciI6IlNvbG8iLCJpYXQiOjE3NzUzMjY0MjksImV4cCI6MTc3NTMyNzMyOX0.pF0sR9pAYJIQLx0S__esaF6KZEUiz3lOjodAyNwIU60\",\"refreshToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW5rbmlvNmQwMDE3dmJuazh6aHliYm1nIiwidHlwIjoicmVmcmVzaCIsImp0aSI6IjQwYmFmMTZhLTlhMDktNDJhNi05YjlkLTQxYWQ5NGY3ZTI4ZiIsImlhdCI6MTc3NTMyNjQyOSwiZXhwIjoxNzc3OTE4NDI5fQ.FAnH4xpaB2euP6vXCaLFl8h7K1so236DglYEbNYsoP4\",\"expiresIn\":900,\"user\":{\"id\":\"cmnknio6d0017vbnk8zhybbmg\",\"email\":\"autotest_billing_checkout_1775326429441@example.com\",\"roles\":[\"USER\"],\"defaultStoreId\":null},\"stores\":[],\"defaultSt"
+    },
+    {
+      "step": "stores_list_before",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "items": []
+      },
+      "sample": "{\"ok\":true,\"items\":[]}"
+    },
+    {
+      "step": "create_store",
+      "status": 201,
+      "body": {
+        "ok": true,
+        "store": {
+          "id": "cmnknioyx001bvbnkteo9obce",
+          "name": "Autotest Billing Store 1775326429441",
+          "slug": "autotest-billing-store-1775326429441",
+          "status": "ACTIVE",
+          "ownerUserId": "cmnknio6d0017vbnk8zhybbmg",
+          "defaultCurrency": "EUR",
+          "defaultLanguage": "en",
+          "timezone": "Europe/Vilnius",
+          "country": null,
+          "createdAt": "2026-04-04T18:13:50.697Z"
+        }
+      },
+      "sample": "{\"ok\":true,\"store\":{\"id\":\"cmnknioyx001bvbnkteo9obce\",\"name\":\"Autotest Billing Store 1775326429441\",\"slug\":\"autotest-billing-store-1775326429441\",\"status\":\"ACTIVE\",\"ownerUserId\":\"cmnknio6d0017vbnk8zhybbmg\",\"defaultCurrency\":\"EUR\",\"defaultLanguage\":\"en\",\"timezone\":\"Europe/Vilnius\",\"country\":null,\"createdAt\":\"2026-04-04T18:13:50.697Z\"}}"
+    },
+    {
+      "step": "stores_list_after_create",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "items": [
+          {
+            "id": "cmnknioyx001bvbnkteo9obce",
+            "name": "Autotest Billing Store 1775326429441",
+            "slug": "autotest-billing-store-1775326429441",
+            "status": "ACTIVE",
+            "publicUrl": "https://autotest-billing-store-1775326429441.getquickstore.com",
+            "stripeConnected": false,
+            "chargesEnabled": false,
+            "payoutsEnabled": false,
+            "subscriptionStatus": "inactive",
+            "createdAt": "2026-04-04T18:13:50.697Z",
+            "updatedAt": "2026-04-04T18:13:50.697Z"
+          }
+        ]
+      },
+      "sample": "{\"ok\":true,\"items\":[{\"id\":\"cmnknioyx001bvbnkteo9obce\",\"name\":\"Autotest Billing Store 1775326429441\",\"slug\":\"autotest-billing-store-1775326429441\",\"status\":\"ACTIVE\",\"publicUrl\":\"https://autotest-billing-store-1775326429441.getquickstore.com\",\"stripeConnected\":false,\"chargesEnabled\":false,\"payoutsEnabled\":false,\"subscriptionStatus\":\"inactive\",\"createdAt\":\"2026-04-04T18:13:50.697Z\",\"updatedAt\":\"2026-04-04T18:13:50.697Z\"}]}"
+    },
+    {
+      "step": "billing_checkout",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "url": "https://checkout.stripe.com/c/pay/cs_test_a1Q6CS3xksfty4zVp2V8MO51uc4idVvahMXkvKdbHA7aT7LwSpwS7wBtaM#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdkdWxOYHwnPyd1blpxYHZxWjA0VjRxa3JPTjxhNmkyYldCU1RuY0JGdXE2MT1nbk1nMGNAY09NS3RVf0RtTzxjVEgzQURJXUpxQWRRd3RMa08wSGFLdUhSVWdzXHVVVlJvPUNAbXFcc2g3NTVPM2EwRlR2MycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjY2NjY2MnKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSdga2RnaWBVaWRmYG1qaWFgd3YnP3F3cGB4JSUl",
+        "sessionId": "cs_test_a1Q6CS3xksfty4zVp2V8MO51uc4idVvahMXkvKdbHA7aT7LwSpwS7wBtaM"
+      },
+      "sample": "{\"ok\":true,\"url\":\"https://checkout.stripe.com/c/pay/cs_test_a1Q6CS3xksfty4zVp2V8MO51uc4idVvahMXkvKdbHA7aT7LwSpwS7wBtaM#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdkdWxOYHwnPyd1blpxYHZxWjA0VjRxa3JPTjxhNmkyYldCU1RuY0JGdXE2MT1nbk1nMGNAY09NS3RVf0RtTzxjVEgzQURJXUpxQWRRd3RMa08wSGFLdUhSVWdzXHVVVlJvPUNAbXFcc2g3NTVPM2EwRlR2MycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjY2NjY2MnKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSdga2RnaWBVaWRmYG1qaWFgd3YnP3F3cGB4JSUl\",\"sessionId\":\"cs_test_a1Q6CS3xksfty4zVp2V8MO51uc4idVvahMXkvKdbHA7aT7LwSpwS7wBtaM\"}"
+    }
+  ],
+  "summary": {
+    "authMode": "register",
+    "storeId": "cmnknioyx001bvbnkteo9obce",
+    "storeName": "Autotest Billing Store 1775326429441",
+    "publicUrl": "https://autotest-billing-store-1775326429441.getquickstore.com",
+    "checkoutUrl": "https://checkout.stripe.com/c/pay/cs_test_a1Q6CS3xksfty4zVp2V8MO51uc4idVvahMXkvKdbHA7aT7LwSpwS7wBtaM#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdkdWxOYHwnPyd1blpxYHZxWjA0VjRxa3JPTjxhNmkyYldCU1RuY0JGdXE2MT1nbk1nMGNAY09NS3RVf0RtTzxjVEgzQURJXUpxQWRRd3RMa08wSGFLdUhSVWdzXHVVVlJvPUNAbXFcc2g3NTVPM2EwRlR2MycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjY2NjY2MnKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSdga2RnaWBVaWRmYG1qaWFgd3YnP3F3cGB4JSUl",
+    "checkoutSessionId": "cs_test_a1Q6CS3xksfty4zVp2V8MO51uc4idVvahMXkvKdbHA7aT7LwSpwS7wBtaM"
+  }
+}

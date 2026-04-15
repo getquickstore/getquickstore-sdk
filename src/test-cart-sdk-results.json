@@ -1,0 +1,174 @@
+{
+  "baseUrl": "http://localhost:4001",
+  "auth": {
+    "email": "autotest_cart_1776234385235@example.com",
+    "userId": "cmnzo3ba7000utmnk86yqffff"
+  },
+  "scope": {
+    "storeId": "cmnzo3bm30010tmnkcwbvt0yv"
+  },
+  "entities": {
+    "categoryId": "cmnzo3bqu0014tmnk4m4omud1",
+    "productId": "cmnzo3bta0016tmnkynqqj9v6",
+    "itemId": "cmnzo3d93001dtmnk85sen1qw"
+  },
+  "counts": {
+    "ok2xx": 13,
+    "badRequest400": 0,
+    "auth401": 0,
+    "forbidden403": 0,
+    "notFound404": 0,
+    "server5xx": 0,
+    "errors": 0
+  },
+  "results": [
+    {
+      "step": "register",
+      "method": "POST",
+      "path": "/auth/register",
+      "status": 201,
+      "ok": true,
+      "sample": "{\"accessToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW56bzNiYTcwMDB1dG1uazg2eXFmZmZmIiwiZW1haWwiOiJhdXRvdGVzdF9jYXJ0XzE3NzYyMzQzODUyMzVAZXhhbXBsZS5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTc3NjIzNDM4NSwiZXhwIjoxNzc2MjM1Mjg1fQ.lcYQIacF-VrzIYfLYvscgowjoP2C8gvuUO2ub1gpIT4\",\"refreshToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW56bzNiYTcwMDB1dG1uazg2eXFmZmZmIiwidHlwIjoicmVmcmVzaCIsImp0aSI6IjJhNmY4MDU5LWMwMjEtNDgxNi1iYzhmLTMxOWFjZWU1NTJlZSIsImlhdCI6MTc3NjIzNDM4NSwiZXhwIjoxNzc4ODI2Mzg1fQ.7u5eMfgGWz29SxwK6IdJIZcavKwdnAokVVDPO2FDt0U\",\"tokenType\":\"Bearer\",\"expiresIn\":900,\"user\":{\"id\":\"cmnzo3ba7000utmnk86yqffff\",\"email\":\"autotest_cart_1776234385235@example.com\",\"roles\":[\"USER\"]},"
+    },
+    {
+      "step": "login",
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200,
+      "ok": true,
+      "sample": "{\"accessToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW56bzNiYTcwMDB1dG1uazg2eXFmZmZmIiwiZW1haWwiOiJhdXRvdGVzdF9jYXJ0XzE3NzYyMzQzODUyMzVAZXhhbXBsZS5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTc3NjIzNDM4NSwiZXhwIjoxNzc2MjM1Mjg1fQ.lcYQIacF-VrzIYfLYvscgowjoP2C8gvuUO2ub1gpIT4\",\"refreshToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW56bzNiYTcwMDB1dG1uazg2eXFmZmZmIiwidHlwIjoicmVmcmVzaCIsImp0aSI6Ijc3ZGFlMTAzLTM2ODEtNDQ0OS05ZTFlLWEwZjFhZDA1NGQ1ZCIsImlhdCI6MTc3NjIzNDM4NSwiZXhwIjoxNzc4ODI2Mzg1fQ.M1gVt4_si6s6LsDPU_lJRaEg9EvXxo5CgXWkJtiw31U\",\"tokenType\":\"Bearer\",\"expiresIn\":900,\"user\":{\"id\":\"cmnzo3ba7000utmnk86yqffff\",\"email\":\"autotest_cart_1776234385235@example.com\",\"roles\":[\"USER\"]},",
+      "userId": "cmnzo3ba7000utmnk86yqffff"
+    },
+    {
+      "step": "create_store",
+      "method": "POST",
+      "path": "/stores",
+      "status": 201,
+      "ok": true,
+      "sample": "{\"ok\":true,\"store\":{\"id\":\"cmnzo3bm30010tmnkcwbvt0yv\",\"name\":\"Cart Test Store 1776234385716\",\"slug\":\"cart-test-store-1776234385716\",\"status\":\"ACTIVE\",\"ownerUserId\":\"cmnzo3ba7000utmnk86yqffff\",\"defaultCurrency\":\"EUR\",\"defaultLanguage\":\"en\",\"timezone\":\"Europe/Vilnius\",\"country\":null,\"createdAt\":\"2026-04-15T06:26:25.803Z\"}}",
+      "storeId": "cmnzo3bm30010tmnkcwbvt0yv"
+    },
+    {
+      "step": "create_category",
+      "method": "POST",
+      "path": "/categories",
+      "status": 201,
+      "ok": true,
+      "sample": "{\"id\":\"cmnzo3bqu0014tmnk4m4omud1\",\"storeId\":\"cmnzo3bm30010tmnkcwbvt0yv\",\"name\":\"Cart Test Category 1776234385916\",\"slug\":\"cart-test-category-1776234385916\",\"parentId\":null,\"position\":1,\"createdAt\":\"2026-04-15T06:26:25.974Z\",\"updatedAt\":\"2026-04-15T06:26:25.974Z\",\"deletedAt\":null}",
+      "storeId": "cmnzo3bm30010tmnkcwbvt0yv",
+      "categoryId": "cmnzo3bqu0014tmnk4m4omud1"
+    },
+    {
+      "step": "create_product",
+      "method": "POST",
+      "path": "/products",
+      "status": 201,
+      "ok": true,
+      "sample": "{\"id\":\"cmnzo3bta0016tmnkynqqj9v6\",\"storeId\":\"cmnzo3bm30010tmnkcwbvt0yv\",\"brandId\":null,\"name\":\"Cart Smoke Product 1776234386003\",\"slug\":\"cart-smoke-product-1776234386003\",\"sku\":\"cart-smoke-sku-1776234386003\",\"description\":\"Cart smoke test product\",\"status\":\"PUBLISHED\",\"priceCents\":1999,\"currency\":\"EUR\",\"metaTitle\":null,\"metaDescription\":null,\"noindex\":false,\"createdAt\":\"2026-04-15T06:26:26.063Z\",\"updatedAt\":\"2026-04-15T06:26:26.063Z\",\"images\":[{\"id\":\"cmnzo3bta0017tmnkc8bara91\",\"key\":\"products/cmnzo3bm30010tmnkcwbvt0yv/cart-smoke-product-1776234386003.jpg\",\"url\":\"https://example.com/cart-test.jpg\",\"alt\":\"Cart smoke image\",\"isPrimary\":true,\"position\":0}],\"categories\":[{\"id\":\"cmnzo3bqu0014tmnk4",
+      "storeId": "cmnzo3bm30010tmnkcwbvt0yv",
+      "productId": "cmnzo3bta0016tmnkynqqj9v6"
+    },
+    {
+      "step": "get_cart_initial",
+      "method": "GET",
+      "path": "/cart",
+      "status": 200,
+      "ok": true,
+      "sample": "{\"cart\":{\"id\":\"cmnzo3c540019tmnk8ga1lcg9\",\"storeId\":\"cmnzo3bm30010tmnkcwbvt0yv\",\"customerId\":null,\"userId\":\"cmnzo3ba7000utmnk86yqffff\",\"anonymousId\":null,\"isActive\":true,\"currency\":\"EUR\",\"totalCents\":0,\"items\":[],\"createdAt\":\"2026-04-15T06:26:26.488Z\",\"updatedAt\":\"2026-04-15T06:26:26.488Z\"}}",
+      "storeId": "cmnzo3bm30010tmnkcwbvt0yv",
+      "cartId": "cmnzo3c540019tmnk8ga1lcg9",
+      "totalCents": 0,
+      "itemsCount": 0
+    },
+    {
+      "step": "add_to_cart_first",
+      "method": "POST",
+      "path": "/cart/add",
+      "status": 200,
+      "ok": true,
+      "sample": "{\"cart\":{\"id\":\"cmnzo3c540019tmnk8ga1lcg9\",\"storeId\":\"cmnzo3bm30010tmnkcwbvt0yv\",\"customerId\":null,\"userId\":\"cmnzo3ba7000utmnk86yqffff\",\"anonymousId\":null,\"isActive\":true,\"currency\":\"EUR\",\"totalCents\":1999,\"items\":[{\"id\":\"cmnzo3cej001btmnkqm08xpkw\",\"productId\":\"cmnzo3bta0016tmnkynqqj9v6\",\"variantId\":null,\"qty\":1,\"priceCents\":1999,\"sku\":\"cart-smoke-sku-1776234386003\",\"meta\":null,\"lineTotalCents\":1999,\"product\":{\"id\":\"cmnzo3bta0016tmnkynqqj9v6\",\"name\":\"Cart Smoke Product 1776234386003\",\"slug\":\"cart-smoke-product-1776234386003\",\"sku\":\"cart-smoke-sku-1776234386003\",\"status\":\"PUBLISHED\",\"priceCents\":1999,\"currency\":\"EUR\"},\"variant\":null,\"createdAt\":\"2026-04-15T06:26:26.828Z\",\"updatedAt\":\"2026-04-1",
+      "storeId": "cmnzo3bm30010tmnkcwbvt0yv",
+      "productId": "cmnzo3bta0016tmnkynqqj9v6",
+      "itemId": "cmnzo3cej001btmnkqm08xpkw",
+      "cartId": "cmnzo3c540019tmnk8ga1lcg9",
+      "totalCents": 1999,
+      "itemsCount": 1
+    },
+    {
+      "step": "set_qty_to_2",
+      "method": "POST",
+      "path": "/cart/set-qty",
+      "status": 200,
+      "ok": true,
+      "sample": "{\"cart\":{\"id\":\"cmnzo3c540019tmnk8ga1lcg9\",\"storeId\":\"cmnzo3bm30010tmnkcwbvt0yv\",\"customerId\":null,\"userId\":\"cmnzo3ba7000utmnk86yqffff\",\"anonymousId\":null,\"isActive\":true,\"currency\":\"EUR\",\"totalCents\":3998,\"items\":[{\"id\":\"cmnzo3cej001btmnkqm08xpkw\",\"productId\":\"cmnzo3bta0016tmnkynqqj9v6\",\"variantId\":null,\"qty\":2,\"priceCents\":1999,\"sku\":\"cart-smoke-sku-1776234386003\",\"meta\":null,\"lineTotalCents\":3998,\"product\":{\"id\":\"cmnzo3bta0016tmnkynqqj9v6\",\"name\":\"Cart Smoke Product 1776234386003\",\"slug\":\"cart-smoke-product-1776234386003\",\"sku\":\"cart-smoke-sku-1776234386003\",\"status\":\"PUBLISHED\",\"priceCents\":1999,\"currency\":\"EUR\"},\"variant\":null,\"createdAt\":\"2026-04-15T06:26:26.828Z\",\"updatedAt\":\"2026-04-1",
+      "storeId": "cmnzo3bm30010tmnkcwbvt0yv",
+      "itemId": "cmnzo3cej001btmnkqm08xpkw",
+      "cartId": "cmnzo3c540019tmnk8ga1lcg9",
+      "totalCents": 3998,
+      "itemsCount": 1
+    },
+    {
+      "step": "get_cart_after_set_qty",
+      "method": "GET",
+      "path": "/cart",
+      "status": 200,
+      "ok": true,
+      "sample": "{\"cart\":{\"id\":\"cmnzo3c540019tmnk8ga1lcg9\",\"storeId\":\"cmnzo3bm30010tmnkcwbvt0yv\",\"customerId\":null,\"userId\":\"cmnzo3ba7000utmnk86yqffff\",\"anonymousId\":null,\"isActive\":true,\"currency\":\"EUR\",\"totalCents\":3998,\"items\":[{\"id\":\"cmnzo3cej001btmnkqm08xpkw\",\"productId\":\"cmnzo3bta0016tmnkynqqj9v6\",\"variantId\":null,\"qty\":2,\"priceCents\":1999,\"sku\":\"cart-smoke-sku-1776234386003\",\"meta\":null,\"lineTotalCents\":3998,\"product\":{\"id\":\"cmnzo3bta0016tmnkynqqj9v6\",\"name\":\"Cart Smoke Product 1776234386003\",\"slug\":\"cart-smoke-product-1776234386003\",\"sku\":\"cart-smoke-sku-1776234386003\",\"status\":\"PUBLISHED\",\"priceCents\":1999,\"currency\":\"EUR\"},\"variant\":null,\"createdAt\":\"2026-04-15T06:26:26.828Z\",\"updatedAt\":\"2026-04-1",
+      "storeId": "cmnzo3bm30010tmnkcwbvt0yv",
+      "cartId": "cmnzo3c540019tmnk8ga1lcg9",
+      "totalCents": 3998,
+      "itemsCount": 1
+    },
+    {
+      "step": "remove_item",
+      "method": "POST",
+      "path": "/cart/remove",
+      "status": 200,
+      "ok": true,
+      "sample": "{\"cart\":{\"id\":\"cmnzo3c540019tmnk8ga1lcg9\",\"storeId\":\"cmnzo3bm30010tmnkcwbvt0yv\",\"customerId\":null,\"userId\":\"cmnzo3ba7000utmnk86yqffff\",\"anonymousId\":null,\"isActive\":true,\"currency\":\"EUR\",\"totalCents\":0,\"items\":[],\"createdAt\":\"2026-04-15T06:26:26.488Z\",\"updatedAt\":\"2026-04-15T06:26:27.730Z\"}}",
+      "storeId": "cmnzo3bm30010tmnkcwbvt0yv",
+      "itemId": "cmnzo3cej001btmnkqm08xpkw",
+      "cartId": "cmnzo3c540019tmnk8ga1lcg9",
+      "totalCents": 0,
+      "itemsCount": 0
+    },
+    {
+      "step": "add_to_cart_second",
+      "method": "POST",
+      "path": "/cart/add",
+      "status": 200,
+      "ok": true,
+      "sample": "{\"cart\":{\"id\":\"cmnzo3c540019tmnk8ga1lcg9\",\"storeId\":\"cmnzo3bm30010tmnkcwbvt0yv\",\"customerId\":null,\"userId\":\"cmnzo3ba7000utmnk86yqffff\",\"anonymousId\":null,\"isActive\":true,\"currency\":\"EUR\",\"totalCents\":5997,\"items\":[{\"id\":\"cmnzo3d93001dtmnk85sen1qw\",\"productId\":\"cmnzo3bta0016tmnkynqqj9v6\",\"variantId\":null,\"qty\":3,\"priceCents\":1999,\"sku\":\"cart-smoke-sku-1776234386003\",\"meta\":null,\"lineTotalCents\":5997,\"product\":{\"id\":\"cmnzo3bta0016tmnkynqqj9v6\",\"name\":\"Cart Smoke Product 1776234386003\",\"slug\":\"cart-smoke-product-1776234386003\",\"sku\":\"cart-smoke-sku-1776234386003\",\"status\":\"PUBLISHED\",\"priceCents\":1999,\"currency\":\"EUR\"},\"variant\":null,\"createdAt\":\"2026-04-15T06:26:27.928Z\",\"updatedAt\":\"2026-04-1",
+      "storeId": "cmnzo3bm30010tmnkcwbvt0yv",
+      "productId": "cmnzo3bta0016tmnkynqqj9v6",
+      "itemId": "cmnzo3d93001dtmnk85sen1qw",
+      "cartId": "cmnzo3c540019tmnk8ga1lcg9",
+      "totalCents": 5997,
+      "itemsCount": 1
+    },
+    {
+      "step": "clear_cart",
+      "method": "POST",
+      "path": "/cart/clear",
+      "status": 200,
+      "ok": true,
+      "sample": "{\"cart\":{\"id\":\"cmnzo3c540019tmnk8ga1lcg9\",\"storeId\":\"cmnzo3bm30010tmnkcwbvt0yv\",\"customerId\":null,\"userId\":\"cmnzo3ba7000utmnk86yqffff\",\"anonymousId\":null,\"isActive\":true,\"currency\":\"EUR\",\"totalCents\":0,\"items\":[],\"createdAt\":\"2026-04-15T06:26:26.488Z\",\"updatedAt\":\"2026-04-15T06:26:28.266Z\"}}",
+      "storeId": "cmnzo3bm30010tmnkcwbvt0yv",
+      "cartId": "cmnzo3c540019tmnk8ga1lcg9",
+      "totalCents": 0,
+      "itemsCount": 0
+    },
+    {
+      "step": "get_cart_after_clear",
+      "method": "GET",
+      "path": "/cart",
+      "status": 200,
+      "ok": true,
+      "sample": "{\"cart\":{\"id\":\"cmnzo3c540019tmnk8ga1lcg9\",\"storeId\":\"cmnzo3bm30010tmnkcwbvt0yv\",\"customerId\":null,\"userId\":\"cmnzo3ba7000utmnk86yqffff\",\"anonymousId\":null,\"isActive\":true,\"currency\":\"EUR\",\"totalCents\":0,\"items\":[],\"createdAt\":\"2026-04-15T06:26:26.488Z\",\"updatedAt\":\"2026-04-15T06:26:28.266Z\"}}",
+      "storeId": "cmnzo3bm30010tmnkcwbvt0yv",
+      "cartId": "cmnzo3c540019tmnk8ga1lcg9",
+      "totalCents": 0,
+      "itemsCount": 0
+    }
+  ]
+}

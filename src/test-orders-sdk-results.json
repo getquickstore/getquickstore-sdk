@@ -1,0 +1,144 @@
+{
+  "baseUrl": "http://localhost:4001",
+  "auth": {
+    "email": "autotest_orders_1776234395751@example.com",
+    "userId": "cmnzo3jeb001etmnk1kfr06vl"
+  },
+  "scope": {
+    "storeId": "cmnzo3jqb001ktmnkycz287ra"
+  },
+  "entities": {
+    "categoryId": "cmnzo3jw1001otmnkeql7fxni",
+    "productId": "cmnzo3jz5001qtmnks4quc7gt",
+    "orderId": "cmnzo3kd1001ttmnke6b09bmm"
+  },
+  "counts": {
+    "ok2xx": 10,
+    "badRequest400": 0,
+    "auth401": 0,
+    "forbidden403": 0,
+    "notFound404": 0,
+    "conflict409": 0,
+    "server5xx": 0,
+    "errors": 1
+  },
+  "results": [
+    {
+      "step": "register",
+      "method": "POST",
+      "path": "/auth/register",
+      "status": 201,
+      "ok": true,
+      "sample": "{\"accessToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW56bzNqZWIwMDFldG1uazFrZnIwNnZsIiwiZW1haWwiOiJhdXRvdGVzdF9vcmRlcnNfMTc3NjIzNDM5NTc1MUBleGFtcGxlLmNvbSIsInJvbGVzIjpbIlVTRVIiXSwiaWF0IjoxNzc2MjM0Mzk1LCJleHAiOjE3NzYyMzUyOTV9.Vreba3x2pbDiazEXC57JnsWqeEa9x4177u1kiR0oJUo\",\"refreshToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW56bzNqZWIwMDFldG1uazFrZnIwNnZsIiwidHlwIjoicmVmcmVzaCIsImp0aSI6ImQ1ZTliNTQzLWMzMGQtNDliYy1hYzhhLWFlYTMxZGM0NjNhZiIsImlhdCI6MTc3NjIzNDM5NSwiZXhwIjoxNzc4"
+    },
+    {
+      "step": "login",
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200,
+      "ok": true,
+      "sample": "{\"accessToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW56bzNqZWIwMDFldG1uazFrZnIwNnZsIiwiZW1haWwiOiJhdXRvdGVzdF9vcmRlcnNfMTc3NjIzNDM5NTc1MUBleGFtcGxlLmNvbSIsInJvbGVzIjpbIlVTRVIiXSwiaWF0IjoxNzc2MjM0Mzk2LCJleHAiOjE3NzYyMzUyOTZ9.ljE0ZxgKZ2j2_OQJJgFEEwKjZnXbaVwESvr3apuGR1A\",\"refreshToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW56bzNqZWIwMDFldG1uazFrZnIwNnZsIiwidHlwIjoicmVmcmVzaCIsImp0aSI6IjEzNmQxY2I4LTczNDItNDFjZi05YTU5LTM3YjNlMWZhYjEwYSIsImlhdCI6MTc3NjIzNDM5NiwiZXhwIjoxNzc4",
+      "userId": "cmnzo3jeb001etmnk1kfr06vl"
+    },
+    {
+      "step": "create_store",
+      "method": "POST",
+      "path": "/stores",
+      "status": 201,
+      "ok": true,
+      "sample": "{\"ok\":true,\"store\":{\"id\":\"cmnzo3jqb001ktmnkycz287ra\",\"name\":\"Orders Test Store 1776234396230\",\"slug\":\"orders-test-store-1776234396230\",\"status\":\"ACTIVE\",\"ownerUserId\":\"cmnzo3jeb001etmnk1kfr06vl\",\"defaultCurrency\":\"EUR\",\"defaultLanguage\":\"en\",\"timezone\":\"Europe/Vilnius\",\"country\":null,\"createdAt\":\"2026-04-15T06:26:36.323Z\"}}",
+      "storeId": "cmnzo3jqb001ktmnkycz287ra"
+    },
+    {
+      "step": "create_category",
+      "method": "POST",
+      "path": "/categories",
+      "status": 201,
+      "ok": true,
+      "sample": "{\"id\":\"cmnzo3jw1001otmnkeql7fxni\",\"storeId\":\"cmnzo3jqb001ktmnkycz287ra\",\"name\":\"Orders Test Category 1776234396470\",\"slug\":\"orders-test-category-1776234396470\",\"parentId\":null,\"position\":1,\"createdAt\":\"2026-04-15T06:26:36.529Z\",\"updatedAt\":\"2026-04-15T06:26:36.529Z\",\"deletedAt\":null}",
+      "storeId": "cmnzo3jqb001ktmnkycz287ra",
+      "categoryId": "cmnzo3jw1001otmnkeql7fxni"
+    },
+    {
+      "step": "create_product",
+      "method": "POST",
+      "path": "/products",
+      "status": 201,
+      "ok": true,
+      "sample": "{\"id\":\"cmnzo3jz5001qtmnks4quc7gt\",\"storeId\":\"cmnzo3jqb001ktmnkycz287ra\",\"brandId\":null,\"name\":\"Orders Smoke Product 1776234396558\",\"slug\":\"orders-smoke-product-1776234396558\",\"sku\":\"orders-smoke-sku-1776234396558\",\"description\":\"Orders smoke test product\",\"status\":\"PUBLISHED\",\"priceCents\":2999,\"currency\":\"EUR\",\"metaTitle\":null,\"metaDescription\":null,\"noindex\":false,\"createdAt\":\"2026-04-15T06:26:36.641Z\",\"updatedAt\":\"2026-04-15T06:26:36.641Z\",\"images\":[{\"id\":\"cmnzo3jz5001rtmnkic2t0euf\",\"key\":\"pro",
+      "storeId": "cmnzo3jqb001ktmnkycz287ra",
+      "productId": "cmnzo3jz5001qtmnks4quc7gt"
+    },
+    {
+      "step": "create_order",
+      "method": "POST",
+      "path": "/orders",
+      "status": 201,
+      "ok": true,
+      "sample": "{\"ok\":true,\"item\":{\"id\":\"cmnzo3kd1001ttmnke6b09bmm\",\"storeId\":\"cmnzo3jqb001ktmnkycz287ra\",\"customerId\":null,\"userId\":\"cmnzo3jeb001etmnk1kfr06vl\",\"number\":\"ORD-20260415062637-KQ1OBB\",\"status\":\"PENDING\",\"paymentStatus\":\"PENDING\",\"currency\":\"EUR\",\"subtotalCents\":5998,\"discountCents\":0,\"shippingCents\":0,\"taxCents\":0,\"totalCents\":5998,\"notes\":\"Smoke order\",\"shippingAddressId\":null,\"billingAddressId\":null,\"createdAt\":\"2026-04-15T06:26:37.141Z\",\"updatedAt\":\"2026-04-15T06:26:37.141Z\",\"cancelledAt\":null,",
+      "storeId": "cmnzo3jqb001ktmnkycz287ra",
+      "productId": "cmnzo3jz5001qtmnks4quc7gt",
+      "orderId": "cmnzo3kd1001ttmnke6b09bmm",
+      "orderStatus": "PENDING",
+      "paymentStatus": "PENDING",
+      "totalCents": 5998
+    },
+    {
+      "step": "list_orders",
+      "method": "GET",
+      "path": "/orders",
+      "status": 200,
+      "ok": true,
+      "sample": "{\"ok\":true,\"items\":[{\"id\":\"cmnzo3kd1001ttmnke6b09bmm\",\"storeId\":\"cmnzo3jqb001ktmnkycz287ra\",\"customerId\":null,\"userId\":\"cmnzo3jeb001etmnk1kfr06vl\",\"number\":\"ORD-20260415062637-KQ1OBB\",\"status\":\"PENDING\",\"paymentStatus\":\"PENDING\",\"currency\":\"EUR\",\"subtotalCents\":5998,\"discountCents\":0,\"shippingCents\":0,\"taxCents\":0,\"totalCents\":5998,\"notes\":\"Smoke order\",\"shippingAddressId\":null,\"billingAddressId\":null,\"createdAt\":\"2026-04-15T06:26:37.141Z\",\"updatedAt\":\"2026-04-15T06:26:37.141Z\",\"cancelledAt\":nul",
+      "storeId": "cmnzo3jqb001ktmnkycz287ra"
+    },
+    {
+      "step": "get_order",
+      "method": "GET",
+      "path": "/orders/cmnzo3kd1001ttmnke6b09bmm",
+      "status": 200,
+      "ok": true,
+      "sample": "{\"ok\":true,\"item\":{\"id\":\"cmnzo3kd1001ttmnke6b09bmm\",\"storeId\":\"cmnzo3jqb001ktmnkycz287ra\",\"customerId\":null,\"userId\":\"cmnzo3jeb001etmnk1kfr06vl\",\"number\":\"ORD-20260415062637-KQ1OBB\",\"status\":\"PENDING\",\"paymentStatus\":\"PENDING\",\"currency\":\"EUR\",\"subtotalCents\":5998,\"discountCents\":0,\"shippingCents\":0,\"taxCents\":0,\"totalCents\":5998,\"notes\":\"Smoke order\",\"shippingAddressId\":null,\"billingAddressId\":null,\"createdAt\":\"2026-04-15T06:26:37.141Z\",\"updatedAt\":\"2026-04-15T06:26:37.141Z\",\"cancelledAt\":null,",
+      "storeId": "cmnzo3jqb001ktmnkycz287ra",
+      "orderId": "cmnzo3kd1001ttmnke6b09bmm",
+      "orderStatus": "PENDING",
+      "paymentStatus": "PENDING",
+      "totalCents": 5998
+    },
+    {
+      "step": "pay_order",
+      "method": "POST",
+      "path": "/orders/cmnzo3kd1001ttmnke6b09bmm/pay",
+      "status": 200,
+      "ok": true,
+      "sample": "{\"ok\":true,\"payment\":{\"id\":\"cmnzo3kvl001xtmnku3hmw0ri\",\"storeId\":\"cmnzo3jqb001ktmnkycz287ra\",\"orderId\":\"cmnzo3kd1001ttmnke6b09bmm\",\"bookingId\":null,\"provider\":\"mock\",\"status\":\"SUCCEEDED\",\"amountCents\":5998,\"currency\":\"EUR\",\"externalId\":\"mock_1776234397809\",\"raw\":null,\"refundedCents\":0,\"createdAt\":\"2026-04-15T06:26:37.810Z\",\"updatedAt\":\"2026-04-15T06:26:37.810Z\",\"amount\":59.98},\"item\":{\"id\":\"cmnzo3kd1001ttmnke6b09bmm\",\"storeId\":\"cmnzo3jqb001ktmnkycz287ra\",\"customerId\":null,\"userId\":\"cmnzo3jeb001e",
+      "storeId": "cmnzo3jqb001ktmnkycz287ra",
+      "orderId": "cmnzo3kd1001ttmnke6b09bmm",
+      "paymentId": "cmnzo3kvl001xtmnku3hmw0ri",
+      "orderStatus": "PAID",
+      "paymentStatus": "SUCCEEDED",
+      "amountCents": 5998
+    },
+    {
+      "step": "get_order_after_pay",
+      "method": "GET",
+      "path": "/orders/cmnzo3kd1001ttmnke6b09bmm",
+      "status": 200,
+      "ok": true,
+      "sample": "{\"ok\":true,\"item\":{\"id\":\"cmnzo3kd1001ttmnke6b09bmm\",\"storeId\":\"cmnzo3jqb001ktmnkycz287ra\",\"customerId\":null,\"userId\":\"cmnzo3jeb001etmnk1kfr06vl\",\"number\":\"ORD-20260415062637-KQ1OBB\",\"status\":\"PAID\",\"paymentStatus\":\"SUCCEEDED\",\"currency\":\"EUR\",\"subtotalCents\":5998,\"discountCents\":0,\"shippingCents\":0,\"taxCents\":0,\"totalCents\":5998,\"notes\":\"Smoke order\",\"shippingAddressId\":null,\"billingAddressId\":null,\"createdAt\":\"2026-04-15T06:26:37.141Z\",\"updatedAt\":\"2026-04-15T06:26:37.838Z\",\"cancelledAt\":null,\"",
+      "storeId": "cmnzo3jqb001ktmnkycz287ra",
+      "orderId": "cmnzo3kd1001ttmnke6b09bmm",
+      "orderStatus": "PAID",
+      "paymentStatus": "SUCCEEDED",
+      "totalCents": 5998
+    },
+    {
+      "step": "cancel_order",
+      "method": "POST",
+      "path": "/orders/cmnzo3kd1001ttmnke6b09bmm/cancel",
+      "status": "ERR",
+      "ok": false,
+      "sample": "{\"error\":\"ORDER_CANNOT_BE_CANCELLED_AFTER_PAYMENT\"}"
+    }
+  ]
+}
