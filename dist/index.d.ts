@@ -1,0 +1,27 @@
+export * from "./generated";
+export { createClient } from "./client";
+import * as generated from "./generated";
+import { createClient } from "./client";
+declare const sdk: {
+    createClient: typeof createClient;
+    ApiError: typeof generated.ApiError;
+    CancelablePromise: typeof generated.CancelablePromise;
+    CancelError: typeof generated.CancelError;
+    OpenAPI: generated.OpenAPIConfig;
+    AuthService: typeof generated.AuthService;
+    AvailabilityService: typeof generated.AvailabilityService;
+    BillingService: typeof generated.BillingService;
+    BillingConnectService: typeof generated.BillingConnectService;
+    BookingsService: typeof generated.BookingsService;
+    CalendarService: typeof generated.CalendarService;
+    CartService: typeof generated.CartService;
+    CategoriesService: typeof generated.CategoriesService;
+    OrdersService: typeof generated.OrdersService;
+    PaymentsService: typeof generated.PaymentsService;
+    ProductImagesService: typeof generated.ProductImagesService;
+    ProductsService: typeof generated.ProductsService;
+    ReviewsService: typeof generated.ReviewsService;
+    ServicesService: typeof generated.ServicesService;
+    StoresService: typeof generated.StoresService;
+};
+export default sdk;
