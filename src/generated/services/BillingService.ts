@@ -10,6 +10,8 @@ import type { BillingCurrentResponse } from '../models/BillingCurrentResponse';
 import type { BillingPlansResponse } from '../models/BillingPlansResponse';
 import type { BillingPortalRequest } from '../models/BillingPortalRequest';
 import type { BillingPortalResponse } from '../models/BillingPortalResponse';
+import type { BillingStripeConnectStartRequest } from '../models/BillingStripeConnectStartRequest';
+import type { BillingStripeConnectStartResponse } from '../models/BillingStripeConnectStartResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -150,6 +152,37 @@ export class BillingService {
                 401: `Missing or invalid token`,
                 404: `Store not found`,
                 500: `Billing service is not configured`,
+            },
+        });
+    }
+    /**
+     * Start Stripe Connect onboarding for a specific store
+     * @returns BillingStripeConnectStartResponse Stripe Connect onboarding link created
+     * @throws ApiError
+     */
+    public static postBillingStoresStripeConnectStart({
+        id,
+        requestBody,
+    }: {
+        /**
+         * Store id
+         */
+        id: string,
+        requestBody: BillingStripeConnectStartRequest,
+    }): CancelablePromise<BillingStripeConnectStartResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/billing/stores/{id}/stripe/connect/start',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `Missing or invalid token`,
+                404: `Store not found`,
+                500: `Billing service or Prisma is not configured`,
             },
         });
     }

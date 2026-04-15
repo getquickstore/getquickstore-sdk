@@ -112,5 +112,27 @@ class BillingService {
             },
         });
     }
+    /**
+     * Start Stripe Connect onboarding for a specific store
+     * @returns BillingStripeConnectStartResponse Stripe Connect onboarding link created
+     * @throws ApiError
+     */
+    static postBillingStoresStripeConnectStart({ id, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/billing/stores/{id}/stripe/connect/start',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `Missing or invalid token`,
+                404: `Store not found`,
+                500: `Billing service or Prisma is not configured`,
+            },
+        });
+    }
 }
 exports.BillingService = BillingService;

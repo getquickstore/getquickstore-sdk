@@ -1,5 +1,7 @@
 // src\client.ts
 
+// src/client.ts
+
 import { OpenAPI } from "./generated/core/OpenAPI"
 import { AuthService } from "./generated/services/AuthService"
 import { BillingService } from "./generated/services/BillingService"
@@ -67,9 +69,13 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         BillingConnectService.getBillingStoresStripeConnectStatus({
           id: storeId!,
         }),
-      start: () =>
-        BillingConnectService.postBillingStoresStripeConnectStart({
+      start: (data: { returnUrl: string; refreshUrl: string }) =>
+        BillingService.postBillingStoresStripeConnectStart({
           id: storeId!,
+          requestBody: {
+            returnUrl: data.returnUrl,
+            refreshUrl: data.refreshUrl,
+          },
         }),
       sync: () =>
         BillingConnectService.postBillingStoresStripeConnectSync({

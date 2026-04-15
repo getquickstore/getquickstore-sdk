@@ -29,6 +29,8 @@ export type { BillingPlan } from './models/BillingPlan';
 export type { BillingPlansResponse } from './models/BillingPlansResponse';
 export type { BillingPortalRequest } from './models/BillingPortalRequest';
 export type { BillingPortalResponse } from './models/BillingPortalResponse';
+export type { BillingStripeConnectStartRequest } from './models/BillingStripeConnectStartRequest';
+export type { BillingStripeConnectStartResponse } from './models/BillingStripeConnectStartResponse';
 export type { BillingSubscription } from './models/BillingSubscription';
 export type { Booking } from './models/Booking';
 export type { BookingError } from './models/BookingError';

@@ -6,6 +6,8 @@ import type { BillingCurrentResponse } from '../models/BillingCurrentResponse';
 import type { BillingPlansResponse } from '../models/BillingPlansResponse';
 import type { BillingPortalRequest } from '../models/BillingPortalRequest';
 import type { BillingPortalResponse } from '../models/BillingPortalResponse';
+import type { BillingStripeConnectStartRequest } from '../models/BillingStripeConnectStartRequest';
+import type { BillingStripeConnectStartResponse } from '../models/BillingStripeConnectStartResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class BillingService {
     /**
@@ -64,4 +66,16 @@ export declare class BillingService {
     static postBillingCancel({ requestBody, }: {
         requestBody?: BillingCancelRequest;
     }): CancelablePromise<BillingCancelResponse>;
+    /**
+     * Start Stripe Connect onboarding for a specific store
+     * @returns BillingStripeConnectStartResponse Stripe Connect onboarding link created
+     * @throws ApiError
+     */
+    static postBillingStoresStripeConnectStart({ id, requestBody, }: {
+        /**
+         * Store id
+         */
+        id: string;
+        requestBody: BillingStripeConnectStartRequest;
+    }): CancelablePromise<BillingStripeConnectStartResponse>;
 }

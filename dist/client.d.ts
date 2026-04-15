@@ -22,7 +22,10 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     };
     stripeConnect: {
         status: () => import("./generated").CancelablePromise<import("./generated").StripeConnectStatusResponse>;
-        start: () => import("./generated").CancelablePromise<import("./generated").StripeConnectStartResponse>;
+        start: (data: {
+            returnUrl: string;
+            refreshUrl: string;
+        }) => import("./generated").CancelablePromise<import("./generated").BillingStripeConnectStartResponse>;
         sync: () => import("./generated").CancelablePromise<import("./generated").StripeConnectStatusResponse>;
     };
     stores: {

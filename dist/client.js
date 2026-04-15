@@ -2,6 +2,7 @@
 // src\client.ts
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createClient = createClient;
+// src/client.ts
 const OpenAPI_1 = require("./generated/core/OpenAPI");
 const AuthService_1 = require("./generated/services/AuthService");
 const BillingService_1 = require("./generated/services/BillingService");
@@ -52,8 +53,12 @@ function createClient({ baseUrl, token, storeId }) {
             status: () => BillingConnectService_1.BillingConnectService.getBillingStoresStripeConnectStatus({
                 id: storeId,
             }),
-            start: () => BillingConnectService_1.BillingConnectService.postBillingStoresStripeConnectStart({
+            start: (data) => BillingService_1.BillingService.postBillingStoresStripeConnectStart({
                 id: storeId,
+                requestBody: {
+                    returnUrl: data.returnUrl,
+                    refreshUrl: data.refreshUrl,
+                },
             }),
             sync: () => BillingConnectService_1.BillingConnectService.postBillingStoresStripeConnectSync({
                 id: storeId,
