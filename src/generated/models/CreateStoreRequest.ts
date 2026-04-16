@@ -8,5 +8,6 @@ export type CreateStoreRequest = {
     defaultCurrency?: string;
     defaultLanguage?: string;
     timezone?: string;
+    country?: string | null;
 };
 

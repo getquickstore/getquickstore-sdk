@@ -1,13 +1,15 @@
+import type { StoreBillingSummary } from './StoreBillingSummary';
+import type { StoreStripeSummary } from './StoreStripeSummary';
 export type StoreSummary = {
-    id?: string;
-    name?: string;
-    slug?: string;
-    status?: string;
-    publicUrl?: string | null;
-    stripeConnected?: boolean | null;
-    chargesEnabled?: boolean | null;
-    payoutsEnabled?: boolean | null;
-    subscriptionStatus?: string | null;
-    createdAt?: string;
-    updatedAt?: string | null;
+    id: string;
+    name: string;
+    slug: string;
+    status: 'PROVISIONING' | 'ACTIVE' | 'SUSPENDED' | 'ARCHIVED';
+    publicUrl: string;
+    role: 'OWNER';
+    isDefault: boolean;
+    billing: StoreBillingSummary;
+    stripe: StoreStripeSummary;
+    createdAt: string;
+    updatedAt: string;
 };

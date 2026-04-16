@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type BillingSubscription = {
-    status: string;
+    status: 'inactive' | 'active' | 'past_due' | 'canceled';
     provider: string;
     planCode: string;
     currentPeriodStart: string | null;

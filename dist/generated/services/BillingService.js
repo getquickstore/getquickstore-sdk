@@ -31,7 +31,6 @@ class BillingService {
                 'storeId': storeId,
             },
             errors: {
-                400: `Missing storeId`,
                 401: `Missing or invalid token`,
                 404: `Store not found`,
             },

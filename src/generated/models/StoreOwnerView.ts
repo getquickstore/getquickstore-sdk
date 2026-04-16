@@ -3,16 +3,16 @@
 /* tslint:disable */
 /* eslint-disable */
 export type StoreOwnerView = {
-    id?: string;
-    name?: string;
-    slug?: string;
-    status?: string;
-    defaultCurrency?: string;
-    defaultLanguage?: string;
-    timezone?: string;
-    country?: string | null;
-    createdAt?: string;
-    role?: string;
-    isDefault?: boolean;
+    id: string;
+    name: string;
+    slug: string;
+    status: 'PROVISIONING' | 'ACTIVE' | 'SUSPENDED' | 'ARCHIVED';
+    defaultCurrency: string;
+    defaultLanguage: string;
+    timezone: string;
+    country: string | null;
+    createdAt: string;
+    role: 'OWNER';
+    isDefault: boolean;
 };
 

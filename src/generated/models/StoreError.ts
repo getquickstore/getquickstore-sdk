@@ -2,9 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type BillingError = {
+export type StoreError = {
     ok?: boolean | null;
     error: string;
-    message?: string | null;
 };
 
