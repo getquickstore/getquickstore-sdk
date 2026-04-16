@@ -5,6 +5,8 @@ import type { StoreDetailsResponse } from '../models/StoreDetailsResponse';
 import type { StoreListResponse } from '../models/StoreListResponse';
 import type { StoreSelectResponse } from '../models/StoreSelectResponse';
 import type { StoresMeResponse } from '../models/StoresMeResponse';
+import type { UpdateStoreRequest } from '../models/UpdateStoreRequest';
+import type { UpdateStoreResponse } from '../models/UpdateStoreResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class StoresService {
     /**
@@ -38,6 +40,18 @@ export declare class StoresService {
          */
         id: string;
     }): CancelablePromise<StoreDetailsResponse>;
+    /**
+     * Update store
+     * @returns UpdateStoreResponse Store updated
+     * @throws ApiError
+     */
+    static patchStores({ id, requestBody, }: {
+        /**
+         * Store id
+         */
+        id: string;
+        requestBody: UpdateStoreRequest;
+    }): CancelablePromise<UpdateStoreResponse>;
     /**
      * Archive store
      * Marks store as ARCHIVED and sets deletedAt. If the archived store was the user's default store, defaultStoreId is cleared.

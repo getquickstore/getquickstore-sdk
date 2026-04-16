@@ -117,6 +117,8 @@ export type { StripeConnectStatusResponse } from './models/StripeConnectStatusRe
 export type { UpdateBookingRequest } from './models/UpdateBookingRequest';
 export type { UpdateCategoryRequest } from './models/UpdateCategoryRequest';
 export type { UpdateProductRequest } from './models/UpdateProductRequest';
+export type { UpdateStoreRequest } from './models/UpdateStoreRequest';
+export type { UpdateStoreResponse } from './models/UpdateStoreResponse';
 
 export { AuthService } from './services/AuthService';
 export { AvailabilityService } from './services/AvailabilityService';

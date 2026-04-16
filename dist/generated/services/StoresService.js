@@ -75,6 +75,29 @@ class StoresService {
         });
     }
     /**
+     * Update store
+     * @returns UpdateStoreResponse Store updated
+     * @throws ApiError
+     */
+    static patchStores({ id, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'PATCH',
+            url: '/stores/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `Missing or invalid token`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store update failed`,
+            },
+        });
+    }
+    /**
      * Archive store
      * Marks store as ARCHIVED and sets deletedAt. If the archived store was the user's default store, defaultStoreId is cleared.
      * @returns StoreDeleteResponse Store archived
