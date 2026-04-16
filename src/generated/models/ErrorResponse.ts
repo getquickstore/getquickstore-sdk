@@ -3,10 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 export type ErrorResponse = {
-    error: string | null;
+    ok: boolean;
+    error?: string | null;
     message?: string | null;
     code?: string | null;
-    allowed?: Array<string>;
-    ok: boolean;
+    allowed?: Array<string> | null;
 };
 

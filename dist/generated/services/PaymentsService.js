@@ -20,7 +20,7 @@ class PaymentsService {
             mediaType: 'application/json',
             errors: {
                 400: `Validation error`,
-                401: `Unauthorized`,
+                401: `UNAUTHORIZED`,
                 403: `Access denied`,
                 404: `Order not found`,
                 409: `Conflict`,
@@ -46,7 +46,7 @@ class PaymentsService {
             mediaType: 'application/json',
             errors: {
                 400: `Validation error`,
-                401: `Unauthorized`,
+                401: `UNAUTHORIZED`,
                 403: `Access denied`,
                 404: `Payment not found`,
                 409: `Conflict`,

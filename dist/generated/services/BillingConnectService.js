@@ -5,6 +5,25 @@ const OpenAPI_1 = require("../core/OpenAPI");
 const request_1 = require("../core/request");
 class BillingConnectService {
     /**
+     * Disconnect Stripe account from store
+     * Disconnects the current Stripe Connect account from the store and resets Stripe onboarding/payment capability flags.
+     * @returns any Stripe disconnected successfully
+     * @throws ApiError
+     */
+    static postBillingStoresStripeDisconnect({ id, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/billing/stores/{id}/stripe/disconnect',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Unauthorized`,
+                404: `Store not found`,
+            },
+        });
+    }
+    /**
      * Get Stripe Connect status for a store
      * @returns StripeConnectStatusResponse Stripe Connect status returned
      * @throws ApiError

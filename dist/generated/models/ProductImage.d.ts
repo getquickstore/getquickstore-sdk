@@ -1,11 +1,11 @@
 export type ProductImage = {
     id: string;
-    key: string | null;
+    productId: string;
+    variantId?: string | null;
+    key: string;
     url: string;
     alt?: string | null;
     isPrimary: boolean;
     position: number;
-    productId: string;
-    variantId?: string | null;
     createdAt: string;
 };
