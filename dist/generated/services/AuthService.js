@@ -90,51 +90,6 @@ class AuthService {
         });
     }
     /**
-     * List refresh token sessions
-     * @returns AuthSessionListResponse List of sessions
-     * @throws ApiError
-     */
-    static getAuthSessions() {
-        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
-            method: 'GET',
-            url: '/auth/sessions',
-            errors: {
-                401: `Unauthorized`,
-            },
-        });
-    }
-    /**
-     * Revoke all active sessions for current user
-     * @returns void
-     * @throws ApiError
-     */
-    static deleteAuthSessions() {
-        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
-            method: 'DELETE',
-            url: '/auth/sessions',
-            errors: {
-                401: `Unauthorized`,
-            },
-        });
-    }
-    /**
-     * Revoke one session by id
-     * @returns void
-     * @throws ApiError
-     */
-    static deleteAuthSessions1({ id, }) {
-        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
-            method: 'DELETE',
-            url: '/auth/sessions/{id}',
-            path: {
-                'id': id,
-            },
-            errors: {
-                401: `Unauthorized`,
-            },
-        });
-    }
-    /**
      * Request magic login link
      * @returns OkResponse Magic link requested
      * @throws ApiError
@@ -218,8 +173,9 @@ class AuthService {
         });
     }
     /**
-     * Confirm password reset with token
-     * @returns any Password reset completed
+     * Confirm password reset
+     * Resets the user password using a valid reset token and revokes active tokens/sessions.
+     * @returns any Password reset confirmed
      * @throws ApiError
      */
     static postAuthPasswordResetConfirm({ requestBody, }) {
@@ -229,7 +185,7 @@ class AuthService {
             body: requestBody,
             mediaType: 'application/json',
             errors: {
-                400: `Invalid input or expired token`,
+                400: `Invalid request or expired token`,
                 404: `User not found`,
             },
         });

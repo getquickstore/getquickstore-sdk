@@ -3,7 +3,6 @@ import type { AuthLogoutRequest } from '../models/AuthLogoutRequest';
 import type { AuthMeResponse } from '../models/AuthMeResponse';
 import type { AuthRefreshRequest } from '../models/AuthRefreshRequest';
 import type { AuthRegisterRequest } from '../models/AuthRegisterRequest';
-import type { AuthSessionListResponse } from '../models/AuthSessionListResponse';
 import type { AuthSuccessResponse } from '../models/AuthSuccessResponse';
 import type { AuthTokenPairOnlyResponse } from '../models/AuthTokenPairOnlyResponse';
 import type { ForgotPasswordRequest } from '../models/ForgotPasswordRequest';
@@ -52,26 +51,6 @@ export declare class AuthService {
      */
     static getAuthMe(): CancelablePromise<AuthMeResponse>;
     /**
-     * List refresh token sessions
-     * @returns AuthSessionListResponse List of sessions
-     * @throws ApiError
-     */
-    static getAuthSessions(): CancelablePromise<AuthSessionListResponse>;
-    /**
-     * Revoke all active sessions for current user
-     * @returns void
-     * @throws ApiError
-     */
-    static deleteAuthSessions(): CancelablePromise<void>;
-    /**
-     * Revoke one session by id
-     * @returns void
-     * @throws ApiError
-     */
-    static deleteAuthSessions1({ id, }: {
-        id: string;
-    }): CancelablePromise<void>;
-    /**
      * Request magic login link
      * @returns OkResponse Magic link requested
      * @throws ApiError
@@ -112,8 +91,9 @@ export declare class AuthService {
         requestBody: ResetPasswordRequest;
     }): CancelablePromise<void>;
     /**
-     * Confirm password reset with token
-     * @returns any Password reset completed
+     * Confirm password reset
+     * Resets the user password using a valid reset token and revokes active tokens/sessions.
+     * @returns any Password reset confirmed
      * @throws ApiError
      */
     static postAuthPasswordResetConfirm({ requestBody, }: {

@@ -7,7 +7,6 @@ import type { AuthLogoutRequest } from '../models/AuthLogoutRequest';
 import type { AuthMeResponse } from '../models/AuthMeResponse';
 import type { AuthRefreshRequest } from '../models/AuthRefreshRequest';
 import type { AuthRegisterRequest } from '../models/AuthRegisterRequest';
-import type { AuthSessionListResponse } from '../models/AuthSessionListResponse';
 import type { AuthSuccessResponse } from '../models/AuthSuccessResponse';
 import type { AuthTokenPairOnlyResponse } from '../models/AuthTokenPairOnlyResponse';
 import type { ForgotPasswordRequest } from '../models/ForgotPasswordRequest';
@@ -121,55 +120,6 @@ export class AuthService {
         });
     }
     /**
-     * List refresh token sessions
-     * @returns AuthSessionListResponse List of sessions
-     * @throws ApiError
-     */
-    public static getAuthSessions(): CancelablePromise<AuthSessionListResponse> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/auth/sessions',
-            errors: {
-                401: `Unauthorized`,
-            },
-        });
-    }
-    /**
-     * Revoke all active sessions for current user
-     * @returns void
-     * @throws ApiError
-     */
-    public static deleteAuthSessions(): CancelablePromise<void> {
-        return __request(OpenAPI, {
-            method: 'DELETE',
-            url: '/auth/sessions',
-            errors: {
-                401: `Unauthorized`,
-            },
-        });
-    }
-    /**
-     * Revoke one session by id
-     * @returns void
-     * @throws ApiError
-     */
-    public static deleteAuthSessions1({
-        id,
-    }: {
-        id: string,
-    }): CancelablePromise<void> {
-        return __request(OpenAPI, {
-            method: 'DELETE',
-            url: '/auth/sessions/{id}',
-            path: {
-                'id': id,
-            },
-            errors: {
-                401: `Unauthorized`,
-            },
-        });
-    }
-    /**
      * Request magic login link
      * @returns OkResponse Magic link requested
      * @throws ApiError
@@ -273,8 +223,9 @@ export class AuthService {
         });
     }
     /**
-     * Confirm password reset with token
-     * @returns any Password reset completed
+     * Confirm password reset
+     * Resets the user password using a valid reset token and revokes active tokens/sessions.
+     * @returns any Password reset confirmed
      * @throws ApiError
      */
     public static postAuthPasswordResetConfirm({
@@ -293,7 +244,7 @@ export class AuthService {
             body: requestBody,
             mediaType: 'application/json',
             errors: {
-                400: `Invalid input or expired token`,
+                400: `Invalid request or expired token`,
                 404: `User not found`,
             },
         });
