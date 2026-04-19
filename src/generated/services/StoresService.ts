@@ -4,6 +4,8 @@
 /* eslint-disable */
 import type { CreateStoreRequest } from '../models/CreateStoreRequest';
 import type { CreateStoreResponse } from '../models/CreateStoreResponse';
+import type { PublicStore } from '../models/PublicStore';
+import type { PublicStoreListResponse } from '../models/PublicStoreListResponse';
 import type { StoreDeleteResponse } from '../models/StoreDeleteResponse';
 import type { StoreDetailsResponse } from '../models/StoreDetailsResponse';
 import type { StoreListResponse } from '../models/StoreListResponse';
@@ -178,6 +180,51 @@ export class StoresService {
                 401: `Missing or invalid token`,
                 404: `Store not found`,
                 500: `Store select failed`,
+            },
+        });
+    }
+    /**
+     * List public stores
+     * @returns PublicStoreListResponse Public stores list
+     * @throws ApiError
+     */
+    public static getStoresPublic({
+        q,
+    }: {
+        /**
+         * Search by store name or slug
+         */
+        q?: string,
+    }): CancelablePromise<PublicStoreListResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/stores/public',
+            query: {
+                'q': q,
+            },
+        });
+    }
+    /**
+     * Get public store by slug
+     * @returns PublicStore Public store details
+     * @throws ApiError
+     */
+    public static getStoresPublic1({
+        slug,
+    }: {
+        /**
+         * Store slug
+         */
+        slug: string,
+    }): CancelablePromise<PublicStore> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/stores/public/{slug}',
+            path: {
+                'slug': slug,
+            },
+            errors: {
+                404: `Resource not found`,
             },
         });
     }

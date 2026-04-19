@@ -88,6 +88,8 @@ export type { ProductImagePresignRequest } from './models/ProductImagePresignReq
 export type { ProductImageUpdateRequest } from './models/ProductImageUpdateRequest';
 export type { ProductListItem } from './models/ProductListItem';
 export type { ProductListResponse } from './models/ProductListResponse';
+export type { PublicStore } from './models/PublicStore';
+export type { PublicStoreListResponse } from './models/PublicStoreListResponse';
 export type { RefundedPaymentSummary } from './models/RefundedPaymentSummary';
 export type { ResetPasswordRequest } from './models/ResetPasswordRequest';
 export type { Review } from './models/Review';

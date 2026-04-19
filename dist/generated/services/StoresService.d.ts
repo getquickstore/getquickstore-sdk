@@ -1,5 +1,7 @@
 import type { CreateStoreRequest } from '../models/CreateStoreRequest';
 import type { CreateStoreResponse } from '../models/CreateStoreResponse';
+import type { PublicStore } from '../models/PublicStore';
+import type { PublicStoreListResponse } from '../models/PublicStoreListResponse';
 import type { StoreDeleteResponse } from '../models/StoreDeleteResponse';
 import type { StoreDetailsResponse } from '../models/StoreDetailsResponse';
 import type { StoreListResponse } from '../models/StoreListResponse';
@@ -75,4 +77,26 @@ export declare class StoresService {
          */
         id: string;
     }): CancelablePromise<StoreSelectResponse>;
+    /**
+     * List public stores
+     * @returns PublicStoreListResponse Public stores list
+     * @throws ApiError
+     */
+    static getStoresPublic({ q, }: {
+        /**
+         * Search by store name or slug
+         */
+        q?: string;
+    }): CancelablePromise<PublicStoreListResponse>;
+    /**
+     * Get public store by slug
+     * @returns PublicStore Public store details
+     * @throws ApiError
+     */
+    static getStoresPublic1({ slug, }: {
+        /**
+         * Store slug
+         */
+        slug: string;
+    }): CancelablePromise<PublicStore>;
 }

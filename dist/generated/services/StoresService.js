@@ -136,5 +136,36 @@ class StoresService {
             },
         });
     }
+    /**
+     * List public stores
+     * @returns PublicStoreListResponse Public stores list
+     * @throws ApiError
+     */
+    static getStoresPublic({ q, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/stores/public',
+            query: {
+                'q': q,
+            },
+        });
+    }
+    /**
+     * Get public store by slug
+     * @returns PublicStore Public store details
+     * @throws ApiError
+     */
+    static getStoresPublic1({ slug, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/stores/public/{slug}',
+            path: {
+                'slug': slug,
+            },
+            errors: {
+                404: `Resource not found`,
+            },
+        });
+    }
 }
 exports.StoresService = StoresService;
