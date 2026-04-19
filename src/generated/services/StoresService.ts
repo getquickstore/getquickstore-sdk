@@ -13,6 +13,8 @@ import type { StoreSelectResponse } from '../models/StoreSelectResponse';
 import type { StoresMeResponse } from '../models/StoresMeResponse';
 import type { UpdateStoreRequest } from '../models/UpdateStoreRequest';
 import type { UpdateStoreResponse } from '../models/UpdateStoreResponse';
+import type { UpdateStoreVisibilityRequest } from '../models/UpdateStoreVisibilityRequest';
+import type { UpdateStoreVisibilityResponse } from '../models/UpdateStoreVisibilityResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -180,6 +182,38 @@ export class StoresService {
                 401: `Missing or invalid token`,
                 404: `Store not found`,
                 500: `Store select failed`,
+            },
+        });
+    }
+    /**
+     * Toggle store public visibility
+     * @returns UpdateStoreVisibilityResponse Store visibility updated
+     * @throws ApiError
+     */
+    public static patchStoresVisibility({
+        id,
+        requestBody,
+    }: {
+        /**
+         * Store id
+         */
+        id: string,
+        requestBody: UpdateStoreVisibilityRequest,
+    }): CancelablePromise<UpdateStoreVisibilityResponse> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/stores/{id}/visibility',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `Missing or invalid token`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store visibility update failed`,
             },
         });
     }

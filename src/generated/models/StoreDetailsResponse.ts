@@ -15,5 +15,6 @@ export type StoreDetailsResponse = {
     createdAt: string;
     updatedAt: string;
     role: 'OWNER';
+    isPublic: boolean;
 };
 

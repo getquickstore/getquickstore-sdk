@@ -14,5 +14,6 @@ export type StoreOwnerView = {
     createdAt: string;
     role: 'OWNER';
     isDefault: boolean;
+    isPublic: boolean;
 };
 
