@@ -8,6 +8,7 @@ export type StoreSummary = {
     publicUrl: string;
     role: 'OWNER';
     isDefault: boolean;
+    isPublic: boolean;
     billing: StoreBillingSummary;
     stripe: StoreStripeSummary;
     createdAt: string;

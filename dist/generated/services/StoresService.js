@@ -137,6 +137,29 @@ class StoresService {
         });
     }
     /**
+     * Toggle store public visibility
+     * @returns UpdateStoreVisibilityResponse Store visibility updated
+     * @throws ApiError
+     */
+    static patchStoresVisibility({ id, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'PATCH',
+            url: '/stores/{id}/visibility',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `Missing or invalid token`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store visibility update failed`,
+            },
+        });
+    }
+    /**
      * List public stores
      * @returns PublicStoreListResponse Public stores list
      * @throws ApiError

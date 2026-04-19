@@ -9,6 +9,8 @@ import type { StoreSelectResponse } from '../models/StoreSelectResponse';
 import type { StoresMeResponse } from '../models/StoresMeResponse';
 import type { UpdateStoreRequest } from '../models/UpdateStoreRequest';
 import type { UpdateStoreResponse } from '../models/UpdateStoreResponse';
+import type { UpdateStoreVisibilityRequest } from '../models/UpdateStoreVisibilityRequest';
+import type { UpdateStoreVisibilityResponse } from '../models/UpdateStoreVisibilityResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class StoresService {
     /**
@@ -77,6 +79,18 @@ export declare class StoresService {
          */
         id: string;
     }): CancelablePromise<StoreSelectResponse>;
+    /**
+     * Toggle store public visibility
+     * @returns UpdateStoreVisibilityResponse Store visibility updated
+     * @throws ApiError
+     */
+    static patchStoresVisibility({ id, requestBody, }: {
+        /**
+         * Store id
+         */
+        id: string;
+        requestBody: UpdateStoreVisibilityRequest;
+    }): CancelablePromise<UpdateStoreVisibilityResponse>;
     /**
      * List public stores
      * @returns PublicStoreListResponse Public stores list

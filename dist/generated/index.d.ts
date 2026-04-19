@@ -109,6 +109,7 @@ export type { StoreStripeNotReadyError } from './models/StoreStripeNotReadyError
 export type { StoreStripeState } from './models/StoreStripeState';
 export type { StoreStripeSummary } from './models/StoreStripeSummary';
 export type { StoreSummary } from './models/StoreSummary';
+export type { StoreVisibilityView } from './models/StoreVisibilityView';
 export type { StripeConnectStartResponse } from './models/StripeConnectStartResponse';
 export type { StripeConnectStatusResponse } from './models/StripeConnectStatusResponse';
 export type { UpdateBookingRequest } from './models/UpdateBookingRequest';
@@ -116,6 +117,8 @@ export type { UpdateCategoryRequest } from './models/UpdateCategoryRequest';
 export type { UpdateProductRequest } from './models/UpdateProductRequest';
 export type { UpdateStoreRequest } from './models/UpdateStoreRequest';
 export type { UpdateStoreResponse } from './models/UpdateStoreResponse';
+export type { UpdateStoreVisibilityRequest } from './models/UpdateStoreVisibilityRequest';
+export type { UpdateStoreVisibilityResponse } from './models/UpdateStoreVisibilityResponse';
 export { AuthService } from './services/AuthService';
 export { AvailabilityService } from './services/AvailabilityService';
 export { BillingService } from './services/BillingService';
