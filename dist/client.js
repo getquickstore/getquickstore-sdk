@@ -59,6 +59,30 @@ function createClient({ baseUrl, token, storeId }) {
             me: () => withAuthRetry(() => AuthService_1.AuthService.getAuthMe()),
             refresh: () => AuthService_1.AuthService.postAuthRefresh(),
             logout: () => AuthService_1.AuthService.postAuthLogout({}),
+            getTwoFactorStatus: () => withAuthRetry(() => AuthService_1.AuthService.getAuth2Fa()),
+            getSessions: () => withAuthRetry(() => AuthService_1.AuthService.getAuthSessions()),
+            changePassword: (data) => withAuthRetry(() => AuthService_1.AuthService.postAuthPasswordChange({
+                requestBody: data,
+            })),
+            requestEmailVerification: (email) => withAuthRetry(() => AuthService_1.AuthService.postAuthEmailVerifyRequest({
+                requestBody: { email },
+            })),
+            requestEmailChange: (newEmail) => withAuthRetry(() => AuthService_1.AuthService.postAuthEmailChangeRequest({
+                requestBody: { newEmail },
+            })),
+            startTwoFactorSetup: () => withAuthRetry(() => AuthService_1.AuthService.postAuth2FaSetup()),
+            confirmTwoFactorSetup: (code) => withAuthRetry(() => AuthService_1.AuthService.postAuth2FaConfirm({
+                requestBody: { code },
+            })),
+            disableTwoFactor: (data) => withAuthRetry(() => AuthService_1.AuthService.postAuth2FaDisable({
+                requestBody: data,
+            })),
+            regenerateRecoveryCodes: (code) => withAuthRetry(() => AuthService_1.AuthService.postAuth2FaRecoveryCodesRegenerate({
+                requestBody: { code },
+            })),
+            revokeSession: (data) => withAuthRetry(() => AuthService_1.AuthService.postAuthSessionsRevoke({
+                requestBody: data,
+            })),
         },
         billing: {
             current: () => withAuthRetry(() => BillingService_1.BillingService.getBillingCurrent({

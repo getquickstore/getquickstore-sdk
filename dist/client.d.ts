@@ -10,6 +10,69 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         me: () => Promise<import("./generated").AuthMeResponse>;
         refresh: () => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
         logout: () => import("./generated").CancelablePromise<void>;
+        getTwoFactorStatus: () => Promise<{
+            ok?: boolean;
+            enabled?: boolean;
+            method?: string | null;
+            verifiedAt?: string | null;
+        }>;
+        getSessions: () => Promise<{
+            ok?: boolean;
+            items?: Array<{
+                id?: string;
+                status?: string | null;
+                ip?: string | null;
+                userAgent?: string | null;
+                deviceFingerprint?: string | null;
+                isTrusted?: boolean | null;
+                createdAt?: string;
+                lastSeenAt?: string | null;
+                expiresAt?: string | null;
+                revokedAt?: string | null;
+                revokeReason?: string | null;
+            }>;
+        }>;
+        changePassword: (data: {
+            currentPassword: string;
+            newPassword: string;
+        }) => Promise<{
+            ok?: boolean;
+        }>;
+        requestEmailVerification: (email: string) => Promise<{
+            ok?: boolean;
+            alreadyVerified?: boolean;
+        }>;
+        requestEmailChange: (newEmail: string) => Promise<{
+            ok?: boolean;
+        }>;
+        startTwoFactorSetup: () => Promise<{
+            ok: boolean;
+            method: string;
+            base32Secret: string;
+            otpauthUrl: string;
+        }>;
+        confirmTwoFactorSetup: (code: string) => Promise<{
+            ok: boolean;
+            recoveryCodes: Array<string>;
+        }>;
+        disableTwoFactor: (data: {
+            code?: string;
+            recoveryCode?: string;
+        }) => Promise<{
+            ok: boolean;
+        }>;
+        regenerateRecoveryCodes: (code: string) => Promise<{
+            ok: boolean;
+            recoveryCodes: Array<string>;
+        }>;
+        revokeSession: (data: {
+            sessionId?: string;
+            revokeAllOther?: boolean;
+            currentSessionId?: string;
+        }) => Promise<{
+            ok?: boolean;
+            alreadyRevoked?: boolean;
+        }>;
     };
     billing: {
         current: () => Promise<import("./generated").BillingCurrentResponse>;
