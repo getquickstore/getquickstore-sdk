@@ -92,12 +92,12 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         storeCurrent: (id: string) => Promise<import("./generated").BillingCurrentResponse>;
         checkout: (data: {
             storeId: string;
-            successUrl?: string | null;
-            cancelUrl?: string | null;
+            successUrl?: string;
+            cancelUrl?: string;
         }) => Promise<import("./generated").BillingCheckoutResponse>;
         portal: (data: {
             storeId: string;
-            returnUrl?: string | null;
+            returnUrl?: string;
         }) => Promise<import("./generated").BillingPortalResponse>;
         cancel: (data: {
             storeId: string;

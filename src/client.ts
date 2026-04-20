@@ -180,28 +180,28 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
 
 checkout: (data: {
   storeId: string
-  successUrl?: string | null
-  cancelUrl?: string | null
+  successUrl?: string
+  cancelUrl?: string
 }) =>
   withAuthRetry(() =>
     BillingService.postBillingCheckout({
       requestBody: {
         storeId: data.storeId,
-        successUrl: data.successUrl ?? null,
-        cancelUrl: data.cancelUrl ?? null,
+        ...(data.successUrl ? { successUrl: data.successUrl } : {}),
+        ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
       },
     })
   ),
 
 portal: (data: {
   storeId: string
-  returnUrl?: string | null
+  returnUrl?: string
 }) =>
   withAuthRetry(() =>
     BillingService.postBillingPortal({
       requestBody: {
         storeId: data.storeId,
-        returnUrl: data.returnUrl ?? null,
+        ...(data.returnUrl ? { returnUrl: data.returnUrl } : {}),
       },
     })
   ),

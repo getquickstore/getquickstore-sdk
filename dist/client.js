@@ -103,14 +103,14 @@ function createClient({ baseUrl, token, storeId }) {
             checkout: (data) => withAuthRetry(() => BillingService_1.BillingService.postBillingCheckout({
                 requestBody: {
                     storeId: data.storeId,
-                    successUrl: data.successUrl ?? null,
-                    cancelUrl: data.cancelUrl ?? null,
+                    ...(data.successUrl ? { successUrl: data.successUrl } : {}),
+                    ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
                 },
             })),
             portal: (data) => withAuthRetry(() => BillingService_1.BillingService.postBillingPortal({
                 requestBody: {
                     storeId: data.storeId,
-                    returnUrl: data.returnUrl ?? null,
+                    ...(data.returnUrl ? { returnUrl: data.returnUrl } : {}),
                 },
             })),
             cancel: (data) => withAuthRetry(() => BillingService_1.BillingService.postBillingCancel({
