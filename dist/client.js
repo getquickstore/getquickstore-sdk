@@ -72,6 +72,9 @@ function createClient({ baseUrl, token, storeId }) {
             changePassword: (data) => withAuthRetry(() => AuthService_1.AuthService.postAuthPasswordChange({
                 requestBody: data,
             })),
+            confirmEmailVerification: (token) => AuthService_1.AuthService.postAuthEmailVerifyConfirm({
+                requestBody: { token },
+            }),
             requestEmailVerification: (email) => withAuthRetry(() => AuthService_1.AuthService.postAuthEmailVerifyRequest({
                 requestBody: { email },
             })),
@@ -99,20 +102,20 @@ function createClient({ baseUrl, token, storeId }) {
             storeCurrent: (id) => withAuthRetry(() => BillingService_1.BillingService.getBillingStoresCurrent({ id })),
             checkout: (data) => withAuthRetry(() => BillingService_1.BillingService.postBillingCheckout({
                 requestBody: {
-                    storeId: storeId,
-                    successUrl: data?.successUrl ?? null,
-                    cancelUrl: data?.cancelUrl ?? null,
+                    storeId: data.storeId,
+                    successUrl: data.successUrl ?? null,
+                    cancelUrl: data.cancelUrl ?? null,
                 },
             })),
             portal: (data) => withAuthRetry(() => BillingService_1.BillingService.postBillingPortal({
                 requestBody: {
-                    storeId: storeId,
-                    returnUrl: data?.returnUrl ?? null,
+                    storeId: data.storeId,
+                    returnUrl: data.returnUrl ?? null,
                 },
             })),
-            cancel: () => withAuthRetry(() => BillingService_1.BillingService.postBillingCancel({
+            cancel: (data) => withAuthRetry(() => BillingService_1.BillingService.postBillingCancel({
                 requestBody: {
-                    storeId: storeId,
+                    storeId: data.storeId,
                 },
             })),
         },
@@ -120,6 +123,7 @@ function createClient({ baseUrl, token, storeId }) {
             status: () => withAuthRetry(() => BillingConnectService_1.BillingConnectService.getBillingStoresStripeConnectStatus({
                 id: storeId,
             })),
+            disconnect: (id) => withAuthRetry(() => BillingConnectService_1.BillingConnectService.postBillingStoresStripeDisconnect({ id })),
             statusByStore: (id) => withAuthRetry(() => BillingConnectService_1.BillingConnectService.getBillingStoresStripeConnectStatus({ id })),
             start: (data) => withAuthRetry(() => BillingService_1.BillingService.postBillingStoresStripeConnectStart({
                 id: storeId,

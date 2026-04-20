@@ -110,6 +110,10 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
             requestBody: data,
           })
         ),
+        confirmEmailVerification: (token: string) =>
+  AuthService.postAuthEmailVerifyConfirm({
+    requestBody: { token },
+  }),
 
       requestEmailVerification: (email: string) =>
         withAuthRetry(() =>
@@ -174,35 +178,42 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           BillingService.getBillingStoresCurrent({ id })
         ),
 
-      checkout: (data?: { successUrl?: string | null; cancelUrl?: string | null }) =>
-        withAuthRetry(() =>
-          BillingService.postBillingCheckout({
-            requestBody: {
-              storeId: storeId!,
-              successUrl: data?.successUrl ?? null,
-              cancelUrl: data?.cancelUrl ?? null,
-            },
-          })
-        ),
+checkout: (data: {
+  storeId: string
+  successUrl?: string | null
+  cancelUrl?: string | null
+}) =>
+  withAuthRetry(() =>
+    BillingService.postBillingCheckout({
+      requestBody: {
+        storeId: data.storeId,
+        successUrl: data.successUrl ?? null,
+        cancelUrl: data.cancelUrl ?? null,
+      },
+    })
+  ),
 
-      portal: (data?: { returnUrl?: string | null }) =>
-        withAuthRetry(() =>
-          BillingService.postBillingPortal({
-            requestBody: {
-              storeId: storeId!,
-              returnUrl: data?.returnUrl ?? null,
-            },
-          })
-        ),
+portal: (data: {
+  storeId: string
+  returnUrl?: string | null
+}) =>
+  withAuthRetry(() =>
+    BillingService.postBillingPortal({
+      requestBody: {
+        storeId: data.storeId,
+        returnUrl: data.returnUrl ?? null,
+      },
+    })
+  ),
 
-      cancel: () =>
-        withAuthRetry(() =>
-          BillingService.postBillingCancel({
-            requestBody: {
-              storeId: storeId!,
-            },
-          })
-        ),
+cancel: (data: { storeId: string }) =>
+  withAuthRetry(() =>
+    BillingService.postBillingCancel({
+      requestBody: {
+        storeId: data.storeId,
+      },
+    })
+  ),
     },
 
     stripeConnect: {
@@ -212,6 +223,11 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
             id: storeId!,
           })
         ),
+
+        disconnect: (id: string) =>
+  withAuthRetry(() =>
+    BillingConnectService.postBillingStoresStripeDisconnect({ id })
+  ),
 
       statusByStore: (id: string) =>
         withAuthRetry(() =>

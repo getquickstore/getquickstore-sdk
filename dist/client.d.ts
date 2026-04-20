@@ -48,6 +48,9 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         }) => Promise<{
             ok?: boolean;
         }>;
+        confirmEmailVerification: (token: string) => import("./generated").CancelablePromise<{
+            ok?: boolean;
+        }>;
         requestEmailVerification: (email: string) => Promise<{
             ok?: boolean;
             alreadyVerified?: boolean;
@@ -87,17 +90,34 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     billing: {
         current: () => Promise<import("./generated").BillingCurrentResponse>;
         storeCurrent: (id: string) => Promise<import("./generated").BillingCurrentResponse>;
-        checkout: (data?: {
+        checkout: (data: {
+            storeId: string;
             successUrl?: string | null;
             cancelUrl?: string | null;
         }) => Promise<import("./generated").BillingCheckoutResponse>;
-        portal: (data?: {
+        portal: (data: {
+            storeId: string;
             returnUrl?: string | null;
         }) => Promise<import("./generated").BillingPortalResponse>;
-        cancel: () => Promise<import("./generated").BillingCancelResponse>;
+        cancel: (data: {
+            storeId: string;
+        }) => Promise<import("./generated").BillingCancelResponse>;
     };
     stripeConnect: {
         status: () => Promise<import("./generated").StripeConnectStatusResponse>;
+        disconnect: (id: string) => Promise<{
+            ok?: boolean;
+            storeId?: string;
+            stripe?: {
+                stripeAccountId?: string | null;
+                stripeStatus?: string;
+                stripeOnboardingComplete?: boolean;
+                stripeDetailsSubmitted?: boolean;
+                stripeChargesEnabled?: boolean;
+                stripePayoutsEnabled?: boolean;
+                stripeRequirementsJson?: any;
+            };
+        }>;
         statusByStore: (id: string) => Promise<import("./generated").StripeConnectStatusResponse>;
         start: (data: {
             returnUrl: string;
