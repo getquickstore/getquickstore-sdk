@@ -94,7 +94,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         withAuthRetry(() => AuthService.getAuthMe()),
     
       refresh: () => AuthService.postAuthRefresh(),
-    
+
       logout: () =>
         AuthService.postAuthLogout({}),
     
@@ -168,6 +168,10 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
             storeId: storeId || undefined,
           })
         ),
+        storeCurrent: (id: string) =>
+      withAuthRetry(() =>
+        BillingService.getBillingStoresCurrent({ id })
+      ),
 
       checkout: (data?: { successUrl?: string | null; cancelUrl?: string | null }) =>
         withAuthRetry(() =>
@@ -207,6 +211,10 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
             id: storeId!,
           })
         ),
+        statusByStore: (id: string) =>
+  withAuthRetry(() =>
+    BillingConnectService.getBillingStoresStripeConnectStatus({ id })
+  ),
 
       start: (data: { returnUrl: string; refreshUrl: string }) =>
         withAuthRetry(() =>
@@ -242,6 +250,13 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         withAuthRetry(() =>
           StoresService.postStoresSelect({ id })
         ),
+        setVisibility: (id: string, isPublic: boolean) =>
+  withAuthRetry(() =>
+    StoresService.patchStoresVisibility({
+      id,
+      requestBody: { isPublic },
+    })
+  ),
     },
 
     categories: {

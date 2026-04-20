@@ -96,6 +96,7 @@ function createClient({ baseUrl, token, storeId }) {
             current: () => withAuthRetry(() => BillingService_1.BillingService.getBillingCurrent({
                 storeId: storeId || undefined,
             })),
+            storeCurrent: (id) => withAuthRetry(() => BillingService_1.BillingService.getBillingStoresCurrent({ id })),
             checkout: (data) => withAuthRetry(() => BillingService_1.BillingService.postBillingCheckout({
                 requestBody: {
                     storeId: storeId,
@@ -119,6 +120,7 @@ function createClient({ baseUrl, token, storeId }) {
             status: () => withAuthRetry(() => BillingConnectService_1.BillingConnectService.getBillingStoresStripeConnectStatus({
                 id: storeId,
             })),
+            statusByStore: (id) => withAuthRetry(() => BillingConnectService_1.BillingConnectService.getBillingStoresStripeConnectStatus({ id })),
             start: (data) => withAuthRetry(() => BillingService_1.BillingService.postBillingStoresStripeConnectStart({
                 id: storeId,
                 requestBody: {
@@ -136,6 +138,10 @@ function createClient({ baseUrl, token, storeId }) {
             })),
             me: () => withAuthRetry(() => StoresService_1.StoresService.getStoresMe()),
             select: (id) => withAuthRetry(() => StoresService_1.StoresService.postStoresSelect({ id })),
+            setVisibility: (id, isPublic) => withAuthRetry(() => StoresService_1.StoresService.patchStoresVisibility({
+                id,
+                requestBody: { isPublic },
+            })),
         },
         categories: {
             list: () => withAuthRetry(() => CategoriesService_1.CategoriesService.getCategories({

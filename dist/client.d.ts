@@ -86,6 +86,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     };
     billing: {
         current: () => Promise<import("./generated").BillingCurrentResponse>;
+        storeCurrent: (id: string) => Promise<import("./generated").BillingCurrentResponse>;
         checkout: (data?: {
             successUrl?: string | null;
             cancelUrl?: string | null;
@@ -97,6 +98,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     };
     stripeConnect: {
         status: () => Promise<import("./generated").StripeConnectStatusResponse>;
+        statusByStore: (id: string) => Promise<import("./generated").StripeConnectStatusResponse>;
         start: (data: {
             returnUrl: string;
             refreshUrl: string;
@@ -107,6 +109,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         create: (data: any) => Promise<import("./generated").CreateStoreResponse>;
         me: () => Promise<import("./generated").StoresMeResponse>;
         select: (id: string) => Promise<import("./generated").StoreSelectResponse>;
+        setVisibility: (id: string, isPublic: boolean) => Promise<import("./generated").UpdateStoreVisibilityResponse>;
     };
     categories: {
         list: () => Promise<import("./generated").CategoryListResponse>;
