@@ -1,5 +1,3 @@
-// src\client.ts
-
 import { OpenAPI } from "./generated/core/OpenAPI"
 import { AuthService } from "./generated/services/AuthService"
 import { BillingService } from "./generated/services/BillingService"
@@ -17,11 +15,11 @@ type ClientConfig = {
 
 let refreshPromise: Promise<void> | null = null
 
-function isAuthError(error: any) {
+function isAuthError(error: any): boolean {
   return error?.status === 401 || error?.status === 403
 }
 
-function shouldSkipRefresh(error: any) {
+function shouldSkipRefresh(error: any): boolean {
   const url = String(error?.request?.url || error?.url || "").toLowerCase()
 
   return (
@@ -31,9 +29,20 @@ function shouldSkipRefresh(error: any) {
   )
 }
 
-async function refreshSession() {
+function getRefreshRequestBody() {
+  // Бэкенд читает refresh token из HttpOnly cookie.
+  // Но текущий сгенерённый SDK требует requestBody.refreshToken: string.
+  // Передаём пустую строку, чтобы удовлетворить типы, пока не поправим OpenAPI схему.
+  return {
+    refreshToken: "",
+  }
+}
+
+async function refreshSession(): Promise<void> {
   if (!refreshPromise) {
-    refreshPromise = AuthService.postAuthRefresh({})
+    refreshPromise = AuthService.postAuthRefresh({
+      requestBody: getRefreshRequestBody(),
+    })
       .then(() => undefined)
       .finally(() => {
         refreshPromise = null
@@ -77,13 +86,14 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           requestBody: { name, email, password } as any,
         }),
 
-      me: () =>
-        withAuthRetry(() => AuthService.getAuthMe()),
+      me: () => withAuthRetry(() => AuthService.getAuthMe()),
 
-      refresh: () => AuthService.postAuthRefresh({}),
+      refresh: () =>
+        AuthService.postAuthRefresh({
+          requestBody: getRefreshRequestBody(),
+        }),
 
-      logout: () =>
-        AuthService.postAuthLogout({}),
+      logout: () => AuthService.postAuthLogout({}),
     },
 
     billing: {
@@ -160,14 +170,15 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           })
         ),
 
-      me: () =>
-        withAuthRetry(() => StoresService.getStoresMe()),
+      me: () => withAuthRetry(() => StoresService.getStoresMe()),
     },
 
     categories: {
       list: () =>
         withAuthRetry(() =>
-          CategoriesService.getCategories({ xStoreId: storeId! })
+          CategoriesService.getCategories({
+            xStoreId: storeId!,
+          })
         ),
 
       create: (data: any) =>
@@ -182,12 +193,17 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
     products: {
       list: () =>
         withAuthRetry(() =>
-          ProductsService.getProducts({ xStoreId: storeId! })
+          ProductsService.getProducts({
+            xStoreId: storeId!,
+          })
         ),
 
       get: (id: string) =>
         withAuthRetry(() =>
-          ProductsService.getProducts1({ id, xStoreId: storeId! })
+          ProductsService.getProducts1({
+            id,
+            xStoreId: storeId!,
+          })
         ),
 
       create: (data: any) =>
@@ -202,12 +218,17 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
     orders: {
       list: () =>
         withAuthRetry(() =>
-          OrdersService.getOrders({ xStoreId: storeId! })
+          OrdersService.getOrders({
+            xStoreId: storeId!,
+          })
         ),
 
       get: (id: string) =>
         withAuthRetry(() =>
-          OrdersService.getOrders1({ id, xStoreId: storeId! })
+          OrdersService.getOrders1({
+            id,
+            xStoreId: storeId!,
+          })
         ),
 
       create: (data: any) =>
