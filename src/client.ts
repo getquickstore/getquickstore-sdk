@@ -29,20 +29,9 @@ function shouldSkipRefresh(error: any): boolean {
   )
 }
 
-function getRefreshRequestBody() {
-  // Бэкенд читает refresh token из HttpOnly cookie.
-  // Но текущий сгенерённый SDK требует requestBody.refreshToken: string.
-  // Передаём пустую строку, чтобы удовлетворить типы, пока не поправим OpenAPI схему.
-  return {
-    refreshToken: "",
-  }
-}
-
 async function refreshSession(): Promise<void> {
   if (!refreshPromise) {
-    refreshPromise = AuthService.postAuthRefresh({
-      requestBody: getRefreshRequestBody(),
-    })
+    refreshPromise = AuthService.postAuthRefresh()
       .then(() => undefined)
       .finally(() => {
         refreshPromise = null
@@ -86,14 +75,13 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           requestBody: { name, email, password } as any,
         }),
 
-      me: () => withAuthRetry(() => AuthService.getAuthMe()),
+      me: () =>
+        withAuthRetry(() => AuthService.getAuthMe()),
 
-      refresh: () =>
-        AuthService.postAuthRefresh({
-          requestBody: getRefreshRequestBody(),
-        }),
+      refresh: () => AuthService.postAuthRefresh(),
 
-      logout: () => AuthService.postAuthLogout({}),
+      logout: () =>
+        AuthService.postAuthLogout({}),
     },
 
     billing: {
@@ -170,7 +158,8 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           })
         ),
 
-      me: () => withAuthRetry(() => StoresService.getStoresMe()),
+      me: () =>
+        withAuthRetry(() => StoresService.getStoresMe()),
     },
 
     categories: {
