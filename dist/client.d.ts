@@ -91,16 +91,16 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         current: () => Promise<import("./generated").BillingCurrentResponse>;
         storeCurrent: (id: string) => Promise<import("./generated").BillingCurrentResponse>;
         checkout: (data: {
-            storeId: string;
+            storeId?: string;
             successUrl?: string;
             cancelUrl?: string;
         }) => Promise<import("./generated").BillingCheckoutResponse>;
         portal: (data: {
-            storeId: string;
+            storeId?: string;
             returnUrl?: string;
         }) => Promise<import("./generated").BillingPortalResponse>;
         cancel: (data: {
-            storeId: string;
+            storeId?: string;
         }) => Promise<import("./generated").BillingCancelResponse>;
     };
     stripeConnect: {

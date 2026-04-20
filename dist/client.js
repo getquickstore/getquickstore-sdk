@@ -47,7 +47,15 @@ function createClient({ baseUrl, token, storeId }) {
     OpenAPI_1.OpenAPI.CREDENTIALS = "include";
     OpenAPI_1.OpenAPI.HEADERS = async () => ({
         Authorization: token ? `Bearer ${token}` : undefined,
+        "x-store-id": storeId || undefined,
     });
+    const requireStoreId = (value) => {
+        const resolved = value || storeId;
+        if (!resolved) {
+            throw new Error("storeId is required in client");
+        }
+        return resolved;
+    };
     return {
         auth: {
             login: (email, password) => AuthService_1.AuthService.postAuthLogin({
@@ -97,43 +105,53 @@ function createClient({ baseUrl, token, storeId }) {
         },
         billing: {
             current: () => withAuthRetry(() => BillingService_1.BillingService.getBillingCurrent({
+                xStoreId: storeId || undefined,
                 storeId: storeId || undefined,
             })),
             storeCurrent: (id) => withAuthRetry(() => BillingService_1.BillingService.getBillingStoresCurrent({ id })),
-            checkout: (data) => withAuthRetry(() => BillingService_1.BillingService.postBillingCheckout({
-                requestBody: {
-                    storeId: data.storeId,
-                    ...(data.successUrl ? { successUrl: data.successUrl } : {}),
-                    ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
-                },
-            })),
-            portal: (data) => withAuthRetry(() => BillingService_1.BillingService.postBillingPortal({
-                requestBody: {
-                    storeId: data.storeId,
-                    ...(data.returnUrl ? { returnUrl: data.returnUrl } : {}),
-                },
-            })),
-            cancel: (data) => withAuthRetry(() => BillingService_1.BillingService.postBillingCancel({
-                requestBody: {
-                    storeId: data.storeId,
-                },
-            })),
+            checkout: (data) => {
+                const resolvedStoreId = requireStoreId(data.storeId);
+                return withAuthRetry(() => BillingService_1.BillingService.postBillingCheckout({
+                    requestBody: {
+                        storeId: resolvedStoreId,
+                        ...(data.successUrl ? { successUrl: data.successUrl } : {}),
+                        ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
+                    },
+                }));
+            },
+            portal: (data) => {
+                const resolvedStoreId = requireStoreId(data.storeId);
+                return withAuthRetry(() => BillingService_1.BillingService.postBillingPortal({
+                    requestBody: {
+                        storeId: resolvedStoreId,
+                        ...(data.returnUrl ? { returnUrl: data.returnUrl } : {}),
+                    },
+                }));
+            },
+            cancel: (data) => {
+                const resolvedStoreId = requireStoreId(data.storeId);
+                return withAuthRetry(() => BillingService_1.BillingService.postBillingCancel({
+                    requestBody: {
+                        storeId: resolvedStoreId,
+                    },
+                }));
+            },
         },
         stripeConnect: {
             status: () => withAuthRetry(() => BillingConnectService_1.BillingConnectService.getBillingStoresStripeConnectStatus({
-                id: storeId,
+                id: requireStoreId(),
             })),
             disconnect: (id) => withAuthRetry(() => BillingConnectService_1.BillingConnectService.postBillingStoresStripeDisconnect({ id })),
             statusByStore: (id) => withAuthRetry(() => BillingConnectService_1.BillingConnectService.getBillingStoresStripeConnectStatus({ id })),
             start: (data) => withAuthRetry(() => BillingService_1.BillingService.postBillingStoresStripeConnectStart({
-                id: storeId,
+                id: requireStoreId(),
                 requestBody: {
                     returnUrl: data.returnUrl,
                     refreshUrl: data.refreshUrl,
                 },
             })),
             sync: () => withAuthRetry(() => BillingConnectService_1.BillingConnectService.postBillingStoresStripeConnectSync({
-                id: storeId,
+                id: requireStoreId(),
             })),
         },
         stores: {
@@ -156,37 +174,37 @@ function createClient({ baseUrl, token, storeId }) {
         },
         categories: {
             list: () => withAuthRetry(() => CategoriesService_1.CategoriesService.getCategories({
-                xStoreId: storeId,
+                xStoreId: requireStoreId(),
             })),
             create: (data) => withAuthRetry(() => CategoriesService_1.CategoriesService.postCategories({
                 requestBody: data,
-                xStoreId: storeId,
+                xStoreId: requireStoreId(),
             })),
         },
         products: {
             list: () => withAuthRetry(() => ProductsService_1.ProductsService.getProducts({
-                xStoreId: storeId,
+                xStoreId: requireStoreId(),
             })),
             get: (id) => withAuthRetry(() => ProductsService_1.ProductsService.getProducts1({
                 id,
-                xStoreId: storeId,
+                xStoreId: requireStoreId(),
             })),
             create: (data) => withAuthRetry(() => ProductsService_1.ProductsService.postProducts({
                 requestBody: data,
-                xStoreId: storeId,
+                xStoreId: requireStoreId(),
             })),
         },
         orders: {
             list: () => withAuthRetry(() => OrdersService_1.OrdersService.getOrders({
-                xStoreId: storeId,
+                xStoreId: requireStoreId(),
             })),
             get: (id) => withAuthRetry(() => OrdersService_1.OrdersService.getOrders1({
                 id,
-                xStoreId: storeId,
+                xStoreId: requireStoreId(),
             })),
             create: (data) => withAuthRetry(() => OrdersService_1.OrdersService.postOrders({
                 requestBody: data,
-                xStoreId: storeId,
+                xStoreId: requireStoreId(),
             })),
         },
     };

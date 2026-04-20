@@ -61,7 +61,16 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
 
   OpenAPI.HEADERS = async () => ({
     Authorization: token ? `Bearer ${token}` : undefined,
+    "x-store-id": storeId || undefined,
   })
+
+  const requireStoreId = (value?: string) => {
+    const resolved = value || storeId
+    if (!resolved) {
+      throw new Error("storeId is required in client")
+    }
+    return resolved
+  }
 
   return {
     auth: {
@@ -90,13 +99,11 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           requestBody: { name, email, password } as any,
         }),
 
-      me: () =>
-        withAuthRetry(() => AuthService.getAuthMe()),
+      me: () => withAuthRetry(() => AuthService.getAuthMe()),
 
       refresh: () => AuthService.postAuthRefresh(),
 
-      logout: () =>
-        AuthService.postAuthLogout({}),
+      logout: () => AuthService.postAuthLogout({}),
 
       getTwoFactorStatus: () =>
         withAuthRetry(() => AuthService.getAuth2Fa()),
@@ -104,16 +111,20 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
       getSessions: () =>
         withAuthRetry(() => AuthService.getAuthSessions()),
 
-      changePassword: (data: { currentPassword: string; newPassword: string }) =>
+      changePassword: (data: {
+        currentPassword: string
+        newPassword: string
+      }) =>
         withAuthRetry(() =>
           AuthService.postAuthPasswordChange({
             requestBody: data,
           })
         ),
-        confirmEmailVerification: (token: string) =>
-  AuthService.postAuthEmailVerifyConfirm({
-    requestBody: { token },
-  }),
+
+      confirmEmailVerification: (token: string) =>
+        AuthService.postAuthEmailVerifyConfirm({
+          requestBody: { token },
+        }),
 
       requestEmailVerification: (email: string) =>
         withAuthRetry(() =>
@@ -169,6 +180,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
       current: () =>
         withAuthRetry(() =>
           BillingService.getBillingCurrent({
+            xStoreId: storeId || undefined,
             storeId: storeId || undefined,
           })
         ),
@@ -178,56 +190,65 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           BillingService.getBillingStoresCurrent({ id })
         ),
 
-checkout: (data: {
-  storeId: string
-  successUrl?: string
-  cancelUrl?: string
-}) =>
-  withAuthRetry(() =>
-    BillingService.postBillingCheckout({
-      requestBody: {
-        storeId: data.storeId,
-        ...(data.successUrl ? { successUrl: data.successUrl } : {}),
-        ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
-      },
-    })
-  ),
+      checkout: (data: {
+        storeId?: string
+        successUrl?: string
+        cancelUrl?: string
+      }) => {
+        const resolvedStoreId = requireStoreId(data.storeId)
 
-portal: (data: {
-  storeId: string
-  returnUrl?: string
-}) =>
-  withAuthRetry(() =>
-    BillingService.postBillingPortal({
-      requestBody: {
-        storeId: data.storeId,
-        ...(data.returnUrl ? { returnUrl: data.returnUrl } : {}),
+        return withAuthRetry(() =>
+          BillingService.postBillingCheckout({
+            requestBody: {
+              storeId: resolvedStoreId,
+              ...(data.successUrl ? { successUrl: data.successUrl } : {}),
+              ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
+            },
+          })
+        )
       },
-    })
-  ),
 
-cancel: (data: { storeId: string }) =>
-  withAuthRetry(() =>
-    BillingService.postBillingCancel({
-      requestBody: {
-        storeId: data.storeId,
+      portal: (data: {
+        storeId?: string
+        returnUrl?: string
+      }) => {
+        const resolvedStoreId = requireStoreId(data.storeId)
+
+        return withAuthRetry(() =>
+          BillingService.postBillingPortal({
+            requestBody: {
+              storeId: resolvedStoreId,
+              ...(data.returnUrl ? { returnUrl: data.returnUrl } : {}),
+            },
+          })
+        )
       },
-    })
-  ),
+
+      cancel: (data: { storeId?: string }) => {
+        const resolvedStoreId = requireStoreId(data.storeId)
+
+        return withAuthRetry(() =>
+          BillingService.postBillingCancel({
+            requestBody: {
+              storeId: resolvedStoreId,
+            },
+          })
+        )
+      },
     },
 
     stripeConnect: {
       status: () =>
         withAuthRetry(() =>
           BillingConnectService.getBillingStoresStripeConnectStatus({
-            id: storeId!,
+            id: requireStoreId(),
           })
         ),
 
-        disconnect: (id: string) =>
-  withAuthRetry(() =>
-    BillingConnectService.postBillingStoresStripeDisconnect({ id })
-  ),
+      disconnect: (id: string) =>
+        withAuthRetry(() =>
+          BillingConnectService.postBillingStoresStripeDisconnect({ id })
+        ),
 
       statusByStore: (id: string) =>
         withAuthRetry(() =>
@@ -237,7 +258,7 @@ cancel: (data: { storeId: string }) =>
       start: (data: { returnUrl: string; refreshUrl: string }) =>
         withAuthRetry(() =>
           BillingService.postBillingStoresStripeConnectStart({
-            id: storeId!,
+            id: requireStoreId(),
             requestBody: {
               returnUrl: data.returnUrl,
               refreshUrl: data.refreshUrl,
@@ -248,14 +269,14 @@ cancel: (data: { storeId: string }) =>
       sync: () =>
         withAuthRetry(() =>
           BillingConnectService.postBillingStoresStripeConnectSync({
-            id: storeId!,
+            id: requireStoreId(),
           })
         ),
     },
 
     stores: {
-      list: () =>
-  withAuthRetry(() => StoresService.getStores()),
+      list: () => withAuthRetry(() => StoresService.getStores()),
+
       create: (data: any) =>
         withAuthRetry(() =>
           StoresService.postStores({
@@ -302,7 +323,7 @@ cancel: (data: { storeId: string }) =>
       list: () =>
         withAuthRetry(() =>
           CategoriesService.getCategories({
-            xStoreId: storeId!,
+            xStoreId: requireStoreId(),
           })
         ),
 
@@ -310,7 +331,7 @@ cancel: (data: { storeId: string }) =>
         withAuthRetry(() =>
           CategoriesService.postCategories({
             requestBody: data,
-            xStoreId: storeId!,
+            xStoreId: requireStoreId(),
           })
         ),
     },
@@ -319,7 +340,7 @@ cancel: (data: { storeId: string }) =>
       list: () =>
         withAuthRetry(() =>
           ProductsService.getProducts({
-            xStoreId: storeId!,
+            xStoreId: requireStoreId(),
           })
         ),
 
@@ -327,7 +348,7 @@ cancel: (data: { storeId: string }) =>
         withAuthRetry(() =>
           ProductsService.getProducts1({
             id,
-            xStoreId: storeId!,
+            xStoreId: requireStoreId(),
           })
         ),
 
@@ -335,7 +356,7 @@ cancel: (data: { storeId: string }) =>
         withAuthRetry(() =>
           ProductsService.postProducts({
             requestBody: data,
-            xStoreId: storeId!,
+            xStoreId: requireStoreId(),
           })
         ),
     },
@@ -344,7 +365,7 @@ cancel: (data: { storeId: string }) =>
       list: () =>
         withAuthRetry(() =>
           OrdersService.getOrders({
-            xStoreId: storeId!,
+            xStoreId: requireStoreId(),
           })
         ),
 
@@ -352,7 +373,7 @@ cancel: (data: { storeId: string }) =>
         withAuthRetry(() =>
           OrdersService.getOrders1({
             id,
-            xStoreId: storeId!,
+            xStoreId: requireStoreId(),
           })
         ),
 
@@ -360,7 +381,7 @@ cancel: (data: { storeId: string }) =>
         withAuthRetry(() =>
           OrdersService.postOrders({
             requestBody: data,
-            xStoreId: storeId!,
+            xStoreId: requireStoreId(),
           })
         ),
     },
