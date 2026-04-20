@@ -108,8 +108,13 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     stores: {
         create: (data: any) => Promise<import("./generated").CreateStoreResponse>;
         me: () => Promise<import("./generated").StoresMeResponse>;
+        getById: (id: string) => Promise<import("./generated").StoreDetailsResponse>;
+        update: (id: string, data: {
+            name?: string;
+        }) => Promise<import("./generated").UpdateStoreResponse>;
         select: (id: string) => Promise<import("./generated").StoreSelectResponse>;
         setVisibility: (id: string, isPublic: boolean) => Promise<import("./generated").UpdateStoreVisibilityResponse>;
+        archive: (id: string) => Promise<import("./generated").StoreDeleteResponse>;
     };
     categories: {
         list: () => Promise<import("./generated").CategoryListResponse>;

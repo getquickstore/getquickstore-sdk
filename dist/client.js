@@ -137,11 +137,17 @@ function createClient({ baseUrl, token, storeId }) {
                 requestBody: data,
             })),
             me: () => withAuthRetry(() => StoresService_1.StoresService.getStoresMe()),
+            getById: (id) => withAuthRetry(() => StoresService_1.StoresService.getStores1({ id })),
+            update: (id, data) => withAuthRetry(() => StoresService_1.StoresService.patchStores({
+                id,
+                requestBody: data,
+            })),
             select: (id) => withAuthRetry(() => StoresService_1.StoresService.postStoresSelect({ id })),
             setVisibility: (id, isPublic) => withAuthRetry(() => StoresService_1.StoresService.patchStoresVisibility({
                 id,
                 requestBody: { isPublic },
             })),
+            archive: (id) => withAuthRetry(() => StoresService_1.StoresService.deleteStores({ id })),
         },
         categories: {
             list: () => withAuthRetry(() => CategoriesService_1.CategoriesService.getCategories({

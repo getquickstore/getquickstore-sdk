@@ -69,7 +69,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         AuthService.postAuthLogin({
           requestBody: { email, password },
         }),
-      
+
       verifyLoginTwoFactor: (data: {
         challengeId: string
         code: string
@@ -84,71 +84,71 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
             deviceFingerprint: data.deviceFingerprint,
           },
         }),
-      
+
       register: (name: string, email: string, password: string) =>
         AuthService.postAuthRegister({
           requestBody: { name, email, password } as any,
         }),
-      
+
       me: () =>
         withAuthRetry(() => AuthService.getAuthMe()),
-    
+
       refresh: () => AuthService.postAuthRefresh(),
 
       logout: () =>
         AuthService.postAuthLogout({}),
-    
+
       getTwoFactorStatus: () =>
         withAuthRetry(() => AuthService.getAuth2Fa()),
-    
+
       getSessions: () =>
         withAuthRetry(() => AuthService.getAuthSessions()),
-    
+
       changePassword: (data: { currentPassword: string; newPassword: string }) =>
         withAuthRetry(() =>
           AuthService.postAuthPasswordChange({
             requestBody: data,
           })
         ),
-      
+
       requestEmailVerification: (email: string) =>
         withAuthRetry(() =>
           AuthService.postAuthEmailVerifyRequest({
             requestBody: { email },
           })
         ),
-      
+
       requestEmailChange: (newEmail: string) =>
         withAuthRetry(() =>
           AuthService.postAuthEmailChangeRequest({
             requestBody: { newEmail },
           })
         ),
-      
+
       startTwoFactorSetup: () =>
         withAuthRetry(() => AuthService.postAuth2FaSetup()),
-    
+
       confirmTwoFactorSetup: (code: string) =>
         withAuthRetry(() =>
           AuthService.postAuth2FaConfirm({
             requestBody: { code },
           })
         ),
-      
+
       disableTwoFactor: (data: { code?: string; recoveryCode?: string }) =>
         withAuthRetry(() =>
           AuthService.postAuth2FaDisable({
             requestBody: data,
           })
         ),
-      
+
       regenerateRecoveryCodes: (code: string) =>
         withAuthRetry(() =>
           AuthService.postAuth2FaRecoveryCodesRegenerate({
             requestBody: { code },
           })
         ),
-      
+
       revokeSession: (data: {
         sessionId?: string
         revokeAllOther?: boolean
@@ -168,10 +168,11 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
             storeId: storeId || undefined,
           })
         ),
-        storeCurrent: (id: string) =>
-      withAuthRetry(() =>
-        BillingService.getBillingStoresCurrent({ id })
-      ),
+
+      storeCurrent: (id: string) =>
+        withAuthRetry(() =>
+          BillingService.getBillingStoresCurrent({ id })
+        ),
 
       checkout: (data?: { successUrl?: string | null; cancelUrl?: string | null }) =>
         withAuthRetry(() =>
@@ -211,10 +212,11 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
             id: storeId!,
           })
         ),
-        statusByStore: (id: string) =>
-  withAuthRetry(() =>
-    BillingConnectService.getBillingStoresStripeConnectStatus({ id })
-  ),
+
+      statusByStore: (id: string) =>
+        withAuthRetry(() =>
+          BillingConnectService.getBillingStoresStripeConnectStatus({ id })
+        ),
 
       start: (data: { returnUrl: string; refreshUrl: string }) =>
         withAuthRetry(() =>
@@ -242,21 +244,40 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
             requestBody: data,
           })
         ),
-      
+
       me: () =>
         withAuthRetry(() => StoresService.getStoresMe()),
-    
+
+      getById: (id: string) =>
+        withAuthRetry(() =>
+          StoresService.getStores1({ id })
+        ),
+
+      update: (id: string, data: { name?: string }) =>
+        withAuthRetry(() =>
+          StoresService.patchStores({
+            id,
+            requestBody: data,
+          })
+        ),
+
       select: (id: string) =>
         withAuthRetry(() =>
           StoresService.postStoresSelect({ id })
         ),
-        setVisibility: (id: string, isPublic: boolean) =>
-  withAuthRetry(() =>
-    StoresService.patchStoresVisibility({
-      id,
-      requestBody: { isPublic },
-    })
-  ),
+
+      setVisibility: (id: string, isPublic: boolean) =>
+        withAuthRetry(() =>
+          StoresService.patchStoresVisibility({
+            id,
+            requestBody: { isPublic },
+          })
+        ),
+
+      archive: (id: string) =>
+        withAuthRetry(() =>
+          StoresService.deleteStores({ id })
+        ),
     },
 
     categories: {
