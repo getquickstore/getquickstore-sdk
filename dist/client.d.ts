@@ -126,6 +126,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         sync: () => Promise<import("./generated").StripeConnectStatusResponse>;
     };
     stores: {
+        list: () => Promise<import("./generated").StoreListResponse>;
         create: (data: any) => Promise<import("./generated").CreateStoreResponse>;
         me: () => Promise<import("./generated").StoresMeResponse>;
         getById: (id: string) => Promise<import("./generated").StoreDetailsResponse>;

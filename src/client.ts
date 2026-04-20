@@ -254,6 +254,8 @@ cancel: (data: { storeId: string }) =>
     },
 
     stores: {
+      list: () =>
+  withAuthRetry(() => StoresService.getStores()),
       create: (data: any) =>
         withAuthRetry(() =>
           StoresService.postStores({

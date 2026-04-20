@@ -137,6 +137,7 @@ function createClient({ baseUrl, token, storeId }) {
             })),
         },
         stores: {
+            list: () => withAuthRetry(() => StoresService_1.StoresService.getStores()),
             create: (data) => withAuthRetry(() => StoresService_1.StoresService.postStores({
                 requestBody: data,
             })),
