@@ -47,6 +47,8 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             newPassword: string;
         }) => Promise<{
             ok?: boolean;
+            revokedOtherSessions?: boolean;
+            preservedCurrentSession?: boolean;
         }>;
         confirmEmailVerification: (token: string) => import("./generated").CancelablePromise<{
             ok?: boolean;

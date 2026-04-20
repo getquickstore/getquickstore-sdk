@@ -117,7 +117,7 @@ export declare class AuthService {
     }>;
     /**
      * Change password
-     * Changes password for authenticated user and revokes all sessions.
+     * Changes password for authenticated user, preserves the current session, and revokes all other sessions.
      * @returns any Password changed
      * @throws ApiError
      */
@@ -128,6 +128,8 @@ export declare class AuthService {
         };
     }): CancelablePromise<{
         ok?: boolean;
+        revokedOtherSessions?: boolean;
+        preservedCurrentSession?: boolean;
     }>;
     /**
      * Request email verification

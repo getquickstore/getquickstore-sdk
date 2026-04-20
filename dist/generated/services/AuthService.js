@@ -205,7 +205,7 @@ class AuthService {
     }
     /**
      * Change password
-     * Changes password for authenticated user and revokes all sessions.
+     * Changes password for authenticated user, preserves the current session, and revokes all other sessions.
      * @returns any Password changed
      * @throws ApiError
      */
@@ -216,7 +216,7 @@ class AuthService {
             body: requestBody,
             mediaType: 'application/json',
             errors: {
-                400: `Invalid current password or weak password`,
+                400: `Invalid current password, weak password, or new password matches old password`,
                 401: `Unauthorized`,
             },
         });
