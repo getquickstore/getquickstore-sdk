@@ -70,6 +70,21 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           requestBody: { email, password },
         }),
       
+      verifyLoginTwoFactor: (data: {
+        challengeId: string
+        code: string
+        trustDevice?: boolean
+        deviceFingerprint?: string | null
+      }) =>
+        AuthService.postAuthLogin2FaVerify({
+          requestBody: {
+            challengeId: data.challengeId,
+            code: data.code,
+            trustDevice: data.trustDevice,
+            deviceFingerprint: data.deviceFingerprint,
+          },
+        }),
+      
       register: (name: string, email: string, password: string) =>
         AuthService.postAuthRegister({
           requestBody: { name, email, password } as any,
@@ -219,9 +234,14 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
             requestBody: data,
           })
         ),
-
+      
       me: () =>
         withAuthRetry(() => StoresService.getStoresMe()),
+    
+      select: (id: string) =>
+        withAuthRetry(() =>
+          StoresService.postStoresSelect({ id })
+        ),
     },
 
     categories: {

@@ -6,6 +6,16 @@ type ClientConfig = {
 export declare function createClient({ baseUrl, token, storeId }: ClientConfig): {
     auth: {
         login: (email: string, password: string) => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
+        verifyLoginTwoFactor: (data: {
+            challengeId: string;
+            code: string;
+            trustDevice?: boolean;
+            deviceFingerprint?: string | null;
+        }) => import("./generated").CancelablePromise<{
+            ok: boolean;
+            accessToken: string;
+            refreshToken: string;
+        }>;
         register: (name: string, email: string, password: string) => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
         me: () => Promise<import("./generated").AuthMeResponse>;
         refresh: () => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
@@ -96,6 +106,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     stores: {
         create: (data: any) => Promise<import("./generated").CreateStoreResponse>;
         me: () => Promise<import("./generated").StoresMeResponse>;
+        select: (id: string) => Promise<import("./generated").StoreSelectResponse>;
     };
     categories: {
         list: () => Promise<import("./generated").CategoryListResponse>;

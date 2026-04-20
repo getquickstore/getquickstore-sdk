@@ -53,6 +53,14 @@ function createClient({ baseUrl, token, storeId }) {
             login: (email, password) => AuthService_1.AuthService.postAuthLogin({
                 requestBody: { email, password },
             }),
+            verifyLoginTwoFactor: (data) => AuthService_1.AuthService.postAuthLogin2FaVerify({
+                requestBody: {
+                    challengeId: data.challengeId,
+                    code: data.code,
+                    trustDevice: data.trustDevice,
+                    deviceFingerprint: data.deviceFingerprint,
+                },
+            }),
             register: (name, email, password) => AuthService_1.AuthService.postAuthRegister({
                 requestBody: { name, email, password },
             }),
@@ -127,6 +135,7 @@ function createClient({ baseUrl, token, storeId }) {
                 requestBody: data,
             })),
             me: () => withAuthRetry(() => StoresService_1.StoresService.getStoresMe()),
+            select: (id) => withAuthRetry(() => StoresService_1.StoresService.postStoresSelect({ id })),
         },
         categories: {
             list: () => withAuthRetry(() => CategoriesService_1.CategoriesService.getCategories({
