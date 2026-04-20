@@ -16,10 +16,33 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             accessToken: string;
             refreshToken: string;
         }>;
+        resendLoginTwoFactor: (challengeId: string) => import("./generated").CancelablePromise<{
+            ok: boolean;
+        }>;
         register: (name: string, email: string, password: string) => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
         me: () => Promise<import("./generated").AuthMeResponse>;
         refresh: () => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
         logout: () => import("./generated").CancelablePromise<void>;
+        magicLinkRequest: (email: string) => import("./generated").CancelablePromise<import("./generated").OkResponse>;
+        magicLinkVerifyByToken: (token: string) => import("./generated").CancelablePromise<import("./generated").AuthTokenPairOnlyResponse>;
+        magicLinkVerifyByCode: (data: {
+            email?: string;
+            code: string;
+        }) => import("./generated").CancelablePromise<import("./generated").AuthTokenPairOnlyResponse>;
+        forgotPassword: (email: string) => import("./generated").CancelablePromise<void>;
+        resetPassword: (data: {
+            token: string;
+            password: string;
+        }) => import("./generated").CancelablePromise<void>;
+        requestPasswordReset: (email: string) => import("./generated").CancelablePromise<{
+            ok?: boolean;
+        }>;
+        confirmPasswordReset: (data: {
+            token: string;
+            newPassword: string;
+        }) => import("./generated").CancelablePromise<{
+            ok?: boolean;
+        }>;
         getTwoFactorStatus: () => Promise<{
             ok?: boolean;
             enabled?: boolean;
@@ -60,6 +83,22 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         requestEmailChange: (newEmail: string) => Promise<{
             ok?: boolean;
         }>;
+        confirmEmailChange: (token: string) => import("./generated").CancelablePromise<{
+            ok: boolean;
+            email: string;
+        }>;
+        startReAuth: (action: string) => Promise<{
+            ok: boolean;
+            challengeId: string;
+            method: "TOTP" | "EMAIL_OTP";
+            expiresAt: string;
+        }>;
+        verifyReAuth: (data: {
+            challengeId: string;
+            code: string;
+        }) => Promise<{
+            ok: boolean;
+        }>;
         startTwoFactorSetup: () => Promise<{
             ok: boolean;
             method: string;
@@ -88,6 +127,9 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             ok?: boolean;
             alreadyRevoked?: boolean;
         }>;
+    };
+    availability: {
+        upsert: (data: any) => Promise<import("./generated").AvailabilityWindow>;
     };
     billing: {
         current: () => Promise<import("./generated").BillingCurrentResponse>;
@@ -127,6 +169,40 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         }) => Promise<import("./generated").BillingStripeConnectStartResponse>;
         sync: () => Promise<import("./generated").StripeConnectStatusResponse>;
     };
+    bookings: {
+        list: (params?: {
+            status?: "PENDING" | "CONFIRMED" | "COMPLETED" | "CANCELLED";
+            serviceId?: string;
+            dateFrom?: string;
+            dateTo?: string;
+            storeId?: string;
+        }) => Promise<import("./generated").BookingListResponse>;
+        create: (data: any, customStoreId?: string) => Promise<import("./generated").Booking>;
+        get: (id: string, customStoreId?: string) => Promise<import("./generated").Booking>;
+        update: (id: string, data: any, customStoreId?: string) => Promise<import("./generated").Booking>;
+        cancel: (id: string, customStoreId?: string) => Promise<import("./generated").Booking>;
+    };
+    calendar: {
+        getDay: (date: string) => Promise<import("./generated").CalendarDayResponse>;
+    };
+    cart: {
+        get: (customStoreId?: string) => Promise<import("./generated").CartResponse>;
+        add: (data: any, customStoreId?: string) => Promise<import("./generated").CartResponse>;
+        setQty: (data: any, customStoreId?: string) => Promise<import("./generated").CartResponse>;
+        remove: (data: any, customStoreId?: string) => Promise<import("./generated").CartResponse>;
+        clear: (customStoreId?: string) => Promise<import("./generated").CartResponse>;
+    };
+    categories: {
+        list: (params?: {
+            limit?: number;
+            offset?: number;
+            q?: string;
+            storeId?: string;
+        }) => Promise<import("./generated").CategoryListResponse>;
+        create: (data: any, customStoreId?: string) => Promise<import("./generated").Category>;
+        update: (id: string, data: any, customStoreId?: string) => Promise<import("./generated").Category>;
+        delete: (id: string, customStoreId?: string) => Promise<import("./generated").OkResponse>;
+    };
     stores: {
         list: () => Promise<import("./generated").StoreListResponse>;
         create: (data: any) => Promise<import("./generated").CreateStoreResponse>;
@@ -138,20 +214,70 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         select: (id: string) => Promise<import("./generated").StoreSelectResponse>;
         setVisibility: (id: string, isPublic: boolean) => Promise<import("./generated").UpdateStoreVisibilityResponse>;
         archive: (id: string) => Promise<import("./generated").StoreDeleteResponse>;
-    };
-    categories: {
-        list: () => Promise<import("./generated").CategoryListResponse>;
-        create: (data: any) => Promise<import("./generated").Category>;
+        getPublic: (params?: {
+            q?: string;
+        }) => import("./generated").CancelablePromise<import("./generated").PublicStoreListResponse>;
+        getPublicBySlug: (slug: string) => import("./generated").CancelablePromise<import("./generated").PublicStore>;
     };
     products: {
-        list: () => Promise<import("./generated").ProductListResponse>;
-        get: (id: string) => Promise<import("./generated").ProductDetail>;
-        create: (data: any) => Promise<import("./generated").ProductDetail>;
+        list: (customStoreId?: string) => Promise<import("./generated").ProductListResponse>;
+        get: (id: string, customStoreId?: string) => Promise<import("./generated").ProductDetail>;
+        create: (data: any, customStoreId?: string) => Promise<import("./generated").ProductDetail>;
+        update: (id: string, data: any, customStoreId?: string) => Promise<import("./generated").ProductDetail>;
     };
     orders: {
-        list: () => Promise<import("./generated").OrderListResponse>;
-        get: (id: string) => Promise<import("./generated").OrderSingleResponse>;
-        create: (data: any) => Promise<import("./generated").OrderSingleResponse>;
+        list: (params?: {
+            limit?: number;
+            status?: "PENDING" | "PAID" | "PROCESSING" | "FULFILLED" | "CANCELLED" | "REFUNDED";
+            paymentStatus?: "REQUIRES_ACTION" | "PENDING" | "SUCCEEDED" | "FAILED" | "CANCELLED" | "REFUNDED";
+            customerId?: string;
+            storeId?: string;
+        }) => Promise<import("./generated").OrderListResponse>;
+        create: (data: any, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
+        get: (id: string, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
+        cancel: (id: string, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
+        pay: (id: string, customStoreId?: string) => Promise<import("./generated").PayOrderResponse>;
+    };
+    payments: {
+        checkout: (data: any, customStoreId?: string) => Promise<import("./generated").PaymentCheckoutResponse>;
+        refund: (paymentId: string, data?: any, customStoreId?: string) => Promise<import("./generated").CreateRefundResponse>;
+    };
+    productImages: {
+        list: (productId: string, customStoreId?: string) => Promise<{
+            ok: boolean;
+            images: Array<import("./generated").ProductImage>;
+        }>;
+        create: (productId: string, data: any, customStoreId?: string) => Promise<{
+            ok: boolean;
+            image: import("./generated").ProductImage;
+        }>;
+        presign: (productId: string, data: any, customStoreId?: string) => Promise<{
+            ok: boolean;
+            uploadUrl: string;
+            key: string;
+        }>;
+        update: (productId: string, imageId: string, data: any, customStoreId?: string) => Promise<{
+            ok: boolean;
+            image: import("./generated").ProductImage;
+        }>;
+        delete: (productId: string, imageId: string, customStoreId?: string) => Promise<{
+            ok: boolean;
+            imageId: string;
+        }>;
+    };
+    reviews: {
+        list: (productId: string, params?: {
+            limit?: number;
+            offset?: number;
+            storeId?: string;
+        }) => Promise<import("./generated").ReviewListResponse>;
+        create: (productId: string, data: any, customStoreId?: string) => Promise<import("./generated").Review>;
+        flag: (productId: string, reviewId: string, customStoreId?: string) => Promise<import("./generated").FlagReviewResponse>;
+    };
+    services: {
+        list: () => Promise<import("./generated").ServiceListResponse>;
+        create: (data: any) => Promise<import("./generated").Service>;
+        getAvailability: (id: string, date: string) => Promise<import("./generated").ServiceAvailabilityResponse>;
     };
 };
 export {};

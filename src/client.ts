@@ -1,11 +1,19 @@
 import { OpenAPI } from "./generated/core/OpenAPI"
 import { AuthService } from "./generated/services/AuthService"
+import { AvailabilityService } from "./generated/services/AvailabilityService"
 import { BillingService } from "./generated/services/BillingService"
 import { BillingConnectService } from "./generated/services/BillingConnectService"
-import { StoresService } from "./generated/services/StoresService"
-import { ProductsService } from "./generated/services/ProductsService"
-import { OrdersService } from "./generated/services/OrdersService"
+import { BookingsService } from "./generated/services/BookingsService"
+import { CalendarService } from "./generated/services/CalendarService"
+import { CartService } from "./generated/services/CartService"
 import { CategoriesService } from "./generated/services/CategoriesService"
+import { OrdersService } from "./generated/services/OrdersService"
+import { PaymentsService } from "./generated/services/PaymentsService"
+import { ProductImagesService } from "./generated/services/ProductImagesService"
+import { ProductsService } from "./generated/services/ProductsService"
+import { ReviewsService } from "./generated/services/ReviewsService"
+import { StoresService } from "./generated/services/StoresService"
+import { ServicesService } from "./generated/services/ServicesService"
 
 type ClientConfig = {
   baseUrl: string
@@ -94,6 +102,11 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           },
         }),
 
+      resendLoginTwoFactor: (challengeId: string) =>
+        AuthService.postAuthLogin2FaResend({
+          requestBody: { challengeId },
+        }),
+
       register: (name: string, email: string, password: string) =>
         AuthService.postAuthRegister({
           requestBody: { name, email, password } as any,
@@ -104,6 +117,39 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
       refresh: () => AuthService.postAuthRefresh(),
 
       logout: () => AuthService.postAuthLogout({}),
+
+      magicLinkRequest: (email: string) =>
+        AuthService.postAuthMagicLinkRequest({
+          requestBody: { email },
+        }),
+
+      magicLinkVerifyByToken: (token: string) =>
+        AuthService.getAuthMagicLinkVerify({ token }),
+
+      magicLinkVerifyByCode: (data: { email?: string; code: string }) =>
+        AuthService.postAuthMagicLinkVerify({
+          requestBody: data as any,
+        }),
+
+      forgotPassword: (email: string) =>
+        AuthService.postAuthForgotPassword({
+          requestBody: { email },
+        }),
+
+      resetPassword: (data: { token: string; password: string }) =>
+        AuthService.postAuthResetPassword({
+          requestBody: data as any,
+        }),
+
+      requestPasswordReset: (email: string) =>
+        AuthService.postAuthPasswordResetRequest({
+          requestBody: { email },
+        }),
+
+      confirmPasswordReset: (data: { token: string; newPassword: string }) =>
+        AuthService.postAuthPasswordResetConfirm({
+          requestBody: data,
+        }),
 
       getTwoFactorStatus: () =>
         withAuthRetry(() => AuthService.getAuth2Fa()),
@@ -140,6 +186,25 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           })
         ),
 
+      confirmEmailChange: (token: string) =>
+        AuthService.postAuthEmailChangeConfirm({
+          requestBody: { token },
+        }),
+
+      startReAuth: (action: string) =>
+        withAuthRetry(() =>
+          AuthService.postAuthReAuthStart({
+            requestBody: { action },
+          })
+        ),
+
+      verifyReAuth: (data: { challengeId: string; code: string }) =>
+        withAuthRetry(() =>
+          AuthService.postAuthReAuthVerify({
+            requestBody: data,
+          })
+        ),
+
       startTwoFactorSetup: () =>
         withAuthRetry(() => AuthService.postAuth2FaSetup()),
 
@@ -171,6 +236,15 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
       }) =>
         withAuthRetry(() =>
           AuthService.postAuthSessionsRevoke({
+            requestBody: data,
+          })
+        ),
+    },
+
+    availability: {
+      upsert: (data: any) =>
+        withAuthRetry(() =>
+          AvailabilityService.postAvailability({
             requestBody: data,
           })
         ),
@@ -274,8 +348,150 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         ),
     },
 
+    bookings: {
+      list: (params?: {
+        status?: "PENDING" | "CONFIRMED" | "COMPLETED" | "CANCELLED"
+        serviceId?: string
+        dateFrom?: string
+        dateTo?: string
+        storeId?: string
+      }) =>
+        withAuthRetry(() =>
+          BookingsService.getBookings({
+            xStoreId: params?.storeId || storeId,
+            status: params?.status,
+            serviceId: params?.serviceId,
+            dateFrom: params?.dateFrom,
+            dateTo: params?.dateTo,
+          })
+        ),
+
+      create: (data: any, customStoreId?: string) =>
+        withAuthRetry(() =>
+          BookingsService.postBookings({
+            requestBody: data,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      get: (id: string, customStoreId?: string) =>
+        withAuthRetry(() =>
+          BookingsService.getBookings1({
+            id,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      update: (id: string, data: any, customStoreId?: string) =>
+        withAuthRetry(() =>
+          BookingsService.patchBookings({
+            id,
+            requestBody: data,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      cancel: (id: string, customStoreId?: string) =>
+        withAuthRetry(() =>
+          BookingsService.postBookingsCancel({
+            id,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+    },
+
+    calendar: {
+      getDay: (date: string) =>
+        withAuthRetry(() =>
+          CalendarService.getCalendarDay({ date })
+        ),
+    },
+
+    cart: {
+      get: (customStoreId?: string) =>
+        withAuthRetry(() =>
+          CartService.getCart({
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      add: (data: any, customStoreId?: string) =>
+        withAuthRetry(() =>
+          CartService.postCartAdd({
+            requestBody: data,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      setQty: (data: any, customStoreId?: string) =>
+        withAuthRetry(() =>
+          CartService.postCartSetQty({
+            requestBody: data,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      remove: (data: any, customStoreId?: string) =>
+        withAuthRetry(() =>
+          CartService.postCartRemove({
+            requestBody: data,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      clear: (customStoreId?: string) =>
+        withAuthRetry(() =>
+          CartService.postCartClear({
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+    },
+
+    categories: {
+      list: (params?: {
+        limit?: number
+        offset?: number
+        q?: string
+        storeId?: string
+      }) =>
+        withAuthRetry(() =>
+          CategoriesService.getCategories({
+            xStoreId: params?.storeId || storeId,
+            limit: params?.limit,
+            offset: params?.offset,
+            q: params?.q,
+          })
+        ),
+
+      create: (data: any, customStoreId?: string) =>
+        withAuthRetry(() =>
+          CategoriesService.postCategories({
+            requestBody: data,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      update: (id: string, data: any, customStoreId?: string) =>
+        withAuthRetry(() =>
+          CategoriesService.patchCategories({
+            id,
+            requestBody: data,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      delete: (id: string, customStoreId?: string) =>
+        withAuthRetry(() =>
+          CategoriesService.deleteCategories({
+            id,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+    },
+
     stores: {
-      list: () => withAuthRetry(() => StoresService.getStores()),
+      list: () =>
+        withAuthRetry(() => StoresService.getStores()),
 
       create: (data: any) =>
         withAuthRetry(() =>
@@ -317,71 +533,231 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         withAuthRetry(() =>
           StoresService.deleteStores({ id })
         ),
-    },
 
-    categories: {
-      list: () =>
-        withAuthRetry(() =>
-          CategoriesService.getCategories({
-            xStoreId: requireStoreId(),
-          })
-        ),
+      getPublic: (params?: { q?: string }) =>
+        StoresService.getStoresPublic({
+          q: params?.q,
+        }),
 
-      create: (data: any) =>
-        withAuthRetry(() =>
-          CategoriesService.postCategories({
-            requestBody: data,
-            xStoreId: requireStoreId(),
-          })
-        ),
+      getPublicBySlug: (slug: string) =>
+        StoresService.getStoresPublic1({ slug }),
     },
 
     products: {
-      list: () =>
+      list: (customStoreId?: string) =>
         withAuthRetry(() =>
           ProductsService.getProducts({
-            xStoreId: requireStoreId(),
+            xStoreId: customStoreId || storeId,
           })
         ),
 
-      get: (id: string) =>
+      get: (id: string, customStoreId?: string) =>
         withAuthRetry(() =>
           ProductsService.getProducts1({
             id,
-            xStoreId: requireStoreId(),
+            xStoreId: customStoreId || storeId,
           })
         ),
 
-      create: (data: any) =>
+      create: (data: any, customStoreId?: string) =>
         withAuthRetry(() =>
           ProductsService.postProducts({
             requestBody: data,
-            xStoreId: requireStoreId(),
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      update: (id: string, data: any, customStoreId?: string) =>
+        withAuthRetry(() =>
+          ProductsService.patchProducts({
+            id,
+            requestBody: data,
+            xStoreId: customStoreId || storeId,
           })
         ),
     },
 
     orders: {
-      list: () =>
+      list: (params?: {
+        limit?: number
+        status?: "PENDING" | "PAID" | "PROCESSING" | "FULFILLED" | "CANCELLED" | "REFUNDED"
+        paymentStatus?: "REQUIRES_ACTION" | "PENDING" | "SUCCEEDED" | "FAILED" | "CANCELLED" | "REFUNDED"
+        customerId?: string
+        storeId?: string
+      }) =>
         withAuthRetry(() =>
           OrdersService.getOrders({
-            xStoreId: requireStoreId(),
+            xStoreId: params?.storeId || requireStoreId(),
+            limit: params?.limit,
+            status: params?.status,
+            paymentStatus: params?.paymentStatus,
+            customerId: params?.customerId,
           })
         ),
 
-      get: (id: string) =>
+      create: (data: any, customStoreId?: string) =>
+        withAuthRetry(() =>
+          OrdersService.postOrders({
+            xStoreId: customStoreId || requireStoreId(),
+            requestBody: data,
+          })
+        ),
+
+      get: (id: string, customStoreId?: string) =>
         withAuthRetry(() =>
           OrdersService.getOrders1({
             id,
-            xStoreId: requireStoreId(),
+            xStoreId: customStoreId || requireStoreId(),
           })
+        ),
+
+      cancel: (id: string, customStoreId?: string) =>
+        withAuthRetry(() =>
+          OrdersService.postOrdersCancel({
+            id,
+            xStoreId: customStoreId || requireStoreId(),
+          })
+        ),
+
+      pay: (id: string, customStoreId?: string) =>
+        withAuthRetry(() =>
+          OrdersService.postOrdersPay({
+            id,
+            xStoreId: customStoreId || requireStoreId(),
+          })
+        ),
+    },
+
+    payments: {
+      checkout: (data: any, customStoreId?: string) =>
+        withAuthRetry(() =>
+          PaymentsService.postPaymentsCheckout({
+            requestBody: data,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      refund: (paymentId: string, data?: any, customStoreId?: string) =>
+        withAuthRetry(() =>
+          PaymentsService.postPaymentsRefund({
+            paymentId,
+            requestBody: data,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+    },
+
+    productImages: {
+      list: (productId: string, customStoreId?: string) =>
+        withAuthRetry(() =>
+          ProductImagesService.getProductsImages({
+            productId,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      create: (productId: string, data: any, customStoreId?: string) =>
+        withAuthRetry(() =>
+          ProductImagesService.postProductsImages({
+            productId,
+            requestBody: data,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      presign: (productId: string, data: any, customStoreId?: string) =>
+        withAuthRetry(() =>
+          ProductImagesService.postProductsImagesPresign({
+            productId,
+            requestBody: data,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      update: (
+        productId: string,
+        imageId: string,
+        data: any,
+        customStoreId?: string
+      ) =>
+        withAuthRetry(() =>
+          ProductImagesService.patchProductsImages({
+            productId,
+            imageId,
+            requestBody: data,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+
+      delete: (productId: string, imageId: string, customStoreId?: string) =>
+        withAuthRetry(() =>
+          ProductImagesService.deleteProductsImages({
+            productId,
+            imageId,
+            xStoreId: customStoreId || storeId,
+          })
+        ),
+    },
+
+    reviews: {
+      list: (
+        productId: string,
+        params?: { limit?: number; offset?: number; storeId?: string }
+      ) =>
+        withAuthRetry(() =>
+          ReviewsService.getProductsReviews({
+            id: productId,
+            xStoreId: params?.storeId || requireStoreId(),
+            limit: params?.limit,
+            offset: params?.offset,
+          })
+        ),
+
+      create: (
+        productId: string,
+        data: any,
+        customStoreId?: string
+      ) =>
+        withAuthRetry(() =>
+          ReviewsService.postProductsReviews({
+            id: productId,
+            xStoreId: customStoreId || requireStoreId(),
+            requestBody: data,
+          })
+        ),
+
+      flag: (
+        productId: string,
+        reviewId: string,
+        customStoreId?: string
+      ) =>
+        withAuthRetry(() =>
+          ReviewsService.postProductsReviewsFlag({
+            id: productId,
+            rid: reviewId,
+            xStoreId: customStoreId || requireStoreId(),
+          })
+        ),
+    },
+
+    services: {
+      list: () =>
+        withAuthRetry(() =>
+          ServicesService.getServices()
         ),
 
       create: (data: any) =>
         withAuthRetry(() =>
-          OrdersService.postOrders({
+          ServicesService.postServices({
             requestBody: data,
-            xStoreId: requireStoreId(),
+          })
+        ),
+
+      getAvailability: (id: string, date: string) =>
+        withAuthRetry(() =>
+          ServicesService.getServicesAvailability({
+            id,
+            date,
           })
         ),
     },
