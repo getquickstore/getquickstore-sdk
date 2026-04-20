@@ -1,7 +1,5 @@
 // src\client.ts
 
-// src/client.ts
-
 import { OpenAPI } from "./generated/core/OpenAPI"
 import { AuthService } from "./generated/services/AuthService"
 import { BillingService } from "./generated/services/BillingService"
@@ -17,8 +15,52 @@ type ClientConfig = {
   storeId?: string
 }
 
+let refreshPromise: Promise<void> | null = null
+
+function isAuthError(error: any) {
+  return error?.status === 401 || error?.status === 403
+}
+
+function shouldSkipRefresh(error: any) {
+  const url = String(error?.request?.url || error?.url || "").toLowerCase()
+
+  return (
+    url.includes("/auth/login") ||
+    url.includes("/auth/logout") ||
+    url.includes("/auth/refresh")
+  )
+}
+
+async function refreshSession() {
+  if (!refreshPromise) {
+    refreshPromise = AuthService.postAuthRefresh({})
+      .then(() => undefined)
+      .finally(() => {
+        refreshPromise = null
+      })
+  }
+
+  return refreshPromise
+}
+
+async function withAuthRetry<T>(fn: () => Promise<T>): Promise<T> {
+  try {
+    return await fn()
+  } catch (error: any) {
+    if (!isAuthError(error) || shouldSkipRefresh(error)) {
+      throw error
+    }
+
+    await refreshSession()
+    return await fn()
+  }
+}
+
 export function createClient({ baseUrl, token, storeId }: ClientConfig) {
   OpenAPI.BASE = baseUrl
+  OpenAPI.WITH_CREDENTIALS = true
+  OpenAPI.CREDENTIALS = "include"
+
   OpenAPI.HEADERS = async () => ({
     Authorization: token ? `Bearer ${token}` : undefined,
   })
@@ -29,97 +71,152 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         AuthService.postAuthLogin({
           requestBody: { email, password },
         }),
+
       register: (name: string, email: string, password: string) =>
         AuthService.postAuthRegister({
           requestBody: { name, email, password } as any,
         }),
-      me: () => AuthService.getAuthMe(),
+
+      me: () =>
+        withAuthRetry(() => AuthService.getAuthMe()),
+
+      refresh: () => AuthService.postAuthRefresh({}),
+
+      logout: () =>
+        AuthService.postAuthLogout({}),
     },
 
     billing: {
       current: () =>
-        BillingService.getBillingCurrent({
-          storeId: storeId || undefined,
-        }),
+        withAuthRetry(() =>
+          BillingService.getBillingCurrent({
+            storeId: storeId || undefined,
+          })
+        ),
+
       checkout: (data?: { successUrl?: string | null; cancelUrl?: string | null }) =>
-        BillingService.postBillingCheckout({
-          requestBody: {
-            storeId: storeId!,
-            successUrl: data?.successUrl ?? null,
-            cancelUrl: data?.cancelUrl ?? null,
-          },
-        }),
+        withAuthRetry(() =>
+          BillingService.postBillingCheckout({
+            requestBody: {
+              storeId: storeId!,
+              successUrl: data?.successUrl ?? null,
+              cancelUrl: data?.cancelUrl ?? null,
+            },
+          })
+        ),
+
       portal: (data?: { returnUrl?: string | null }) =>
-        BillingService.postBillingPortal({
-          requestBody: {
-            storeId: storeId!,
-            returnUrl: data?.returnUrl ?? null,
-          },
-        }),
+        withAuthRetry(() =>
+          BillingService.postBillingPortal({
+            requestBody: {
+              storeId: storeId!,
+              returnUrl: data?.returnUrl ?? null,
+            },
+          })
+        ),
+
       cancel: () =>
-        BillingService.postBillingCancel({
-          requestBody: {
-            storeId: storeId!,
-          },
-        }),
+        withAuthRetry(() =>
+          BillingService.postBillingCancel({
+            requestBody: {
+              storeId: storeId!,
+            },
+          })
+        ),
     },
 
     stripeConnect: {
       status: () =>
-        BillingConnectService.getBillingStoresStripeConnectStatus({
-          id: storeId!,
-        }),
+        withAuthRetry(() =>
+          BillingConnectService.getBillingStoresStripeConnectStatus({
+            id: storeId!,
+          })
+        ),
+
       start: (data: { returnUrl: string; refreshUrl: string }) =>
-        BillingService.postBillingStoresStripeConnectStart({
-          id: storeId!,
-          requestBody: {
-            returnUrl: data.returnUrl,
-            refreshUrl: data.refreshUrl,
-          },
-        }),
+        withAuthRetry(() =>
+          BillingService.postBillingStoresStripeConnectStart({
+            id: storeId!,
+            requestBody: {
+              returnUrl: data.returnUrl,
+              refreshUrl: data.refreshUrl,
+            },
+          })
+        ),
+
       sync: () =>
-        BillingConnectService.postBillingStoresStripeConnectSync({
-          id: storeId!,
-        }),
+        withAuthRetry(() =>
+          BillingConnectService.postBillingStoresStripeConnectSync({
+            id: storeId!,
+          })
+        ),
     },
 
     stores: {
       create: (data: any) =>
-        StoresService.postStores({
-          requestBody: data,
-        }),
-      me: () => StoresService.getStoresMe(),
+        withAuthRetry(() =>
+          StoresService.postStores({
+            requestBody: data,
+          })
+        ),
+
+      me: () =>
+        withAuthRetry(() => StoresService.getStoresMe()),
     },
 
     categories: {
-      list: () => CategoriesService.getCategories({ xStoreId: storeId! }),
+      list: () =>
+        withAuthRetry(() =>
+          CategoriesService.getCategories({ xStoreId: storeId! })
+        ),
+
       create: (data: any) =>
-        CategoriesService.postCategories({
-          requestBody: data,
-          xStoreId: storeId!,
-        }),
+        withAuthRetry(() =>
+          CategoriesService.postCategories({
+            requestBody: data,
+            xStoreId: storeId!,
+          })
+        ),
     },
 
     products: {
-      list: () => ProductsService.getProducts({ xStoreId: storeId! }),
+      list: () =>
+        withAuthRetry(() =>
+          ProductsService.getProducts({ xStoreId: storeId! })
+        ),
+
       get: (id: string) =>
-        ProductsService.getProducts1({ id, xStoreId: storeId! }),
+        withAuthRetry(() =>
+          ProductsService.getProducts1({ id, xStoreId: storeId! })
+        ),
+
       create: (data: any) =>
-        ProductsService.postProducts({
-          requestBody: data,
-          xStoreId: storeId!,
-        }),
+        withAuthRetry(() =>
+          ProductsService.postProducts({
+            requestBody: data,
+            xStoreId: storeId!,
+          })
+        ),
     },
 
     orders: {
-      list: () => OrdersService.getOrders({ xStoreId: storeId! }),
+      list: () =>
+        withAuthRetry(() =>
+          OrdersService.getOrders({ xStoreId: storeId! })
+        ),
+
       get: (id: string) =>
-        OrdersService.getOrders1({ id, xStoreId: storeId! }),
+        withAuthRetry(() =>
+          OrdersService.getOrders1({ id, xStoreId: storeId! })
+        ),
+
       create: (data: any) =>
-        OrdersService.postOrders({
-          requestBody: data,
-          xStoreId: storeId!,
-        }),
+        withAuthRetry(() =>
+          OrdersService.postOrders({
+            requestBody: data,
+            xStoreId: storeId!,
+          })
+        ),
     },
   }
 }
