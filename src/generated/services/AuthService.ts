@@ -5,7 +5,6 @@
 import type { AuthLoginRequest } from '../models/AuthLoginRequest';
 import type { AuthLogoutRequest } from '../models/AuthLogoutRequest';
 import type { AuthMeResponse } from '../models/AuthMeResponse';
-import type { AuthRefreshRequest } from '../models/AuthRefreshRequest';
 import type { AuthRegisterRequest } from '../models/AuthRegisterRequest';
 import type { AuthSuccessResponse } from '../models/AuthSuccessResponse';
 import type { AuthTokenPairOnlyResponse } from '../models/AuthTokenPairOnlyResponse';
@@ -64,22 +63,17 @@ export class AuthService {
         });
     }
     /**
-     * Rotate refresh token and issue new token pair
+     * Rotate refresh cookie and issue new token pair
+     * Uses the HttpOnly refresh cookie to rotate the session and issue a new token pair. No request body is required.
      * @returns AuthSuccessResponse Tokens refreshed successfully
      * @throws ApiError
      */
-    public static postAuthRefresh({
-        requestBody,
-    }: {
-        requestBody: AuthRefreshRequest,
-    }): CancelablePromise<AuthSuccessResponse> {
+    public static postAuthRefresh(): CancelablePromise<AuthSuccessResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/refresh',
-            body: requestBody,
-            mediaType: 'application/json',
             errors: {
-                400: `Missing refresh token`,
+                400: `Missing refresh cookie`,
                 401: `Invalid refresh token`,
                 500: `Refresh failed`,
             },

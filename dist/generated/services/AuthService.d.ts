@@ -1,7 +1,6 @@
 import type { AuthLoginRequest } from '../models/AuthLoginRequest';
 import type { AuthLogoutRequest } from '../models/AuthLogoutRequest';
 import type { AuthMeResponse } from '../models/AuthMeResponse';
-import type { AuthRefreshRequest } from '../models/AuthRefreshRequest';
 import type { AuthRegisterRequest } from '../models/AuthRegisterRequest';
 import type { AuthSuccessResponse } from '../models/AuthSuccessResponse';
 import type { AuthTokenPairOnlyResponse } from '../models/AuthTokenPairOnlyResponse';
@@ -29,13 +28,12 @@ export declare class AuthService {
         requestBody: AuthLoginRequest;
     }): CancelablePromise<AuthSuccessResponse>;
     /**
-     * Rotate refresh token and issue new token pair
+     * Rotate refresh cookie and issue new token pair
+     * Uses the HttpOnly refresh cookie to rotate the session and issue a new token pair. No request body is required.
      * @returns AuthSuccessResponse Tokens refreshed successfully
      * @throws ApiError
      */
-    static postAuthRefresh({ requestBody, }: {
-        requestBody: AuthRefreshRequest;
-    }): CancelablePromise<AuthSuccessResponse>;
+    static postAuthRefresh(): CancelablePromise<AuthSuccessResponse>;
     /**
      * Logout current session
      * @returns void

@@ -12,7 +12,6 @@ export type { AuthError } from './models/AuthError';
 export type { AuthLoginRequest } from './models/AuthLoginRequest';
 export type { AuthLogoutRequest } from './models/AuthLogoutRequest';
 export type { AuthMeResponse } from './models/AuthMeResponse';
-export type { AuthRefreshRequest } from './models/AuthRefreshRequest';
 export type { AuthRegisterRequest } from './models/AuthRegisterRequest';
 export type { AuthSession } from './models/AuthSession';
 export type { AuthSessionListResponse } from './models/AuthSessionListResponse';

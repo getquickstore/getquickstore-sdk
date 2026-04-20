@@ -7,44 +7,46 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     auth: {
         login: (email: string, password: string) => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
         register: (name: string, email: string, password: string) => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
-        me: () => import("./generated").CancelablePromise<import("./generated").AuthMeResponse>;
+        me: () => Promise<import("./generated").AuthMeResponse>;
+        refresh: () => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
+        logout: () => import("./generated").CancelablePromise<void>;
     };
     billing: {
-        current: () => import("./generated").CancelablePromise<import("./generated").BillingCurrentResponse>;
+        current: () => Promise<import("./generated").BillingCurrentResponse>;
         checkout: (data?: {
             successUrl?: string | null;
             cancelUrl?: string | null;
-        }) => import("./generated").CancelablePromise<import("./generated").BillingCheckoutResponse>;
+        }) => Promise<import("./generated").BillingCheckoutResponse>;
         portal: (data?: {
             returnUrl?: string | null;
-        }) => import("./generated").CancelablePromise<import("./generated").BillingPortalResponse>;
-        cancel: () => import("./generated").CancelablePromise<import("./generated").BillingCancelResponse>;
+        }) => Promise<import("./generated").BillingPortalResponse>;
+        cancel: () => Promise<import("./generated").BillingCancelResponse>;
     };
     stripeConnect: {
-        status: () => import("./generated").CancelablePromise<import("./generated").StripeConnectStatusResponse>;
+        status: () => Promise<import("./generated").StripeConnectStatusResponse>;
         start: (data: {
             returnUrl: string;
             refreshUrl: string;
-        }) => import("./generated").CancelablePromise<import("./generated").BillingStripeConnectStartResponse>;
-        sync: () => import("./generated").CancelablePromise<import("./generated").StripeConnectStatusResponse>;
+        }) => Promise<import("./generated").BillingStripeConnectStartResponse>;
+        sync: () => Promise<import("./generated").StripeConnectStatusResponse>;
     };
     stores: {
-        create: (data: any) => import("./generated").CancelablePromise<import("./generated").CreateStoreResponse>;
-        me: () => import("./generated").CancelablePromise<import("./generated").StoresMeResponse>;
+        create: (data: any) => Promise<import("./generated").CreateStoreResponse>;
+        me: () => Promise<import("./generated").StoresMeResponse>;
     };
     categories: {
-        list: () => import("./generated").CancelablePromise<import("./generated").CategoryListResponse>;
-        create: (data: any) => import("./generated").CancelablePromise<import("./generated").Category>;
+        list: () => Promise<import("./generated").CategoryListResponse>;
+        create: (data: any) => Promise<import("./generated").Category>;
     };
     products: {
-        list: () => import("./generated").CancelablePromise<import("./generated").ProductListResponse>;
-        get: (id: string) => import("./generated").CancelablePromise<import("./generated").ProductDetail>;
-        create: (data: any) => import("./generated").CancelablePromise<import("./generated").ProductDetail>;
+        list: () => Promise<import("./generated").ProductListResponse>;
+        get: (id: string) => Promise<import("./generated").ProductDetail>;
+        create: (data: any) => Promise<import("./generated").ProductDetail>;
     };
     orders: {
-        list: () => import("./generated").CancelablePromise<import("./generated").OrderListResponse>;
-        get: (id: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
-        create: (data: any) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
+        list: () => Promise<import("./generated").OrderListResponse>;
+        get: (id: string) => Promise<import("./generated").OrderSingleResponse>;
+        create: (data: any) => Promise<import("./generated").OrderSingleResponse>;
     };
 };
 export {};
