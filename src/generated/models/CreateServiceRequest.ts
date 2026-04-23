@@ -3,11 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 export type CreateServiceRequest = {
-    storeId: string;
     name: string;
-    slug?: string;
+    description?: string | null;
     durationMin: number;
-    priceCents: number;
+    price: number;
+    currency?: string | null;
     isActive?: boolean;
 };
 

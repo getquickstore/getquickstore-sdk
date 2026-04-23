@@ -780,26 +780,31 @@ orders: {
         ),
     },
 
-    services: {
-      list: () =>
-        withAuthRetry(() =>
-          ServicesService.getServices()
-        ),
+services: {
+  list: (customStoreId?: string, includeInactive?: boolean) =>
+    withAuthRetry(() =>
+      ServicesService.getServices({
+        xStoreId: customStoreId || requireStoreId(),
+        includeInactive,
+      })
+    ),
 
-      create: (data: any) =>
-        withAuthRetry(() =>
-          ServicesService.postServices({
-            requestBody: data,
-          })
-        ),
+  create: (data: any, customStoreId?: string) =>
+    withAuthRetry(() =>
+      ServicesService.postServices({
+        xStoreId: customStoreId || requireStoreId(),
+        requestBody: data,
+      })
+    ),
 
-      getAvailability: (id: string, date: string) =>
-        withAuthRetry(() =>
-          ServicesService.getServicesAvailability({
-            id,
-            date,
-          })
-        ),
-    },
+  getAvailability: (id: string, date: string, customStoreId?: string) =>
+    withAuthRetry(() =>
+      ServicesService.getServicesAvailability({
+        xStoreId: customStoreId || requireStoreId(),
+        id,
+        date,
+      })
+    ),
+},
   }
 }

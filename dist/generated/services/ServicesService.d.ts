@@ -9,13 +9,26 @@ export declare class ServicesService {
      * @returns ServiceListResponse Service list
      * @throws ApiError
      */
-    static getServices(): CancelablePromise<ServiceListResponse>;
+    static getServices({ xStoreId, includeInactive, }: {
+        /**
+         * Store context id
+         */
+        xStoreId: string;
+        /**
+         * Include inactive services
+         */
+        includeInactive?: boolean;
+    }): CancelablePromise<ServiceListResponse>;
     /**
      * Create service
      * @returns Service Service created
      * @throws ApiError
      */
-    static postServices({ requestBody, }: {
+    static postServices({ xStoreId, requestBody, }: {
+        /**
+         * Store context id
+         */
+        xStoreId: string;
         requestBody: CreateServiceRequest;
     }): CancelablePromise<Service>;
     /**
@@ -23,8 +36,18 @@ export declare class ServicesService {
      * @returns ServiceAvailabilityResponse Available slots for date
      * @throws ApiError
      */
-    static getServicesAvailability({ id, date, }: {
+    static getServicesAvailability({ xStoreId, id, date, }: {
+        /**
+         * Store context id
+         */
+        xStoreId: string;
+        /**
+         * Service id
+         */
         id: string;
+        /**
+         * Date in YYYY-MM-DD format
+         */
         date: string;
     }): CancelablePromise<ServiceAvailabilityResponse>;
 }

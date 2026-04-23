@@ -9,10 +9,21 @@ class ServicesService {
      * @returns ServiceListResponse Service list
      * @throws ApiError
      */
-    static getServices() {
+    static getServices({ xStoreId, includeInactive, }) {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'GET',
             url: '/services',
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            query: {
+                'includeInactive': includeInactive,
+            },
+            errors: {
+                400: `Store id is required`,
+                403: `Access denied`,
+                500: `Service list failed`,
+            },
         });
     }
     /**
@@ -20,12 +31,20 @@ class ServicesService {
      * @returns Service Service created
      * @throws ApiError
      */
-    static postServices({ requestBody, }) {
+    static postServices({ xStoreId, requestBody, }) {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'POST',
             url: '/services',
+            headers: {
+                'x-store-id': xStoreId,
+            },
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                400: `Validation failed`,
+                403: `Access denied`,
+                500: `Service create failed`,
+            },
         });
     }
     /**
@@ -33,15 +52,24 @@ class ServicesService {
      * @returns ServiceAvailabilityResponse Available slots for date
      * @throws ApiError
      */
-    static getServicesAvailability({ id, date, }) {
+    static getServicesAvailability({ xStoreId, id, date, }) {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'GET',
             url: '/services/{id}/availability',
             path: {
                 'id': id,
             },
+            headers: {
+                'x-store-id': xStoreId,
+            },
             query: {
                 'date': date,
+            },
+            errors: {
+                400: `Validation failed`,
+                403: `Access denied`,
+                404: `Service not found`,
+                500: `Service availability failed`,
             },
         });
     }

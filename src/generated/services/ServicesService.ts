@@ -15,10 +15,33 @@ export class ServicesService {
      * @returns ServiceListResponse Service list
      * @throws ApiError
      */
-    public static getServices(): CancelablePromise<ServiceListResponse> {
+    public static getServices({
+        xStoreId,
+        includeInactive,
+    }: {
+        /**
+         * Store context id
+         */
+        xStoreId: string,
+        /**
+         * Include inactive services
+         */
+        includeInactive?: boolean,
+    }): CancelablePromise<ServiceListResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/services',
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            query: {
+                'includeInactive': includeInactive,
+            },
+            errors: {
+                400: `Store id is required`,
+                403: `Access denied`,
+                500: `Service list failed`,
+            },
         });
     }
     /**
@@ -27,15 +50,28 @@ export class ServicesService {
      * @throws ApiError
      */
     public static postServices({
+        xStoreId,
         requestBody,
     }: {
+        /**
+         * Store context id
+         */
+        xStoreId: string,
         requestBody: CreateServiceRequest,
     }): CancelablePromise<Service> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/services',
+            headers: {
+                'x-store-id': xStoreId,
+            },
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                400: `Validation failed`,
+                403: `Access denied`,
+                500: `Service create failed`,
+            },
         });
     }
     /**
@@ -44,10 +80,21 @@ export class ServicesService {
      * @throws ApiError
      */
     public static getServicesAvailability({
+        xStoreId,
         id,
         date,
     }: {
+        /**
+         * Store context id
+         */
+        xStoreId: string,
+        /**
+         * Service id
+         */
         id: string,
+        /**
+         * Date in YYYY-MM-DD format
+         */
         date: string,
     }): CancelablePromise<ServiceAvailabilityResponse> {
         return __request(OpenAPI, {
@@ -56,8 +103,17 @@ export class ServicesService {
             path: {
                 'id': id,
             },
+            headers: {
+                'x-store-id': xStoreId,
+            },
             query: {
                 'date': date,
+            },
+            errors: {
+                400: `Validation failed`,
+                403: `Access denied`,
+                404: `Service not found`,
+                500: `Service availability failed`,
             },
         });
     }

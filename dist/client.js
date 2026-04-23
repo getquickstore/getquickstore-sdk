@@ -320,6 +320,7 @@ function createClient({ baseUrl, token, storeId }) {
                 status: params?.status,
                 paymentStatus: params?.paymentStatus,
                 customerId: params?.customerId,
+                fulfillmentType: params?.fulfillmentType,
             })),
             create: (data, customStoreId) => withAuthRetry(() => OrdersService_1.OrdersService.postOrders({
                 xStoreId: customStoreId || requireStoreId(),
@@ -328,6 +329,11 @@ function createClient({ baseUrl, token, storeId }) {
             get: (id, customStoreId) => withAuthRetry(() => OrdersService_1.OrdersService.getOrders1({
                 id,
                 xStoreId: customStoreId || requireStoreId(),
+            })),
+            updateStatus: (id, data, customStoreId) => withAuthRetry(() => OrdersService_1.OrdersService.patchOrdersStatus({
+                id,
+                xStoreId: customStoreId || requireStoreId(),
+                requestBody: data,
             })),
             cancel: (id, customStoreId) => withAuthRetry(() => OrdersService_1.OrdersService.postOrdersCancel({
                 id,
@@ -395,11 +401,16 @@ function createClient({ baseUrl, token, storeId }) {
             })),
         },
         services: {
-            list: () => withAuthRetry(() => ServicesService_1.ServicesService.getServices()),
-            create: (data) => withAuthRetry(() => ServicesService_1.ServicesService.postServices({
+            list: (customStoreId, includeInactive) => withAuthRetry(() => ServicesService_1.ServicesService.getServices({
+                xStoreId: customStoreId || requireStoreId(),
+                includeInactive,
+            })),
+            create: (data, customStoreId) => withAuthRetry(() => ServicesService_1.ServicesService.postServices({
+                xStoreId: customStoreId || requireStoreId(),
                 requestBody: data,
             })),
-            getAvailability: (id, date) => withAuthRetry(() => ServicesService_1.ServicesService.getServicesAvailability({
+            getAvailability: (id, date, customStoreId) => withAuthRetry(() => ServicesService_1.ServicesService.getServicesAvailability({
+                xStoreId: customStoreId || requireStoreId(),
                 id,
                 date,
             })),

@@ -3,8 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 export type AvailabilitySlot = {
-    start?: string;
-    end?: string;
-    available?: boolean;
+    start: string;
+    end: string;
+    startAt: string;
+    endAt: string;
+    available: boolean;
+    bookingId?: string | null;
 };
 

@@ -1,3 +1,5 @@
+import type { CreateOrderRequest } from "./generated/models/CreateOrderRequest";
+import type { UpdateOrderStatusRequest } from "./generated/models/UpdateOrderStatusRequest";
 type ClientConfig = {
     baseUrl: string;
     token?: string;
@@ -236,13 +238,15 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     orders: {
         list: (params?: {
             limit?: number;
-            status?: "PENDING" | "PAID" | "PROCESSING" | "FULFILLED" | "CANCELLED" | "REFUNDED";
+            status?: "PENDING" | "PAID" | "PROCESSING" | "READY_FOR_PICKUP" | "FULFILLED" | "CANCELLED" | "REFUNDED";
             paymentStatus?: "REQUIRES_ACTION" | "PENDING" | "SUCCEEDED" | "FAILED" | "CANCELLED" | "REFUNDED";
+            fulfillmentType?: "STANDARD" | "PICKUP";
             customerId?: string;
             storeId?: string;
         }) => Promise<import("./generated").OrderListResponse>;
-        create: (data: any, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
+        create: (data: CreateOrderRequest, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
         get: (id: string, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
+        updateStatus: (id: string, data: UpdateOrderStatusRequest, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
         cancel: (id: string, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
         pay: (id: string, customStoreId?: string) => Promise<import("./generated").PayOrderResponse>;
     };
@@ -283,9 +287,9 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         flag: (productId: string, reviewId: string, customStoreId?: string) => Promise<import("./generated").FlagReviewResponse>;
     };
     services: {
-        list: () => Promise<import("./generated").ServiceListResponse>;
-        create: (data: any) => Promise<import("./generated").Service>;
-        getAvailability: (id: string, date: string) => Promise<import("./generated").ServiceAvailabilityResponse>;
+        list: (customStoreId?: string, includeInactive?: boolean) => Promise<import("./generated").ServiceListResponse>;
+        create: (data: any, customStoreId?: string) => Promise<import("./generated").Service>;
+        getAvailability: (id: string, date: string, customStoreId?: string) => Promise<import("./generated").ServiceAvailabilityResponse>;
     };
 };
 export {};
