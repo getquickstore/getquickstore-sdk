@@ -8,8 +8,13 @@ export type Order = {
     customerId?: string | null;
     userId?: string | null;
     number: string;
-    status: 'PENDING' | 'PAID' | 'PROCESSING' | 'FULFILLED' | 'CANCELLED' | 'REFUNDED';
+    status: 'PENDING' | 'PAID' | 'PROCESSING' | 'READY_FOR_PICKUP' | 'FULFILLED' | 'CANCELLED' | 'REFUNDED';
     paymentStatus: 'REQUIRES_ACTION' | 'PENDING' | 'SUCCEEDED' | 'FAILED' | 'CANCELLED' | 'REFUNDED';
+    fulfillmentType: 'STANDARD' | 'PICKUP';
+    fulfillmentMeta?: any;
+    pickupAt?: string | null;
+    pickupReadyAt?: string | null;
+    completedAt?: string | null;
     currency: string;
     subtotalCents: number;
     discountCents: number;

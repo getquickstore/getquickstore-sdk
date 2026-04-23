@@ -2,6 +2,7 @@ import type { CreateOrderRequest } from '../models/CreateOrderRequest';
 import type { OrderListResponse } from '../models/OrderListResponse';
 import type { OrderSingleResponse } from '../models/OrderSingleResponse';
 import type { PayOrderResponse } from '../models/PayOrderResponse';
+import type { UpdateOrderStatusRequest } from '../models/UpdateOrderStatusRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class OrdersService {
     /**
@@ -9,7 +10,7 @@ export declare class OrdersService {
      * @returns OrderListResponse Order list
      * @throws ApiError
      */
-    static getOrders({ xStoreId, limit, status, paymentStatus, customerId, }: {
+    static getOrders({ xStoreId, limit, status, paymentStatus, customerId, fulfillmentType, }: {
         /**
          * Store context id
          */
@@ -21,7 +22,7 @@ export declare class OrdersService {
         /**
          * Filter by order status
          */
-        status?: 'PENDING' | 'PAID' | 'PROCESSING' | 'FULFILLED' | 'CANCELLED' | 'REFUNDED';
+        status?: 'PENDING' | 'PAID' | 'PROCESSING' | 'READY_FOR_PICKUP' | 'FULFILLED' | 'CANCELLED' | 'REFUNDED';
         /**
          * Filter by payment status
          */
@@ -30,9 +31,13 @@ export declare class OrdersService {
          * Filter by customer id
          */
         customerId?: string;
+        /**
+         * Filter by fulfillment type
+         */
+        fulfillmentType?: 'STANDARD' | 'PICKUP';
     }): CancelablePromise<OrderListResponse>;
     /**
-     * Create order
+     * Create order (supports pickup)
      * @returns OrderSingleResponse Order created
      * @throws ApiError
      */
@@ -54,6 +59,19 @@ export declare class OrdersService {
          * Store context id
          */
         xStoreId: string;
+    }): CancelablePromise<OrderSingleResponse>;
+    /**
+     * Update order status
+     * @returns OrderSingleResponse Order status updated
+     * @throws ApiError
+     */
+    static patchOrdersStatus({ id, xStoreId, requestBody, }: {
+        id: string;
+        /**
+         * Store context id
+         */
+        xStoreId: string;
+        requestBody: UpdateOrderStatusRequest;
     }): CancelablePromise<OrderSingleResponse>;
     /**
      * Cancel order

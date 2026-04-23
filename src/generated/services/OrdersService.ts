@@ -6,6 +6,7 @@ import type { CreateOrderRequest } from '../models/CreateOrderRequest';
 import type { OrderListResponse } from '../models/OrderListResponse';
 import type { OrderSingleResponse } from '../models/OrderSingleResponse';
 import type { PayOrderResponse } from '../models/PayOrderResponse';
+import type { UpdateOrderStatusRequest } from '../models/UpdateOrderStatusRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -21,6 +22,7 @@ export class OrdersService {
         status,
         paymentStatus,
         customerId,
+        fulfillmentType,
     }: {
         /**
          * Store context id
@@ -33,7 +35,7 @@ export class OrdersService {
         /**
          * Filter by order status
          */
-        status?: 'PENDING' | 'PAID' | 'PROCESSING' | 'FULFILLED' | 'CANCELLED' | 'REFUNDED',
+        status?: 'PENDING' | 'PAID' | 'PROCESSING' | 'READY_FOR_PICKUP' | 'FULFILLED' | 'CANCELLED' | 'REFUNDED',
         /**
          * Filter by payment status
          */
@@ -42,6 +44,10 @@ export class OrdersService {
          * Filter by customer id
          */
         customerId?: string,
+        /**
+         * Filter by fulfillment type
+         */
+        fulfillmentType?: 'STANDARD' | 'PICKUP',
     }): CancelablePromise<OrderListResponse> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -54,6 +60,7 @@ export class OrdersService {
                 'status': status,
                 'paymentStatus': paymentStatus,
                 'customerId': customerId,
+                'fulfillmentType': fulfillmentType,
             },
             errors: {
                 403: `Access denied`,
@@ -62,7 +69,7 @@ export class OrdersService {
         });
     }
     /**
-     * Create order
+     * Create order (supports pickup)
      * @returns OrderSingleResponse Order created
      * @throws ApiError
      */
@@ -121,6 +128,42 @@ export class OrdersService {
                 403: `Access denied`,
                 404: `Order not found`,
                 500: `Order get failed`,
+            },
+        });
+    }
+    /**
+     * Update order status
+     * @returns OrderSingleResponse Order status updated
+     * @throws ApiError
+     */
+    public static patchOrdersStatus({
+        id,
+        xStoreId,
+        requestBody,
+    }: {
+        id: string,
+        /**
+         * Store context id
+         */
+        xStoreId: string,
+        requestBody: UpdateOrderStatusRequest,
+    }): CancelablePromise<OrderSingleResponse> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/orders/{id}/status',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation failed`,
+                403: `Access denied`,
+                404: `Order not found`,
+                500: `Order status update failed`,
             },
         });
     }

@@ -118,6 +118,7 @@ export type { StripeConnectStartResponse } from './models/StripeConnectStartResp
 export type { StripeConnectStatusResponse } from './models/StripeConnectStatusResponse';
 export type { UpdateBookingRequest } from './models/UpdateBookingRequest';
 export type { UpdateCategoryRequest } from './models/UpdateCategoryRequest';
+export type { UpdateOrderStatusRequest } from './models/UpdateOrderStatusRequest';
 export type { UpdateProductRequest } from './models/UpdateProductRequest';
 export type { UpdateStoreRequest } from './models/UpdateStoreRequest';
 export type { UpdateStoreResponse } from './models/UpdateStoreResponse';

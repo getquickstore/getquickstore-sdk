@@ -14,6 +14,8 @@ import { ProductsService } from "./generated/services/ProductsService"
 import { ReviewsService } from "./generated/services/ReviewsService"
 import { StoresService } from "./generated/services/StoresService"
 import { ServicesService } from "./generated/services/ServicesService"
+import type { CreateOrderRequest } from "./generated/models/CreateOrderRequest"
+import type { UpdateOrderStatusRequest } from "./generated/models/UpdateOrderStatusRequest"
 
 type ClientConfig = {
   baseUrl: string
@@ -586,56 +588,85 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         ),
     },
 
-    orders: {
-      list: (params?: {
-        limit?: number
-        status?: "PENDING" | "PAID" | "PROCESSING" | "FULFILLED" | "CANCELLED" | "REFUNDED"
-        paymentStatus?: "REQUIRES_ACTION" | "PENDING" | "SUCCEEDED" | "FAILED" | "CANCELLED" | "REFUNDED"
-        customerId?: string
-        storeId?: string
-      }) =>
-        withAuthRetry(() =>
-          OrdersService.getOrders({
-            xStoreId: params?.storeId || requireStoreId(),
-            limit: params?.limit,
-            status: params?.status,
-            paymentStatus: params?.paymentStatus,
-            customerId: params?.customerId,
-          })
-        ),
 
-      create: (data: any, customStoreId?: string) =>
-        withAuthRetry(() =>
-          OrdersService.postOrders({
-            xStoreId: customStoreId || requireStoreId(),
-            requestBody: data,
-          })
-        ),
+orders: {
+  list: (params?: {
+    limit?: number
+    status?:
+      | "PENDING"
+      | "PAID"
+      | "PROCESSING"
+      | "READY_FOR_PICKUP"
+      | "FULFILLED"
+      | "CANCELLED"
+      | "REFUNDED"
+    paymentStatus?:
+      | "REQUIRES_ACTION"
+      | "PENDING"
+      | "SUCCEEDED"
+      | "FAILED"
+      | "CANCELLED"
+      | "REFUNDED"
+    fulfillmentType?: "STANDARD" | "PICKUP"
+    customerId?: string
+    storeId?: string
+  }) =>
+    withAuthRetry(() =>
+      OrdersService.getOrders({
+        xStoreId: params?.storeId || requireStoreId(),
+        limit: params?.limit,
+        status: params?.status,
+        paymentStatus: params?.paymentStatus,
+        customerId: params?.customerId,
+        fulfillmentType: params?.fulfillmentType,
+      })
+    ),
 
-      get: (id: string, customStoreId?: string) =>
-        withAuthRetry(() =>
-          OrdersService.getOrders1({
-            id,
-            xStoreId: customStoreId || requireStoreId(),
-          })
-        ),
+  create: (data: CreateOrderRequest, customStoreId?: string) =>
+    withAuthRetry(() =>
+      OrdersService.postOrders({
+        xStoreId: customStoreId || requireStoreId(),
+        requestBody: data,
+      })
+    ),
 
-      cancel: (id: string, customStoreId?: string) =>
-        withAuthRetry(() =>
-          OrdersService.postOrdersCancel({
-            id,
-            xStoreId: customStoreId || requireStoreId(),
-          })
-        ),
+  get: (id: string, customStoreId?: string) =>
+    withAuthRetry(() =>
+      OrdersService.getOrders1({
+        id,
+        xStoreId: customStoreId || requireStoreId(),
+      })
+    ),
 
-      pay: (id: string, customStoreId?: string) =>
-        withAuthRetry(() =>
-          OrdersService.postOrdersPay({
-            id,
-            xStoreId: customStoreId || requireStoreId(),
-          })
-        ),
-    },
+  updateStatus: (
+    id: string,
+    data: UpdateOrderStatusRequest,
+    customStoreId?: string
+  ) =>
+    withAuthRetry(() =>
+      OrdersService.patchOrdersStatus({
+        id,
+        xStoreId: customStoreId || requireStoreId(),
+        requestBody: data,
+      })
+    ),
+
+  cancel: (id: string, customStoreId?: string) =>
+    withAuthRetry(() =>
+      OrdersService.postOrdersCancel({
+        id,
+        xStoreId: customStoreId || requireStoreId(),
+      })
+    ),
+
+  pay: (id: string, customStoreId?: string) =>
+    withAuthRetry(() =>
+      OrdersService.postOrdersPay({
+        id,
+        xStoreId: customStoreId || requireStoreId(),
+      })
+    ),
+},
 
     payments: {
       checkout: (data: any, customStoreId?: string) =>

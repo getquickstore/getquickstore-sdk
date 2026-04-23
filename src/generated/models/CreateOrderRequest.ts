@@ -8,6 +8,15 @@ export type CreateOrderRequest = {
     customerId?: string | null;
     currency?: string;
     notes?: string | null;
+    fulfillmentType?: 'STANDARD' | 'PICKUP';
+    /**
+     * Required when fulfillmentType is PICKUP
+     */
+    pickupAt?: string | null;
+    /**
+     * Optional fulfillment metadata
+     */
+    fulfillmentMeta?: any;
     shippingAddressId?: string | null;
     billingAddressId?: string | null;
     discountCents?: number | null;

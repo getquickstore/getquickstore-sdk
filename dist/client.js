@@ -86,6 +86,11 @@ function createClient({ baseUrl, token, storeId }) {
             me: () => withAuthRetry(() => AuthService_1.AuthService.getAuthMe()),
             refresh: () => AuthService_1.AuthService.postAuthRefresh(),
             logout: () => AuthService_1.AuthService.postAuthLogout({}),
+            createWebHandoff: (data) => withAuthRetry(() => AuthService_1.AuthService.postAuthWebHandoff({
+                requestBody: {
+                    ...(data?.nextPath ? { nextPath: data.nextPath } : {}),
+                },
+            })),
             magicLinkRequest: (email) => AuthService_1.AuthService.postAuthMagicLinkRequest({
                 requestBody: { email },
             }),
