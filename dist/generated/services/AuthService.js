@@ -486,5 +486,39 @@ class AuthService {
             },
         });
     }
+    /**
+     * Create one-time mobile-to-web handoff link
+     * @returns any Handoff link created
+     * @throws ApiError
+     */
+    static postAuthWebHandoff({ requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/auth/web-handoff',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                401: `Unauthorized`,
+            },
+        });
+    }
+    /**
+     * Consume one-time mobile-to-web handoff link
+     * @returns void
+     * @throws ApiError
+     */
+    static getAuthWebHandoffConsume({ token, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/auth/web-handoff/consume',
+            query: {
+                'token': token,
+            },
+            errors: {
+                302: `Redirect to web destination with session cookies set`,
+                400: `Invalid or expired token`,
+            },
+        });
+    }
 }
 exports.AuthService = AuthService;

@@ -356,4 +356,27 @@ export declare class AuthService {
     }): CancelablePromise<{
         ok: boolean;
     }>;
+    /**
+     * Create one-time mobile-to-web handoff link
+     * @returns any Handoff link created
+     * @throws ApiError
+     */
+    static postAuthWebHandoff({ requestBody, }: {
+        requestBody?: {
+            nextPath?: string;
+        };
+    }): CancelablePromise<{
+        ok?: boolean;
+        url?: string;
+        expiresAt?: string;
+        nextPath?: string;
+    }>;
+    /**
+     * Consume one-time mobile-to-web handoff link
+     * @returns void
+     * @throws ApiError
+     */
+    static getAuthWebHandoffConsume({ token, }: {
+        token: string;
+    }): CancelablePromise<void>;
 }
