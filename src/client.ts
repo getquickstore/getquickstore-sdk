@@ -117,6 +117,15 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
       refresh: () => AuthService.postAuthRefresh(),
 
       logout: () => AuthService.postAuthLogout({}),
+      
+           createWebHandoff: (data?: { nextPath?: string }) =>
+        withAuthRetry(() =>
+          AuthService.postAuthWebHandoff({
+            requestBody: {
+              ...(data?.nextPath ? { nextPath: data.nextPath } : {}),
+            },
+          })
+        ),
 
       magicLinkRequest: (email: string) =>
         AuthService.postAuthMagicLinkRequest({
