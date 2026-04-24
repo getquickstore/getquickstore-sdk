@@ -123,7 +123,10 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
     requestBody: refreshToken ? { refreshToken } : {},
   }),
 
-      logout: () => AuthService.postAuthLogout({}),
+      logout: (data?: { refreshToken?: string | null }) =>
+  AuthService.postAuthLogout({
+    requestBody: data || {},
+  }),
       
            createWebHandoff: (data?: { nextPath?: string }) =>
         withAuthRetry(() =>

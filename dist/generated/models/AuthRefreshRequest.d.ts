@@ -1,3 +1,3 @@
 export type AuthRefreshRequest = {
-    refreshToken: string;
+    refreshToken?: string | null;
 };

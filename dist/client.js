@@ -89,7 +89,9 @@ function createClient({ baseUrl, token, storeId }) {
             refresh: (refreshToken) => AuthService_1.AuthService.postAuthRefresh({
                 requestBody: refreshToken ? { refreshToken } : {},
             }),
-            logout: () => AuthService_1.AuthService.postAuthLogout({}),
+            logout: (data) => AuthService_1.AuthService.postAuthLogout({
+                requestBody: data || {},
+            }),
             createWebHandoff: (data) => withAuthRetry(() => AuthService_1.AuthService.postAuthWebHandoff({
                 requestBody: {
                     ...(data?.nextPath ? { nextPath: data.nextPath } : {}),

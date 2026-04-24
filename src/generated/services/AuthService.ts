@@ -5,6 +5,7 @@
 import type { AuthLoginRequest } from '../models/AuthLoginRequest';
 import type { AuthLogoutRequest } from '../models/AuthLogoutRequest';
 import type { AuthMeResponse } from '../models/AuthMeResponse';
+import type { AuthRefreshRequest } from '../models/AuthRefreshRequest';
 import type { AuthRegisterRequest } from '../models/AuthRegisterRequest';
 import type { AuthSuccessResponse } from '../models/AuthSuccessResponse';
 import type { AuthTokenPairOnlyResponse } from '../models/AuthTokenPairOnlyResponse';
@@ -64,16 +65,14 @@ export class AuthService {
     }
     /**
      * Refresh access token
-     * Rotates the refresh token and issues a new token pair. Web clients may use the HttpOnly refresh cookie. Mobile clients may send refreshToken in the request body.
+     * Rotates the refresh token and issues a new token pair. Web clients use HttpOnly cookie. Mobile clients may send refreshToken in request body.
      * @returns AuthSuccessResponse Tokens refreshed successfully
      * @throws ApiError
      */
     public static postAuthRefresh({
         requestBody,
     }: {
-        requestBody?: {
-            refreshToken?: string | null;
-        },
+        requestBody?: AuthRefreshRequest,
     }): CancelablePromise<AuthSuccessResponse> {
         return __request(OpenAPI, {
             method: 'POST',

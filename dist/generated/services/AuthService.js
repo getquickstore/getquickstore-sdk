@@ -43,7 +43,7 @@ class AuthService {
     }
     /**
      * Refresh access token
-     * Rotates the refresh token and issues a new token pair. Web clients may use the HttpOnly refresh cookie. Mobile clients may send refreshToken in the request body.
+     * Rotates the refresh token and issues a new token pair. Web clients use HttpOnly cookie. Mobile clients may send refreshToken in request body.
      * @returns AuthSuccessResponse Tokens refreshed successfully
      * @throws ApiError
      */
