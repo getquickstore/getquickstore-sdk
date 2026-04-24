@@ -242,9 +242,8 @@ function createClient({ baseUrl, token, storeId }) {
             get: (customStoreId) => withAuthRetry(() => CartService_1.CartService.getCart({
                 xStoreId: customStoreId || storeId,
             })),
-            add: (data, customStoreId) => withAuthRetry(() => CartService_1.CartService.postCartAdd({
+            add: (data) => withAuthRetry(() => CartService_1.CartService.postCartAdd({
                 requestBody: data,
-                xStoreId: customStoreId || storeId,
             })),
             setQty: (data, customStoreId) => withAuthRetry(() => CartService_1.CartService.postCartSetQty({
                 requestBody: data,

@@ -36,31 +36,22 @@ export class CartService {
         });
     }
     /**
-     * Add product to current cart
+     * Add product to buyer cart
      * @returns CartResponse Cart updated
      * @throws ApiError
      */
     public static postCartAdd({
         requestBody,
-        xStoreId,
     }: {
         requestBody: CartAddRequest,
-        /**
-         * Store context id
-         */
-        xStoreId?: string,
     }): CancelablePromise<CartResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/cart/add',
-            headers: {
-                'x-store-id': xStoreId,
-            },
             body: requestBody,
             mediaType: 'application/json',
             errors: {
-                400: `Validation error`,
-                403: `Access denied`,
+                400: `Validation error or product is not published`,
                 404: `Product or variant not found`,
                 500: `Server error`,
             },

@@ -434,13 +434,12 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           })
         ),
 
-      add: (data: any, customStoreId?: string) =>
-        withAuthRetry(() =>
-          CartService.postCartAdd({
-            requestBody: data,
-            xStoreId: customStoreId || storeId,
-          })
-        ),
+     add: (data: any) =>
+  withAuthRetry(() =>
+    CartService.postCartAdd({
+      requestBody: data,
+    })
+  ),
 
       setQty: (data: any, customStoreId?: string) =>
         withAuthRetry(() =>

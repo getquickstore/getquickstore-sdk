@@ -16,16 +16,12 @@ export declare class CartService {
         xStoreId?: string;
     }): CancelablePromise<CartResponse>;
     /**
-     * Add product to current cart
+     * Add product to buyer cart
      * @returns CartResponse Cart updated
      * @throws ApiError
      */
-    static postCartAdd({ requestBody, xStoreId, }: {
+    static postCartAdd({ requestBody, }: {
         requestBody: CartAddRequest;
-        /**
-         * Store context id
-         */
-        xStoreId?: string;
     }): CancelablePromise<CartResponse>;
     /**
      * Set cart item quantity
