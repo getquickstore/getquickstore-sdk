@@ -63,17 +63,25 @@ export class AuthService {
         });
     }
     /**
-     * Rotate refresh cookie and issue new token pair
-     * Uses the HttpOnly refresh cookie to rotate the session and issue a new token pair. No request body is required.
+     * Refresh access token
+     * Rotates the refresh token and issues a new token pair. Web clients may use the HttpOnly refresh cookie. Mobile clients may send refreshToken in the request body.
      * @returns AuthSuccessResponse Tokens refreshed successfully
      * @throws ApiError
      */
-    public static postAuthRefresh(): CancelablePromise<AuthSuccessResponse> {
+    public static postAuthRefresh({
+        requestBody,
+    }: {
+        requestBody?: {
+            refreshToken?: string | null;
+        },
+    }): CancelablePromise<AuthSuccessResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/refresh',
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
-                400: `Missing refresh cookie`,
+                400: `Missing refresh token`,
                 401: `Invalid refresh token`,
                 500: `Refresh failed`,
             },

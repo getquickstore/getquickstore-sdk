@@ -28,12 +28,16 @@ export declare class AuthService {
         requestBody: AuthLoginRequest;
     }): CancelablePromise<AuthSuccessResponse>;
     /**
-     * Rotate refresh cookie and issue new token pair
-     * Uses the HttpOnly refresh cookie to rotate the session and issue a new token pair. No request body is required.
+     * Refresh access token
+     * Rotates the refresh token and issues a new token pair. Web clients may use the HttpOnly refresh cookie. Mobile clients may send refreshToken in the request body.
      * @returns AuthSuccessResponse Tokens refreshed successfully
      * @throws ApiError
      */
-    static postAuthRefresh(): CancelablePromise<AuthSuccessResponse>;
+    static postAuthRefresh({ requestBody, }: {
+        requestBody?: {
+            refreshToken?: string | null;
+        };
+    }): CancelablePromise<AuthSuccessResponse>;
     /**
      * Logout current session
      * @returns void

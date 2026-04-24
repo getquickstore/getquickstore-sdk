@@ -29,7 +29,9 @@ function shouldSkipRefresh(error) {
 }
 async function refreshSession() {
     if (!refreshPromise) {
-        refreshPromise = AuthService_1.AuthService.postAuthRefresh()
+        refreshPromise = AuthService_1.AuthService.postAuthRefresh({
+            requestBody: {},
+        })
             .then(() => undefined)
             .finally(() => {
             refreshPromise = null;
@@ -84,7 +86,9 @@ function createClient({ baseUrl, token, storeId }) {
                 requestBody: { name, email, password },
             }),
             me: () => withAuthRetry(() => AuthService_1.AuthService.getAuthMe()),
-            refresh: () => AuthService_1.AuthService.postAuthRefresh(),
+            refresh: (refreshToken) => AuthService_1.AuthService.postAuthRefresh({
+                requestBody: refreshToken ? { refreshToken } : {},
+            }),
             logout: () => AuthService_1.AuthService.postAuthLogout({}),
             createWebHandoff: (data) => withAuthRetry(() => AuthService_1.AuthService.postAuthWebHandoff({
                 requestBody: {

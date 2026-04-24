@@ -23,7 +23,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         }>;
         register: (name: string, email: string, password: string) => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
         me: () => Promise<import("./generated").AuthMeResponse>;
-        refresh: () => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
+        refresh: (refreshToken?: string) => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
         logout: () => import("./generated").CancelablePromise<void>;
         createWebHandoff: (data?: {
             nextPath?: string;

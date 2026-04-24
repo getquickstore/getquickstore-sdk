@@ -41,7 +41,9 @@ function shouldSkipRefresh(error: any): boolean {
 
 async function refreshSession(): Promise<void> {
   if (!refreshPromise) {
-    refreshPromise = AuthService.postAuthRefresh()
+    refreshPromise = AuthService.postAuthRefresh({
+      requestBody: {},
+    })
       .then(() => undefined)
       .finally(() => {
         refreshPromise = null
@@ -116,7 +118,10 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
 
       me: () => withAuthRetry(() => AuthService.getAuthMe()),
 
-      refresh: () => AuthService.postAuthRefresh(),
+      refresh: (refreshToken?: string) =>
+  AuthService.postAuthRefresh({
+    requestBody: refreshToken ? { refreshToken } : {},
+  }),
 
       logout: () => AuthService.postAuthLogout({}),
       
