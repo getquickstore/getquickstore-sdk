@@ -271,13 +271,6 @@ const request = (config, options) => {
             const formData = (0, exports.getFormData)(options);
             const body = (0, exports.getRequestBody)(options);
             const headers = await (0, exports.getHeaders)(config, options);
-            console.log('[sdk:core:request] BEFORE FETCH', {
-                method: options.method,
-                url,
-                rawUrl: options.url,
-                auth: headers.get('Authorization')?.slice(0, 24) || null,
-                xStoreId: headers.get('x-store-id'),
-            });
             if (!onCancel.isCancelled) {
                 const response = await (0, exports.sendRequest)(config, options, url, body, formData, headers, onCancel);
                 const responseBody = await (0, exports.getResponseBody)(response);

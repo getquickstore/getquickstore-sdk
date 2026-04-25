@@ -298,14 +298,6 @@ export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions): C
             const body = getRequestBody(options);
             const headers = await getHeaders(config, options);
 
-            console.log('[sdk:core:request] BEFORE FETCH', {
-    method: options.method,
-    url,
-    rawUrl: options.url,
-    auth: headers.get('Authorization')?.slice(0, 24) || null,
-    xStoreId: headers.get('x-store-id'),
-});
-
             if (!onCancel.isCancelled) {
                 const response = await sendRequest(config, options, url, body, formData, headers, onCancel);
                 const responseBody = await getResponseBody(response);
