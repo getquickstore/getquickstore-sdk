@@ -27,11 +27,24 @@ function shouldSkipRefresh(error) {
         url.includes("/auth/refresh"));
 }
 async function refreshSession() {
+    console.log('[sdk] refreshSession start');
     if (!refreshPromise) {
         refreshPromise = AuthService_1.AuthService.postAuthRefresh({
             requestBody: {},
         })
-            .then(() => undefined)
+            .then((res) => {
+            console.log('[sdk] refreshSession ok', res);
+        })
+            .catch((error) => {
+            console.log('[sdk] refreshSession failed', {
+                status: error?.status,
+                message: error?.message,
+                body: error?.body,
+                url: error?.request?.url || error?.url,
+                full: error,
+            });
+            throw error;
+        })
             .finally(() => {
             refreshPromise = null;
         });
@@ -43,10 +56,18 @@ async function withAuthRetry(fn) {
         return await fn();
     }
     catch (error) {
+        console.log('[sdk] request failed before retry', {
+            status: error?.status,
+            message: error?.message,
+            body: error?.body,
+            url: error?.request?.url || error?.url,
+        });
         if (!isAuthError(error) || shouldSkipRefresh(error)) {
             throw error;
         }
+        console.log('[sdk] auth error detected, refreshing session');
         await refreshSession();
+        console.log('[sdk] refresh done, retrying request');
         return await fn();
     }
 }

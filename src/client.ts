@@ -40,11 +40,26 @@ function shouldSkipRefresh(error: any): boolean {
 }
 
 async function refreshSession(): Promise<void> {
+  console.log('[sdk] refreshSession start')
+
   if (!refreshPromise) {
     refreshPromise = AuthService.postAuthRefresh({
       requestBody: {},
     })
-      .then(() => undefined)
+      .then((res) => {
+        console.log('[sdk] refreshSession ok', res)
+      })
+      .catch((error) => {
+        console.log('[sdk] refreshSession failed', {
+          status: error?.status,
+          message: error?.message,
+          body: error?.body,
+          url: error?.request?.url || error?.url,
+          full: error,
+        })
+
+        throw error
+      })
       .finally(() => {
         refreshPromise = null
       })
@@ -57,14 +72,28 @@ async function withAuthRetry<T>(fn: () => Promise<T>): Promise<T> {
   try {
     return await fn()
   } catch (error: any) {
+    console.log('[sdk] request failed before retry', {
+      status: error?.status,
+      message: error?.message,
+      body: error?.body,
+      url: error?.request?.url || error?.url,
+    })
+
     if (!isAuthError(error) || shouldSkipRefresh(error)) {
       throw error
     }
 
+    console.log('[sdk] auth error detected, refreshing session')
+
     await refreshSession()
+
+    console.log('[sdk] refresh done, retrying request')
+
     return await fn()
   }
 }
+
+
 
 export function createClient({ baseUrl, token, storeId }: ClientConfig) {
   OpenAPI.BASE = baseUrl
