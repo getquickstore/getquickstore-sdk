@@ -246,14 +246,19 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             customerId?: string;
             storeId?: string;
         }) => Promise<import("./generated").OrderListResponse>;
-        create: (data: CreateOrderRequest) => Promise<import("./generated").OrderSingleResponse>;
+        create: (data: CreateOrderRequest & {
+            storeId?: string;
+        }) => Promise<import("./generated").OrderSingleResponse>;
         get: (id: string, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
         updateStatus: (id: string, data: UpdateOrderStatusRequest, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
         cancel: (id: string, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
-        pay: (id: string) => Promise<import("./generated").PayOrderResponse>;
     };
     payments: {
-        checkout: (data: any) => Promise<import("./generated").PaymentCheckoutResponse>;
+        checkout: (data: {
+            orderId: string;
+            successUrl?: string;
+            cancelUrl?: string;
+        }) => Promise<import("./generated").PaymentCheckoutResponse>;
         refund: (paymentId: string, data?: any, customStoreId?: string) => Promise<import("./generated").CreateRefundResponse>;
     };
     reviews: {

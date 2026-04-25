@@ -320,9 +320,15 @@ function createClient({ baseUrl, token, storeId }) {
                 customerId: params?.customerId,
                 fulfillmentType: params?.fulfillmentType,
             })),
-            create: (data) => withAuthRetry(() => OrdersService_1.OrdersService.postOrders({
-                requestBody: data,
-            })),
+            create: (data) => {
+                const resolvedStoreId = requireStoreId(data.storeId);
+                return withAuthRetry(() => OrdersService_1.OrdersService.postOrders({
+                    requestBody: {
+                        ...data,
+                        storeId: resolvedStoreId,
+                    },
+                }));
+            },
             get: (id, customStoreId) => withAuthRetry(() => OrdersService_1.OrdersService.getOrders1({
                 id,
                 xStoreId: customStoreId || undefined,
@@ -336,13 +342,14 @@ function createClient({ baseUrl, token, storeId }) {
                 id,
                 xStoreId: customStoreId || undefined,
             })),
-            pay: (id) => withAuthRetry(() => OrdersService_1.OrdersService.postOrdersPay({
-                id,
-            })),
         },
         payments: {
             checkout: (data) => withAuthRetry(() => PaymentsService_1.PaymentsService.postPaymentsCheckout({
-                requestBody: data,
+                requestBody: {
+                    orderId: data.orderId,
+                    ...(data.successUrl ? { successUrl: data.successUrl } : {}),
+                    ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
+                },
             })),
             refund: (paymentId, data, customStoreId) => withAuthRetry(() => PaymentsService_1.PaymentsService.postPaymentsRefund({
                 paymentId,

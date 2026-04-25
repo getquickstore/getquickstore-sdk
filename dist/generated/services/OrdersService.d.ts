@@ -22,7 +22,7 @@ export declare class OrdersService {
         fulfillmentType?: 'STANDARD' | 'PICKUP';
     }): CancelablePromise<OrderListResponse>;
     /**
-     * Create buyer order
+     * Create customer order for store checkout
      * @returns OrderSingleResponse Order created
      * @throws ApiError
      */

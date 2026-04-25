@@ -623,12 +623,18 @@ orders: {
       })
     ),
 
-  create: (data: CreateOrderRequest) =>
-    withAuthRetry(() =>
+  create: (data: CreateOrderRequest & { storeId?: string }) => {
+    const resolvedStoreId = requireStoreId(data.storeId)
+
+    return withAuthRetry(() =>
       OrdersService.postOrders({
-        requestBody: data,
+        requestBody: {
+          ...data,
+          storeId: resolvedStoreId,
+        },
       })
-    ),
+    )
+  },
 
   get: (id: string, customStoreId?: string) =>
     withAuthRetry(() =>
@@ -658,20 +664,21 @@ orders: {
         xStoreId: customStoreId || undefined,
       })
     ),
-
-  pay: (id: string) =>
-    withAuthRetry(() =>
-      OrdersService.postOrdersPay({
-        id,
-      })
-    ),
 },
 
 payments: {
-  checkout: (data: any) =>
+  checkout: (data: {
+    orderId: string
+    successUrl?: string
+    cancelUrl?: string
+  }) =>
     withAuthRetry(() =>
       PaymentsService.postPaymentsCheckout({
-        requestBody: data,
+        requestBody: {
+          orderId: data.orderId,
+          ...(data.successUrl ? { successUrl: data.successUrl } : {}),
+          ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
+        },
       })
     ),
 

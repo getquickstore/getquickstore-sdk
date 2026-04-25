@@ -30,7 +30,7 @@ class OrdersService {
         });
     }
     /**
-     * Create buyer order
+     * Create customer order for store checkout
      * @returns OrderSingleResponse Order created
      * @throws ApiError
      */

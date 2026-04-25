@@ -1,5 +1,9 @@
 import type { CreateOrderItemInput } from './CreateOrderItemInput';
 export type CreateOrderRequest = {
+    /**
+     * Store id where the buyer creates the order. Required for customer checkout flow.
+     */
+    storeId: string;
     items: Array<CreateOrderItemInput>;
     customerId?: string | null;
     currency?: string;
