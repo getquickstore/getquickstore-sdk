@@ -133,17 +133,6 @@ const withClientAuthRetry = async <T,>(fn: () => Promise<T>): Promise<T> => {
       url: error?.request?.url || error?.url,
     })
 
-    if (!isAuthError(error) || shouldSkipRefresh(error)) {
-      throw error
-    }
-
-    await refreshSessionForClient()
-
-    console.log('[sdk] token refreshed; caller should retry', {
-      hasActiveAccessToken: !!activeAccessToken,
-      tokenPrefix: activeAccessToken ? activeAccessToken.slice(0, 12) : null,
-    })
-
     throw error
   }
 }
