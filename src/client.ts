@@ -25,7 +25,6 @@ type ClientConfig = {
 
 let refreshPromise: Promise<any> | null = null
 let activeAccessToken: string | undefined
-let activeStoreId: string | undefined
 
 function maskToken(token?: string | null) {
   if (!token) return null
@@ -57,20 +56,13 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
   if (token) {
     activeAccessToken = token
   }
-  if (storeId) {
-  activeStoreId = storeId
-}
+
 
   OpenAPI.BASE = baseUrl
   OpenAPI.WITH_CREDENTIALS = true
   OpenAPI.CREDENTIALS = 'include'
 
 const applyHeaders = () => {
-  console.log('[sdk:headers] applyHeaders called', {
-    activeAccessToken: maskToken(activeAccessToken),
-    activeStoreId,
-    createClientStoreId: storeId,
-  })
 
   OpenAPI.HEADERS = async () => {
     const headers: Record<string, string> = {}
@@ -85,7 +77,6 @@ const applyHeaders = () => {
 
     console.log('[sdk:headers] OpenAPI.HEADERS resolved', {
       activeAccessToken: maskToken(activeAccessToken),
-      activeStoreId,
       createClientStoreId: storeId,
       hasAuthorization: !!headers.Authorization,
       authorizationPrefix: headers.Authorization?.slice(0, 24) || null,
@@ -133,99 +124,27 @@ const applyHeaders = () => {
     return res
   }
 
- const withClientAuthRetry = async <T,>(fn: () => Promise<T>): Promise<T> => {
-  const traceId = nextSdkTrace('sdk-req')
-
-  console.log('[sdk:retry] start', {
-    traceId,
-    activeAccessToken: maskToken(activeAccessToken),
-    activeStoreId,
-    createClientStoreId: storeId,
-  })
-
+const withClientAuthRetry = async <T,>(fn: () => Promise<T>): Promise<T> => {
   try {
-    const res = await fn()
-
-    console.log('[sdk:retry] success first try', {
-      traceId,
-      activeAccessToken: maskToken(activeAccessToken),
-      activeStoreId,
-      createClientStoreId: storeId,
-    })
-
-    return res
+    return await fn()
   } catch (error: any) {
-    console.log('[sdk:retry] failed first try', {
-      traceId,
+    console.log('[sdk] request failed', {
       status: error?.status,
-      message: error?.message,
       url: error?.request?.url || error?.url,
-      requestPath: error?.request?.path,
-      activeAccessToken: maskToken(activeAccessToken),
-      activeStoreId,
-      createClientStoreId: storeId,
     })
 
     if (!isAuthError(error) || shouldSkipRefresh(error)) {
-      console.log('[sdk:retry] skip refresh', {
-        traceId,
-        status: error?.status,
-        url: error?.request?.url || error?.url,
-      })
-
       throw error
     }
 
-    const tokenBefore = activeAccessToken
-
-    console.log('[sdk:retry] refresh before retry', {
-      traceId,
-      tokenBefore: maskToken(tokenBefore),
-    })
-
     await refreshSessionForClient()
 
-    console.log('[sdk:retry] refresh finished', {
-      traceId,
-      tokenBefore: maskToken(tokenBefore),
-      tokenAfter: maskToken(activeAccessToken),
-      tokenChanged: tokenBefore !== activeAccessToken,
+    console.log('[sdk] token refreshed; caller should retry', {
+      hasActiveAccessToken: !!activeAccessToken,
+      tokenPrefix: activeAccessToken ? activeAccessToken.slice(0, 12) : null,
     })
 
-    applyHeaders()
-
-    console.log('[sdk:retry] retry fn now', {
-      traceId,
-      activeAccessToken: maskToken(activeAccessToken),
-      activeStoreId,
-      createClientStoreId: storeId,
-    })
-
-    try {
-      const retryRes = await fn()
-
-      console.log('[sdk:retry] success after retry', {
-        traceId,
-        activeAccessToken: maskToken(activeAccessToken),
-        activeStoreId,
-        createClientStoreId: storeId,
-      })
-
-      return retryRes
-    } catch (retryError: any) {
-      console.log('[sdk:retry] failed after retry', {
-        traceId,
-        status: retryError?.status,
-        message: retryError?.message,
-        url: retryError?.request?.url || retryError?.url,
-        requestPath: retryError?.request?.path,
-        activeAccessToken: maskToken(activeAccessToken),
-        activeStoreId,
-        createClientStoreId: storeId,
-      })
-
-      throw retryError
-    }
+    throw error
   }
 }
 
