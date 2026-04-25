@@ -239,9 +239,7 @@ function createClient({ baseUrl, token, storeId }) {
             getDay: (date) => withAuthRetry(() => CalendarService_1.CalendarService.getCalendarDay({ date })),
         },
         cart: {
-            get: (customStoreId) => withAuthRetry(() => CartService_1.CartService.getCart({
-                xStoreId: customStoreId || storeId,
-            })),
+            get: () => withAuthRetry(() => CartService_1.CartService.getCart()),
             add: (data) => withAuthRetry(() => CartService_1.CartService.postCartAdd({
                 requestBody: data,
             })),

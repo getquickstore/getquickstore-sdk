@@ -5,19 +5,15 @@ const OpenAPI_1 = require("../core/OpenAPI");
 const request_1 = require("../core/request");
 class CartService {
     /**
-     * Get current cart
-     * @returns CartResponse Current cart
+     * Get buyer carts across stores
+     * @returns CartResponse Buyer cart items across stores
      * @throws ApiError
      */
-    static getCart({ xStoreId, }) {
+    static getCart() {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'GET',
             url: '/cart',
-            headers: {
-                'x-store-id': xStoreId,
-            },
             errors: {
-                403: `Access denied`,
                 500: `Server error`,
             },
         });

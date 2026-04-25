@@ -11,26 +11,15 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class CartService {
     /**
-     * Get current cart
-     * @returns CartResponse Current cart
+     * Get buyer carts across stores
+     * @returns CartResponse Buyer cart items across stores
      * @throws ApiError
      */
-    public static getCart({
-        xStoreId,
-    }: {
-        /**
-         * Store context id
-         */
-        xStoreId?: string,
-    }): CancelablePromise<CartResponse> {
+    public static getCart(): CancelablePromise<CartResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/cart',
-            headers: {
-                'x-store-id': xStoreId,
-            },
             errors: {
-                403: `Access denied`,
                 500: `Server error`,
             },
         });

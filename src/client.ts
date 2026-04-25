@@ -427,12 +427,10 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
     },
 
     cart: {
-      get: (customStoreId?: string) =>
-        withAuthRetry(() =>
-          CartService.getCart({
-            xStoreId: customStoreId || storeId,
-          })
-        ),
+   get: () =>
+    withAuthRetry(() =>
+      CartService.getCart()
+    ),
 
      add: (data: any) =>
   withAuthRetry(() =>

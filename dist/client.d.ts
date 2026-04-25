@@ -198,7 +198,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         getDay: (date: string) => Promise<import("./generated").CalendarDayResponse>;
     };
     cart: {
-        get: (customStoreId?: string) => Promise<import("./generated").CartResponse>;
+        get: () => Promise<import("./generated").CartResponse>;
         add: (data: any) => Promise<import("./generated").CartResponse>;
         setQty: (data: any, customStoreId?: string) => Promise<import("./generated").CartResponse>;
         remove: (data: any, customStoreId?: string) => Promise<import("./generated").CartResponse>;

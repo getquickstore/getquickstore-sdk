@@ -5,16 +5,11 @@ import type { CartSetQtyRequest } from '../models/CartSetQtyRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class CartService {
     /**
-     * Get current cart
-     * @returns CartResponse Current cart
+     * Get buyer carts across stores
+     * @returns CartResponse Buyer cart items across stores
      * @throws ApiError
      */
-    static getCart({ xStoreId, }: {
-        /**
-         * Store context id
-         */
-        xStoreId?: string;
-    }): CancelablePromise<CartResponse>;
+    static getCart(): CancelablePromise<CartResponse>;
     /**
      * Add product to buyer cart
      * @returns CartResponse Cart updated
