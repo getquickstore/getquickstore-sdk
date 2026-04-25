@@ -20,7 +20,7 @@ class CartService {
     }
     /**
      * Add product to buyer cart
-     * @returns CartResponse Cart updated
+     * @returns CartSingleResponse Cart updated
      * @throws ApiError
      */
     static postCartAdd({ requestBody, }) {
@@ -37,63 +37,51 @@ class CartService {
         });
     }
     /**
-     * Set cart item quantity
-     * @returns CartResponse Cart updated
+     * Set buyer cart item quantity
+     * @returns CartSingleResponse Cart updated
      * @throws ApiError
      */
-    static postCartSetQty({ requestBody, xStoreId, }) {
+    static postCartSetQty({ requestBody, }) {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'POST',
             url: '/cart/set-qty',
-            headers: {
-                'x-store-id': xStoreId,
-            },
             body: requestBody,
             mediaType: 'application/json',
             errors: {
                 400: `Validation error`,
-                403: `Access denied`,
                 404: `Cart item not found`,
                 500: `Server error`,
             },
         });
     }
     /**
-     * Remove cart item
-     * @returns CartResponse Cart updated
+     * Remove buyer cart item
+     * @returns CartSingleResponse Cart updated
      * @throws ApiError
      */
-    static postCartRemove({ requestBody, xStoreId, }) {
+    static postCartRemove({ requestBody, }) {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'POST',
             url: '/cart/remove',
-            headers: {
-                'x-store-id': xStoreId,
-            },
             body: requestBody,
             mediaType: 'application/json',
             errors: {
                 400: `Validation error`,
-                403: `Access denied`,
                 404: `Cart item not found`,
                 500: `Server error`,
             },
         });
     }
     /**
-     * Clear current cart
-     * @returns CartResponse Cart cleared
+     * Clear all buyer carts
+     * @returns CartResponse Buyer carts cleared
      * @throws ApiError
      */
-    static postCartClear({ xStoreId, }) {
+    static postCartClear() {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'POST',
             url: '/cart/clear',
-            headers: {
-                'x-store-id': xStoreId,
-            },
             errors: {
-                403: `Access denied`,
                 500: `Server error`,
             },
         });

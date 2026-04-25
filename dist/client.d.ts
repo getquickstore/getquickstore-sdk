@@ -199,10 +199,10 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     };
     cart: {
         get: () => Promise<import("./generated").CartResponse>;
-        add: (data: any) => Promise<import("./generated").CartResponse>;
-        setQty: (data: any, customStoreId?: string) => Promise<import("./generated").CartResponse>;
-        remove: (data: any, customStoreId?: string) => Promise<import("./generated").CartResponse>;
-        clear: (customStoreId?: string) => Promise<import("./generated").CartResponse>;
+        add: (data: any) => Promise<import("./generated").CartSingleResponse>;
+        setQty: (data: any) => Promise<import("./generated").CartSingleResponse>;
+        remove: (data: any) => Promise<import("./generated").CartSingleResponse>;
+        clear: () => Promise<import("./generated").CartResponse>;
     };
     categories: {
         list: (params?: {

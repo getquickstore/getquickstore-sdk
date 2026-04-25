@@ -45,6 +45,7 @@ export type { CartProductMini } from './models/CartProductMini';
 export type { CartRemoveRequest } from './models/CartRemoveRequest';
 export type { CartResponse } from './models/CartResponse';
 export type { CartSetQtyRequest } from './models/CartSetQtyRequest';
+export type { CartSingleResponse } from './models/CartSingleResponse';
 export type { CartVariantMini } from './models/CartVariantMini';
 export type { Category } from './models/Category';
 export type { CategoryListResponse } from './models/CategoryListResponse';

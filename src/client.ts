@@ -426,42 +426,38 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         ),
     },
 
-    cart: {
-   get: () =>
+cart: {
+  get: () =>
     withAuthRetry(() =>
       CartService.getCart()
     ),
 
-     add: (data: any) =>
-  withAuthRetry(() =>
-    CartService.postCartAdd({
-      requestBody: data,
-    })
-  ),
+  add: (data: any) =>
+    withAuthRetry(() =>
+      CartService.postCartAdd({
+        requestBody: data,
+      })
+    ),
 
-      setQty: (data: any, customStoreId?: string) =>
-        withAuthRetry(() =>
-          CartService.postCartSetQty({
-            requestBody: data,
-            xStoreId: customStoreId || storeId,
-          })
-        ),
+  setQty: (data: any) =>
+    withAuthRetry(() =>
+      CartService.postCartSetQty({
+        requestBody: data,
+      })
+    ),
 
-      remove: (data: any, customStoreId?: string) =>
-        withAuthRetry(() =>
-          CartService.postCartRemove({
-            requestBody: data,
-            xStoreId: customStoreId || storeId,
-          })
-        ),
+  remove: (data: any) =>
+    withAuthRetry(() =>
+      CartService.postCartRemove({
+        requestBody: data,
+      })
+    ),
 
-      clear: (customStoreId?: string) =>
-        withAuthRetry(() =>
-          CartService.postCartClear({
-            xStoreId: customStoreId || storeId,
-          })
-        ),
-    },
+  clear: () =>
+    withAuthRetry(() =>
+      CartService.postCartClear()
+    ),
+},
 
     categories: {
       list: (params?: {

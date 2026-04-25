@@ -1,4 +1,7 @@
 import type { Cart } from './Cart';
+import type { CartItem } from './CartItem';
 export type CartResponse = {
-    cart: Cart;
+    ok: boolean;
+    items: Array<CartItem>;
+    carts: Array<Cart>;
 };

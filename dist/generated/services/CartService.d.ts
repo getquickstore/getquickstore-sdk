@@ -2,6 +2,7 @@ import type { CartAddRequest } from '../models/CartAddRequest';
 import type { CartRemoveRequest } from '../models/CartRemoveRequest';
 import type { CartResponse } from '../models/CartResponse';
 import type { CartSetQtyRequest } from '../models/CartSetQtyRequest';
+import type { CartSingleResponse } from '../models/CartSingleResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class CartService {
     /**
@@ -12,45 +13,32 @@ export declare class CartService {
     static getCart(): CancelablePromise<CartResponse>;
     /**
      * Add product to buyer cart
-     * @returns CartResponse Cart updated
+     * @returns CartSingleResponse Cart updated
      * @throws ApiError
      */
     static postCartAdd({ requestBody, }: {
         requestBody: CartAddRequest;
-    }): CancelablePromise<CartResponse>;
+    }): CancelablePromise<CartSingleResponse>;
     /**
-     * Set cart item quantity
-     * @returns CartResponse Cart updated
+     * Set buyer cart item quantity
+     * @returns CartSingleResponse Cart updated
      * @throws ApiError
      */
-    static postCartSetQty({ requestBody, xStoreId, }: {
+    static postCartSetQty({ requestBody, }: {
         requestBody: CartSetQtyRequest;
-        /**
-         * Store context id
-         */
-        xStoreId?: string;
-    }): CancelablePromise<CartResponse>;
+    }): CancelablePromise<CartSingleResponse>;
     /**
-     * Remove cart item
-     * @returns CartResponse Cart updated
+     * Remove buyer cart item
+     * @returns CartSingleResponse Cart updated
      * @throws ApiError
      */
-    static postCartRemove({ requestBody, xStoreId, }: {
+    static postCartRemove({ requestBody, }: {
         requestBody: CartRemoveRequest;
-        /**
-         * Store context id
-         */
-        xStoreId?: string;
-    }): CancelablePromise<CartResponse>;
+    }): CancelablePromise<CartSingleResponse>;
     /**
-     * Clear current cart
-     * @returns CartResponse Cart cleared
+     * Clear all buyer carts
+     * @returns CartResponse Buyer carts cleared
      * @throws ApiError
      */
-    static postCartClear({ xStoreId, }: {
-        /**
-         * Store context id
-         */
-        xStoreId?: string;
-    }): CancelablePromise<CartResponse>;
+    static postCartClear(): CancelablePromise<CartResponse>;
 }

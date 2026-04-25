@@ -243,17 +243,13 @@ function createClient({ baseUrl, token, storeId }) {
             add: (data) => withAuthRetry(() => CartService_1.CartService.postCartAdd({
                 requestBody: data,
             })),
-            setQty: (data, customStoreId) => withAuthRetry(() => CartService_1.CartService.postCartSetQty({
+            setQty: (data) => withAuthRetry(() => CartService_1.CartService.postCartSetQty({
                 requestBody: data,
-                xStoreId: customStoreId || storeId,
             })),
-            remove: (data, customStoreId) => withAuthRetry(() => CartService_1.CartService.postCartRemove({
+            remove: (data) => withAuthRetry(() => CartService_1.CartService.postCartRemove({
                 requestBody: data,
-                xStoreId: customStoreId || storeId,
             })),
-            clear: (customStoreId) => withAuthRetry(() => CartService_1.CartService.postCartClear({
-                xStoreId: customStoreId || storeId,
-            })),
+            clear: () => withAuthRetry(() => CartService_1.CartService.postCartClear()),
         },
         categories: {
             list: (params) => withAuthRetry(() => CategoriesService_1.CategoriesService.getCategories({
