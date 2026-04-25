@@ -24,6 +24,7 @@ type ClientConfig = {
 }
 
 let refreshPromise: Promise<any> | null = null
+let activeAccessToken: string | undefined
 
 function isAuthError(error: any): boolean {
   return error?.status === 401 || error?.status === 403
@@ -39,13 +40,10 @@ function shouldSkipRefresh(error: any): boolean {
   )
 }
 
-
-
-
-
-
 export function createClient({ baseUrl, token, storeId }: ClientConfig) {
-  let currentToken = token
+  if (token) {
+    activeAccessToken = token
+  }
 
   OpenAPI.BASE = baseUrl
   OpenAPI.WITH_CREDENTIALS = true
@@ -53,7 +51,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
 
   const applyHeaders = () => {
     OpenAPI.HEADERS = async () => ({
-      Authorization: currentToken ? `Bearer ${currentToken}` : undefined,
+      Authorization: activeAccessToken ? `Bearer ${activeAccessToken}` : undefined,
       'x-store-id': storeId || undefined,
     })
   }
@@ -63,17 +61,32 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
   const refreshSessionForClient = async () => {
     console.log('[sdk] refreshSession start')
 
-    const res: any = await AuthService.postAuthRefresh({
-      requestBody: {},
-    })
+    if (!refreshPromise) {
+      refreshPromise = AuthService.postAuthRefresh({
+        requestBody: {},
+      })
+        .then((res: any) => {
+          console.log('[sdk] refreshSession ok', {
+            ok: res?.ok,
+            hasAccessToken: !!res?.accessToken,
+          })
 
-    console.log('[sdk] refreshSession ok', {
-      ok: res?.ok,
-      hasAccessToken: !!res?.accessToken,
-    })
+          if (res?.accessToken) {
+            activeAccessToken = res.accessToken
+            applyHeaders()
+          }
+
+          return res
+        })
+        .finally(() => {
+          refreshPromise = null
+        })
+    }
+
+    const res = await refreshPromise
 
     if (res?.accessToken) {
-      currentToken = res.accessToken
+      activeAccessToken = res.accessToken
       applyHeaders()
     }
 
@@ -94,11 +107,14 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
       }
 
       await refreshSessionForClient()
-          
-      console.log('[sdk] retry with new token')
-          
+
+      console.log('[sdk] retry with new token', {
+        hasActiveAccessToken: !!activeAccessToken,
+        tokenPrefix: activeAccessToken ? activeAccessToken.slice(0, 12) : null,
+      })
+
       applyHeaders()
-          
+
       return await fn()
     }
   }

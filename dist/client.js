@@ -17,6 +17,7 @@ const ReviewsService_1 = require("./generated/services/ReviewsService");
 const StoresService_1 = require("./generated/services/StoresService");
 const ServicesService_1 = require("./generated/services/ServicesService");
 let refreshPromise = null;
+let activeAccessToken;
 function isAuthError(error) {
     return error?.status === 401 || error?.status === 403;
 }
@@ -27,28 +28,43 @@ function shouldSkipRefresh(error) {
         url.includes('/auth/refresh'));
 }
 function createClient({ baseUrl, token, storeId }) {
-    let currentToken = token;
+    if (token) {
+        activeAccessToken = token;
+    }
     OpenAPI_1.OpenAPI.BASE = baseUrl;
     OpenAPI_1.OpenAPI.WITH_CREDENTIALS = true;
     OpenAPI_1.OpenAPI.CREDENTIALS = 'include';
     const applyHeaders = () => {
         OpenAPI_1.OpenAPI.HEADERS = async () => ({
-            Authorization: currentToken ? `Bearer ${currentToken}` : undefined,
+            Authorization: activeAccessToken ? `Bearer ${activeAccessToken}` : undefined,
             'x-store-id': storeId || undefined,
         });
     };
     applyHeaders();
     const refreshSessionForClient = async () => {
         console.log('[sdk] refreshSession start');
-        const res = await AuthService_1.AuthService.postAuthRefresh({
-            requestBody: {},
-        });
-        console.log('[sdk] refreshSession ok', {
-            ok: res?.ok,
-            hasAccessToken: !!res?.accessToken,
-        });
+        if (!refreshPromise) {
+            refreshPromise = AuthService_1.AuthService.postAuthRefresh({
+                requestBody: {},
+            })
+                .then((res) => {
+                console.log('[sdk] refreshSession ok', {
+                    ok: res?.ok,
+                    hasAccessToken: !!res?.accessToken,
+                });
+                if (res?.accessToken) {
+                    activeAccessToken = res.accessToken;
+                    applyHeaders();
+                }
+                return res;
+            })
+                .finally(() => {
+                refreshPromise = null;
+            });
+        }
+        const res = await refreshPromise;
         if (res?.accessToken) {
-            currentToken = res.accessToken;
+            activeAccessToken = res.accessToken;
             applyHeaders();
         }
         return res;
@@ -66,7 +82,10 @@ function createClient({ baseUrl, token, storeId }) {
                 throw error;
             }
             await refreshSessionForClient();
-            console.log('[sdk] retry with new token');
+            console.log('[sdk] retry with new token', {
+                hasActiveAccessToken: !!activeAccessToken,
+                tokenPrefix: activeAccessToken ? activeAccessToken.slice(0, 12) : null,
+            });
             applyHeaders();
             return await fn();
         }
