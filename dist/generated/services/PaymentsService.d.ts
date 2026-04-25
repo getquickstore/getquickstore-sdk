@@ -5,16 +5,12 @@ import type { PaymentCheckoutResponse } from '../models/PaymentCheckoutResponse'
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class PaymentsService {
     /**
-     * Create Stripe Checkout session for an order
+     * Create Stripe Checkout session for buyer order
      * @returns PaymentCheckoutResponse Checkout session created
      * @throws ApiError
      */
-    static postPaymentsCheckout({ requestBody, xStoreId, }: {
+    static postPaymentsCheckout({ requestBody, }: {
         requestBody: PaymentCheckoutRequest;
-        /**
-         * Store context id. If provided, must match the order store.
-         */
-        xStoreId?: string;
     }): CancelablePromise<PaymentCheckoutResponse>;
     /**
      * Create refund for payment

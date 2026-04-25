@@ -5,17 +5,14 @@ const OpenAPI_1 = require("../core/OpenAPI");
 const request_1 = require("../core/request");
 class PaymentsService {
     /**
-     * Create Stripe Checkout session for an order
+     * Create Stripe Checkout session for buyer order
      * @returns PaymentCheckoutResponse Checkout session created
      * @throws ApiError
      */
-    static postPaymentsCheckout({ requestBody, xStoreId, }) {
+    static postPaymentsCheckout({ requestBody, }) {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'POST',
             url: '/payments/checkout',
-            headers: {
-                'x-store-id': xStoreId,
-            },
             body: requestBody,
             mediaType: 'application/json',
             errors: {

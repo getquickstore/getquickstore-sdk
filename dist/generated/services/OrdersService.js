@@ -5,7 +5,7 @@ const OpenAPI_1 = require("../core/OpenAPI");
 const request_1 = require("../core/request");
 class OrdersService {
     /**
-     * List store orders
+     * List buyer orders or store orders
      * @returns OrderListResponse Order list
      * @throws ApiError
      */
@@ -30,24 +30,20 @@ class OrdersService {
         });
     }
     /**
-     * Create order (supports pickup)
+     * Create buyer order
      * @returns OrderSingleResponse Order created
      * @throws ApiError
      */
-    static postOrders({ xStoreId, requestBody, }) {
+    static postOrders({ requestBody, }) {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'POST',
             url: '/orders',
-            headers: {
-                'x-store-id': xStoreId,
-            },
             body: requestBody,
             mediaType: 'application/json',
             errors: {
                 400: `Validation failed`,
-                403: `Access denied`,
                 404: `Product or variant not found`,
-                409: `Unique constraint failed`,
+                409: `Conflict`,
                 500: `Order create failed`,
             },
         });
@@ -75,7 +71,7 @@ class OrdersService {
         });
     }
     /**
-     * Update order status
+     * Update store order status
      * @returns OrderSingleResponse Order status updated
      * @throws ApiError
      */
@@ -100,7 +96,7 @@ class OrdersService {
         });
     }
     /**
-     * Cancel order
+     * Cancel buyer order or store order
      * @returns OrderSingleResponse Order cancelled
      * @throws ApiError
      */
@@ -123,19 +119,16 @@ class OrdersService {
         });
     }
     /**
-     * Pay order with mock payment
+     * Pay buyer order with mock payment
      * @returns PayOrderResponse Payment succeeded
      * @throws ApiError
      */
-    static postOrdersPay({ id, xStoreId, }) {
+    static postOrdersPay({ id, }) {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'POST',
             url: '/orders/{id}/pay',
             path: {
                 'id': id,
-            },
-            headers: {
-                'x-store-id': xStoreId,
             },
             errors: {
                 403: `Access denied`,

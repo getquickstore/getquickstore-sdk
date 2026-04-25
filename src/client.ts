@@ -614,7 +614,7 @@ orders: {
   }) =>
     withAuthRetry(() =>
       OrdersService.getOrders({
-        xStoreId: params?.storeId || requireStoreId(),
+        xStoreId: params?.storeId || undefined,
         limit: params?.limit,
         status: params?.status,
         paymentStatus: params?.paymentStatus,
@@ -623,10 +623,9 @@ orders: {
       })
     ),
 
-  create: (data: CreateOrderRequest, customStoreId?: string) =>
+  create: (data: CreateOrderRequest) =>
     withAuthRetry(() =>
       OrdersService.postOrders({
-        xStoreId: customStoreId || requireStoreId(),
         requestBody: data,
       })
     ),
@@ -635,7 +634,7 @@ orders: {
     withAuthRetry(() =>
       OrdersService.getOrders1({
         id,
-        xStoreId: customStoreId || requireStoreId(),
+        xStoreId: customStoreId || undefined,
       })
     ),
 
@@ -656,89 +655,35 @@ orders: {
     withAuthRetry(() =>
       OrdersService.postOrdersCancel({
         id,
-        xStoreId: customStoreId || requireStoreId(),
+        xStoreId: customStoreId || undefined,
       })
     ),
 
-  pay: (id: string, customStoreId?: string) =>
+  pay: (id: string) =>
     withAuthRetry(() =>
       OrdersService.postOrdersPay({
         id,
-        xStoreId: customStoreId || requireStoreId(),
       })
     ),
 },
 
-    payments: {
-      checkout: (data: any, customStoreId?: string) =>
-        withAuthRetry(() =>
-          PaymentsService.postPaymentsCheckout({
-            requestBody: data,
-            xStoreId: customStoreId || storeId,
-          })
-        ),
+payments: {
+  checkout: (data: any) =>
+    withAuthRetry(() =>
+      PaymentsService.postPaymentsCheckout({
+        requestBody: data,
+      })
+    ),
 
-      refund: (paymentId: string, data?: any, customStoreId?: string) =>
-        withAuthRetry(() =>
-          PaymentsService.postPaymentsRefund({
-            paymentId,
-            requestBody: data,
-            xStoreId: customStoreId || storeId,
-          })
-        ),
-    },
-
-    productImages: {
-      list: (productId: string, customStoreId?: string) =>
-        withAuthRetry(() =>
-          ProductImagesService.getProductsImages({
-            productId,
-            xStoreId: customStoreId || storeId,
-          })
-        ),
-
-      create: (productId: string, data: any, customStoreId?: string) =>
-        withAuthRetry(() =>
-          ProductImagesService.postProductsImages({
-            productId,
-            requestBody: data,
-            xStoreId: customStoreId || storeId,
-          })
-        ),
-
-      presign: (productId: string, data: any, customStoreId?: string) =>
-        withAuthRetry(() =>
-          ProductImagesService.postProductsImagesPresign({
-            productId,
-            requestBody: data,
-            xStoreId: customStoreId || storeId,
-          })
-        ),
-
-      update: (
-        productId: string,
-        imageId: string,
-        data: any,
-        customStoreId?: string
-      ) =>
-        withAuthRetry(() =>
-          ProductImagesService.patchProductsImages({
-            productId,
-            imageId,
-            requestBody: data,
-            xStoreId: customStoreId || storeId,
-          })
-        ),
-
-      delete: (productId: string, imageId: string, customStoreId?: string) =>
-        withAuthRetry(() =>
-          ProductImagesService.deleteProductsImages({
-            productId,
-            imageId,
-            xStoreId: customStoreId || storeId,
-          })
-        ),
-    },
+  refund: (paymentId: string, data?: any, customStoreId?: string) =>
+    withAuthRetry(() =>
+      PaymentsService.postPaymentsRefund({
+        paymentId,
+        requestBody: data,
+        xStoreId: customStoreId || storeId,
+      })
+    ),
+},
 
     reviews: {
       list: (

@@ -12,7 +12,7 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class OrdersService {
     /**
-     * List store orders
+     * List buyer orders or store orders
      * @returns OrderListResponse Order list
      * @throws ApiError
      */
@@ -25,28 +25,13 @@ export class OrdersService {
         fulfillmentType,
     }: {
         /**
-         * Store context id
+         * Optional store context id. If provided, lists store orders for seller. Otherwise lists buyer orders.
          */
-        xStoreId: string,
-        /**
-         * Maximum number of orders to return
-         */
+        xStoreId?: string,
         limit?: number,
-        /**
-         * Filter by order status
-         */
         status?: 'PENDING' | 'PAID' | 'PROCESSING' | 'READY_FOR_PICKUP' | 'FULFILLED' | 'CANCELLED' | 'REFUNDED',
-        /**
-         * Filter by payment status
-         */
         paymentStatus?: 'REQUIRES_ACTION' | 'PENDING' | 'SUCCEEDED' | 'FAILED' | 'CANCELLED' | 'REFUNDED',
-        /**
-         * Filter by customer id
-         */
         customerId?: string,
-        /**
-         * Filter by fulfillment type
-         */
         fulfillmentType?: 'STANDARD' | 'PICKUP',
     }): CancelablePromise<OrderListResponse> {
         return __request(OpenAPI, {
@@ -69,33 +54,24 @@ export class OrdersService {
         });
     }
     /**
-     * Create order (supports pickup)
+     * Create buyer order
      * @returns OrderSingleResponse Order created
      * @throws ApiError
      */
     public static postOrders({
-        xStoreId,
         requestBody,
     }: {
-        /**
-         * Store context id
-         */
-        xStoreId: string,
         requestBody: CreateOrderRequest,
     }): CancelablePromise<OrderSingleResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/orders',
-            headers: {
-                'x-store-id': xStoreId,
-            },
             body: requestBody,
             mediaType: 'application/json',
             errors: {
                 400: `Validation failed`,
-                403: `Access denied`,
                 404: `Product or variant not found`,
-                409: `Unique constraint failed`,
+                409: `Conflict`,
                 500: `Order create failed`,
             },
         });
@@ -111,9 +87,9 @@ export class OrdersService {
     }: {
         id: string,
         /**
-         * Store context id
+         * Optional store context id for seller view. Buyer can access own order without it.
          */
-        xStoreId: string,
+        xStoreId?: string,
     }): CancelablePromise<OrderSingleResponse> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -132,7 +108,7 @@ export class OrdersService {
         });
     }
     /**
-     * Update order status
+     * Update store order status
      * @returns OrderSingleResponse Order status updated
      * @throws ApiError
      */
@@ -143,7 +119,7 @@ export class OrdersService {
     }: {
         id: string,
         /**
-         * Store context id
+         * Store context id. Required for seller/admin status updates.
          */
         xStoreId: string,
         requestBody: UpdateOrderStatusRequest,
@@ -168,7 +144,7 @@ export class OrdersService {
         });
     }
     /**
-     * Cancel order
+     * Cancel buyer order or store order
      * @returns OrderSingleResponse Order cancelled
      * @throws ApiError
      */
@@ -178,9 +154,9 @@ export class OrdersService {
     }: {
         id: string,
         /**
-         * Store context id
+         * Optional store context id for seller cancellation. Buyer can cancel own pending order without it.
          */
-        xStoreId: string,
+        xStoreId?: string,
     }): CancelablePromise<OrderSingleResponse> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -200,28 +176,20 @@ export class OrdersService {
         });
     }
     /**
-     * Pay order with mock payment
+     * Pay buyer order with mock payment
      * @returns PayOrderResponse Payment succeeded
      * @throws ApiError
      */
     public static postOrdersPay({
         id,
-        xStoreId,
     }: {
         id: string,
-        /**
-         * Store context id
-         */
-        xStoreId: string,
     }): CancelablePromise<PayOrderResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/orders/{id}/pay',
             path: {
                 'id': id,
-            },
-            headers: {
-                'x-store-id': xStoreId,
             },
             errors: {
                 403: `Access denied`,

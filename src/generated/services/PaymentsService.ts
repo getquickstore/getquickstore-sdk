@@ -11,26 +11,18 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class PaymentsService {
     /**
-     * Create Stripe Checkout session for an order
+     * Create Stripe Checkout session for buyer order
      * @returns PaymentCheckoutResponse Checkout session created
      * @throws ApiError
      */
     public static postPaymentsCheckout({
         requestBody,
-        xStoreId,
     }: {
         requestBody: PaymentCheckoutRequest,
-        /**
-         * Store context id. If provided, must match the order store.
-         */
-        xStoreId?: string,
     }): CancelablePromise<PaymentCheckoutResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/payments/checkout',
-            headers: {
-                'x-store-id': xStoreId,
-            },
             body: requestBody,
             mediaType: 'application/json',
             errors: {

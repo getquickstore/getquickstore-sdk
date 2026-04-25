@@ -12,7 +12,6 @@ const CartService_1 = require("./generated/services/CartService");
 const CategoriesService_1 = require("./generated/services/CategoriesService");
 const OrdersService_1 = require("./generated/services/OrdersService");
 const PaymentsService_1 = require("./generated/services/PaymentsService");
-const ProductImagesService_1 = require("./generated/services/ProductImagesService");
 const ProductsService_1 = require("./generated/services/ProductsService");
 const ReviewsService_1 = require("./generated/services/ReviewsService");
 const StoresService_1 = require("./generated/services/StoresService");
@@ -314,20 +313,19 @@ function createClient({ baseUrl, token, storeId }) {
         },
         orders: {
             list: (params) => withAuthRetry(() => OrdersService_1.OrdersService.getOrders({
-                xStoreId: params?.storeId || requireStoreId(),
+                xStoreId: params?.storeId || undefined,
                 limit: params?.limit,
                 status: params?.status,
                 paymentStatus: params?.paymentStatus,
                 customerId: params?.customerId,
                 fulfillmentType: params?.fulfillmentType,
             })),
-            create: (data, customStoreId) => withAuthRetry(() => OrdersService_1.OrdersService.postOrders({
-                xStoreId: customStoreId || requireStoreId(),
+            create: (data) => withAuthRetry(() => OrdersService_1.OrdersService.postOrders({
                 requestBody: data,
             })),
             get: (id, customStoreId) => withAuthRetry(() => OrdersService_1.OrdersService.getOrders1({
                 id,
-                xStoreId: customStoreId || requireStoreId(),
+                xStoreId: customStoreId || undefined,
             })),
             updateStatus: (id, data, customStoreId) => withAuthRetry(() => OrdersService_1.OrdersService.patchOrdersStatus({
                 id,
@@ -336,48 +334,19 @@ function createClient({ baseUrl, token, storeId }) {
             })),
             cancel: (id, customStoreId) => withAuthRetry(() => OrdersService_1.OrdersService.postOrdersCancel({
                 id,
-                xStoreId: customStoreId || requireStoreId(),
+                xStoreId: customStoreId || undefined,
             })),
-            pay: (id, customStoreId) => withAuthRetry(() => OrdersService_1.OrdersService.postOrdersPay({
+            pay: (id) => withAuthRetry(() => OrdersService_1.OrdersService.postOrdersPay({
                 id,
-                xStoreId: customStoreId || requireStoreId(),
             })),
         },
         payments: {
-            checkout: (data, customStoreId) => withAuthRetry(() => PaymentsService_1.PaymentsService.postPaymentsCheckout({
+            checkout: (data) => withAuthRetry(() => PaymentsService_1.PaymentsService.postPaymentsCheckout({
                 requestBody: data,
-                xStoreId: customStoreId || storeId,
             })),
             refund: (paymentId, data, customStoreId) => withAuthRetry(() => PaymentsService_1.PaymentsService.postPaymentsRefund({
                 paymentId,
                 requestBody: data,
-                xStoreId: customStoreId || storeId,
-            })),
-        },
-        productImages: {
-            list: (productId, customStoreId) => withAuthRetry(() => ProductImagesService_1.ProductImagesService.getProductsImages({
-                productId,
-                xStoreId: customStoreId || storeId,
-            })),
-            create: (productId, data, customStoreId) => withAuthRetry(() => ProductImagesService_1.ProductImagesService.postProductsImages({
-                productId,
-                requestBody: data,
-                xStoreId: customStoreId || storeId,
-            })),
-            presign: (productId, data, customStoreId) => withAuthRetry(() => ProductImagesService_1.ProductImagesService.postProductsImagesPresign({
-                productId,
-                requestBody: data,
-                xStoreId: customStoreId || storeId,
-            })),
-            update: (productId, imageId, data, customStoreId) => withAuthRetry(() => ProductImagesService_1.ProductImagesService.patchProductsImages({
-                productId,
-                imageId,
-                requestBody: data,
-                xStoreId: customStoreId || storeId,
-            })),
-            delete: (productId, imageId, customStoreId) => withAuthRetry(() => ProductImagesService_1.ProductImagesService.deleteProductsImages({
-                productId,
-                imageId,
                 xStoreId: customStoreId || storeId,
             })),
         },

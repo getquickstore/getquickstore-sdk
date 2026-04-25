@@ -6,46 +6,27 @@ import type { UpdateOrderStatusRequest } from '../models/UpdateOrderStatusReques
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class OrdersService {
     /**
-     * List store orders
+     * List buyer orders or store orders
      * @returns OrderListResponse Order list
      * @throws ApiError
      */
     static getOrders({ xStoreId, limit, status, paymentStatus, customerId, fulfillmentType, }: {
         /**
-         * Store context id
+         * Optional store context id. If provided, lists store orders for seller. Otherwise lists buyer orders.
          */
-        xStoreId: string;
-        /**
-         * Maximum number of orders to return
-         */
+        xStoreId?: string;
         limit?: number;
-        /**
-         * Filter by order status
-         */
         status?: 'PENDING' | 'PAID' | 'PROCESSING' | 'READY_FOR_PICKUP' | 'FULFILLED' | 'CANCELLED' | 'REFUNDED';
-        /**
-         * Filter by payment status
-         */
         paymentStatus?: 'REQUIRES_ACTION' | 'PENDING' | 'SUCCEEDED' | 'FAILED' | 'CANCELLED' | 'REFUNDED';
-        /**
-         * Filter by customer id
-         */
         customerId?: string;
-        /**
-         * Filter by fulfillment type
-         */
         fulfillmentType?: 'STANDARD' | 'PICKUP';
     }): CancelablePromise<OrderListResponse>;
     /**
-     * Create order (supports pickup)
+     * Create buyer order
      * @returns OrderSingleResponse Order created
      * @throws ApiError
      */
-    static postOrders({ xStoreId, requestBody, }: {
-        /**
-         * Store context id
-         */
-        xStoreId: string;
+    static postOrders({ requestBody, }: {
         requestBody: CreateOrderRequest;
     }): CancelablePromise<OrderSingleResponse>;
     /**
@@ -56,45 +37,41 @@ export declare class OrdersService {
     static getOrders1({ id, xStoreId, }: {
         id: string;
         /**
-         * Store context id
+         * Optional store context id for seller view. Buyer can access own order without it.
          */
-        xStoreId: string;
+        xStoreId?: string;
     }): CancelablePromise<OrderSingleResponse>;
     /**
-     * Update order status
+     * Update store order status
      * @returns OrderSingleResponse Order status updated
      * @throws ApiError
      */
     static patchOrdersStatus({ id, xStoreId, requestBody, }: {
         id: string;
         /**
-         * Store context id
+         * Store context id. Required for seller/admin status updates.
          */
         xStoreId: string;
         requestBody: UpdateOrderStatusRequest;
     }): CancelablePromise<OrderSingleResponse>;
     /**
-     * Cancel order
+     * Cancel buyer order or store order
      * @returns OrderSingleResponse Order cancelled
      * @throws ApiError
      */
     static postOrdersCancel({ id, xStoreId, }: {
         id: string;
         /**
-         * Store context id
+         * Optional store context id for seller cancellation. Buyer can cancel own pending order without it.
          */
-        xStoreId: string;
+        xStoreId?: string;
     }): CancelablePromise<OrderSingleResponse>;
     /**
-     * Pay order with mock payment
+     * Pay buyer order with mock payment
      * @returns PayOrderResponse Payment succeeded
      * @throws ApiError
      */
-    static postOrdersPay({ id, xStoreId, }: {
+    static postOrdersPay({ id, }: {
         id: string;
-        /**
-         * Store context id
-         */
-        xStoreId: string;
     }): CancelablePromise<PayOrderResponse>;
 }

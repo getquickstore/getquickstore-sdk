@@ -246,38 +246,15 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             customerId?: string;
             storeId?: string;
         }) => Promise<import("./generated").OrderListResponse>;
-        create: (data: CreateOrderRequest, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
+        create: (data: CreateOrderRequest) => Promise<import("./generated").OrderSingleResponse>;
         get: (id: string, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
         updateStatus: (id: string, data: UpdateOrderStatusRequest, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
         cancel: (id: string, customStoreId?: string) => Promise<import("./generated").OrderSingleResponse>;
-        pay: (id: string, customStoreId?: string) => Promise<import("./generated").PayOrderResponse>;
+        pay: (id: string) => Promise<import("./generated").PayOrderResponse>;
     };
     payments: {
-        checkout: (data: any, customStoreId?: string) => Promise<import("./generated").PaymentCheckoutResponse>;
+        checkout: (data: any) => Promise<import("./generated").PaymentCheckoutResponse>;
         refund: (paymentId: string, data?: any, customStoreId?: string) => Promise<import("./generated").CreateRefundResponse>;
-    };
-    productImages: {
-        list: (productId: string, customStoreId?: string) => Promise<{
-            ok: boolean;
-            images: Array<import("./generated").ProductImage>;
-        }>;
-        create: (productId: string, data: any, customStoreId?: string) => Promise<{
-            ok: boolean;
-            image: import("./generated").ProductImage;
-        }>;
-        presign: (productId: string, data: any, customStoreId?: string) => Promise<{
-            ok: boolean;
-            uploadUrl: string;
-            key: string;
-        }>;
-        update: (productId: string, imageId: string, data: any, customStoreId?: string) => Promise<{
-            ok: boolean;
-            image: import("./generated").ProductImage;
-        }>;
-        delete: (productId: string, imageId: string, customStoreId?: string) => Promise<{
-            ok: boolean;
-            imageId: string;
-        }>;
     };
     reviews: {
         list: (productId: string, params?: {
