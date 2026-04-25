@@ -19,6 +19,16 @@ const ServicesService_1 = require("./generated/services/ServicesService");
 let refreshPromise = null;
 let activeAccessToken;
 let activeStoreId;
+function maskToken(token) {
+    if (!token)
+        return null;
+    return `${token.slice(0, 12)}...${token.slice(-8)}`;
+}
+let sdkRequestSeq = 0;
+function nextSdkTrace(label) {
+    sdkRequestSeq += 1;
+    return `${label}#${sdkRequestSeq}`;
+}
 function isAuthError(error) {
     return error?.status === 401 || error?.status === 403;
 }
@@ -39,10 +49,29 @@ function createClient({ baseUrl, token, storeId }) {
     OpenAPI_1.OpenAPI.WITH_CREDENTIALS = true;
     OpenAPI_1.OpenAPI.CREDENTIALS = 'include';
     const applyHeaders = () => {
-        OpenAPI_1.OpenAPI.HEADERS = async () => ({
-            Authorization: activeAccessToken ? `Bearer ${activeAccessToken}` : undefined,
-            'x-store-id': activeStoreId || undefined,
+        console.log('[sdk:headers] applyHeaders called', {
+            activeAccessToken: maskToken(activeAccessToken),
+            activeStoreId,
+            createClientStoreId: storeId,
         });
+        OpenAPI_1.OpenAPI.HEADERS = async () => {
+            const headers = {};
+            if (activeAccessToken) {
+                headers.Authorization = `Bearer ${activeAccessToken}`;
+            }
+            if (storeId) {
+                headers['x-store-id'] = storeId;
+            }
+            console.log('[sdk:headers] OpenAPI.HEADERS resolved', {
+                activeAccessToken: maskToken(activeAccessToken),
+                activeStoreId,
+                createClientStoreId: storeId,
+                hasAuthorization: !!headers.Authorization,
+                authorizationPrefix: headers.Authorization?.slice(0, 24) || null,
+                xStoreId: headers['x-store-id'] || null,
+            });
+            return headers;
+        };
     };
     applyHeaders();
     const refreshSessionForClient = async () => {
@@ -74,28 +103,88 @@ function createClient({ baseUrl, token, storeId }) {
         return res;
     };
     const withClientAuthRetry = async (fn) => {
+        const traceId = nextSdkTrace('sdk-req');
+        console.log('[sdk:retry] start', {
+            traceId,
+            activeAccessToken: maskToken(activeAccessToken),
+            activeStoreId,
+            createClientStoreId: storeId,
+        });
         try {
-            return await fn();
+            const res = await fn();
+            console.log('[sdk:retry] success first try', {
+                traceId,
+                activeAccessToken: maskToken(activeAccessToken),
+                activeStoreId,
+                createClientStoreId: storeId,
+            });
+            return res;
         }
         catch (error) {
-            console.log('[sdk] request failed before retry', {
+            console.log('[sdk:retry] failed first try', {
+                traceId,
                 status: error?.status,
+                message: error?.message,
                 url: error?.request?.url || error?.url,
+                requestPath: error?.request?.path,
+                activeAccessToken: maskToken(activeAccessToken),
+                activeStoreId,
+                createClientStoreId: storeId,
             });
             if (!isAuthError(error) || shouldSkipRefresh(error)) {
+                console.log('[sdk:retry] skip refresh', {
+                    traceId,
+                    status: error?.status,
+                    url: error?.request?.url || error?.url,
+                });
                 throw error;
             }
+            const tokenBefore = activeAccessToken;
+            console.log('[sdk:retry] refresh before retry', {
+                traceId,
+                tokenBefore: maskToken(tokenBefore),
+            });
             await refreshSessionForClient();
-            console.log('[sdk] retry with new token', {
-                hasActiveAccessToken: !!activeAccessToken,
-                tokenPrefix: activeAccessToken ? activeAccessToken.slice(0, 12) : null,
+            console.log('[sdk:retry] refresh finished', {
+                traceId,
+                tokenBefore: maskToken(tokenBefore),
+                tokenAfter: maskToken(activeAccessToken),
+                tokenChanged: tokenBefore !== activeAccessToken,
             });
             applyHeaders();
-            return await fn();
+            console.log('[sdk:retry] retry fn now', {
+                traceId,
+                activeAccessToken: maskToken(activeAccessToken),
+                activeStoreId,
+                createClientStoreId: storeId,
+            });
+            try {
+                const retryRes = await fn();
+                console.log('[sdk:retry] success after retry', {
+                    traceId,
+                    activeAccessToken: maskToken(activeAccessToken),
+                    activeStoreId,
+                    createClientStoreId: storeId,
+                });
+                return retryRes;
+            }
+            catch (retryError) {
+                console.log('[sdk:retry] failed after retry', {
+                    traceId,
+                    status: retryError?.status,
+                    message: retryError?.message,
+                    url: retryError?.request?.url || retryError?.url,
+                    requestPath: retryError?.request?.path,
+                    activeAccessToken: maskToken(activeAccessToken),
+                    activeStoreId,
+                    createClientStoreId: storeId,
+                });
+                throw retryError;
+            }
         }
     };
     const requireStoreId = (value) => {
-        const resolved = value || activeStoreId;
+        const resolved = value || storeId;
         if (!resolved) {
             throw new Error('storeId is required in client');
         }
@@ -318,12 +407,7 @@ function createClient({ baseUrl, token, storeId }) {
                 id,
                 requestBody: data,
             })),
-            select: (id) => withClientAuthRetry(async () => {
-                const res = await StoresService_1.StoresService.postStoresSelect({ id });
-                activeStoreId = id;
-                applyHeaders();
-                return res;
-            }),
+            select: (id) => withClientAuthRetry(() => StoresService_1.StoresService.postStoresSelect({ id })),
             setVisibility: (id, isPublic) => withClientAuthRetry(() => StoresService_1.StoresService.patchStoresVisibility({
                 id,
                 requestBody: { isPublic },
