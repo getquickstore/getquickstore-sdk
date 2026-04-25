@@ -18,6 +18,7 @@ const StoresService_1 = require("./generated/services/StoresService");
 const ServicesService_1 = require("./generated/services/ServicesService");
 let refreshPromise = null;
 let activeAccessToken;
+let activeStoreId;
 function isAuthError(error) {
     return error?.status === 401 || error?.status === 403;
 }
@@ -31,13 +32,16 @@ function createClient({ baseUrl, token, storeId }) {
     if (token) {
         activeAccessToken = token;
     }
+    if (storeId) {
+        activeStoreId = storeId;
+    }
     OpenAPI_1.OpenAPI.BASE = baseUrl;
     OpenAPI_1.OpenAPI.WITH_CREDENTIALS = true;
     OpenAPI_1.OpenAPI.CREDENTIALS = 'include';
     const applyHeaders = () => {
         OpenAPI_1.OpenAPI.HEADERS = async () => ({
             Authorization: activeAccessToken ? `Bearer ${activeAccessToken}` : undefined,
-            'x-store-id': storeId || undefined,
+            'x-store-id': activeStoreId || undefined,
         });
     };
     applyHeaders();
@@ -91,7 +95,7 @@ function createClient({ baseUrl, token, storeId }) {
         }
     };
     const requireStoreId = (value) => {
-        const resolved = value || storeId;
+        const resolved = value || activeStoreId;
         if (!resolved) {
             throw new Error('storeId is required in client');
         }
@@ -314,7 +318,12 @@ function createClient({ baseUrl, token, storeId }) {
                 id,
                 requestBody: data,
             })),
-            select: (id) => withClientAuthRetry(() => StoresService_1.StoresService.postStoresSelect({ id })),
+            select: (id) => withClientAuthRetry(async () => {
+                const res = await StoresService_1.StoresService.postStoresSelect({ id });
+                activeStoreId = id;
+                applyHeaders();
+                return res;
+            }),
             setVisibility: (id, isPublic) => withClientAuthRetry(() => StoresService_1.StoresService.patchStoresVisibility({
                 id,
                 requestBody: { isPublic },

@@ -25,6 +25,7 @@ type ClientConfig = {
 
 let refreshPromise: Promise<any> | null = null
 let activeAccessToken: string | undefined
+let activeStoreId: string | undefined
 
 function isAuthError(error: any): boolean {
   return error?.status === 401 || error?.status === 403
@@ -44,17 +45,20 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
   if (token) {
     activeAccessToken = token
   }
+  if (storeId) {
+  activeStoreId = storeId
+}
 
   OpenAPI.BASE = baseUrl
   OpenAPI.WITH_CREDENTIALS = true
   OpenAPI.CREDENTIALS = 'include'
 
-  const applyHeaders = () => {
-    OpenAPI.HEADERS = async () => ({
-      Authorization: activeAccessToken ? `Bearer ${activeAccessToken}` : undefined,
-      'x-store-id': storeId || undefined,
-    })
-  }
+const applyHeaders = () => {
+  OpenAPI.HEADERS = async () => ({
+    Authorization: activeAccessToken ? `Bearer ${activeAccessToken}` : undefined,
+    'x-store-id': activeStoreId || undefined,
+  })
+}
 
   applyHeaders()
 
@@ -119,13 +123,13 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
     }
   }
 
-  const requireStoreId = (value?: string) => {
-    const resolved = value || storeId
-    if (!resolved) {
-      throw new Error('storeId is required in client')
-    }
-    return resolved
+const requireStoreId = (value?: string) => {
+  const resolved = value || activeStoreId
+  if (!resolved) {
+    throw new Error('storeId is required in client')
   }
+  return resolved
+}
 
   return {
     auth: {
@@ -571,10 +575,15 @@ cart: {
           })
         ),
 
-      select: (id: string) =>
-        withClientAuthRetry(() =>
-          StoresService.postStoresSelect({ id })
-        ),
+   select: (id: string) =>
+  withClientAuthRetry(async () => {
+    const res = await StoresService.postStoresSelect({ id })
+
+    activeStoreId = id
+    applyHeaders()
+
+    return res
+  }),
 
       setVisibility: (id: string, isPublic: boolean) =>
         withClientAuthRetry(() =>
