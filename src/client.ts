@@ -23,92 +23,83 @@ type ClientConfig = {
   storeId?: string
 }
 
-let refreshPromise: Promise<void> | null = null
+let refreshPromise: Promise<any> | null = null
 
 function isAuthError(error: any): boolean {
   return error?.status === 401 || error?.status === 403
 }
 
 function shouldSkipRefresh(error: any): boolean {
-  const url = String(error?.request?.url || error?.url || "").toLowerCase()
+  const url = String(error?.request?.url || error?.url || '').toLowerCase()
 
   return (
-    url.includes("/auth/login") ||
-    url.includes("/auth/logout") ||
-    url.includes("/auth/refresh")
+    url.includes('/auth/login') ||
+    url.includes('/auth/logout') ||
+    url.includes('/auth/refresh')
   )
 }
 
-async function refreshSession(): Promise<void> {
-  console.log('[sdk] refreshSession start')
 
-  if (!refreshPromise) {
-    refreshPromise = AuthService.postAuthRefresh({
-      requestBody: {},
-    })
-      .then((res) => {
-        console.log('[sdk] refreshSession ok', res)
-      })
-      .catch((error) => {
-        console.log('[sdk] refreshSession failed', {
-          status: error?.status,
-          message: error?.message,
-          body: error?.body,
-          url: error?.request?.url || error?.url,
-          full: error,
-        })
 
-        throw error
-      })
-      .finally(() => {
-        refreshPromise = null
-      })
-  }
-
-  return refreshPromise
-}
-
-async function withAuthRetry<T>(fn: () => Promise<T>): Promise<T> {
-  try {
-    return await fn()
-  } catch (error: any) {
-    console.log('[sdk] request failed before retry', {
-      status: error?.status,
-      message: error?.message,
-      body: error?.body,
-      url: error?.request?.url || error?.url,
-    })
-
-    if (!isAuthError(error) || shouldSkipRefresh(error)) {
-      throw error
-    }
-
-    console.log('[sdk] auth error detected, refreshing session')
-
-    await refreshSession()
-
-    console.log('[sdk] refresh done, retrying request')
-
-    return await fn()
-  }
-}
 
 
 
 export function createClient({ baseUrl, token, storeId }: ClientConfig) {
+  let currentToken = token
+
   OpenAPI.BASE = baseUrl
   OpenAPI.WITH_CREDENTIALS = true
-  OpenAPI.CREDENTIALS = "include"
+  OpenAPI.CREDENTIALS = 'include'
 
   OpenAPI.HEADERS = async () => ({
-    Authorization: token ? `Bearer ${token}` : undefined,
-    "x-store-id": storeId || undefined,
+    Authorization: currentToken ? `Bearer ${currentToken}` : undefined,
+    'x-store-id': storeId || undefined,
   })
+
+  const refreshSessionForClient = async () => {
+    console.log('[sdk] refreshSession start')
+
+    const res: any = await AuthService.postAuthRefresh({
+      requestBody: {},
+    })
+
+    console.log('[sdk] refreshSession ok', {
+      ok: res?.ok,
+      hasAccessToken: !!res?.accessToken,
+    })
+
+    if (res?.accessToken) {
+      currentToken = res.accessToken
+    }
+
+    return res
+  }
+
+  const withClientAuthRetry = async <T,>(fn: () => Promise<T>): Promise<T> => {
+    try {
+      return await fn()
+    } catch (error: any) {
+      console.log('[sdk] request failed before retry', {
+        status: error?.status,
+        url: error?.request?.url || error?.url,
+      })
+
+      if (!isAuthError(error) || shouldSkipRefresh(error)) {
+        throw error
+      }
+
+      await refreshSessionForClient()
+
+      console.log('[sdk] retry with new token')
+
+      return await fn()
+    }
+  }
 
   const requireStoreId = (value?: string) => {
     const resolved = value || storeId
     if (!resolved) {
-      throw new Error("storeId is required in client")
+      throw new Error('storeId is required in client')
     }
     return resolved
   }
@@ -145,7 +136,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           requestBody: { name, email, password } as any,
         }),
 
-      me: () => withAuthRetry(() => AuthService.getAuthMe()),
+      me: () => withClientAuthRetry(() => AuthService.getAuthMe()),
 
       refresh: (refreshToken?: string) =>
   AuthService.postAuthRefresh({
@@ -158,7 +149,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
   }),
       
            createWebHandoff: (data?: { nextPath?: string }) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           AuthService.postAuthWebHandoff({
             requestBody: {
               ...(data?.nextPath ? { nextPath: data.nextPath } : {}),
@@ -200,16 +191,16 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         }),
 
       getTwoFactorStatus: () =>
-        withAuthRetry(() => AuthService.getAuth2Fa()),
+        withClientAuthRetry(() => AuthService.getAuth2Fa()),
 
       getSessions: () =>
-        withAuthRetry(() => AuthService.getAuthSessions()),
+        withClientAuthRetry(() => AuthService.getAuthSessions()),
 
       changePassword: (data: {
         currentPassword: string
         newPassword: string
       }) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           AuthService.postAuthPasswordChange({
             requestBody: data,
           })
@@ -221,14 +212,14 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         }),
 
       requestEmailVerification: (email: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           AuthService.postAuthEmailVerifyRequest({
             requestBody: { email },
           })
         ),
 
       requestEmailChange: (newEmail: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           AuthService.postAuthEmailChangeRequest({
             requestBody: { newEmail },
           })
@@ -240,38 +231,38 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         }),
 
       startReAuth: (action: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           AuthService.postAuthReAuthStart({
             requestBody: { action },
           })
         ),
 
       verifyReAuth: (data: { challengeId: string; code: string }) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           AuthService.postAuthReAuthVerify({
             requestBody: data,
           })
         ),
 
       startTwoFactorSetup: () =>
-        withAuthRetry(() => AuthService.postAuth2FaSetup()),
+        withClientAuthRetry(() => AuthService.postAuth2FaSetup()),
 
       confirmTwoFactorSetup: (code: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           AuthService.postAuth2FaConfirm({
             requestBody: { code },
           })
         ),
 
       disableTwoFactor: (data: { code?: string; recoveryCode?: string }) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           AuthService.postAuth2FaDisable({
             requestBody: data,
           })
         ),
 
       regenerateRecoveryCodes: (code: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           AuthService.postAuth2FaRecoveryCodesRegenerate({
             requestBody: { code },
           })
@@ -282,7 +273,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         revokeAllOther?: boolean
         currentSessionId?: string
       }) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           AuthService.postAuthSessionsRevoke({
             requestBody: data,
           })
@@ -291,7 +282,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
 
     availability: {
       upsert: (data: any) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           AvailabilityService.postAvailability({
             requestBody: data,
           })
@@ -300,7 +291,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
 
     billing: {
       current: () =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           BillingService.getBillingCurrent({
             xStoreId: storeId || undefined,
             storeId: storeId || undefined,
@@ -308,7 +299,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         ),
 
       storeCurrent: (id: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           BillingService.getBillingStoresCurrent({ id })
         ),
 
@@ -319,7 +310,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
       }) => {
         const resolvedStoreId = requireStoreId(data.storeId)
 
-        return withAuthRetry(() =>
+        return withClientAuthRetry(() =>
           BillingService.postBillingCheckout({
             requestBody: {
               storeId: resolvedStoreId,
@@ -336,7 +327,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
       }) => {
         const resolvedStoreId = requireStoreId(data.storeId)
 
-        return withAuthRetry(() =>
+        return withClientAuthRetry(() =>
           BillingService.postBillingPortal({
             requestBody: {
               storeId: resolvedStoreId,
@@ -349,7 +340,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
       cancel: (data: { storeId?: string }) => {
         const resolvedStoreId = requireStoreId(data.storeId)
 
-        return withAuthRetry(() =>
+        return withClientAuthRetry(() =>
           BillingService.postBillingCancel({
             requestBody: {
               storeId: resolvedStoreId,
@@ -361,24 +352,24 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
 
     stripeConnect: {
       status: () =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           BillingConnectService.getBillingStoresStripeConnectStatus({
             id: requireStoreId(),
           })
         ),
 
       disconnect: (id: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           BillingConnectService.postBillingStoresStripeDisconnect({ id })
         ),
 
       statusByStore: (id: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           BillingConnectService.getBillingStoresStripeConnectStatus({ id })
         ),
 
       start: (data: { returnUrl: string; refreshUrl: string }) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           BillingService.postBillingStoresStripeConnectStart({
             id: requireStoreId(),
             requestBody: {
@@ -389,7 +380,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         ),
 
       sync: () =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           BillingConnectService.postBillingStoresStripeConnectSync({
             id: requireStoreId(),
           })
@@ -404,7 +395,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         dateTo?: string
         storeId?: string
       }) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           BookingsService.getBookings({
             xStoreId: params?.storeId || storeId,
             status: params?.status,
@@ -415,7 +406,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         ),
 
       create: (data: any, customStoreId?: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           BookingsService.postBookings({
             requestBody: data,
             xStoreId: customStoreId || storeId,
@@ -423,7 +414,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         ),
 
       get: (id: string, customStoreId?: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           BookingsService.getBookings1({
             id,
             xStoreId: customStoreId || storeId,
@@ -431,7 +422,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         ),
 
       update: (id: string, data: any, customStoreId?: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           BookingsService.patchBookings({
             id,
             requestBody: data,
@@ -440,7 +431,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         ),
 
       cancel: (id: string, customStoreId?: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           BookingsService.postBookingsCancel({
             id,
             xStoreId: customStoreId || storeId,
@@ -450,40 +441,40 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
 
     calendar: {
       getDay: (date: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           CalendarService.getCalendarDay({ date })
         ),
     },
 
 cart: {
   get: () =>
-    withAuthRetry(() =>
+    withClientAuthRetry(() =>
       CartService.getCart()
     ),
 
   add: (data: any) =>
-    withAuthRetry(() =>
+    withClientAuthRetry(() =>
       CartService.postCartAdd({
         requestBody: data,
       })
     ),
 
   setQty: (data: any) =>
-    withAuthRetry(() =>
+    withClientAuthRetry(() =>
       CartService.postCartSetQty({
         requestBody: data,
       })
     ),
 
   remove: (data: any) =>
-    withAuthRetry(() =>
+    withClientAuthRetry(() =>
       CartService.postCartRemove({
         requestBody: data,
       })
     ),
 
   clear: () =>
-    withAuthRetry(() =>
+    withClientAuthRetry(() =>
       CartService.postCartClear()
     ),
 },
@@ -495,7 +486,7 @@ cart: {
         q?: string
         storeId?: string
       }) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           CategoriesService.getCategories({
             xStoreId: params?.storeId || storeId,
             limit: params?.limit,
@@ -505,7 +496,7 @@ cart: {
         ),
 
       create: (data: any, customStoreId?: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           CategoriesService.postCategories({
             requestBody: data,
             xStoreId: customStoreId || storeId,
@@ -513,7 +504,7 @@ cart: {
         ),
 
       update: (id: string, data: any, customStoreId?: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           CategoriesService.patchCategories({
             id,
             requestBody: data,
@@ -522,7 +513,7 @@ cart: {
         ),
 
       delete: (id: string, customStoreId?: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           CategoriesService.deleteCategories({
             id,
             xStoreId: customStoreId || storeId,
@@ -532,25 +523,25 @@ cart: {
 
     stores: {
       list: () =>
-        withAuthRetry(() => StoresService.getStores()),
+        withClientAuthRetry(() => StoresService.getStores()),
 
       create: (data: any) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           StoresService.postStores({
             requestBody: data,
           })
         ),
 
       me: () =>
-        withAuthRetry(() => StoresService.getStoresMe()),
+        withClientAuthRetry(() => StoresService.getStoresMe()),
 
       getById: (id: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           StoresService.getStores1({ id })
         ),
 
       update: (id: string, data: { name?: string }) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           StoresService.patchStores({
             id,
             requestBody: data,
@@ -558,12 +549,12 @@ cart: {
         ),
 
       select: (id: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           StoresService.postStoresSelect({ id })
         ),
 
       setVisibility: (id: string, isPublic: boolean) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           StoresService.patchStoresVisibility({
             id,
             requestBody: { isPublic },
@@ -571,7 +562,7 @@ cart: {
         ),
 
       archive: (id: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           StoresService.deleteStores({ id })
         ),
 
@@ -586,14 +577,14 @@ cart: {
 
     products: {
       list: (customStoreId?: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           ProductsService.getProducts({
             xStoreId: customStoreId || storeId,
           })
         ),
 
       get: (id: string, customStoreId?: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           ProductsService.getProducts1({
             id,
             xStoreId: customStoreId || storeId,
@@ -601,7 +592,7 @@ cart: {
         ),
 
       create: (data: any, customStoreId?: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           ProductsService.postProducts({
             requestBody: data,
             xStoreId: customStoreId || storeId,
@@ -609,7 +600,7 @@ cart: {
         ),
 
       update: (id: string, data: any, customStoreId?: string) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           ProductsService.patchProducts({
             id,
             requestBody: data,
@@ -641,7 +632,7 @@ orders: {
     customerId?: string
     storeId?: string
   }) =>
-    withAuthRetry(() =>
+    withClientAuthRetry(() =>
       OrdersService.getOrders({
         xStoreId: params?.storeId || undefined,
         limit: params?.limit,
@@ -655,7 +646,7 @@ orders: {
   create: (data: CreateOrderRequest & { storeId?: string }) => {
     const resolvedStoreId = requireStoreId(data.storeId)
 
-    return withAuthRetry(() =>
+    return withClientAuthRetry(() =>
       OrdersService.postOrders({
         requestBody: {
           ...data,
@@ -666,7 +657,7 @@ orders: {
   },
 
   get: (id: string, customStoreId?: string) =>
-    withAuthRetry(() =>
+    withClientAuthRetry(() =>
       OrdersService.getOrders1({
         id,
         xStoreId: customStoreId || undefined,
@@ -678,7 +669,7 @@ orders: {
     data: UpdateOrderStatusRequest,
     customStoreId?: string
   ) =>
-    withAuthRetry(() =>
+    withClientAuthRetry(() =>
       OrdersService.patchOrdersStatus({
         id,
         xStoreId: customStoreId || requireStoreId(),
@@ -687,7 +678,7 @@ orders: {
     ),
 
   cancel: (id: string, customStoreId?: string) =>
-    withAuthRetry(() =>
+    withClientAuthRetry(() =>
       OrdersService.postOrdersCancel({
         id,
         xStoreId: customStoreId || undefined,
@@ -701,7 +692,7 @@ payments: {
     successUrl?: string
     cancelUrl?: string
   }) =>
-    withAuthRetry(() =>
+    withClientAuthRetry(() =>
       PaymentsService.postPaymentsCheckout({
         requestBody: {
           orderId: data.orderId,
@@ -712,7 +703,7 @@ payments: {
     ),
 
   refund: (paymentId: string, data?: any, customStoreId?: string) =>
-    withAuthRetry(() =>
+    withClientAuthRetry(() =>
       PaymentsService.postPaymentsRefund({
         paymentId,
         requestBody: data,
@@ -726,7 +717,7 @@ payments: {
         productId: string,
         params?: { limit?: number; offset?: number; storeId?: string }
       ) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           ReviewsService.getProductsReviews({
             id: productId,
             xStoreId: params?.storeId || requireStoreId(),
@@ -740,7 +731,7 @@ payments: {
         data: any,
         customStoreId?: string
       ) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           ReviewsService.postProductsReviews({
             id: productId,
             xStoreId: customStoreId || requireStoreId(),
@@ -753,7 +744,7 @@ payments: {
         reviewId: string,
         customStoreId?: string
       ) =>
-        withAuthRetry(() =>
+        withClientAuthRetry(() =>
           ReviewsService.postProductsReviewsFlag({
             id: productId,
             rid: reviewId,
@@ -764,7 +755,7 @@ payments: {
 
 services: {
   list: (customStoreId?: string, includeInactive?: boolean) =>
-    withAuthRetry(() =>
+    withClientAuthRetry(() =>
       ServicesService.getServices({
         xStoreId: customStoreId || requireStoreId(),
         includeInactive,
@@ -772,7 +763,7 @@ services: {
     ),
 
   create: (data: any, customStoreId?: string) =>
-    withAuthRetry(() =>
+    withClientAuthRetry(() =>
       ServicesService.postServices({
         xStoreId: customStoreId || requireStoreId(),
         requestBody: data,
@@ -780,7 +771,7 @@ services: {
     ),
 
   getAvailability: (id: string, date: string, customStoreId?: string) =>
-    withAuthRetry(() =>
+    withClientAuthRetry(() =>
       ServicesService.getServicesAvailability({
         xStoreId: customStoreId || requireStoreId(),
         id,
