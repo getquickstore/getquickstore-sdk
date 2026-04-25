@@ -31,10 +31,13 @@ function createClient({ baseUrl, token, storeId }) {
     OpenAPI_1.OpenAPI.BASE = baseUrl;
     OpenAPI_1.OpenAPI.WITH_CREDENTIALS = true;
     OpenAPI_1.OpenAPI.CREDENTIALS = 'include';
-    OpenAPI_1.OpenAPI.HEADERS = async () => ({
-        Authorization: currentToken ? `Bearer ${currentToken}` : undefined,
-        'x-store-id': storeId || undefined,
-    });
+    const applyHeaders = () => {
+        OpenAPI_1.OpenAPI.HEADERS = async () => ({
+            Authorization: currentToken ? `Bearer ${currentToken}` : undefined,
+            'x-store-id': storeId || undefined,
+        });
+    };
+    applyHeaders();
     const refreshSessionForClient = async () => {
         console.log('[sdk] refreshSession start');
         const res = await AuthService_1.AuthService.postAuthRefresh({
@@ -46,6 +49,7 @@ function createClient({ baseUrl, token, storeId }) {
         });
         if (res?.accessToken) {
             currentToken = res.accessToken;
+            applyHeaders();
         }
         return res;
     };
@@ -63,6 +67,7 @@ function createClient({ baseUrl, token, storeId }) {
             }
             await refreshSessionForClient();
             console.log('[sdk] retry with new token');
+            applyHeaders();
             return await fn();
         }
     };
