@@ -6,7 +6,7 @@ const request_1 = require("../core/request");
 class BookingsService {
     /**
      * List bookings
-     * Returns bookings for the current store context. Store context is resolved from the x-store-id header, or from the authenticated user's default store when available.
+     * Returns bookings for the current store context. Requires x-store-id. Intended for seller/admin calendar and booking management.
      * @returns BookingListResponse Booking list
      * @throws ApiError
      */
@@ -33,11 +33,11 @@ class BookingsService {
     }
     /**
      * Create booking
-     * Creates a booking for a store service. Store context is resolved from the x-store-id header, or from the authenticated user's default store when available. End time is calculated automatically from service duration.
+     * Creates a booking for a store service. Requires authenticated customer and x-store-id. Customer does not need seller access to the store. End time is calculated automatically from service duration.
      * @returns Booking Booking created
      * @throws ApiError
      */
-    static postBookings({ requestBody, xStoreId, }) {
+    static postBookings({ xStoreId, requestBody, }) {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'POST',
             url: '/bookings',
@@ -48,7 +48,6 @@ class BookingsService {
             mediaType: 'application/json',
             errors: {
                 400: `Invalid request`,
-                403: `Access denied for current store`,
                 404: `Service or store not found`,
                 409: `Booking conflict`,
                 500: `Failed to create booking`,
@@ -61,7 +60,7 @@ class BookingsService {
      * @returns Booking Booking details
      * @throws ApiError
      */
-    static getBookings1({ id, xStoreId, }) {
+    static getBookings1({ xStoreId, id, }) {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'GET',
             url: '/bookings/{id}',
@@ -81,11 +80,11 @@ class BookingsService {
     }
     /**
      * Update booking
-     * Updates booking status, payment status, or customer fields.
+     * Updates booking status, payment status, or customer fields. Intended for seller/admin booking management.
      * @returns Booking Booking updated
      * @throws ApiError
      */
-    static patchBookings({ id, requestBody, xStoreId, }) {
+    static patchBookings({ xStoreId, id, requestBody, }) {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'PATCH',
             url: '/bookings/{id}',
@@ -112,7 +111,7 @@ class BookingsService {
      * @returns Booking Booking cancelled
      * @throws ApiError
      */
-    static postBookingsCancel({ id, xStoreId, }) {
+    static postBookingsCancel({ xStoreId, id, }) {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'POST',
             url: '/bookings/{id}/cancel',

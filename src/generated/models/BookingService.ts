@@ -7,7 +7,7 @@ export type BookingService = {
     storeId: string;
     name: string;
     slug: string;
-    description: string | null;
+    description?: string | null;
     durationMin: number;
     price: number;
     priceCents: number;

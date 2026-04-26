@@ -199,8 +199,25 @@ function createClient({ baseUrl, token, storeId }) {
             })),
         },
         availability: {
-            upsert: (data) => withClientAuthRetry(() => AvailabilityService_1.AvailabilityService.postAvailability({
+            list: (customStoreId) => withClientAuthRetry(() => AvailabilityService_1.AvailabilityService.getAvailability({
+                xStoreId: customStoreId || requireStoreId(),
+            })),
+            upsert: (data, customStoreId) => withClientAuthRetry(() => AvailabilityService_1.AvailabilityService.postAvailability({
+                xStoreId: customStoreId || requireStoreId(),
                 requestBody: data,
+            })),
+            bulk: (items, customStoreId) => withClientAuthRetry(() => AvailabilityService_1.AvailabilityService.putAvailabilityBulk({
+                xStoreId: customStoreId || requireStoreId(),
+                requestBody: { items },
+            })),
+            update: (id, data, customStoreId) => withClientAuthRetry(() => AvailabilityService_1.AvailabilityService.patchAvailability({
+                id,
+                xStoreId: customStoreId || requireStoreId(),
+                requestBody: data,
+            })),
+            delete: (id, customStoreId) => withClientAuthRetry(() => AvailabilityService_1.AvailabilityService.deleteAvailability({
+                id,
+                xStoreId: customStoreId || requireStoreId(),
             })),
         },
         billing: {
@@ -281,7 +298,14 @@ function createClient({ baseUrl, token, storeId }) {
             })),
         },
         calendar: {
-            getDay: (date) => withClientAuthRetry(() => CalendarService_1.CalendarService.getCalendarDay({ date })),
+            getDay: (date, customStoreId) => withClientAuthRetry(() => CalendarService_1.CalendarService.getCalendarDay({
+                date,
+                xStoreId: customStoreId || requireStoreId(),
+            })),
+            getWeek: (date, customStoreId) => withClientAuthRetry(() => CalendarService_1.CalendarService.getCalendarWeek({
+                date,
+                xStoreId: customStoreId || requireStoreId(),
+            })),
         },
         cart: {
             get: () => withClientAuthRetry(() => CartService_1.CartService.getCart()),

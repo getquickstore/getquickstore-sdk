@@ -6,15 +6,15 @@ import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class BookingsService {
     /**
      * List bookings
-     * Returns bookings for the current store context. Store context is resolved from the x-store-id header, or from the authenticated user's default store when available.
+     * Returns bookings for the current store context. Requires x-store-id. Intended for seller/admin calendar and booking management.
      * @returns BookingListResponse Booking list
      * @throws ApiError
      */
     static getBookings({ xStoreId, status, serviceId, dateFrom, dateTo, }: {
         /**
-         * Store context id. If omitted, the server may use the authenticated user's default store.
+         * Store context id.
          */
-        xStoreId?: string;
+        xStoreId: string;
         /**
          * Filter by booking status
          */
@@ -34,16 +34,16 @@ export declare class BookingsService {
     }): CancelablePromise<BookingListResponse>;
     /**
      * Create booking
-     * Creates a booking for a store service. Store context is resolved from the x-store-id header, or from the authenticated user's default store when available. End time is calculated automatically from service duration.
+     * Creates a booking for a store service. Requires authenticated customer and x-store-id. Customer does not need seller access to the store. End time is calculated automatically from service duration.
      * @returns Booking Booking created
      * @throws ApiError
      */
-    static postBookings({ requestBody, xStoreId, }: {
-        requestBody: CreateBookingRequest;
+    static postBookings({ xStoreId, requestBody, }: {
         /**
-         * Store context id. If omitted, the server may use the authenticated user's default store.
+         * Store context id.
          */
-        xStoreId?: string;
+        xStoreId: string;
+        requestBody: CreateBookingRequest;
     }): CancelablePromise<Booking>;
     /**
      * Get booking by id
@@ -51,32 +51,32 @@ export declare class BookingsService {
      * @returns Booking Booking details
      * @throws ApiError
      */
-    static getBookings1({ id, xStoreId, }: {
+    static getBookings1({ xStoreId, id, }: {
+        /**
+         * Store context id.
+         */
+        xStoreId: string;
         /**
          * Booking id
          */
         id: string;
-        /**
-         * Store context id. If omitted, the server may use the authenticated user's default store.
-         */
-        xStoreId?: string;
     }): CancelablePromise<Booking>;
     /**
      * Update booking
-     * Updates booking status, payment status, or customer fields.
+     * Updates booking status, payment status, or customer fields. Intended for seller/admin booking management.
      * @returns Booking Booking updated
      * @throws ApiError
      */
-    static patchBookings({ id, requestBody, xStoreId, }: {
+    static patchBookings({ xStoreId, id, requestBody, }: {
+        /**
+         * Store context id.
+         */
+        xStoreId: string;
         /**
          * Booking id
          */
         id: string;
         requestBody: UpdateBookingRequest;
-        /**
-         * Store context id. If omitted, the server may use the authenticated user's default store.
-         */
-        xStoreId?: string;
     }): CancelablePromise<Booking>;
     /**
      * Cancel booking
@@ -84,14 +84,14 @@ export declare class BookingsService {
      * @returns Booking Booking cancelled
      * @throws ApiError
      */
-    static postBookingsCancel({ id, xStoreId, }: {
+    static postBookingsCancel({ xStoreId, id, }: {
+        /**
+         * Store context id.
+         */
+        xStoreId: string;
         /**
          * Booking id
          */
         id: string;
-        /**
-         * Store context id. If omitted, the server may use the authenticated user's default store.
-         */
-        xStoreId?: string;
     }): CancelablePromise<Booking>;
 }

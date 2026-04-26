@@ -141,7 +141,11 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         }>;
     };
     availability: {
-        upsert: (data: any) => Promise<import("./generated").AvailabilityWindow>;
+        list: (customStoreId?: string) => Promise<import("./generated").AvailabilityListResponse>;
+        upsert: (data: any, customStoreId?: string) => Promise<import("./generated").AvailabilityItemResponse>;
+        bulk: (items: any[], customStoreId?: string) => Promise<import("./generated").AvailabilityListResponse>;
+        update: (id: string, data: any, customStoreId?: string) => Promise<import("./generated").AvailabilityItemResponse>;
+        delete: (id: string, customStoreId?: string) => Promise<void>;
     };
     billing: {
         current: () => Promise<import("./generated").BillingCurrentResponse>;
@@ -195,7 +199,8 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         cancel: (id: string, customStoreId?: string) => Promise<import("./generated").Booking>;
     };
     calendar: {
-        getDay: (date: string) => Promise<import("./generated").CalendarDayResponse>;
+        getDay: (date: string, customStoreId?: string) => Promise<import("./generated").CalendarResponse>;
+        getWeek: (date: string, customStoreId?: string) => Promise<import("./generated").CalendarResponse>;
     };
     cart: {
         get: () => Promise<import("./generated").CartResponse>;

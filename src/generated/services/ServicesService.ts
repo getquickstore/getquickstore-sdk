@@ -12,6 +12,7 @@ import { request as __request } from '../core/request';
 export class ServicesService {
     /**
      * List services
+     * Returns active services for the current store. includeInactive works only for users who can manage the store.
      * @returns ServiceListResponse Service list
      * @throws ApiError
      */
@@ -20,11 +21,11 @@ export class ServicesService {
         includeInactive,
     }: {
         /**
-         * Store context id
+         * Store context id.
          */
         xStoreId: string,
         /**
-         * Include inactive services
+         * Include inactive services. Only applied for seller/admin users with store access.
          */
         includeInactive?: boolean,
     }): CancelablePromise<ServiceListResponse> {
@@ -39,13 +40,14 @@ export class ServicesService {
             },
             errors: {
                 400: `Store id is required`,
-                403: `Access denied`,
+                404: `Store not found`,
                 500: `Service list failed`,
             },
         });
     }
     /**
      * Create service
+     * Creates a bookable service. Requires seller/admin access to the current store.
      * @returns Service Service created
      * @throws ApiError
      */
@@ -54,7 +56,7 @@ export class ServicesService {
         requestBody,
     }: {
         /**
-         * Store context id
+         * Store context id.
          */
         xStoreId: string,
         requestBody: CreateServiceRequest,
@@ -76,6 +78,7 @@ export class ServicesService {
     }
     /**
      * Get service availability for date
+     * Returns available booking slots for an active service in the current store.
      * @returns ServiceAvailabilityResponse Available slots for date
      * @throws ApiError
      */
@@ -85,15 +88,15 @@ export class ServicesService {
         date,
     }: {
         /**
-         * Store context id
+         * Store context id.
          */
         xStoreId: string,
         /**
-         * Service id
+         * Service id.
          */
         id: string,
         /**
-         * Date in YYYY-MM-DD format
+         * Date in YYYY-MM-DD format.
          */
         date: string,
     }): CancelablePromise<ServiceAvailabilityResponse> {
@@ -111,8 +114,7 @@ export class ServicesService {
             },
             errors: {
                 400: `Validation failed`,
-                403: `Access denied`,
-                404: `Service not found`,
+                404: `Store or service not found`,
                 500: `Service availability failed`,
             },
         });

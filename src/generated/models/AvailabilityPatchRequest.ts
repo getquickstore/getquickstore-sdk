@@ -2,13 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type AvailabilityUpsertRequest = {
-    /**
-     * 0 = Sunday, 6 = Saturday
-     */
-    weekday: number;
-    startTime: string;
-    endTime: string;
+export type AvailabilityPatchRequest = {
+    weekday?: number;
+    startTime?: string;
+    endTime?: string;
     slotStepMin?: number;
     isEnabled?: boolean;
 };
