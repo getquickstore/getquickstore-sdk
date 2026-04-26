@@ -462,6 +462,13 @@ availability: {
     },
 
     bookings: {
+
+     
+          me: () =>
+             withClientAuthRetry(() =>
+      BookingsService.getBookingsMe()
+    ),
+
       list: (params?: {
         status?: "PENDING" | "CONFIRMED" | "COMPLETED" | "CANCELLED"
         serviceId?: string

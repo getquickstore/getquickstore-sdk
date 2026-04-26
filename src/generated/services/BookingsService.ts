@@ -97,6 +97,22 @@ export class BookingsService {
         });
     }
     /**
+     * List my bookings
+     * Returns bookings created by the authenticated customer across all stores. Does not require x-store-id.
+     * @returns BookingListResponse Customer booking list
+     * @throws ApiError
+     */
+    public static getBookingsMe(): CancelablePromise<BookingListResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/bookings/me',
+            errors: {
+                401: `Authentication required`,
+                500: `Failed to list customer bookings`,
+            },
+        });
+    }
+    /**
      * Get booking by id
      * Returns a single booking from the current store context.
      * @returns Booking Booking details

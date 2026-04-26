@@ -186,6 +186,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         sync: () => Promise<import("./generated").StripeConnectStatusResponse>;
     };
     bookings: {
+        me: () => Promise<import("./generated").BookingListResponse>;
         list: (params?: {
             status?: "PENDING" | "CONFIRMED" | "COMPLETED" | "CANCELLED";
             serviceId?: string;

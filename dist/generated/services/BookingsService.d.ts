@@ -46,6 +46,13 @@ export declare class BookingsService {
         requestBody: CreateBookingRequest;
     }): CancelablePromise<Booking>;
     /**
+     * List my bookings
+     * Returns bookings created by the authenticated customer across all stores. Does not require x-store-id.
+     * @returns BookingListResponse Customer booking list
+     * @throws ApiError
+     */
+    static getBookingsMe(): CancelablePromise<BookingListResponse>;
+    /**
      * Get booking by id
      * Returns a single booking from the current store context.
      * @returns Booking Booking details

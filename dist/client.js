@@ -272,6 +272,7 @@ function createClient({ baseUrl, token, storeId }) {
             })),
         },
         bookings: {
+            me: () => withClientAuthRetry(() => BookingsService_1.BookingsService.getBookingsMe()),
             list: (params) => withClientAuthRetry(() => BookingsService_1.BookingsService.getBookings({
                 xStoreId: params?.storeId || storeId,
                 status: params?.status,
