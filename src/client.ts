@@ -125,15 +125,32 @@ const applyHeaders = () => {
   }
 
 const withClientAuthRetry = async <T,>(fn: () => Promise<T>): Promise<T> => {
+  const trace = nextSdkTrace('sdk')
+
   try {
     return await fn()
   } catch (error: any) {
     console.log('[sdk] request failed', {
+      trace,
       status: error?.status,
       url: error?.request?.url || error?.url,
     })
 
-    throw error
+    if (!isAuthError(error) || shouldSkipRefresh(error)) {
+      throw error
+    }
+
+    console.log('[sdk] trying refresh after auth error', { trace })
+
+    const refreshRes = await refreshSessionForClient()
+
+    if (!refreshRes?.accessToken) {
+      throw error
+    }
+
+    console.log('[sdk] retry original request after refresh', { trace })
+
+    return await fn()
   }
 }
 
@@ -179,10 +196,18 @@ const requireStoreId = (value?: string) => {
 
       me: () => withClientAuthRetry(() => AuthService.getAuthMe()),
 
-      refresh: (refreshToken?: string) =>
-  AuthService.postAuthRefresh({
+     refresh: async (refreshToken?: string) => {
+  const res: any = await AuthService.postAuthRefresh({
     requestBody: refreshToken ? { refreshToken } : {},
-  }),
+  })
+
+  if (res?.accessToken) {
+    activeAccessToken = res.accessToken
+    applyHeaders()
+  }
+
+  return res
+},
 
       logout: (data?: { refreshToken?: string | null }) =>
   AuthService.postAuthLogout({
@@ -361,6 +386,13 @@ availability: {
         xStoreId: customStoreId || requireStoreId(),
       } as any)
     ),
+
+    publicServiceSlots: (serviceId: string, date: string, storeId: string) =>
+  AvailabilityService.getAvailabilityPublicServicesSlots({
+    serviceId,
+    date,
+    storeId,
+  }),
 },
 
     billing: {

@@ -3,6 +3,7 @@ import type { AvailabilityItemResponse } from '../models/AvailabilityItemRespons
 import type { AvailabilityListResponse } from '../models/AvailabilityListResponse';
 import type { AvailabilityPatchRequest } from '../models/AvailabilityPatchRequest';
 import type { AvailabilityUpsertRequest } from '../models/AvailabilityUpsertRequest';
+import type { PublicServiceSlotsResponse } from '../models/PublicServiceSlotsResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class AvailabilityService {
     /**
@@ -43,6 +44,23 @@ export declare class AvailabilityService {
         xStoreId: string;
         requestBody: AvailabilityBulkRequest;
     }): CancelablePromise<AvailabilityListResponse>;
+    /**
+     * Get public service slots
+     * Returns public booking slots for a service and date. Does not expose customer or booking details.
+     * @returns PublicServiceSlotsResponse Public slots for selected service and date
+     * @throws ApiError
+     */
+    static getAvailabilityPublicServicesSlots({ serviceId, date, storeId, }: {
+        /**
+         * Service id.
+         */
+        serviceId: string;
+        date: string;
+        /**
+         * Store id.
+         */
+        storeId: string;
+    }): CancelablePromise<PublicServiceSlotsResponse>;
     /**
      * Update availability window
      * Updates one availability window by id. Requires seller/admin access.

@@ -69,6 +69,30 @@ class AvailabilityService {
         });
     }
     /**
+     * Get public service slots
+     * Returns public booking slots for a service and date. Does not expose customer or booking details.
+     * @returns PublicServiceSlotsResponse Public slots for selected service and date
+     * @throws ApiError
+     */
+    static getAvailabilityPublicServicesSlots({ serviceId, date, storeId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/availability/public/services/{serviceId}/slots',
+            path: {
+                'serviceId': serviceId,
+            },
+            query: {
+                'date': date,
+                'storeId': storeId,
+            },
+            errors: {
+                400: `Validation error`,
+                404: `Service not found`,
+                500: `Public availability slots failed`,
+            },
+        });
+    }
+    /**
      * Update availability window
      * Updates one availability window by id. Requires seller/admin access.
      * @returns AvailabilityItemResponse Availability updated

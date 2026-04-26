@@ -23,7 +23,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         }>;
         register: (name: string, email: string, password: string) => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
         me: () => Promise<import("./generated").AuthMeResponse>;
-        refresh: (refreshToken?: string) => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
+        refresh: (refreshToken?: string) => Promise<any>;
         logout: (data?: {
             refreshToken?: string | null;
         }) => import("./generated").CancelablePromise<void>;
@@ -146,6 +146,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         bulk: (items: any[], customStoreId?: string) => Promise<import("./generated").AvailabilityListResponse>;
         update: (id: string, data: any, customStoreId?: string) => Promise<import("./generated").AvailabilityItemResponse>;
         delete: (id: string, customStoreId?: string) => Promise<void>;
+        publicServiceSlots: (serviceId: string, date: string, storeId: string) => import("./generated").CancelablePromise<import("./generated").PublicServiceSlotsResponse>;
     };
     billing: {
         current: () => Promise<import("./generated").BillingCurrentResponse>;

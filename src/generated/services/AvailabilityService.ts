@@ -7,6 +7,7 @@ import type { AvailabilityItemResponse } from '../models/AvailabilityItemRespons
 import type { AvailabilityListResponse } from '../models/AvailabilityListResponse';
 import type { AvailabilityPatchRequest } from '../models/AvailabilityPatchRequest';
 import type { AvailabilityUpsertRequest } from '../models/AvailabilityUpsertRequest';
+import type { PublicServiceSlotsResponse } from '../models/PublicServiceSlotsResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -97,6 +98,44 @@ export class AvailabilityService {
                 400: `Validation error`,
                 403: `Access denied`,
                 500: `Availability bulk update failed`,
+            },
+        });
+    }
+    /**
+     * Get public service slots
+     * Returns public booking slots for a service and date. Does not expose customer or booking details.
+     * @returns PublicServiceSlotsResponse Public slots for selected service and date
+     * @throws ApiError
+     */
+    public static getAvailabilityPublicServicesSlots({
+        serviceId,
+        date,
+        storeId,
+    }: {
+        /**
+         * Service id.
+         */
+        serviceId: string,
+        date: string,
+        /**
+         * Store id.
+         */
+        storeId: string,
+    }): CancelablePromise<PublicServiceSlotsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/availability/public/services/{serviceId}/slots',
+            path: {
+                'serviceId': serviceId,
+            },
+            query: {
+                'date': date,
+                'storeId': storeId,
+            },
+            errors: {
+                400: `Validation error`,
+                404: `Service not found`,
+                500: `Public availability slots failed`,
             },
         });
     }

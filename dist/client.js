@@ -93,15 +93,26 @@ function createClient({ baseUrl, token, storeId }) {
         return res;
     };
     const withClientAuthRetry = async (fn) => {
+        const trace = nextSdkTrace('sdk');
         try {
             return await fn();
         }
         catch (error) {
             console.log('[sdk] request failed', {
+                trace,
                 status: error?.status,
                 url: error?.request?.url || error?.url,
             });
-            throw error;
+            if (!isAuthError(error) || shouldSkipRefresh(error)) {
+                throw error;
+            }
+            console.log('[sdk] trying refresh after auth error', { trace });
+            const refreshRes = await refreshSessionForClient();
+            if (!refreshRes?.accessToken) {
+                throw error;
+            }
+            console.log('[sdk] retry original request after refresh', { trace });
+            return await fn();
         }
     };
     const requireStoreId = (value) => {
@@ -131,9 +142,16 @@ function createClient({ baseUrl, token, storeId }) {
                 requestBody: { name, email, password },
             }),
             me: () => withClientAuthRetry(() => AuthService_1.AuthService.getAuthMe()),
-            refresh: (refreshToken) => AuthService_1.AuthService.postAuthRefresh({
-                requestBody: refreshToken ? { refreshToken } : {},
-            }),
+            refresh: async (refreshToken) => {
+                const res = await AuthService_1.AuthService.postAuthRefresh({
+                    requestBody: refreshToken ? { refreshToken } : {},
+                });
+                if (res?.accessToken) {
+                    activeAccessToken = res.accessToken;
+                    applyHeaders();
+                }
+                return res;
+            },
             logout: (data) => AuthService_1.AuthService.postAuthLogout({
                 requestBody: data || {},
             }),
@@ -219,6 +237,11 @@ function createClient({ baseUrl, token, storeId }) {
                 id,
                 xStoreId: customStoreId || requireStoreId(),
             })),
+            publicServiceSlots: (serviceId, date, storeId) => AvailabilityService_1.AvailabilityService.getAvailabilityPublicServicesSlots({
+                serviceId,
+                date,
+                storeId,
+            }),
         },
         billing: {
             current: () => withClientAuthRetry(() => BillingService_1.BillingService.getBillingCurrent({

@@ -101,6 +101,8 @@ export type { ProductImagePresignRequest } from './models/ProductImagePresignReq
 export type { ProductImageUpdateRequest } from './models/ProductImageUpdateRequest';
 export type { ProductListItem } from './models/ProductListItem';
 export type { ProductListResponse } from './models/ProductListResponse';
+export type { PublicServiceSlot } from './models/PublicServiceSlot';
+export type { PublicServiceSlotsResponse } from './models/PublicServiceSlotsResponse';
 export type { PublicStore } from './models/PublicStore';
 export type { PublicStoreListResponse } from './models/PublicStoreListResponse';
 export type { RefundedPaymentSummary } from './models/RefundedPaymentSummary';
