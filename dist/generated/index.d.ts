@@ -96,6 +96,7 @@ export type { ProductImagePresignRequest } from './models/ProductImagePresignReq
 export type { ProductImageUpdateRequest } from './models/ProductImageUpdateRequest';
 export type { ProductListItem } from './models/ProductListItem';
 export type { ProductListResponse } from './models/ProductListResponse';
+export type { PublicService } from './models/PublicService';
 export type { PublicServiceSlot } from './models/PublicServiceSlot';
 export type { PublicServiceSlotsResponse } from './models/PublicServiceSlotsResponse';
 export type { PublicStore } from './models/PublicStore';
