@@ -548,14 +548,10 @@ function createClient({ baseUrl, token, storeId }) {
                 xStoreId: customStoreId || storeId,
             })),
         },
-        PublicProductResponse: {
-            type: "object",
-            required: ["ok", "item"],
-            properties: {
-                ok: { type: "boolean" },
-                item: { $ref: "#/components/schemas/ProductDetail" },
-            },
-        },
+        publicGet: (id, storeId) => ProductsService_1.ProductsService.getProductsPublic({
+            id,
+            storeId,
+        }),
         reviews: {
             list: (productId, params) => withClientAuthRetry(() => ReviewsService_1.ReviewsService.getProductsReviews({
                 id: productId,

@@ -1075,14 +1075,11 @@ payments: {
     
 },
 
-PublicProductResponse: {
-  type: "object",
-  required: ["ok", "item"],
-  properties: {
-    ok: { type: "boolean" },
-    item: { $ref: "#/components/schemas/ProductDetail" },
-  },
-},
+publicGet: (id: string, storeId: string) =>
+  ProductsService.getProductsPublic({
+    id,
+    storeId,
+  } as any),
 
     reviews: {
       list: (
