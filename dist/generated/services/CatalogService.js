@@ -10,10 +10,10 @@ class CatalogService {
      * @returns FeaturedCatalogResponse Featured public catalog
      * @throws ApiError
      */
-    static getFeatured({ limit = 12, q, }) {
+    static getCatalogFeatured({ limit = 12, q, }) {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'GET',
-            url: '/featured',
+            url: '/catalog/featured',
             query: {
                 'limit': limit,
                 'q': q,

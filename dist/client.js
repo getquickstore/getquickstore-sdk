@@ -355,8 +355,8 @@ function createClient({ baseUrl, token, storeId }) {
             clear: () => withClientAuthRetry(() => CartService_1.CartService.postCartClear()),
         },
         catalog: {
-            featured: (params) => CatalogService_1.CatalogService.getFeatured({
-                limit: params?.limit,
+            featured: (params) => CatalogService_1.CatalogService.getCatalogFeatured({
+                limit: params?.limit ?? 12,
                 q: params?.q,
             }),
         },

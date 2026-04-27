@@ -13,7 +13,7 @@ export class CatalogService {
      * @returns FeaturedCatalogResponse Featured public catalog
      * @throws ApiError
      */
-    public static getFeatured({
+    public static getCatalogFeatured({
         limit = 12,
         q,
     }: {
@@ -22,7 +22,7 @@ export class CatalogService {
     }): CancelablePromise<FeaturedCatalogResponse> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/featured',
+            url: '/catalog/featured',
             query: {
                 'limit': limit,
                 'q': q,

@@ -7,7 +7,7 @@ export declare class CatalogService {
      * @returns FeaturedCatalogResponse Featured public catalog
      * @throws ApiError
      */
-    static getFeatured({ limit, q, }: {
+    static getCatalogFeatured({ limit, q, }: {
         limit?: number;
         q?: string;
     }): CancelablePromise<FeaturedCatalogResponse>;

@@ -619,10 +619,10 @@ cart: {
 
 catalog: {
   featured: (params?: { limit?: number; q?: string }) =>
-    CatalogService.getFeatured({
-      limit: params?.limit,
+    CatalogService.getCatalogFeatured({
+      limit: params?.limit ?? 12,
       q: params?.q,
-    } as any),
+    }),
 },
 
     categories: {
