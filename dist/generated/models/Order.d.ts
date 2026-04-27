@@ -1,10 +1,12 @@
 import type { Address } from './Address';
 import type { OrderCustomer } from './OrderCustomer';
 import type { OrderItem } from './OrderItem';
+import type { OrderStoreRef } from './OrderStoreRef';
 import type { Payment } from './Payment';
 export type Order = {
     id: string;
     storeId: string;
+    store: OrderStoreRef;
     customerId?: string | null;
     userId?: string | null;
     number: string;

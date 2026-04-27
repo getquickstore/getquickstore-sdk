@@ -2,12 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { OrderProductImage } from './OrderProductImage';
-export type OrderProductRef = {
+export type OrderStoreRef = {
     id: string;
     name: string;
     slug: string;
-    sku?: string | null;
-    images?: Array<OrderProductImage>;
 };
 
