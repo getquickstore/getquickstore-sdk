@@ -18,6 +18,7 @@ declare const sdk: {
     CartService: typeof generated.CartService;
     CatalogService: typeof generated.CatalogService;
     CategoriesService: typeof generated.CategoriesService;
+    FavoritesService: typeof generated.FavoritesService;
     OrdersService: typeof generated.OrdersService;
     PaymentsService: typeof generated.PaymentsService;
     ProductImagesService: typeof generated.ProductImagesService;

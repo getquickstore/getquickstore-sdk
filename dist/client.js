@@ -20,6 +20,7 @@ const ServicesService_1 = require("./generated/services/ServicesService");
 const AnalyticsService_1 = require("./generated/services/AnalyticsService");
 const ServiceImagesService_1 = require("./generated/services/ServiceImagesService");
 const CatalogService_1 = require("./generated/services/CatalogService");
+const FavoritesService_1 = require("./generated/services/FavoritesService");
 let refreshPromise = null;
 let activeAccessToken;
 function maskToken(token) {
@@ -402,6 +403,11 @@ function createClient({ baseUrl, token, storeId }) {
                 q: params?.q,
             }),
             getPublicBySlug: (slug) => StoresService_1.StoresService.getStoresPublic1({ slug }),
+            nearby: (params) => StoresService_1.StoresService.getStoresPublicNearby({
+                lat: params.lat,
+                lng: params.lng,
+                radiusKm: params.radiusKm,
+            }),
         },
         products: {
             list: (customStoreId, params) => withClientAuthRetry(() => ProductsService_1.ProductsService.getProducts({
@@ -480,6 +486,17 @@ function createClient({ baseUrl, token, storeId }) {
                 serviceId,
                 imageId,
                 xStoreId: customStoreId || requireStoreId(),
+            })),
+        },
+        favorites: {
+            list: (params) => withClientAuthRetry(() => FavoritesService_1.FavoritesService.getFavorites({
+                type: params?.type,
+            })),
+            add: (data) => withClientAuthRetry(() => FavoritesService_1.FavoritesService.postFavorites({
+                requestBody: data,
+            })),
+            remove: (data) => withClientAuthRetry(() => FavoritesService_1.FavoritesService.deleteFavorites({
+                requestBody: data,
             })),
         },
         orders: {

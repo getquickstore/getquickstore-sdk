@@ -175,7 +175,7 @@ class StoresService {
     }
     /**
      * Get public store by slug
-     * @returns PublicStore Public store details
+     * @returns PublicStoreSingleResponse Public store details
      * @throws ApiError
      */
     static getStoresPublic1({ slug, }) {
@@ -187,6 +187,22 @@ class StoresService {
             },
             errors: {
                 404: `Resource not found`,
+            },
+        });
+    }
+    /**
+     * List nearby public stores
+     * @returns PublicStoreNearbyResponse Nearby stores list
+     * @throws ApiError
+     */
+    static getStoresPublicNearby({ lat, lng, radiusKm = 25, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/stores/public/nearby',
+            query: {
+                'lat': lat,
+                'lng': lng,
+                'radiusKm': radiusKm,
             },
         });
     }

@@ -1,7 +1,8 @@
 import type { CreateStoreRequest } from '../models/CreateStoreRequest';
 import type { CreateStoreResponse } from '../models/CreateStoreResponse';
-import type { PublicStore } from '../models/PublicStore';
 import type { PublicStoreListResponse } from '../models/PublicStoreListResponse';
+import type { PublicStoreNearbyResponse } from '../models/PublicStoreNearbyResponse';
+import type { PublicStoreSingleResponse } from '../models/PublicStoreSingleResponse';
 import type { StoreDeleteResponse } from '../models/StoreDeleteResponse';
 import type { StoreDetailsResponse } from '../models/StoreDetailsResponse';
 import type { StoreListResponse } from '../models/StoreListResponse';
@@ -104,7 +105,7 @@ export declare class StoresService {
     }): CancelablePromise<PublicStoreListResponse>;
     /**
      * Get public store by slug
-     * @returns PublicStore Public store details
+     * @returns PublicStoreSingleResponse Public store details
      * @throws ApiError
      */
     static getStoresPublic1({ slug, }: {
@@ -112,5 +113,15 @@ export declare class StoresService {
          * Store slug
          */
         slug: string;
-    }): CancelablePromise<PublicStore>;
+    }): CancelablePromise<PublicStoreSingleResponse>;
+    /**
+     * List nearby public stores
+     * @returns PublicStoreNearbyResponse Nearby stores list
+     * @throws ApiError
+     */
+    static getStoresPublicNearby({ lat, lng, radiusKm, }: {
+        lat: number;
+        lng: number;
+        radiusKm?: number;
+    }): CancelablePromise<PublicStoreNearbyResponse>;
 }

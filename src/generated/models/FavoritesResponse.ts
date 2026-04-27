@@ -2,9 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { PublicStore } from './PublicStore';
-export type PublicStoreListResponse = {
+import type { Favorite } from './Favorite';
+export type FavoritesResponse = {
     ok: boolean;
-    items: Array<PublicStore>;
+    items: Array<Favorite>;
 };
 

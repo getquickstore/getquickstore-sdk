@@ -1,5 +1,5 @@
 import type { PublicStore } from './PublicStore';
-export type PublicStoreListResponse = {
+export type PublicStoreNearbyResponse = {
     ok: boolean;
     items: Array<PublicStore>;
 };

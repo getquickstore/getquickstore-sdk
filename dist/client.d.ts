@@ -248,7 +248,12 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         getPublic: (params?: {
             q?: string;
         }) => import("./generated").CancelablePromise<import("./generated").PublicStoreListResponse>;
-        getPublicBySlug: (slug: string) => import("./generated").CancelablePromise<import("./generated").PublicStore>;
+        getPublicBySlug: (slug: string) => import("./generated").CancelablePromise<import("./generated").PublicStoreSingleResponse>;
+        nearby: (params: {
+            lat: number;
+            lng: number;
+            radiusKm?: number;
+        }) => import("./generated").CancelablePromise<import("./generated").PublicStoreNearbyResponse>;
     };
     products: {
         list: (customStoreId?: string, params?: {
@@ -341,6 +346,23 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             ok: boolean;
             imageId: string;
         }>;
+    };
+    favorites: {
+        list: (params?: {
+            type?: "STORE" | "PRODUCT" | "SERVICE";
+        }) => Promise<import("./generated").FavoritesResponse>;
+        add: (data: {
+            type: "STORE" | "PRODUCT" | "SERVICE";
+            storeId?: string;
+            productId?: string;
+            serviceId?: string;
+        }) => Promise<import("./generated").FavoriteSingleResponse>;
+        remove: (data: {
+            type: "STORE" | "PRODUCT" | "SERVICE";
+            storeId?: string;
+            productId?: string;
+            serviceId?: string;
+        }) => Promise<import("./generated").OkResponse>;
     };
     orders: {
         list: (params?: {

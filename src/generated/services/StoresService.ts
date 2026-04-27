@@ -4,8 +4,9 @@
 /* eslint-disable */
 import type { CreateStoreRequest } from '../models/CreateStoreRequest';
 import type { CreateStoreResponse } from '../models/CreateStoreResponse';
-import type { PublicStore } from '../models/PublicStore';
 import type { PublicStoreListResponse } from '../models/PublicStoreListResponse';
+import type { PublicStoreNearbyResponse } from '../models/PublicStoreNearbyResponse';
+import type { PublicStoreSingleResponse } from '../models/PublicStoreSingleResponse';
 import type { StoreDeleteResponse } from '../models/StoreDeleteResponse';
 import type { StoreDetailsResponse } from '../models/StoreDetailsResponse';
 import type { StoreListResponse } from '../models/StoreListResponse';
@@ -240,7 +241,7 @@ export class StoresService {
     }
     /**
      * Get public store by slug
-     * @returns PublicStore Public store details
+     * @returns PublicStoreSingleResponse Public store details
      * @throws ApiError
      */
     public static getStoresPublic1({
@@ -250,7 +251,7 @@ export class StoresService {
          * Store slug
          */
         slug: string,
-    }): CancelablePromise<PublicStore> {
+    }): CancelablePromise<PublicStoreSingleResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/stores/public/{slug}',
@@ -259,6 +260,30 @@ export class StoresService {
             },
             errors: {
                 404: `Resource not found`,
+            },
+        });
+    }
+    /**
+     * List nearby public stores
+     * @returns PublicStoreNearbyResponse Nearby stores list
+     * @throws ApiError
+     */
+    public static getStoresPublicNearby({
+        lat,
+        lng,
+        radiusKm = 25,
+    }: {
+        lat: number,
+        lng: number,
+        radiusKm?: number,
+    }): CancelablePromise<PublicStoreNearbyResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/stores/public/nearby',
+            query: {
+                'lat': lat,
+                'lng': lng,
+                'radiusKm': radiusKm,
             },
         });
     }

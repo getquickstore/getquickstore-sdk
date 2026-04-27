@@ -3,8 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { PublicStore } from './PublicStore';
-export type PublicStoreListResponse = {
+export type PublicStoreSingleResponse = {
     ok: boolean;
-    items: Array<PublicStore>;
+    item: PublicStore;
 };
 

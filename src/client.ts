@@ -19,6 +19,7 @@ import type { UpdateOrderStatusRequest } from "./generated/models/UpdateOrderSta
 import { AnalyticsService } from "./generated/services/AnalyticsService"
 import { ServiceImagesService } from "./generated/services/ServiceImagesService"
 import { CatalogService } from "./generated/services/CatalogService"
+import { FavoritesService } from "./generated/services/FavoritesService"
 
 
 type ClientConfig = {
@@ -719,6 +720,12 @@ catalog: {
 
       getPublicBySlug: (slug: string) =>
         StoresService.getStoresPublic1({ slug }),
+      nearby: (params: { lat: number; lng: number; radiusKm?: number }) =>
+  StoresService.getStoresPublicNearby({
+    lat: params.lat,
+    lng: params.lng,
+    radiusKm: params.radiusKm,
+  } as any),
     },
 
     products: {
@@ -922,6 +929,39 @@ catalog: {
           } as any)
         ),
     },
+
+favorites: {
+  list: (params?: { type?: 'STORE' | 'PRODUCT' | 'SERVICE' }) =>
+    withClientAuthRetry(() =>
+      FavoritesService.getFavorites({
+        type: params?.type,
+      } as any)
+    ),
+
+  add: (data: {
+    type: 'STORE' | 'PRODUCT' | 'SERVICE'
+    storeId?: string
+    productId?: string
+    serviceId?: string
+  }) =>
+    withClientAuthRetry(() =>
+      FavoritesService.postFavorites({
+        requestBody: data,
+      } as any)
+    ),
+
+  remove: (data: {
+    type: 'STORE' | 'PRODUCT' | 'SERVICE'
+    storeId?: string
+    productId?: string
+    serviceId?: string
+  }) =>
+    withClientAuthRetry(() =>
+      FavoritesService.deleteFavorites({
+        requestBody: data,
+      } as any)
+    ),
+},
 
 
 orders: {
