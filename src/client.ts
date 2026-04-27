@@ -17,6 +17,10 @@ import { ServicesService } from "./generated/services/ServicesService"
 import type { CreateOrderRequest } from "./generated/models/CreateOrderRequest"
 import type { UpdateOrderStatusRequest } from "./generated/models/UpdateOrderStatusRequest"
 import { AnalyticsService } from "./generated/services/AnalyticsService"
+import { ServiceImagesService } from "./generated/services/ServiceImagesService"
+
+
+
 type ClientConfig = {
   baseUrl: string
   token?: string
@@ -813,6 +817,80 @@ cart: {
         withClientAuthRetry(() =>
           ProductImagesService.deleteProductsImages({
             productId,
+            imageId,
+            xStoreId: customStoreId || requireStoreId(),
+          } as any)
+        ),
+    },
+
+    serviceImages: {
+      list: (serviceId: string, customStoreId?: string) =>
+        withClientAuthRetry(() =>
+          ServiceImagesService.getServicesImages({
+            serviceId,
+            xStoreId: customStoreId || requireStoreId(),
+          } as any)
+        ),
+
+      presign: (
+        serviceId: string,
+        data: {
+          filename: string
+          contentType?: 'image/jpeg' | 'image/png' | 'image/webp' | 'image/avif'
+        },
+        customStoreId?: string
+      ) =>
+        withClientAuthRetry(() =>
+          ServiceImagesService.postServicesImagesPresign({
+            serviceId,
+            xStoreId: customStoreId || requireStoreId(),
+            requestBody: data,
+          } as any)
+        ),
+
+      create: (
+        serviceId: string,
+        data: {
+          key: string
+          url: string
+          alt?: string | null
+          isPrimary?: boolean
+          position?: number
+        },
+        customStoreId?: string
+      ) =>
+        withClientAuthRetry(() =>
+          ServiceImagesService.postServicesImages({
+            serviceId,
+            xStoreId: customStoreId || requireStoreId(),
+            requestBody: data,
+          } as any)
+        ),
+
+      update: (
+        serviceId: string,
+        imageId: string,
+        data: {
+          url?: string
+          alt?: string | null
+          isPrimary?: boolean
+          position?: number
+        },
+        customStoreId?: string
+      ) =>
+        withClientAuthRetry(() =>
+          ServiceImagesService.patchServicesImages({
+            serviceId,
+            imageId,
+            xStoreId: customStoreId || requireStoreId(),
+            requestBody: data,
+          } as any)
+        ),
+
+      delete: (serviceId: string, imageId: string, customStoreId?: string) =>
+        withClientAuthRetry(() =>
+          ServiceImagesService.deleteServicesImages({
+            serviceId,
             imageId,
             xStoreId: customStoreId || requireStoreId(),
           } as any)

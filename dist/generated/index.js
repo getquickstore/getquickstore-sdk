@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StoresService = exports.ServicesService = exports.ReviewsService = exports.ProductsService = exports.ProductImagesService = exports.PaymentsService = exports.OrdersService = exports.CategoriesService = exports.CartService = exports.CalendarService = exports.BookingsService = exports.BillingConnectService = exports.BillingService = exports.AvailabilityService = exports.AuthService = exports.AnalyticsService = exports.OpenAPI = exports.CancelError = exports.CancelablePromise = exports.ApiError = void 0;
+exports.StoresService = exports.ServicesService = exports.ServiceImagesService = exports.ReviewsService = exports.ProductsService = exports.ProductImagesService = exports.PaymentsService = exports.OrdersService = exports.CategoriesService = exports.CartService = exports.CalendarService = exports.BookingsService = exports.BillingConnectService = exports.BillingService = exports.AvailabilityService = exports.AuthService = exports.AnalyticsService = exports.OpenAPI = exports.CancelError = exports.CancelablePromise = exports.ApiError = void 0;
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
@@ -40,6 +40,8 @@ var ProductsService_1 = require("./services/ProductsService");
 Object.defineProperty(exports, "ProductsService", { enumerable: true, get: function () { return ProductsService_1.ProductsService; } });
 var ReviewsService_1 = require("./services/ReviewsService");
 Object.defineProperty(exports, "ReviewsService", { enumerable: true, get: function () { return ReviewsService_1.ReviewsService; } });
+var ServiceImagesService_1 = require("./services/ServiceImagesService");
+Object.defineProperty(exports, "ServiceImagesService", { enumerable: true, get: function () { return ServiceImagesService_1.ServiceImagesService; } });
 var ServicesService_1 = require("./services/ServicesService");
 Object.defineProperty(exports, "ServicesService", { enumerable: true, get: function () { return ServicesService_1.ServicesService; } });
 var StoresService_1 = require("./services/StoresService");

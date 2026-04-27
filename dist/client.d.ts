@@ -290,6 +290,44 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             imageId: string;
         }>;
     };
+    serviceImages: {
+        list: (serviceId: string, customStoreId?: string) => Promise<{
+            ok: boolean;
+            images: Array<import("./generated").ServiceImage>;
+        }>;
+        presign: (serviceId: string, data: {
+            filename: string;
+            contentType?: "image/jpeg" | "image/png" | "image/webp" | "image/avif";
+        }, customStoreId?: string) => Promise<{
+            ok: boolean;
+            uploadUrl: string;
+            key: string;
+            url: string;
+        }>;
+        create: (serviceId: string, data: {
+            key: string;
+            url: string;
+            alt?: string | null;
+            isPrimary?: boolean;
+            position?: number;
+        }, customStoreId?: string) => Promise<{
+            ok: boolean;
+            image: import("./generated").ServiceImage;
+        }>;
+        update: (serviceId: string, imageId: string, data: {
+            url?: string;
+            alt?: string | null;
+            isPrimary?: boolean;
+            position?: number;
+        }, customStoreId?: string) => Promise<{
+            ok: boolean;
+            image: import("./generated").ServiceImage;
+        }>;
+        delete: (serviceId: string, imageId: string, customStoreId?: string) => Promise<{
+            ok: boolean;
+            imageId: string;
+        }>;
+    };
     orders: {
         list: (params?: {
             limit?: number;

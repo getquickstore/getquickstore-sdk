@@ -18,6 +18,7 @@ const ReviewsService_1 = require("./generated/services/ReviewsService");
 const StoresService_1 = require("./generated/services/StoresService");
 const ServicesService_1 = require("./generated/services/ServicesService");
 const AnalyticsService_1 = require("./generated/services/AnalyticsService");
+const ServiceImagesService_1 = require("./generated/services/ServiceImagesService");
 let refreshPromise = null;
 let activeAccessToken;
 function maskToken(token) {
@@ -436,6 +437,33 @@ function createClient({ baseUrl, token, storeId }) {
             })),
             delete: (productId, imageId, customStoreId) => withClientAuthRetry(() => ProductImagesService_1.ProductImagesService.deleteProductsImages({
                 productId,
+                imageId,
+                xStoreId: customStoreId || requireStoreId(),
+            })),
+        },
+        serviceImages: {
+            list: (serviceId, customStoreId) => withClientAuthRetry(() => ServiceImagesService_1.ServiceImagesService.getServicesImages({
+                serviceId,
+                xStoreId: customStoreId || requireStoreId(),
+            })),
+            presign: (serviceId, data, customStoreId) => withClientAuthRetry(() => ServiceImagesService_1.ServiceImagesService.postServicesImagesPresign({
+                serviceId,
+                xStoreId: customStoreId || requireStoreId(),
+                requestBody: data,
+            })),
+            create: (serviceId, data, customStoreId) => withClientAuthRetry(() => ServiceImagesService_1.ServiceImagesService.postServicesImages({
+                serviceId,
+                xStoreId: customStoreId || requireStoreId(),
+                requestBody: data,
+            })),
+            update: (serviceId, imageId, data, customStoreId) => withClientAuthRetry(() => ServiceImagesService_1.ServiceImagesService.patchServicesImages({
+                serviceId,
+                imageId,
+                xStoreId: customStoreId || requireStoreId(),
+                requestBody: data,
+            })),
+            delete: (serviceId, imageId, customStoreId) => withClientAuthRetry(() => ServiceImagesService_1.ServiceImagesService.deleteServicesImages({
+                serviceId,
                 imageId,
                 xStoreId: customStoreId || requireStoreId(),
             })),
