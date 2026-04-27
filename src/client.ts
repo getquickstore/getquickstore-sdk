@@ -743,6 +743,82 @@ cart: {
         ),
     },
 
+        productImages: {
+      list: (productId: string, customStoreId?: string) =>
+        withClientAuthRetry(() =>
+          ProductImagesService.getProductsImages({
+            productId,
+            xStoreId: customStoreId || requireStoreId(),
+          } as any)
+        ),
+
+      presign: (
+        productId: string,
+        data: {
+          filename: string
+          contentType?: 'image/jpeg' | 'image/png' | 'image/webp' | 'image/avif'
+        },
+        customStoreId?: string
+      ) =>
+        withClientAuthRetry(() =>
+          ProductImagesService.postProductsImagesPresign({
+            productId,
+            xStoreId: customStoreId || requireStoreId(),
+            requestBody: data,
+          } as any)
+        ),
+
+      create: (
+        productId: string,
+        data: {
+          key: string
+          url: string
+          alt?: string | null
+          isPrimary?: boolean
+          position?: number
+          variantId?: string | null
+        },
+        customStoreId?: string
+      ) =>
+        withClientAuthRetry(() =>
+          ProductImagesService.postProductsImages({
+            productId,
+            xStoreId: customStoreId || requireStoreId(),
+            requestBody: data,
+          } as any)
+        ),
+
+      update: (
+        productId: string,
+        imageId: string,
+        data: {
+          url?: string
+          alt?: string | null
+          isPrimary?: boolean
+          position?: number
+          variantId?: string | null
+        },
+        customStoreId?: string
+      ) =>
+        withClientAuthRetry(() =>
+          ProductImagesService.patchProductsImages({
+            productId,
+            imageId,
+            xStoreId: customStoreId || requireStoreId(),
+            requestBody: data,
+          } as any)
+        ),
+
+      delete: (productId: string, imageId: string, customStoreId?: string) =>
+        withClientAuthRetry(() =>
+          ProductImagesService.deleteProductsImages({
+            productId,
+            imageId,
+            xStoreId: customStoreId || requireStoreId(),
+          } as any)
+        ),
+    },
+
 
 orders: {
   list: (params?: {
@@ -828,7 +904,7 @@ payments: {
         requestBody: data,
       })
     ),
-    
+
   checkout: (data: {
     orderId: string
     successUrl?: string

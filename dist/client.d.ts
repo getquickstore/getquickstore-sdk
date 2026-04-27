@@ -250,6 +250,46 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         create: (data: any, customStoreId?: string) => Promise<import("./generated").ProductDetail>;
         update: (id: string, data: any, customStoreId?: string) => Promise<import("./generated").ProductDetail>;
     };
+    productImages: {
+        list: (productId: string, customStoreId?: string) => Promise<{
+            ok: boolean;
+            images: Array<import("./generated").ProductImage>;
+        }>;
+        presign: (productId: string, data: {
+            filename: string;
+            contentType?: "image/jpeg" | "image/png" | "image/webp" | "image/avif";
+        }, customStoreId?: string) => Promise<{
+            ok: boolean;
+            uploadUrl: string;
+            key: string;
+            url: string;
+        }>;
+        create: (productId: string, data: {
+            key: string;
+            url: string;
+            alt?: string | null;
+            isPrimary?: boolean;
+            position?: number;
+            variantId?: string | null;
+        }, customStoreId?: string) => Promise<{
+            ok: boolean;
+            image: import("./generated").ProductImage;
+        }>;
+        update: (productId: string, imageId: string, data: {
+            url?: string;
+            alt?: string | null;
+            isPrimary?: boolean;
+            position?: number;
+            variantId?: string | null;
+        }, customStoreId?: string) => Promise<{
+            ok: boolean;
+            image: import("./generated").ProductImage;
+        }>;
+        delete: (productId: string, imageId: string, customStoreId?: string) => Promise<{
+            ok: boolean;
+            imageId: string;
+        }>;
+    };
     orders: {
         list: (params?: {
             limit?: number;

@@ -15,7 +15,7 @@ export declare class ProductImagesService {
          */
         productId: string;
         /**
-         * Store context id
+         * Store context ID
          */
         xStoreId?: string;
     }): CancelablePromise<{
@@ -24,6 +24,7 @@ export declare class ProductImagesService {
     }>;
     /**
      * Save product image metadata
+     * Call this after uploading the binary file with the presigned URL.
      * @returns any Image saved
      * @throws ApiError
      */
@@ -34,7 +35,7 @@ export declare class ProductImagesService {
         productId: string;
         requestBody: ProductImageCreateRequest;
         /**
-         * Store context id
+         * Store context ID
          */
         xStoreId?: string;
     }): CancelablePromise<{
@@ -42,7 +43,8 @@ export declare class ProductImagesService {
         image: ProductImage;
     }>;
     /**
-     * Create presigned upload URL for product image
+     * Create presigned upload URL
+     * Returns a direct upload URL for R2/S3-compatible storage. Upload the file with PUT, then save metadata with POST /products/{productId}/images.
      * @returns any Presigned URL created
      * @throws ApiError
      */
@@ -53,13 +55,14 @@ export declare class ProductImagesService {
         productId: string;
         requestBody: ProductImagePresignRequest;
         /**
-         * Store context id
+         * Store context ID
          */
         xStoreId?: string;
     }): CancelablePromise<{
         ok: boolean;
         uploadUrl: string;
         key: string;
+        url: string;
     }>;
     /**
      * Update product image metadata
@@ -72,12 +75,12 @@ export declare class ProductImagesService {
          */
         productId: string;
         /**
-         * Image ID
+         * Product image ID
          */
         imageId: string;
         requestBody: ProductImageUpdateRequest;
         /**
-         * Store context id
+         * Store context ID
          */
         xStoreId?: string;
     }): CancelablePromise<{
@@ -86,6 +89,7 @@ export declare class ProductImagesService {
     }>;
     /**
      * Delete product image
+     * Deletes product image metadata and attempts to remove the object from storage.
      * @returns any Image deleted
      * @throws ApiError
      */
@@ -95,11 +99,11 @@ export declare class ProductImagesService {
          */
         productId: string;
         /**
-         * Image ID
+         * Product image ID
          */
         imageId: string;
         /**
-         * Store context id
+         * Store context ID
          */
         xStoreId?: string;
     }): CancelablePromise<{

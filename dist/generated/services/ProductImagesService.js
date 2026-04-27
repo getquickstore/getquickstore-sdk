@@ -28,6 +28,7 @@ class ProductImagesService {
     }
     /**
      * Save product image metadata
+     * Call this after uploading the binary file with the presigned URL.
      * @returns any Image saved
      * @throws ApiError
      */
@@ -51,7 +52,8 @@ class ProductImagesService {
         });
     }
     /**
-     * Create presigned upload URL for product image
+     * Create presigned upload URL
+     * Returns a direct upload URL for R2/S3-compatible storage. Upload the file with PUT, then save metadata with POST /products/{productId}/images.
      * @returns any Presigned URL created
      * @throws ApiError
      */
@@ -101,6 +103,7 @@ class ProductImagesService {
     }
     /**
      * Delete product image
+     * Deletes product image metadata and attempts to remove the object from storage.
      * @returns any Image deleted
      * @throws ApiError
      */
