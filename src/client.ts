@@ -821,6 +821,14 @@ orders: {
 },
 
 payments: {
+
+  bookingCheckout: (data: { bookingId: string; successUrl?: string; cancelUrl?: string }) =>
+    withClientAuthRetry(() =>
+      PaymentsService.postPaymentsBookingsCheckout({
+        requestBody: data,
+      })
+    ),
+    
   checkout: (data: {
     orderId: string
     successUrl?: string
@@ -844,6 +852,7 @@ payments: {
         xStoreId: customStoreId || storeId,
       })
     ),
+    
 },
 
     reviews: {

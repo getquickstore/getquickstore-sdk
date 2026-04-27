@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { BookingPaymentCheckoutRequest } from '../models/BookingPaymentCheckoutRequest';
 import type { CreateRefundRequest } from '../models/CreateRefundRequest';
 import type { CreateRefundResponse } from '../models/CreateRefundResponse';
 import type { PaymentCheckoutRequest } from '../models/PaymentCheckoutRequest';
@@ -30,6 +31,30 @@ export class PaymentsService {
                 401: `UNAUTHORIZED`,
                 403: `Access denied`,
                 404: `Order not found`,
+                409: `Conflict`,
+            },
+        });
+    }
+    /**
+     * Create Stripe Checkout session for booking
+     * @returns PaymentCheckoutResponse Booking checkout session created
+     * @throws ApiError
+     */
+    public static postPaymentsBookingsCheckout({
+        requestBody,
+    }: {
+        requestBody: BookingPaymentCheckoutRequest,
+    }): CancelablePromise<PaymentCheckoutResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/payments/bookings/checkout',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `UNAUTHORIZED`,
+                403: `Access denied`,
+                404: `Booking not found`,
                 409: `Conflict`,
             },
         });

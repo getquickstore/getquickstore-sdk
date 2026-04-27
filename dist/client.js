@@ -445,6 +445,9 @@ function createClient({ baseUrl, token, storeId }) {
             })),
         },
         payments: {
+            bookingCheckout: (data) => withClientAuthRetry(() => PaymentsService_1.PaymentsService.postPaymentsBookingsCheckout({
+                requestBody: data,
+            })),
             checkout: (data) => withClientAuthRetry(() => PaymentsService_1.PaymentsService.postPaymentsCheckout({
                 requestBody: {
                     orderId: data.orderId,

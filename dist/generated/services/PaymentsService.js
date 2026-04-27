@@ -25,6 +25,26 @@ class PaymentsService {
         });
     }
     /**
+     * Create Stripe Checkout session for booking
+     * @returns PaymentCheckoutResponse Booking checkout session created
+     * @throws ApiError
+     */
+    static postPaymentsBookingsCheckout({ requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/payments/bookings/checkout',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `UNAUTHORIZED`,
+                403: `Access denied`,
+                404: `Booking not found`,
+                409: `Conflict`,
+            },
+        });
+    }
+    /**
      * Create refund for payment
      * @returns CreateRefundResponse Refund created
      * @throws ApiError

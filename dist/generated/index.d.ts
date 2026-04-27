@@ -48,6 +48,7 @@ export type { BillingSubscription } from './models/BillingSubscription';
 export type { Booking } from './models/Booking';
 export type { BookingError } from './models/BookingError';
 export type { BookingListResponse } from './models/BookingListResponse';
+export type { BookingPaymentCheckoutRequest } from './models/BookingPaymentCheckoutRequest';
 export type { BookingSeriesItem } from './models/BookingSeriesItem';
 export type { BookingService } from './models/BookingService';
 export type { CalendarBookingService } from './models/CalendarBookingService';
