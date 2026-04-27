@@ -433,6 +433,10 @@ function createClient({ baseUrl, token, storeId }) {
                 requestBody: data,
                 xStoreId: customStoreId || storeId,
             })),
+            publicGet: (id, storeId) => ProductsService_1.ProductsService.getProductsPublic({
+                id,
+                storeId,
+            }),
         },
         productImages: {
             list: (productId, customStoreId) => withClientAuthRetry(() => ProductImagesService_1.ProductImagesService.getProductsImages({
@@ -548,10 +552,6 @@ function createClient({ baseUrl, token, storeId }) {
                 xStoreId: customStoreId || storeId,
             })),
         },
-        publicGet: (id, storeId) => ProductsService_1.ProductsService.getProductsPublic({
-            id,
-            storeId,
-        }),
         reviews: {
             list: (productId, params) => withClientAuthRetry(() => ReviewsService_1.ReviewsService.getProductsReviews({
                 id: productId,

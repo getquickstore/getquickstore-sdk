@@ -778,6 +778,11 @@ catalog: {
             xStoreId: customStoreId || storeId,
           })
         ),
+        publicGet: (id: string, storeId: string) =>
+  ProductsService.getProductsPublic({
+    id,
+    storeId,
+  } as any),
     },
 
         productImages: {
@@ -1075,11 +1080,7 @@ payments: {
     
 },
 
-publicGet: (id: string, storeId: string) =>
-  ProductsService.getProductsPublic({
-    id,
-    storeId,
-  } as any),
+
 
     reviews: {
       list: (

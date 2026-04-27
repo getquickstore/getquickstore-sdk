@@ -268,6 +268,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         get: (id: string, customStoreId?: string) => Promise<import("./generated").ProductDetail>;
         create: (data: any, customStoreId?: string) => Promise<import("./generated").ProductDetail>;
         update: (id: string, data: any, customStoreId?: string) => Promise<import("./generated").ProductDetail>;
+        publicGet: (id: string, storeId: string) => import("./generated").CancelablePromise<import("./generated").PublicProductResponse>;
     };
     productImages: {
         list: (productId: string, customStoreId?: string) => Promise<{
@@ -393,7 +394,6 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         }) => Promise<import("./generated").PaymentCheckoutResponse>;
         refund: (paymentId: string, data?: any, customStoreId?: string) => Promise<import("./generated").CreateRefundResponse>;
     };
-    publicGet: (id: string, storeId: string) => import("./generated").CancelablePromise<import("./generated").PublicProductResponse>;
     reviews: {
         list: (productId: string, params?: {
             limit?: number;
