@@ -43,6 +43,28 @@ class ProductsService {
         });
     }
     /**
+     * Get public product by id
+     * @returns PublicProductResponse Public product details
+     * @throws ApiError
+     */
+    static getProductsPublic({ id, storeId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/products/public/{id}',
+            path: {
+                'id': id,
+            },
+            query: {
+                'storeId': storeId,
+            },
+            errors: {
+                400: `Store id required`,
+                404: `Product not found`,
+                500: `Server error`,
+            },
+        });
+    }
+    /**
      * Get product by id
      * @returns ProductDetail Product details
      * @throws ApiError

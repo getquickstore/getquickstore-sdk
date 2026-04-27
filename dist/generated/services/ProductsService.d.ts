@@ -1,6 +1,7 @@
 import type { CreateProductRequest } from '../models/CreateProductRequest';
 import type { ProductDetail } from '../models/ProductDetail';
 import type { ProductListResponse } from '../models/ProductListResponse';
+import type { PublicProductResponse } from '../models/PublicProductResponse';
 import type { UpdateProductRequest } from '../models/UpdateProductRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class ProductsService {
@@ -27,6 +28,18 @@ export declare class ProductsService {
          */
         xStoreId?: string;
     }): CancelablePromise<ProductDetail>;
+    /**
+     * Get public product by id
+     * @returns PublicProductResponse Public product details
+     * @throws ApiError
+     */
+    static getProductsPublic({ id, storeId, }: {
+        id: string;
+        /**
+         * Public store id
+         */
+        storeId: string;
+    }): CancelablePromise<PublicProductResponse>;
     /**
      * Get product by id
      * @returns ProductDetail Product details

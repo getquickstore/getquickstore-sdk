@@ -5,6 +5,7 @@
 import type { CreateProductRequest } from '../models/CreateProductRequest';
 import type { ProductDetail } from '../models/ProductDetail';
 import type { ProductListResponse } from '../models/ProductListResponse';
+import type { PublicProductResponse } from '../models/PublicProductResponse';
 import type { UpdateProductRequest } from '../models/UpdateProductRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -60,6 +61,37 @@ export class ProductsService {
             errors: {
                 400: `Validation error`,
                 401: `Unauthorized`,
+                500: `Server error`,
+            },
+        });
+    }
+    /**
+     * Get public product by id
+     * @returns PublicProductResponse Public product details
+     * @throws ApiError
+     */
+    public static getProductsPublic({
+        id,
+        storeId,
+    }: {
+        id: string,
+        /**
+         * Public store id
+         */
+        storeId: string,
+    }): CancelablePromise<PublicProductResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/products/public/{id}',
+            path: {
+                'id': id,
+            },
+            query: {
+                'storeId': storeId,
+            },
+            errors: {
+                400: `Store id required`,
+                404: `Product not found`,
                 500: `Server error`,
             },
         });

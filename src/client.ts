@@ -1075,6 +1075,15 @@ payments: {
     
 },
 
+PublicProductResponse: {
+  type: "object",
+  required: ["ok", "item"],
+  properties: {
+    ok: { type: "boolean" },
+    item: { $ref: "#/components/schemas/ProductDetail" },
+  },
+},
+
     reviews: {
       list: (
         productId: string,

@@ -393,6 +393,18 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         }) => Promise<import("./generated").PaymentCheckoutResponse>;
         refund: (paymentId: string, data?: any, customStoreId?: string) => Promise<import("./generated").CreateRefundResponse>;
     };
+    PublicProductResponse: {
+        type: string;
+        required: string[];
+        properties: {
+            ok: {
+                type: string;
+            };
+            item: {
+                $ref: string;
+            };
+        };
+    };
     reviews: {
         list: (productId: string, params?: {
             limit?: number;
