@@ -35,7 +35,8 @@ class FavoritesService {
             mediaType: 'application/json',
             errors: {
                 400: `Validation failed`,
-                409: `Already in favorites`,
+                401: `Unauthorized`,
+                500: `Favorite add failed`,
             },
         });
     }
@@ -50,6 +51,11 @@ class FavoritesService {
             url: '/favorites',
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                400: `Validation failed`,
+                401: `Unauthorized`,
+                500: `Favorite remove failed`,
+            },
         });
     }
 }
