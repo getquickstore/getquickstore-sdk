@@ -19,6 +19,7 @@ const StoresService_1 = require("./generated/services/StoresService");
 const ServicesService_1 = require("./generated/services/ServicesService");
 const AnalyticsService_1 = require("./generated/services/AnalyticsService");
 const ServiceImagesService_1 = require("./generated/services/ServiceImagesService");
+const CatalogService_1 = require("./generated/services/CatalogService");
 let refreshPromise = null;
 let activeAccessToken;
 function maskToken(token) {
@@ -353,6 +354,12 @@ function createClient({ baseUrl, token, storeId }) {
             })),
             clear: () => withClientAuthRetry(() => CartService_1.CartService.postCartClear()),
         },
+        catalog: {
+            featured: (params) => CatalogService_1.CatalogService.getFeatured({
+                limit: params?.limit,
+                q: params?.q,
+            }),
+        },
         categories: {
             list: (params) => withClientAuthRetry(() => CategoriesService_1.CategoriesService.getCategories({
                 xStoreId: params?.storeId || storeId,
@@ -397,8 +404,15 @@ function createClient({ baseUrl, token, storeId }) {
             getPublicBySlug: (slug) => StoresService_1.StoresService.getStoresPublic1({ slug }),
         },
         products: {
-            list: (customStoreId) => withClientAuthRetry(() => ProductsService_1.ProductsService.getProducts({
+            list: (customStoreId, params) => withClientAuthRetry(() => ProductsService_1.ProductsService.getProducts({
                 xStoreId: customStoreId || storeId,
+                limit: params?.limit,
+                offset: params?.offset,
+                q: params?.q,
+                category: params?.category,
+                categoryId: params?.categoryId,
+                status: params?.status,
+                sort: params?.sort,
             })),
             get: (id, customStoreId) => withClientAuthRetry(() => ProductsService_1.ProductsService.getProducts1({
                 id,

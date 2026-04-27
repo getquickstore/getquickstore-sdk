@@ -217,6 +217,12 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         remove: (data: any) => Promise<import("./generated").CartSingleResponse>;
         clear: () => Promise<import("./generated").CartResponse>;
     };
+    catalog: {
+        featured: (params?: {
+            limit?: number;
+            q?: string;
+        }) => import("./generated").CancelablePromise<import("./generated").FeaturedCatalogResponse>;
+    };
     categories: {
         list: (params?: {
             limit?: number;
@@ -245,7 +251,15 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         getPublicBySlug: (slug: string) => import("./generated").CancelablePromise<import("./generated").PublicStore>;
     };
     products: {
-        list: (customStoreId?: string) => Promise<import("./generated").ProductListResponse>;
+        list: (customStoreId?: string, params?: {
+            limit?: number;
+            offset?: number;
+            q?: string;
+            category?: string;
+            categoryId?: string;
+            status?: "DRAFT" | "PUBLISHED" | "ARCHIVED";
+            sort?: string;
+        }) => Promise<import("./generated").ProductListResponse>;
         get: (id: string, customStoreId?: string) => Promise<import("./generated").ProductDetail>;
         create: (data: any, customStoreId?: string) => Promise<import("./generated").ProductDetail>;
         update: (id: string, data: any, customStoreId?: string) => Promise<import("./generated").ProductDetail>;

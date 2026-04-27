@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StoresService = exports.ServicesService = exports.ServiceImagesService = exports.ReviewsService = exports.ProductsService = exports.ProductImagesService = exports.PaymentsService = exports.OrdersService = exports.CategoriesService = exports.CartService = exports.CalendarService = exports.BookingsService = exports.BillingConnectService = exports.BillingService = exports.AvailabilityService = exports.AuthService = exports.AnalyticsService = exports.OpenAPI = exports.CancelError = exports.CancelablePromise = exports.ApiError = void 0;
+exports.StoresService = exports.ServicesService = exports.ServiceImagesService = exports.ReviewsService = exports.ProductsService = exports.ProductImagesService = exports.PaymentsService = exports.OrdersService = exports.CategoriesService = exports.CatalogService = exports.CartService = exports.CalendarService = exports.BookingsService = exports.BillingConnectService = exports.BillingService = exports.AvailabilityService = exports.AuthService = exports.AnalyticsService = exports.OpenAPI = exports.CancelError = exports.CancelablePromise = exports.ApiError = void 0;
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
@@ -28,6 +28,8 @@ var CalendarService_1 = require("./services/CalendarService");
 Object.defineProperty(exports, "CalendarService", { enumerable: true, get: function () { return CalendarService_1.CalendarService; } });
 var CartService_1 = require("./services/CartService");
 Object.defineProperty(exports, "CartService", { enumerable: true, get: function () { return CartService_1.CartService; } });
+var CatalogService_1 = require("./services/CatalogService");
+Object.defineProperty(exports, "CatalogService", { enumerable: true, get: function () { return CatalogService_1.CatalogService; } });
 var CategoriesService_1 = require("./services/CategoriesService");
 Object.defineProperty(exports, "CategoriesService", { enumerable: true, get: function () { return CategoriesService_1.CategoriesService; } });
 var OrdersService_1 = require("./services/OrdersService");

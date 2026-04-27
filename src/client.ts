@@ -18,7 +18,7 @@ import type { CreateOrderRequest } from "./generated/models/CreateOrderRequest"
 import type { UpdateOrderStatusRequest } from "./generated/models/UpdateOrderStatusRequest"
 import { AnalyticsService } from "./generated/services/AnalyticsService"
 import { ServiceImagesService } from "./generated/services/ServiceImagesService"
-
+import { CatalogService } from "./generated/services/CatalogService"
 
 
 type ClientConfig = {
@@ -617,6 +617,14 @@ cart: {
     ),
 },
 
+catalog: {
+  featured: (params?: { limit?: number; q?: string }) =>
+    CatalogService.getFeatured({
+      limit: params?.limit,
+      q: params?.q,
+    } as any),
+},
+
     categories: {
       list: (params?: {
         limit?: number
@@ -714,12 +722,30 @@ cart: {
     },
 
     products: {
-      list: (customStoreId?: string) =>
-        withClientAuthRetry(() =>
-          ProductsService.getProducts({
-            xStoreId: customStoreId || storeId,
-          })
-        ),
+       list: (
+    customStoreId?: string,
+    params?: {
+      limit?: number
+      offset?: number
+      q?: string
+      category?: string
+      categoryId?: string
+      status?: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED'
+      sort?: string
+    }
+  ) =>
+    withClientAuthRetry(() =>
+      ProductsService.getProducts({
+        xStoreId: customStoreId || storeId,
+        limit: params?.limit,
+        offset: params?.offset,
+        q: params?.q,
+        category: params?.category,
+        categoryId: params?.categoryId,
+        status: params?.status,
+        sort: params?.sort as any,
+      } as any)
+    ),
 
       get: (id: string, customStoreId?: string) =>
         withClientAuthRetry(() =>
