@@ -140,6 +140,12 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             alreadyRevoked?: boolean;
         }>;
     };
+    analytics: {
+        overview: (params?: {
+            range?: "1d" | "7d" | "30d" | "90d";
+            storeId?: string;
+        }) => Promise<import("./generated").AnalyticsOverviewResponse>;
+    };
     availability: {
         list: (customStoreId?: string) => Promise<import("./generated").AvailabilityListResponse>;
         upsert: (data: any, customStoreId?: string) => Promise<import("./generated").AvailabilityItemResponse>;

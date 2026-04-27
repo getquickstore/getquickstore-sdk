@@ -16,6 +16,7 @@ const ProductsService_1 = require("./generated/services/ProductsService");
 const ReviewsService_1 = require("./generated/services/ReviewsService");
 const StoresService_1 = require("./generated/services/StoresService");
 const ServicesService_1 = require("./generated/services/ServicesService");
+const AnalyticsService_1 = require("./generated/services/AnalyticsService");
 let refreshPromise = null;
 let activeAccessToken;
 function maskToken(token) {
@@ -214,6 +215,12 @@ function createClient({ baseUrl, token, storeId }) {
             })),
             revokeSession: (data) => withClientAuthRetry(() => AuthService_1.AuthService.postAuthSessionsRevoke({
                 requestBody: data,
+            })),
+        },
+        analytics: {
+            overview: (params) => withClientAuthRetry(() => AnalyticsService_1.AnalyticsService.getAnalyticsOverview({
+                xStoreId: params?.storeId || requireStoreId(),
+                range: params?.range,
             })),
         },
         availability: {

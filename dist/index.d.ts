@@ -8,6 +8,7 @@ declare const sdk: {
     CancelablePromise: typeof generated.CancelablePromise;
     CancelError: typeof generated.CancelError;
     OpenAPI: generated.OpenAPIConfig;
+    AnalyticsService: typeof generated.AnalyticsService;
     AuthService: typeof generated.AuthService;
     AvailabilityService: typeof generated.AvailabilityService;
     BillingService: typeof generated.BillingService;

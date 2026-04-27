@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StoresService = exports.ServicesService = exports.ReviewsService = exports.ProductsService = exports.ProductImagesService = exports.PaymentsService = exports.OrdersService = exports.CategoriesService = exports.CartService = exports.CalendarService = exports.BookingsService = exports.BillingConnectService = exports.BillingService = exports.AvailabilityService = exports.AuthService = exports.OpenAPI = exports.CancelError = exports.CancelablePromise = exports.ApiError = void 0;
+exports.StoresService = exports.ServicesService = exports.ReviewsService = exports.ProductsService = exports.ProductImagesService = exports.PaymentsService = exports.OrdersService = exports.CategoriesService = exports.CartService = exports.CalendarService = exports.BookingsService = exports.BillingConnectService = exports.BillingService = exports.AvailabilityService = exports.AuthService = exports.AnalyticsService = exports.OpenAPI = exports.CancelError = exports.CancelablePromise = exports.ApiError = void 0;
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
@@ -12,6 +12,8 @@ Object.defineProperty(exports, "CancelablePromise", { enumerable: true, get: fun
 Object.defineProperty(exports, "CancelError", { enumerable: true, get: function () { return CancelablePromise_1.CancelError; } });
 var OpenAPI_1 = require("./core/OpenAPI");
 Object.defineProperty(exports, "OpenAPI", { enumerable: true, get: function () { return OpenAPI_1.OpenAPI; } });
+var AnalyticsService_1 = require("./services/AnalyticsService");
+Object.defineProperty(exports, "AnalyticsService", { enumerable: true, get: function () { return AnalyticsService_1.AnalyticsService; } });
 var AuthService_1 = require("./services/AuthService");
 Object.defineProperty(exports, "AuthService", { enumerable: true, get: function () { return AuthService_1.AuthService; } });
 var AvailabilityService_1 = require("./services/AvailabilityService");

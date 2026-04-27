@@ -16,7 +16,7 @@ import { StoresService } from "./generated/services/StoresService"
 import { ServicesService } from "./generated/services/ServicesService"
 import type { CreateOrderRequest } from "./generated/models/CreateOrderRequest"
 import type { UpdateOrderStatusRequest } from "./generated/models/UpdateOrderStatusRequest"
-
+import { AnalyticsService } from "./generated/services/AnalyticsService"
 type ClientConfig = {
   baseUrl: string
   token?: string
@@ -345,6 +345,16 @@ const requireStoreId = (value?: string) => {
           })
         ),
     },
+
+    analytics: {
+  overview: (params?: { range?: "1d" | "7d" | "30d" | "90d"; storeId?: string }) =>
+    withClientAuthRetry(() =>
+      AnalyticsService.getAnalyticsOverview({
+        xStoreId: params?.storeId || requireStoreId(),
+        range: params?.range,
+      })
+    ),
+},
 
 availability: {
   list: (customStoreId?: string) =>
