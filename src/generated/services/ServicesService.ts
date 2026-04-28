@@ -6,6 +6,7 @@ import type { CreateServiceRequest } from '../models/CreateServiceRequest';
 import type { Service } from '../models/Service';
 import type { ServiceAvailabilityResponse } from '../models/ServiceAvailabilityResponse';
 import type { ServiceListResponse } from '../models/ServiceListResponse';
+import type { UpdateServiceRequest } from '../models/UpdateServiceRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -73,6 +74,46 @@ export class ServicesService {
                 400: `Validation failed`,
                 403: `Access denied`,
                 500: `Service create failed`,
+            },
+        });
+    }
+    /**
+     * Update service
+     * Updates a bookable service. Requires seller/admin access to the current store.
+     * @returns Service Service updated
+     * @throws ApiError
+     */
+    public static patchServices({
+        xStoreId,
+        id,
+        requestBody,
+    }: {
+        /**
+         * Store context id.
+         */
+        xStoreId: string,
+        /**
+         * Service id.
+         */
+        id: string,
+        requestBody: UpdateServiceRequest,
+    }): CancelablePromise<Service> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/services/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation failed`,
+                403: `Access denied`,
+                404: `Service not found`,
+                500: `Service update failed`,
             },
         });
     }

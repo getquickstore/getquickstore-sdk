@@ -160,6 +160,7 @@ export type { UpdateBookingRequest } from './models/UpdateBookingRequest';
 export type { UpdateCategoryRequest } from './models/UpdateCategoryRequest';
 export type { UpdateOrderStatusRequest } from './models/UpdateOrderStatusRequest';
 export type { UpdateProductRequest } from './models/UpdateProductRequest';
+export type { UpdateServiceRequest } from './models/UpdateServiceRequest';
 export type { UpdateStoreRequest } from './models/UpdateStoreRequest';
 export type { UpdateStoreResponse } from './models/UpdateStoreResponse';
 export type { UpdateStoreVisibilityRequest } from './models/UpdateStoreVisibilityRequest';

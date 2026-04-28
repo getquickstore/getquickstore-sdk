@@ -406,6 +406,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     services: {
         list: (customStoreId?: string, includeInactive?: boolean) => Promise<import("./generated").ServiceListResponse>;
         create: (data: any, customStoreId?: string) => Promise<import("./generated").Service>;
+        update: (id: string, data: any, customStoreId?: string) => Promise<import("./generated").Service>;
         getAvailability: (id: string, date: string, customStoreId?: string) => Promise<import("./generated").ServiceAvailabilityResponse>;
     };
 };

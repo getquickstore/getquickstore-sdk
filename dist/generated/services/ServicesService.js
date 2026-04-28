@@ -50,6 +50,32 @@ class ServicesService {
         });
     }
     /**
+     * Update service
+     * Updates a bookable service. Requires seller/admin access to the current store.
+     * @returns Service Service updated
+     * @throws ApiError
+     */
+    static patchServices({ xStoreId, id, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'PATCH',
+            url: '/services/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation failed`,
+                403: `Access denied`,
+                404: `Service not found`,
+                500: `Service update failed`,
+            },
+        });
+    }
+    /**
      * Get service availability for date
      * Returns available booking slots for an active service in the current store.
      * @returns ServiceAvailabilityResponse Available slots for date

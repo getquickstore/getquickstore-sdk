@@ -1140,6 +1140,15 @@ services: {
       })
     ),
 
+     update: (id: string, data: any, customStoreId?: string) =>
+    withClientAuthRetry(() =>
+      ServicesService.patchServices({
+        id,
+        xStoreId: customStoreId || requireStoreId(),
+        requestBody: data,
+      })
+    ),
+
   getAvailability: (id: string, date: string, customStoreId?: string) =>
     withClientAuthRetry(() =>
       ServicesService.getServicesAvailability({

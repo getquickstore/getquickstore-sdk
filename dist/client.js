@@ -579,6 +579,11 @@ function createClient({ baseUrl, token, storeId }) {
                 xStoreId: customStoreId || requireStoreId(),
                 requestBody: data,
             })),
+            update: (id, data, customStoreId) => withClientAuthRetry(() => ServicesService_1.ServicesService.patchServices({
+                id,
+                xStoreId: customStoreId || requireStoreId(),
+                requestBody: data,
+            })),
             getAvailability: (id, date, customStoreId) => withClientAuthRetry(() => ServicesService_1.ServicesService.getServicesAvailability({
                 xStoreId: customStoreId || requireStoreId(),
                 id,

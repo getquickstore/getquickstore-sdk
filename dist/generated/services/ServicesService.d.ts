@@ -2,6 +2,7 @@ import type { CreateServiceRequest } from '../models/CreateServiceRequest';
 import type { Service } from '../models/Service';
 import type { ServiceAvailabilityResponse } from '../models/ServiceAvailabilityResponse';
 import type { ServiceListResponse } from '../models/ServiceListResponse';
+import type { UpdateServiceRequest } from '../models/UpdateServiceRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class ServicesService {
     /**
@@ -32,6 +33,23 @@ export declare class ServicesService {
          */
         xStoreId: string;
         requestBody: CreateServiceRequest;
+    }): CancelablePromise<Service>;
+    /**
+     * Update service
+     * Updates a bookable service. Requires seller/admin access to the current store.
+     * @returns Service Service updated
+     * @throws ApiError
+     */
+    static patchServices({ xStoreId, id, requestBody, }: {
+        /**
+         * Store context id.
+         */
+        xStoreId: string;
+        /**
+         * Service id.
+         */
+        id: string;
+        requestBody: UpdateServiceRequest;
     }): CancelablePromise<Service>;
     /**
      * Get service availability for date
