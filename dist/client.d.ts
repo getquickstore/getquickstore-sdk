@@ -238,6 +238,9 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         services: (params?: {
             storeId?: string;
         }) => import("./generated").CancelablePromise<import("./generated").PublicServiceListResponse>;
+        categories: (params?: {
+            storeId?: string;
+        }) => import("./generated").CancelablePromise<import("./generated").PublicCategoryListResponse>;
         catalog: () => import("./generated").CancelablePromise<import("./generated").MarketplaceCatalogResponse>;
     };
     categories: {

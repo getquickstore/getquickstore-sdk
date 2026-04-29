@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { MarketplaceCatalogResponse } from '../models/MarketplaceCatalogResponse';
+import type { PublicCategoryListResponse } from '../models/PublicCategoryListResponse';
 import type { PublicProductListResponse } from '../models/PublicProductListResponse';
 import type { PublicServiceListResponse } from '../models/PublicServiceListResponse';
 import type { PublicStoreListResponse } from '../models/PublicStoreListResponse';
@@ -101,6 +102,24 @@ export class PublicService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/public/catalog',
+        });
+    }
+    /**
+     * List public categories
+     * @returns PublicCategoryListResponse Public categories list
+     * @throws ApiError
+     */
+    public static getPublicCategories({
+        storeId,
+    }: {
+        storeId?: string,
+    }): CancelablePromise<PublicCategoryListResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/public/categories',
+            query: {
+                'storeId': storeId,
+            },
         });
     }
 }

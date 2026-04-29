@@ -73,5 +73,19 @@ class PublicService {
             url: '/public/catalog',
         });
     }
+    /**
+     * List public categories
+     * @returns PublicCategoryListResponse Public categories list
+     * @throws ApiError
+     */
+    static getPublicCategories({ storeId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/public/categories',
+            query: {
+                'storeId': storeId,
+            },
+        });
+    }
 }
 exports.PublicService = PublicService;

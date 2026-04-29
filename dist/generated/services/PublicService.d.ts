@@ -1,4 +1,5 @@
 import type { MarketplaceCatalogResponse } from '../models/MarketplaceCatalogResponse';
+import type { PublicCategoryListResponse } from '../models/PublicCategoryListResponse';
 import type { PublicProductListResponse } from '../models/PublicProductListResponse';
 import type { PublicServiceListResponse } from '../models/PublicServiceListResponse';
 import type { PublicStoreListResponse } from '../models/PublicStoreListResponse';
@@ -48,4 +49,12 @@ export declare class PublicService {
      * @throws ApiError
      */
     static getPublicCatalog(): CancelablePromise<MarketplaceCatalogResponse>;
+    /**
+     * List public categories
+     * @returns PublicCategoryListResponse Public categories list
+     * @throws ApiError
+     */
+    static getPublicCategories({ storeId, }: {
+        storeId?: string;
+    }): CancelablePromise<PublicCategoryListResponse>;
 }

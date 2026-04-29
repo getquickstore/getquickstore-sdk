@@ -269,6 +269,9 @@ function createClient({ baseUrl, token, storeId }) {
             services: (params) => PublicService_1.PublicService.getPublicServices({
                 storeId: params?.storeId,
             }),
+            categories: (params) => PublicService_1.PublicService.getPublicCategories({
+                storeId: params?.storeId,
+            }),
             catalog: () => PublicService_1.PublicService.getPublicCatalog(),
         },
         categories: {

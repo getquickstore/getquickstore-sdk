@@ -409,31 +409,36 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         }),
     },
 
-        public: {
-      stores: (params?: { q?: string }) =>
-        PublicService.getPublicStores({
-          q: params?.q,
-        }),
+public: {
+  stores: (params?: { q?: string }) =>
+    PublicService.getPublicStores({
+      q: params?.q,
+    }),
 
-      nearbyStores: (params: { lat: number; lng: number; radiusKm?: number }) =>
-        PublicService.getPublicStoresNearby({
-          lat: params.lat,
-          lng: params.lng,
-          radiusKm: params.radiusKm,
-        }),
+  nearbyStores: (params: { lat: number; lng: number; radiusKm?: number }) =>
+    PublicService.getPublicStoresNearby({
+      lat: params.lat,
+      lng: params.lng,
+      radiusKm: params.radiusKm,
+    }),
 
-      products: (params?: { storeId?: string }) =>
-        PublicService.getPublicProducts({
-          storeId: params?.storeId,
-        }),
+  products: (params?: { storeId?: string }) =>
+    PublicService.getPublicProducts({
+      storeId: params?.storeId,
+    }),
 
-      services: (params?: { storeId?: string }) =>
-        PublicService.getPublicServices({
-          storeId: params?.storeId,
-        }),
+  services: (params?: { storeId?: string }) =>
+    PublicService.getPublicServices({
+      storeId: params?.storeId,
+    }),
 
-      catalog: () => PublicService.getPublicCatalog(),
-    },
+  categories: (params?: { storeId?: string }) =>
+    PublicService.getPublicCategories({
+      storeId: params?.storeId,
+    }),
+
+  catalog: () => PublicService.getPublicCatalog(),
+},
 
     categories: {
       list: (params?: {

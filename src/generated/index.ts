@@ -123,6 +123,8 @@ export type { ProductImagePresignRequest } from './models/ProductImagePresignReq
 export type { ProductImageUpdateRequest } from './models/ProductImageUpdateRequest';
 export type { ProductListItem } from './models/ProductListItem';
 export type { ProductListResponse } from './models/ProductListResponse';
+export type { PublicCategory } from './models/PublicCategory';
+export type { PublicCategoryListResponse } from './models/PublicCategoryListResponse';
 export type { PublicProductListResponse } from './models/PublicProductListResponse';
 export type { PublicProductResponse } from './models/PublicProductResponse';
 export type { PublicServiceListResponse } from './models/PublicServiceListResponse';
