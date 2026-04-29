@@ -23,6 +23,7 @@ declare const sdk: {
     PaymentsService: typeof generated.PaymentsService;
     ProductImagesService: typeof generated.ProductImagesService;
     ProductsService: typeof generated.ProductsService;
+    PublicService: typeof generated.PublicService;
     ReviewsService: typeof generated.ReviewsService;
     ServiceImagesService: typeof generated.ServiceImagesService;
     ServicesService: typeof generated.ServicesService;

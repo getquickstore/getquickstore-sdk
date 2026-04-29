@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type PublicService = {
+export type AvailabilityPublicService = {
     id: string;
     name: string;
     durationMin: number;

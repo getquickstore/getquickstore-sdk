@@ -2,14 +2,14 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { PublicService } from './PublicService';
+import type { AvailabilityPublicService } from './AvailabilityPublicService';
 import type { PublicServiceSlot } from './PublicServiceSlot';
 export type PublicServiceSlotsResponse = {
     ok: boolean;
     date: string;
     serviceId: string;
     storeId: string;
-    service: PublicService;
+    service: AvailabilityPublicService;
     isOpen: boolean;
     slots: Array<PublicServiceSlot>;
 };

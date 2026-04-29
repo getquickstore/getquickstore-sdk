@@ -159,52 +159,5 @@ class StoresService {
             },
         });
     }
-    /**
-     * List public stores
-     * @returns PublicStoreListResponse Public stores list
-     * @throws ApiError
-     */
-    static getStoresPublic({ q, }) {
-        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
-            method: 'GET',
-            url: '/stores/public',
-            query: {
-                'q': q,
-            },
-        });
-    }
-    /**
-     * Get public store by slug
-     * @returns PublicStoreSingleResponse Public store details
-     * @throws ApiError
-     */
-    static getStoresPublic1({ slug, }) {
-        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
-            method: 'GET',
-            url: '/stores/public/{slug}',
-            path: {
-                'slug': slug,
-            },
-            errors: {
-                404: `Resource not found`,
-            },
-        });
-    }
-    /**
-     * List nearby public stores
-     * @returns PublicStoreNearbyResponse Nearby stores list
-     * @throws ApiError
-     */
-    static getStoresPublicNearby({ lat, lng, radiusKm = 25, }) {
-        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
-            method: 'GET',
-            url: '/stores/public/nearby',
-            query: {
-                'lat': lat,
-                'lng': lng,
-                'radiusKm': radiusKm,
-            },
-        });
-    }
 }
 exports.StoresService = StoresService;

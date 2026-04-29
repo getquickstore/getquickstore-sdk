@@ -3,9 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 export type PublicStore = {
-    id: string;
-    name: string;
-    slug: string;
+    id?: string;
+    name?: string;
+    slug?: string | null;
     logoUrl?: string | null;
     description?: string | null;
     country?: string | null;

@@ -4,9 +4,6 @@
 /* eslint-disable */
 import type { CreateStoreRequest } from '../models/CreateStoreRequest';
 import type { CreateStoreResponse } from '../models/CreateStoreResponse';
-import type { PublicStoreListResponse } from '../models/PublicStoreListResponse';
-import type { PublicStoreNearbyResponse } from '../models/PublicStoreNearbyResponse';
-import type { PublicStoreSingleResponse } from '../models/PublicStoreSingleResponse';
 import type { StoreDeleteResponse } from '../models/StoreDeleteResponse';
 import type { StoreDetailsResponse } from '../models/StoreDetailsResponse';
 import type { StoreListResponse } from '../models/StoreListResponse';
@@ -215,75 +212,6 @@ export class StoresService {
                 403: `Forbidden`,
                 404: `Store not found`,
                 500: `Store visibility update failed`,
-            },
-        });
-    }
-    /**
-     * List public stores
-     * @returns PublicStoreListResponse Public stores list
-     * @throws ApiError
-     */
-    public static getStoresPublic({
-        q,
-    }: {
-        /**
-         * Search by store name or slug
-         */
-        q?: string,
-    }): CancelablePromise<PublicStoreListResponse> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/stores/public',
-            query: {
-                'q': q,
-            },
-        });
-    }
-    /**
-     * Get public store by slug
-     * @returns PublicStoreSingleResponse Public store details
-     * @throws ApiError
-     */
-    public static getStoresPublic1({
-        slug,
-    }: {
-        /**
-         * Store slug
-         */
-        slug: string,
-    }): CancelablePromise<PublicStoreSingleResponse> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/stores/public/{slug}',
-            path: {
-                'slug': slug,
-            },
-            errors: {
-                404: `Resource not found`,
-            },
-        });
-    }
-    /**
-     * List nearby public stores
-     * @returns PublicStoreNearbyResponse Nearby stores list
-     * @throws ApiError
-     */
-    public static getStoresPublicNearby({
-        lat,
-        lng,
-        radiusKm = 25,
-    }: {
-        lat: number,
-        lng: number,
-        radiusKm?: number,
-    }): CancelablePromise<PublicStoreNearbyResponse> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/stores/public/nearby',
-            query: {
-                'lat': lat,
-                'lng': lng,
-                'radiusKm': radiusKm,
             },
         });
     }

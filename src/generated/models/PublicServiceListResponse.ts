@@ -2,9 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { PublicStore } from './PublicStore';
-export type PublicStoreNearbyResponse = {
+import type { MarketplaceService } from './MarketplaceService';
+export type PublicServiceListResponse = {
     ok?: boolean;
-    items?: Array<PublicStore>;
+    items?: Array<MarketplaceService>;
 };
 
