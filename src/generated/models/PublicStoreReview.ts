@@ -3,12 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 export type PublicStoreReview = {
-    id?: string;
-    storeId?: string;
+    id: string;
+    storeId: string;
     userId?: string | null;
-    rating?: number;
+    rating: number;
     comment?: string | null;
-    authorName?: string | null;
+    authorName: string | null;
     createdAt?: string | null;
 };
 

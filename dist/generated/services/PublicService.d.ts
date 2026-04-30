@@ -4,6 +4,7 @@ import type { OkResponse } from '../models/OkResponse';
 import type { PublicCategoryListResponse } from '../models/PublicCategoryListResponse';
 import type { PublicProductListResponse } from '../models/PublicProductListResponse';
 import type { PublicServiceListResponse } from '../models/PublicServiceListResponse';
+import type { PublicStore } from '../models/PublicStore';
 import type { PublicStoreListResponse } from '../models/PublicStoreListResponse';
 import type { PublicStoreNearbyResponse } from '../models/PublicStoreNearbyResponse';
 import type { PublicStoreReviewCreateResponse } from '../models/PublicStoreReviewCreateResponse';
@@ -21,6 +22,14 @@ export declare class PublicService {
          */
         q?: string;
     }): CancelablePromise<PublicStoreListResponse>;
+    /**
+     * Get public store by slug
+     * @returns PublicStore Public store details
+     * @throws ApiError
+     */
+    static getPublicStores1({ slug, }: {
+        slug: string;
+    }): CancelablePromise<PublicStore>;
     /**
      * List nearby public stores
      * @returns PublicStoreNearbyResponse Nearby stores list

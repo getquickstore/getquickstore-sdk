@@ -418,6 +418,11 @@ public: {
       q: params?.q,
     }),
 
+  store: (slug: string) =>
+    PublicService.getPublicStores1({
+      slug,
+    }),
+
   nearbyStores: (params: { lat: number; lng: number; radiusKm?: number }) =>
     PublicService.getPublicStoresNearby({
       lat: params.lat,
@@ -425,7 +430,7 @@ public: {
       radiusKm: params.radiusKm,
     }),
 
-      storeReviews: {
+  storeReviews: {
     list: (
       storeId: string,
       params?: { limit?: number; offset?: number }
@@ -469,7 +474,6 @@ public: {
 
   catalog: () => PublicService.getPublicCatalog(),
 },
-
     categories: {
       list: (params?: {
         limit?: number

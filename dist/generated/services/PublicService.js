@@ -16,6 +16,28 @@ class PublicService {
             query: {
                 'q': q,
             },
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
+            },
+        });
+    }
+    /**
+     * Get public store by slug
+     * @returns PublicStore Public store details
+     * @throws ApiError
+     */
+    static getPublicStores1({ slug, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/public/stores/{slug}',
+            path: {
+                'slug': slug,
+            },
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
+            },
         });
     }
     /**
@@ -31,6 +53,10 @@ class PublicService {
                 'lat': lat,
                 'lng': lng,
                 'radiusKm': radiusKm,
+            },
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
             },
         });
     }
@@ -50,6 +76,10 @@ class PublicService {
                 'limit': limit,
                 'offset': offset,
             },
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
+            },
         });
     }
     /**
@@ -66,6 +96,10 @@ class PublicService {
             },
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
+            },
         });
     }
     /**
@@ -81,6 +115,10 @@ class PublicService {
                 'id': id,
                 'rid': rid,
             },
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
+            },
         });
     }
     /**
@@ -94,6 +132,10 @@ class PublicService {
             url: '/public/products',
             query: {
                 'storeId': storeId,
+            },
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
             },
         });
     }
@@ -109,6 +151,10 @@ class PublicService {
             query: {
                 'storeId': storeId,
             },
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
+            },
         });
     }
     /**
@@ -120,6 +166,10 @@ class PublicService {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'GET',
             url: '/public/catalog',
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
+            },
         });
     }
     /**
@@ -133,6 +183,10 @@ class PublicService {
             url: '/public/categories',
             query: {
                 'storeId': storeId,
+            },
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
             },
         });
     }

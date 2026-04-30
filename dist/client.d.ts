@@ -227,6 +227,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         stores: (params?: {
             q?: string;
         }) => import("./generated").CancelablePromise<import("./generated").PublicStoreListResponse>;
+        store: (slug: string) => import("./generated").CancelablePromise<import("./generated").PublicStore>;
         nearbyStores: (params: {
             lat: number;
             lng: number;

@@ -259,6 +259,9 @@ function createClient({ baseUrl, token, storeId }) {
             stores: (params) => PublicService_1.PublicService.getPublicStores({
                 q: params?.q,
             }),
+            store: (slug) => PublicService_1.PublicService.getPublicStores1({
+                slug,
+            }),
             nearbyStores: (params) => PublicService_1.PublicService.getPublicStoresNearby({
                 lat: params.lat,
                 lng: params.lng,

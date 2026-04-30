@@ -1,6 +1,6 @@
 export type PublicStore = {
-    id?: string;
-    name?: string;
+    id: string;
+    name: string;
     slug?: string | null;
     logoUrl?: string | null;
     description?: string | null;
@@ -9,6 +9,6 @@ export type PublicStore = {
     latitude?: number | null;
     longitude?: number | null;
     distanceKm?: number | null;
-    ratingAvg?: number;
-    reviewCount?: number;
+    ratingAvg: number;
+    reviewCount: number;
 };

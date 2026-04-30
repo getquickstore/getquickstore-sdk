@@ -4,7 +4,7 @@
 /* eslint-disable */
 import type { MarketplaceService } from './MarketplaceService';
 export type PublicServiceListResponse = {
-    ok?: boolean;
-    items?: Array<MarketplaceService>;
+    ok: boolean;
+    items: Array<MarketplaceService>;
 };
 
