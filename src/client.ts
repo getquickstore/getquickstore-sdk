@@ -846,32 +846,36 @@ public: {
         }),
     },
 
-    reviews: {
-      list: (
-        productId: string,
-        params?: { limit?: number; offset?: number; storeId?: string }
-      ) =>
-        ReviewsService.getProductsReviews({
-          id: productId,
-          xStoreId: params?.storeId || requireStoreId(),
-          limit: params?.limit,
-          offset: params?.offset,
-        }),
+reviews: {
+  list: (
+    productId: string,
+    params?: { limit?: number; offset?: number; storeId?: string }
+  ) =>
+    ReviewsService.getProductsReviews({
+      id: productId,
+      xStoreId: params?.storeId || requireStoreId(),
+      limit: params?.limit ?? 20,
+      offset: params?.offset,
+    }),
 
-      create: (productId: string, data: any, customStoreId?: string) =>
-        ReviewsService.postProductsReviews({
-          id: productId,
-          xStoreId: customStoreId || requireStoreId(),
-          requestBody: data,
-        }),
+  create: (
+    productId: string,
+    data: { rating: number; comment?: string },
+    customStoreId?: string
+  ) =>
+    ReviewsService.postProductsReviews({
+      id: productId,
+      xStoreId: customStoreId || requireStoreId(),
+      requestBody: data,
+    }),
 
-      flag: (productId: string, reviewId: string, customStoreId?: string) =>
-        ReviewsService.postProductsReviewsFlag({
-          id: productId,
-          rid: reviewId,
-          xStoreId: customStoreId || requireStoreId(),
-        }),
-    },
+  flag: (productId: string, reviewId: string, customStoreId?: string) =>
+    ReviewsService.postProductsReviewsFlag({
+      id: productId,
+      rid: reviewId,
+      xStoreId: customStoreId || requireStoreId(),
+    }),
+},
 
     services: {
       list: (customStoreId?: string, includeInactive?: boolean) =>

@@ -482,7 +482,7 @@ function createClient({ baseUrl, token, storeId }) {
             list: (productId, params) => ReviewsService_1.ReviewsService.getProductsReviews({
                 id: productId,
                 xStoreId: params?.storeId || requireStoreId(),
-                limit: params?.limit,
+                limit: params?.limit ?? 20,
                 offset: params?.offset,
             }),
             create: (productId, data, customStoreId) => ReviewsService_1.ReviewsService.postProductsReviews({

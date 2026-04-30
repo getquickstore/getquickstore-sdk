@@ -423,7 +423,10 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             offset?: number;
             storeId?: string;
         }) => import("./generated").CancelablePromise<import("./generated").ReviewListResponse>;
-        create: (productId: string, data: any, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").Review>;
+        create: (productId: string, data: {
+            rating: number;
+            comment?: string;
+        }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").Review>;
         flag: (productId: string, reviewId: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").FlagReviewResponse>;
     };
     services: {
