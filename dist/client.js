@@ -337,6 +337,10 @@ function createClient({ baseUrl, token, storeId }) {
                 requestBody: data,
                 xStoreId: customStoreId || storeId || undefined,
             }),
+            delete: (id, customStoreId) => ProductsService_1.ProductsService.deleteProducts({
+                id,
+                xStoreId: customStoreId || storeId || undefined,
+            }),
             publicGet: (id, storeId) => ProductsService_1.ProductsService.getProductsPublic({
                 id,
                 storeId,
@@ -484,6 +488,10 @@ function createClient({ baseUrl, token, storeId }) {
                 id,
                 xStoreId: customStoreId || requireStoreId(),
                 requestBody: data,
+            }),
+            delete: (id, customStoreId) => ServicesService_1.ServicesService.deleteServices({
+                id,
+                xStoreId: customStoreId || requireStoreId(),
             }),
             getAvailability: (id, date, customStoreId) => ServicesService_1.ServicesService.getServicesAvailability({
                 xStoreId: customStoreId || requireStoreId(),

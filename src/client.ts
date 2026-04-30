@@ -548,6 +548,12 @@ public: {
           xStoreId: customStoreId || storeId || undefined,
         }),
 
+        delete: (id: string, customStoreId?: string) =>
+  ProductsService.deleteProducts({
+    id,
+    xStoreId: customStoreId || storeId || undefined,
+  }),
+
       publicGet: (id: string, storeId: string) =>
         ProductsService.getProductsPublic({
           id,
@@ -852,6 +858,12 @@ public: {
           xStoreId: customStoreId || requireStoreId(),
           requestBody: data,
         }),
+
+        delete: (id: string, customStoreId?: string) =>
+  ServicesService.deleteServices({
+    id,
+    xStoreId: customStoreId || requireStoreId(),
+  }),
 
       getAvailability: (id: string, date: string, customStoreId?: string) =>
         ServicesService.getServicesAvailability({

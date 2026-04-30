@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CreateServiceRequest } from '../models/CreateServiceRequest';
+import type { OkResponse } from '../models/OkResponse';
 import type { Service } from '../models/Service';
 import type { ServiceAvailabilityResponse } from '../models/ServiceAvailabilityResponse';
 import type { ServiceListResponse } from '../models/ServiceListResponse';
@@ -114,6 +115,42 @@ export class ServicesService {
                 403: `Access denied`,
                 404: `Service not found`,
                 500: `Service update failed`,
+            },
+        });
+    }
+    /**
+     * Delete service
+     * Soft-deletes the service by setting isActive=false and removes related service images and favorites. Bookings are preserved.
+     * @returns OkResponse Service deleted
+     * @throws ApiError
+     */
+    public static deleteServices({
+        xStoreId,
+        id,
+    }: {
+        /**
+         * Store context id.
+         */
+        xStoreId: string,
+        /**
+         * Service id.
+         */
+        id: string,
+    }): CancelablePromise<OkResponse> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/services/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            errors: {
+                400: `Validation failed`,
+                403: `Access denied`,
+                404: `Service not found`,
+                500: `Service delete failed`,
             },
         });
     }

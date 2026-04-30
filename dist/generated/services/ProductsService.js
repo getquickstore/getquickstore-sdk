@@ -111,5 +111,28 @@ class ProductsService {
             },
         });
     }
+    /**
+     * Delete product and cleanup related data
+     * Soft-deletes the product, removes product images, category links, reviews, favorites and cart items. Order items are preserved.
+     * @returns OkResponse Product deleted
+     * @throws ApiError
+     */
+    static deleteProducts({ id, xStoreId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'DELETE',
+            url: '/products/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            errors: {
+                401: `Unauthorized`,
+                404: `Product not found`,
+                500: `Server error`,
+            },
+        });
+    }
 }
 exports.ProductsService = ProductsService;

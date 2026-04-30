@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CreateProductRequest } from '../models/CreateProductRequest';
+import type { OkResponse } from '../models/OkResponse';
 import type { ProductDetail } from '../models/ProductDetail';
 import type { ProductListResponse } from '../models/ProductListResponse';
 import type { PublicProductResponse } from '../models/PublicProductResponse';
@@ -157,6 +158,38 @@ export class ProductsService {
             mediaType: 'application/json',
             errors: {
                 400: `Validation error`,
+                401: `Unauthorized`,
+                404: `Product not found`,
+                500: `Server error`,
+            },
+        });
+    }
+    /**
+     * Delete product and cleanup related data
+     * Soft-deletes the product, removes product images, category links, reviews, favorites and cart items. Order items are preserved.
+     * @returns OkResponse Product deleted
+     * @throws ApiError
+     */
+    public static deleteProducts({
+        id,
+        xStoreId,
+    }: {
+        id: string,
+        /**
+         * Store context id
+         */
+        xStoreId?: string,
+    }): CancelablePromise<OkResponse> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/products/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            errors: {
                 401: `Unauthorized`,
                 404: `Product not found`,
                 500: `Server error`,

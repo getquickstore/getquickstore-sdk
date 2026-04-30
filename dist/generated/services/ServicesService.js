@@ -76,6 +76,30 @@ class ServicesService {
         });
     }
     /**
+     * Delete service
+     * Soft-deletes the service by setting isActive=false and removes related service images and favorites. Bookings are preserved.
+     * @returns OkResponse Service deleted
+     * @throws ApiError
+     */
+    static deleteServices({ xStoreId, id, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'DELETE',
+            url: '/services/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            errors: {
+                400: `Validation failed`,
+                403: `Access denied`,
+                404: `Service not found`,
+                500: `Service delete failed`,
+            },
+        });
+    }
+    /**
      * Get service availability for date
      * Returns available booking slots for an active service in the current store.
      * @returns ServiceAvailabilityResponse Available slots for date

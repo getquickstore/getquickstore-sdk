@@ -1,4 +1,5 @@
 import type { CreateProductRequest } from '../models/CreateProductRequest';
+import type { OkResponse } from '../models/OkResponse';
 import type { ProductDetail } from '../models/ProductDetail';
 import type { ProductListResponse } from '../models/ProductListResponse';
 import type { PublicProductResponse } from '../models/PublicProductResponse';
@@ -65,4 +66,17 @@ export declare class ProductsService {
          */
         xStoreId?: string;
     }): CancelablePromise<ProductDetail>;
+    /**
+     * Delete product and cleanup related data
+     * Soft-deletes the product, removes product images, category links, reviews, favorites and cart items. Order items are preserved.
+     * @returns OkResponse Product deleted
+     * @throws ApiError
+     */
+    static deleteProducts({ id, xStoreId, }: {
+        id: string;
+        /**
+         * Store context id
+         */
+        xStoreId?: string;
+    }): CancelablePromise<OkResponse>;
 }

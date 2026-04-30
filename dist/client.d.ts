@@ -279,6 +279,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         get: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").ProductDetail>;
         create: (data: any, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").ProductDetail>;
         update: (id: string, data: any, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").ProductDetail>;
+        delete: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OkResponse>;
         publicGet: (id: string, storeId: string) => import("./generated").CancelablePromise<import("./generated").PublicProductResponse>;
     };
     productImages: {
@@ -418,6 +419,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         list: (customStoreId?: string, includeInactive?: boolean) => import("./generated").CancelablePromise<import("./generated").ServiceListResponse>;
         create: (data: any, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").Service>;
         update: (id: string, data: any, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").Service>;
+        delete: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OkResponse>;
         getAvailability: (id: string, date: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").ServiceAvailabilityResponse>;
     };
 };

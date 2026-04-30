@@ -57,8 +57,8 @@ export declare class CategoriesService {
         xStoreId?: string;
     }): CancelablePromise<Category>;
     /**
-     * Delete category (soft delete)
-     * @returns OkResponse Deleted
+     * Delete category and detach products
+     * @returns OkResponse Category soft-deleted and product links removed
      * @throws ApiError
      */
     static deleteCategories({ id, xStoreId, }: {

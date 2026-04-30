@@ -129,8 +129,8 @@ export class CategoriesService {
         });
     }
     /**
-     * Delete category (soft delete)
-     * @returns OkResponse Deleted
+     * Delete category and detach products
+     * @returns OkResponse Category soft-deleted and product links removed
      * @throws ApiError
      */
     public static deleteCategories({
