@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StoresService = exports.ServicesService = exports.ServiceImagesService = exports.ReviewsService = exports.PublicService = exports.ProductsService = exports.ProductImagesService = exports.PaymentsService = exports.OrdersService = exports.FavoritesService = exports.CategoriesService = exports.CatalogService = exports.CartService = exports.CalendarService = exports.BookingsService = exports.BillingConnectService = exports.BillingService = exports.AvailabilityService = exports.AuthService = exports.AnalyticsService = exports.OpenAPI = exports.CancelError = exports.CancelablePromise = exports.ApiError = void 0;
+exports.TagsService = exports.StoresService = exports.ServicesService = exports.ServiceImagesService = exports.ReviewsService = exports.PublicService = exports.ProductsService = exports.ProductImagesService = exports.PaymentsService = exports.OrdersService = exports.FavoritesService = exports.CategoriesService = exports.CatalogService = exports.CartService = exports.CalendarService = exports.BookingsService = exports.BillingConnectService = exports.BillingService = exports.AvailabilityService = exports.AuthService = exports.AnalyticsService = exports.OpenAPI = exports.CancelError = exports.CancelablePromise = exports.ApiError = void 0;
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
@@ -52,3 +52,5 @@ var ServicesService_1 = require("./services/ServicesService");
 Object.defineProperty(exports, "ServicesService", { enumerable: true, get: function () { return ServicesService_1.ServicesService; } });
 var StoresService_1 = require("./services/StoresService");
 Object.defineProperty(exports, "StoresService", { enumerable: true, get: function () { return StoresService_1.StoresService; } });
+var TagsService_1 = require("./services/TagsService");
+Object.defineProperty(exports, "TagsService", { enumerable: true, get: function () { return TagsService_1.TagsService; } });

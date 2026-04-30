@@ -20,6 +20,7 @@ import { ServiceImagesService } from "./generated/services/ServiceImagesService"
 import { CatalogService } from "./generated/services/CatalogService"
 import { FavoritesService } from "./generated/services/FavoritesService"
 import { PublicService } from "./generated/services/PublicService"
+import { TagsService } from "./generated/services/TagsService"
 
 import type { CreateOrderRequest } from "./generated/models/CreateOrderRequest"
 import type { UpdateOrderStatusRequest } from "./generated/models/UpdateOrderStatusRequest"
@@ -473,6 +474,39 @@ public: {
           xStoreId: customStoreId || storeId || undefined,
         }),
     },
+
+    tags: {
+  list: (params?: {
+    limit?: number
+    offset?: number
+    q?: string
+    storeId?: string
+  }) =>
+    TagsService.getTags({
+      xStoreId: params?.storeId || storeId || undefined,
+      limit: params?.limit,
+      offset: params?.offset,
+      q: params?.q,
+    }),
+
+  create: (data: any, customStoreId?: string) =>
+    TagsService.postTags({
+      requestBody: data,
+      xStoreId: customStoreId || storeId || undefined,
+    }),
+
+  generate: (data: any, customStoreId?: string) =>
+    TagsService.postTagsGenerate({
+      requestBody: data,
+      xStoreId: customStoreId || storeId || undefined,
+    }),
+
+  delete: (id: string, customStoreId?: string) =>
+    TagsService.deleteTags({
+      id,
+      xStoreId: customStoreId || storeId || undefined,
+    }),
+},
 
     stores: {
       list: () => StoresService.getStores(),

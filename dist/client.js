@@ -22,6 +22,7 @@ const ServiceImagesService_1 = require("./generated/services/ServiceImagesServic
 const CatalogService_1 = require("./generated/services/CatalogService");
 const FavoritesService_1 = require("./generated/services/FavoritesService");
 const PublicService_1 = require("./generated/services/PublicService");
+const TagsService_1 = require("./generated/services/TagsService");
 function createClient({ baseUrl, token, storeId }) {
     OpenAPI_1.OpenAPI.BASE = baseUrl;
     OpenAPI_1.OpenAPI.WITH_CREDENTIALS = false;
@@ -291,6 +292,26 @@ function createClient({ baseUrl, token, storeId }) {
                 xStoreId: customStoreId || storeId || undefined,
             }),
             delete: (id, customStoreId) => CategoriesService_1.CategoriesService.deleteCategories({
+                id,
+                xStoreId: customStoreId || storeId || undefined,
+            }),
+        },
+        tags: {
+            list: (params) => TagsService_1.TagsService.getTags({
+                xStoreId: params?.storeId || storeId || undefined,
+                limit: params?.limit,
+                offset: params?.offset,
+                q: params?.q,
+            }),
+            create: (data, customStoreId) => TagsService_1.TagsService.postTags({
+                requestBody: data,
+                xStoreId: customStoreId || storeId || undefined,
+            }),
+            generate: (data, customStoreId) => TagsService_1.TagsService.postTagsGenerate({
+                requestBody: data,
+                xStoreId: customStoreId || storeId || undefined,
+            }),
+            delete: (id, customStoreId) => TagsService_1.TagsService.deleteTags({
                 id,
                 xStoreId: customStoreId || storeId || undefined,
             }),

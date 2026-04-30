@@ -254,6 +254,17 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         update: (id: string, data: any, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").Category>;
         delete: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OkResponse>;
     };
+    tags: {
+        list: (params?: {
+            limit?: number;
+            offset?: number;
+            q?: string;
+            storeId?: string;
+        }) => import("./generated").CancelablePromise<import("./generated").TagListResponse>;
+        create: (data: any, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").Tag>;
+        generate: (data: any, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").GeneratedTagsResponse>;
+        delete: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OkResponse>;
+    };
     stores: {
         list: () => import("./generated").CancelablePromise<import("./generated").StoreListResponse>;
         create: (data: any) => import("./generated").CancelablePromise<import("./generated").CreateStoreResponse>;
