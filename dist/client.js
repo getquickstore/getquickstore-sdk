@@ -496,6 +496,24 @@ function createClient({ baseUrl, token, storeId }) {
                 xStoreId: customStoreId || requireStoreId(),
             }),
         },
+        serviceReviews: {
+            list: (serviceId, params) => ServicesService_1.ServicesService.getServicesReviews({
+                id: serviceId,
+                xStoreId: params?.storeId || requireStoreId(),
+                limit: params?.limit ?? 20,
+                offset: params?.offset,
+            }),
+            create: (serviceId, data, customStoreId) => ServicesService_1.ServicesService.postServicesReviews({
+                id: serviceId,
+                xStoreId: customStoreId || requireStoreId(),
+                requestBody: data,
+            }),
+            flag: (serviceId, reviewId, customStoreId) => ServicesService_1.ServicesService.postServicesReviewsFlag({
+                id: serviceId,
+                rid: reviewId,
+                xStoreId: customStoreId || requireStoreId(),
+            }),
+        },
         services: {
             list: (customStoreId, includeInactive) => ServicesService_1.ServicesService.getServices({
                 xStoreId: customStoreId || requireStoreId(),

@@ -100,6 +100,64 @@ class ServicesService {
         });
     }
     /**
+     * List service reviews
+     * @returns ServiceReviewListResponse Service reviews list
+     * @throws ApiError
+     */
+    static getServicesReviews({ xStoreId, id, limit = 20, offset, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/services/{id}/reviews',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            query: {
+                'limit': limit,
+                'offset': offset,
+            },
+        });
+    }
+    /**
+     * Create service review
+     * @returns ServiceReviewCreateResponse Service review created
+     * @throws ApiError
+     */
+    static postServicesReviews({ xStoreId, id, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/services/{id}/reviews',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * Flag service review
+     * @returns OkResponse Service review flagged
+     * @throws ApiError
+     */
+    static postServicesReviewsFlag({ xStoreId, id, rid, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/services/{id}/reviews/{rid}/flag',
+            path: {
+                'id': id,
+                'rid': rid,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+        });
+    }
+    /**
      * Get service availability for date
      * Returns available booking slots for an active service in the current store.
      * @returns ServiceAvailabilityResponse Available slots for date

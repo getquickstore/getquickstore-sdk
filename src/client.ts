@@ -877,6 +877,37 @@ reviews: {
     }),
 },
 
+serviceReviews: {
+  list: (
+    serviceId: string,
+    params?: { limit?: number; offset?: number; storeId?: string }
+  ) =>
+    ServicesService.getServicesReviews({
+      id: serviceId,
+      xStoreId: params?.storeId || requireStoreId(),
+      limit: params?.limit ?? 20,
+      offset: params?.offset,
+    }),
+
+  create: (
+    serviceId: string,
+    data: { rating: number; comment?: string },
+    customStoreId?: string
+  ) =>
+    ServicesService.postServicesReviews({
+      id: serviceId,
+      xStoreId: customStoreId || requireStoreId(),
+      requestBody: data,
+    }),
+
+  flag: (serviceId: string, reviewId: string, customStoreId?: string) =>
+    ServicesService.postServicesReviewsFlag({
+      id: serviceId,
+      rid: reviewId,
+      xStoreId: customStoreId || requireStoreId(),
+    }),
+},
+
     services: {
       list: (customStoreId?: string, includeInactive?: boolean) =>
         ServicesService.getServices({

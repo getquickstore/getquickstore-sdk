@@ -3,10 +3,13 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CreateServiceRequest } from '../models/CreateServiceRequest';
+import type { CreateServiceReviewRequest } from '../models/CreateServiceReviewRequest';
 import type { OkResponse } from '../models/OkResponse';
 import type { Service } from '../models/Service';
 import type { ServiceAvailabilityResponse } from '../models/ServiceAvailabilityResponse';
 import type { ServiceListResponse } from '../models/ServiceListResponse';
+import type { ServiceReviewCreateResponse } from '../models/ServiceReviewCreateResponse';
+import type { ServiceReviewListResponse } from '../models/ServiceReviewListResponse';
 import type { UpdateServiceRequest } from '../models/UpdateServiceRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -151,6 +154,90 @@ export class ServicesService {
                 403: `Access denied`,
                 404: `Service not found`,
                 500: `Service delete failed`,
+            },
+        });
+    }
+    /**
+     * List service reviews
+     * @returns ServiceReviewListResponse Service reviews list
+     * @throws ApiError
+     */
+    public static getServicesReviews({
+        xStoreId,
+        id,
+        limit = 20,
+        offset,
+    }: {
+        xStoreId: string,
+        id: string,
+        limit?: number,
+        offset?: number,
+    }): CancelablePromise<ServiceReviewListResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/services/{id}/reviews',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            query: {
+                'limit': limit,
+                'offset': offset,
+            },
+        });
+    }
+    /**
+     * Create service review
+     * @returns ServiceReviewCreateResponse Service review created
+     * @throws ApiError
+     */
+    public static postServicesReviews({
+        xStoreId,
+        id,
+        requestBody,
+    }: {
+        xStoreId: string,
+        id: string,
+        requestBody: CreateServiceReviewRequest,
+    }): CancelablePromise<ServiceReviewCreateResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/services/{id}/reviews',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * Flag service review
+     * @returns OkResponse Service review flagged
+     * @throws ApiError
+     */
+    public static postServicesReviewsFlag({
+        xStoreId,
+        id,
+        rid,
+    }: {
+        xStoreId: string,
+        id: string,
+        rid: string,
+    }): CancelablePromise<OkResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/services/{id}/reviews/{rid}/flag',
+            path: {
+                'id': id,
+                'rid': rid,
+            },
+            headers: {
+                'x-store-id': xStoreId,
             },
         });
     }

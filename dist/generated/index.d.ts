@@ -78,6 +78,7 @@ export type { CreateRefundRequest } from './models/CreateRefundRequest';
 export type { CreateRefundResponse } from './models/CreateRefundResponse';
 export type { CreateReviewRequest } from './models/CreateReviewRequest';
 export type { CreateServiceRequest } from './models/CreateServiceRequest';
+export type { CreateServiceReviewRequest } from './models/CreateServiceReviewRequest';
 export type { CreateStoreRequest } from './models/CreateStoreRequest';
 export type { CreateStoreResponse } from './models/CreateStoreResponse';
 export type { CreateTagRequest } from './models/CreateTagRequest';
@@ -147,6 +148,9 @@ export type { ServiceImageCreateRequest } from './models/ServiceImageCreateReque
 export type { ServiceImagePresignRequest } from './models/ServiceImagePresignRequest';
 export type { ServiceImageUpdateRequest } from './models/ServiceImageUpdateRequest';
 export type { ServiceListResponse } from './models/ServiceListResponse';
+export type { ServiceReview } from './models/ServiceReview';
+export type { ServiceReviewCreateResponse } from './models/ServiceReviewCreateResponse';
+export type { ServiceReviewListResponse } from './models/ServiceReviewListResponse';
 export type { ServiceTag } from './models/ServiceTag';
 export type { StoreBillingSummary } from './models/StoreBillingSummary';
 export type { StoreDeleteResponse } from './models/StoreDeleteResponse';

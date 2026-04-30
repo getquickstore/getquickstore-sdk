@@ -1,8 +1,11 @@
 import type { CreateServiceRequest } from '../models/CreateServiceRequest';
+import type { CreateServiceReviewRequest } from '../models/CreateServiceReviewRequest';
 import type { OkResponse } from '../models/OkResponse';
 import type { Service } from '../models/Service';
 import type { ServiceAvailabilityResponse } from '../models/ServiceAvailabilityResponse';
 import type { ServiceListResponse } from '../models/ServiceListResponse';
+import type { ServiceReviewCreateResponse } from '../models/ServiceReviewCreateResponse';
+import type { ServiceReviewListResponse } from '../models/ServiceReviewListResponse';
 import type { UpdateServiceRequest } from '../models/UpdateServiceRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class ServicesService {
@@ -67,6 +70,37 @@ export declare class ServicesService {
          * Service id.
          */
         id: string;
+    }): CancelablePromise<OkResponse>;
+    /**
+     * List service reviews
+     * @returns ServiceReviewListResponse Service reviews list
+     * @throws ApiError
+     */
+    static getServicesReviews({ xStoreId, id, limit, offset, }: {
+        xStoreId: string;
+        id: string;
+        limit?: number;
+        offset?: number;
+    }): CancelablePromise<ServiceReviewListResponse>;
+    /**
+     * Create service review
+     * @returns ServiceReviewCreateResponse Service review created
+     * @throws ApiError
+     */
+    static postServicesReviews({ xStoreId, id, requestBody, }: {
+        xStoreId: string;
+        id: string;
+        requestBody: CreateServiceReviewRequest;
+    }): CancelablePromise<ServiceReviewCreateResponse>;
+    /**
+     * Flag service review
+     * @returns OkResponse Service review flagged
+     * @throws ApiError
+     */
+    static postServicesReviewsFlag({ xStoreId, id, rid, }: {
+        xStoreId: string;
+        id: string;
+        rid: string;
     }): CancelablePromise<OkResponse>;
     /**
      * Get service availability for date
