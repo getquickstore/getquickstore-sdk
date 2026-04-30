@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ServiceTag } from './ServiceTag';
 export type Service = {
     id: string;
     storeId: string;
@@ -13,6 +14,8 @@ export type Service = {
     priceCents: number;
     currency: string;
     isActive: boolean;
+    tags: Array<ServiceTag>;
+    tagIds: Array<string>;
     createdAt?: string | null;
     updatedAt?: string | null;
 };

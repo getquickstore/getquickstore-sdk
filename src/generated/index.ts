@@ -151,6 +151,7 @@ export type { ServiceImageCreateRequest } from './models/ServiceImageCreateReque
 export type { ServiceImagePresignRequest } from './models/ServiceImagePresignRequest';
 export type { ServiceImageUpdateRequest } from './models/ServiceImageUpdateRequest';
 export type { ServiceListResponse } from './models/ServiceListResponse';
+export type { ServiceTag } from './models/ServiceTag';
 export type { StoreBillingSummary } from './models/StoreBillingSummary';
 export type { StoreDeleteResponse } from './models/StoreDeleteResponse';
 export type { StoreDetailsResponse } from './models/StoreDetailsResponse';

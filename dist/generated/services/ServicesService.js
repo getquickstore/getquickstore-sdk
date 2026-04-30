@@ -29,7 +29,7 @@ class ServicesService {
     }
     /**
      * Create service
-     * Creates a bookable service. Requires seller/admin access to the current store.
+     * Creates a bookable service. Requires seller/admin access to the current store. Supports tagIds for existing tags and tagNames for creating/reusing tags by name.
      * @returns Service Service created
      * @throws ApiError
      */
@@ -51,7 +51,7 @@ class ServicesService {
     }
     /**
      * Update service
-     * Updates a bookable service. Requires seller/admin access to the current store.
+     * Updates a bookable service. Requires seller/admin access to the current store. If tagIds or tagNames are provided, service tags are replaced with the resolved tag set.
      * @returns Service Service updated
      * @throws ApiError
      */
