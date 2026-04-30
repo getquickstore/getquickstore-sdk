@@ -11,4 +11,6 @@ export type MarketplaceService = {
     storeSlug?: string | null;
     image?: string | null;
     isActive?: boolean;
+    ratingAvg?: number;
+    reviewCount?: number;
 };
