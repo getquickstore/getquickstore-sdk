@@ -10,6 +10,8 @@ export type Service = {
     priceCents: number;
     currency: string;
     isActive: boolean;
+    reviewCount: number;
+    ratingAvg: number;
     tags: Array<ServiceTag>;
     tagIds: Array<string>;
     createdAt?: string | null;

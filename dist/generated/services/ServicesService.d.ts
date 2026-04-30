@@ -54,7 +54,7 @@ export declare class ServicesService {
     }): CancelablePromise<Service>;
     /**
      * Delete service
-     * Soft-deletes the service by setting isActive=false and removes related service images and favorites. Bookings are preserved.
+     * Soft-deletes the service by setting isActive=false and removes related service images, tags, reviews and favorites. Bookings are preserved.
      * @returns OkResponse Service deleted
      * @throws ApiError
      */

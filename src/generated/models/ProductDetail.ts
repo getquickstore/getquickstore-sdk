@@ -13,6 +13,8 @@ export type ProductDetail = {
     slug: string;
     sku?: string | null;
     description?: string | null;
+    reviewCount: number;
+    ratingAvg: number;
     status: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED';
     priceCents: number;
     price: number;
@@ -24,7 +26,7 @@ export type ProductDetail = {
     updatedAt: string;
     images: Array<ProductImage>;
     categories?: Array<ProductCategoryLink>;
-    tags?: Array<ProductTag>;
-    tagIds?: Array<string>;
+    tags: Array<ProductTag>;
+    tagIds: Array<string>;
 };
 
