@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ProductImage } from './ProductImage';
+import type { ProductTag } from './ProductTag';
 export type ProductListItem = {
     id: string;
     storeId: string;
@@ -21,5 +22,7 @@ export type ProductListItem = {
     createdAt: string;
     updatedAt: string;
     images: Array<ProductImage>;
+    tags?: Array<ProductTag>;
+    tagIds?: Array<string>;
 };
 

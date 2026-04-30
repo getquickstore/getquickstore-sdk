@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { ProductCategoryLink } from './ProductCategoryLink';
 import type { ProductImage } from './ProductImage';
+import type { ProductTag } from './ProductTag';
 export type ProductDetail = {
     id: string;
     storeId: string;
@@ -23,5 +24,7 @@ export type ProductDetail = {
     updatedAt: string;
     images: Array<ProductImage>;
     categories?: Array<ProductCategoryLink>;
+    tags?: Array<ProductTag>;
+    tagIds?: Array<string>;
 };
 

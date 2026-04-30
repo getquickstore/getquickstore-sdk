@@ -21,4 +21,6 @@ export type CreateProductRequest = {
     metaDescription?: string | null;
     noindex?: boolean;
     images?: Array<CreateProductImageInput>;
+    tagIds?: Array<string>;
+    tagNames?: Array<string>;
 };

@@ -17,4 +17,6 @@ export type UpdateProductRequest = {
     metaTitle?: string | null;
     metaDescription?: string | null;
     noindex?: boolean;
+    tagIds?: Array<string>;
+    tagNames?: Array<string>;
 };
