@@ -1,9 +1,13 @@
+import type { CreateStoreReviewRequest } from '../models/CreateStoreReviewRequest';
 import type { MarketplaceCatalogResponse } from '../models/MarketplaceCatalogResponse';
+import type { OkResponse } from '../models/OkResponse';
 import type { PublicCategoryListResponse } from '../models/PublicCategoryListResponse';
 import type { PublicProductListResponse } from '../models/PublicProductListResponse';
 import type { PublicServiceListResponse } from '../models/PublicServiceListResponse';
 import type { PublicStoreListResponse } from '../models/PublicStoreListResponse';
 import type { PublicStoreNearbyResponse } from '../models/PublicStoreNearbyResponse';
+import type { PublicStoreReviewCreateResponse } from '../models/PublicStoreReviewCreateResponse';
+import type { PublicStoreReviewListResponse } from '../models/PublicStoreReviewListResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class PublicService {
     /**
@@ -27,6 +31,34 @@ export declare class PublicService {
         lng: number;
         radiusKm?: number;
     }): CancelablePromise<PublicStoreNearbyResponse>;
+    /**
+     * List public store reviews
+     * @returns PublicStoreReviewListResponse Store reviews list
+     * @throws ApiError
+     */
+    static getPublicStoresReviews({ id, limit, offset, }: {
+        id: string;
+        limit?: number;
+        offset?: number;
+    }): CancelablePromise<PublicStoreReviewListResponse>;
+    /**
+     * Create public store review
+     * @returns PublicStoreReviewCreateResponse Store review created
+     * @throws ApiError
+     */
+    static postPublicStoresReviews({ id, requestBody, }: {
+        id: string;
+        requestBody: CreateStoreReviewRequest;
+    }): CancelablePromise<PublicStoreReviewCreateResponse>;
+    /**
+     * Flag public store review
+     * @returns OkResponse Store review flagged
+     * @throws ApiError
+     */
+    static postPublicStoresReviewsFlag({ id, rid, }: {
+        id: string;
+        rid: string;
+    }): CancelablePromise<OkResponse>;
     /**
      * List public products
      * @returns PublicProductListResponse Public products list

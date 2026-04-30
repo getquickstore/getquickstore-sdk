@@ -22,6 +22,8 @@ import { FavoritesService } from "./generated/services/FavoritesService"
 import { PublicService } from "./generated/services/PublicService"
 import { TagsService } from "./generated/services/TagsService"
 
+
+
 import type { CreateOrderRequest } from "./generated/models/CreateOrderRequest"
 import type { UpdateOrderStatusRequest } from "./generated/models/UpdateOrderStatusRequest"
 
@@ -422,6 +424,33 @@ public: {
       lng: params.lng,
       radiusKm: params.radiusKm,
     }),
+
+      storeReviews: {
+    list: (
+      storeId: string,
+      params?: { limit?: number; offset?: number }
+    ) =>
+      PublicService.getPublicStoresReviews({
+        id: storeId,
+        limit: params?.limit ?? 20,
+        offset: params?.offset,
+      }),
+
+    create: (
+      storeId: string,
+      data: { rating: number; comment?: string }
+    ) =>
+      PublicService.postPublicStoresReviews({
+        id: storeId,
+        requestBody: data,
+      }),
+
+    flag: (storeId: string, reviewId: string) =>
+      PublicService.postPublicStoresReviewsFlag({
+        id: storeId,
+        rid: reviewId,
+      }),
+  },
 
   products: (params?: { storeId?: string }) =>
     PublicService.getPublicProducts({

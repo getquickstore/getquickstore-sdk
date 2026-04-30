@@ -264,6 +264,21 @@ function createClient({ baseUrl, token, storeId }) {
                 lng: params.lng,
                 radiusKm: params.radiusKm,
             }),
+            storeReviews: {
+                list: (storeId, params) => PublicService_1.PublicService.getPublicStoresReviews({
+                    id: storeId,
+                    limit: params?.limit ?? 20,
+                    offset: params?.offset,
+                }),
+                create: (storeId, data) => PublicService_1.PublicService.postPublicStoresReviews({
+                    id: storeId,
+                    requestBody: data,
+                }),
+                flag: (storeId, reviewId) => PublicService_1.PublicService.postPublicStoresReviewsFlag({
+                    id: storeId,
+                    rid: reviewId,
+                }),
+            },
             products: (params) => PublicService_1.PublicService.getPublicProducts({
                 storeId: params?.storeId,
             }),

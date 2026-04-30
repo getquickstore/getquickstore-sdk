@@ -13,5 +13,7 @@ export type PublicStore = {
     latitude?: number | null;
     longitude?: number | null;
     distanceKm?: number | null;
+    ratingAvg?: number;
+    reviewCount?: number;
 };
 

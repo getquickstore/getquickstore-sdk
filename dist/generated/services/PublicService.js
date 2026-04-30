@@ -35,6 +35,55 @@ class PublicService {
         });
     }
     /**
+     * List public store reviews
+     * @returns PublicStoreReviewListResponse Store reviews list
+     * @throws ApiError
+     */
+    static getPublicStoresReviews({ id, limit = 20, offset, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/public/stores/{id}/reviews',
+            path: {
+                'id': id,
+            },
+            query: {
+                'limit': limit,
+                'offset': offset,
+            },
+        });
+    }
+    /**
+     * Create public store review
+     * @returns PublicStoreReviewCreateResponse Store review created
+     * @throws ApiError
+     */
+    static postPublicStoresReviews({ id, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/public/stores/{id}/reviews',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * Flag public store review
+     * @returns OkResponse Store review flagged
+     * @throws ApiError
+     */
+    static postPublicStoresReviewsFlag({ id, rid, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/public/stores/{id}/reviews/{rid}/flag',
+            path: {
+                'id': id,
+                'rid': rid,
+            },
+        });
+    }
+    /**
      * List public products
      * @returns PublicProductListResponse Public products list
      * @throws ApiError

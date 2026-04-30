@@ -232,6 +232,17 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             lng: number;
             radiusKm?: number;
         }) => import("./generated").CancelablePromise<import("./generated").PublicStoreNearbyResponse>;
+        storeReviews: {
+            list: (storeId: string, params?: {
+                limit?: number;
+                offset?: number;
+            }) => import("./generated").CancelablePromise<import("./generated").PublicStoreReviewListResponse>;
+            create: (storeId: string, data: {
+                rating: number;
+                comment?: string;
+            }) => import("./generated").CancelablePromise<import("./generated").PublicStoreReviewCreateResponse>;
+            flag: (storeId: string, reviewId: string) => import("./generated").CancelablePromise<import("./generated").OkResponse>;
+        };
         products: (params?: {
             storeId?: string;
         }) => import("./generated").CancelablePromise<import("./generated").PublicProductListResponse>;

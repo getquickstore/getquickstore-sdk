@@ -2,12 +2,16 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CreateStoreReviewRequest } from '../models/CreateStoreReviewRequest';
 import type { MarketplaceCatalogResponse } from '../models/MarketplaceCatalogResponse';
+import type { OkResponse } from '../models/OkResponse';
 import type { PublicCategoryListResponse } from '../models/PublicCategoryListResponse';
 import type { PublicProductListResponse } from '../models/PublicProductListResponse';
 import type { PublicServiceListResponse } from '../models/PublicServiceListResponse';
 import type { PublicStoreListResponse } from '../models/PublicStoreListResponse';
 import type { PublicStoreNearbyResponse } from '../models/PublicStoreNearbyResponse';
+import type { PublicStoreReviewCreateResponse } from '../models/PublicStoreReviewCreateResponse';
+import type { PublicStoreReviewListResponse } from '../models/PublicStoreReviewListResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -54,6 +58,75 @@ export class PublicService {
                 'lat': lat,
                 'lng': lng,
                 'radiusKm': radiusKm,
+            },
+        });
+    }
+    /**
+     * List public store reviews
+     * @returns PublicStoreReviewListResponse Store reviews list
+     * @throws ApiError
+     */
+    public static getPublicStoresReviews({
+        id,
+        limit = 20,
+        offset,
+    }: {
+        id: string,
+        limit?: number,
+        offset?: number,
+    }): CancelablePromise<PublicStoreReviewListResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/public/stores/{id}/reviews',
+            path: {
+                'id': id,
+            },
+            query: {
+                'limit': limit,
+                'offset': offset,
+            },
+        });
+    }
+    /**
+     * Create public store review
+     * @returns PublicStoreReviewCreateResponse Store review created
+     * @throws ApiError
+     */
+    public static postPublicStoresReviews({
+        id,
+        requestBody,
+    }: {
+        id: string,
+        requestBody: CreateStoreReviewRequest,
+    }): CancelablePromise<PublicStoreReviewCreateResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/public/stores/{id}/reviews',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * Flag public store review
+     * @returns OkResponse Store review flagged
+     * @throws ApiError
+     */
+    public static postPublicStoresReviewsFlag({
+        id,
+        rid,
+    }: {
+        id: string,
+        rid: string,
+    }): CancelablePromise<OkResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/public/stores/{id}/reviews/{rid}/flag',
+            path: {
+                'id': id,
+                'rid': rid,
             },
         });
     }
