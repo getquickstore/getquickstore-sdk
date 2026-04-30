@@ -14,5 +14,7 @@ export type MarketplaceProduct = {
     storeSlug?: string | null;
     image?: string | null;
     status?: string | null;
+    ratingAvg?: number;
+    reviewCount?: number;
 };
 
