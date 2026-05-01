@@ -367,6 +367,33 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           id,
           xStoreId: customStoreId || storeId || undefined,
         }),
+
+              createCompletionToken: (id: string) =>
+        BookingsService.postBookingsCompletionToken({
+          id,
+        }),
+
+      completeByToken: (
+        id: string,
+        data: { token: string },
+        customStoreId?: string
+      ) =>
+        BookingsService.postBookingsCompleteByToken({
+          id,
+          xStoreId: customStoreId || requireStoreId(),
+          requestBody: data,
+        }),
+
+      completeByCode: (
+        id: string,
+        data: { code: string },
+        customStoreId?: string
+      ) =>
+        BookingsService.postBookingsCompleteByCode({
+          id,
+          xStoreId: customStoreId || requireStoreId(),
+          requestBody: data,
+        }),
     },
 
     calendar: {

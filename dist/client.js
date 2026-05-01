@@ -225,6 +225,19 @@ function createClient({ baseUrl, token, storeId }) {
                 id,
                 xStoreId: customStoreId || storeId || undefined,
             }),
+            createCompletionToken: (id) => BookingsService_1.BookingsService.postBookingsCompletionToken({
+                id,
+            }),
+            completeByToken: (id, data, customStoreId) => BookingsService_1.BookingsService.postBookingsCompleteByToken({
+                id,
+                xStoreId: customStoreId || requireStoreId(),
+                requestBody: data,
+            }),
+            completeByCode: (id, data, customStoreId) => BookingsService_1.BookingsService.postBookingsCompleteByCode({
+                id,
+                xStoreId: customStoreId || requireStoreId(),
+                requestBody: data,
+            }),
         },
         calendar: {
             getDay: (date, customStoreId) => CalendarService_1.CalendarService.getCalendarDay({

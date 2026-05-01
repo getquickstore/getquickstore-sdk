@@ -16,5 +16,6 @@ export type Booking = {
     endAtMs: number;
     createdAt?: string | null;
     updatedAt?: string | null;
+    completedAt?: string | null;
     service?: BookingService | null;
 };

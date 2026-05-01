@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Booking } from '../models/Booking';
+import type { BookingCompletionTokenResponse } from '../models/BookingCompletionTokenResponse';
 import type { BookingListResponse } from '../models/BookingListResponse';
 import type { CreateBookingRequest } from '../models/CreateBookingRequest';
 import type { UpdateBookingRequest } from '../models/UpdateBookingRequest';
@@ -186,6 +187,106 @@ export class BookingsService {
                 404: `Booking not found`,
                 409: `Booking state conflict`,
                 500: `Failed to update booking`,
+            },
+        });
+    }
+    /**
+     * Generate booking completion token
+     * Generates a short-lived token and code for booking completion. Intended for customer device (QR / code display).
+     * @returns BookingCompletionTokenResponse Completion token generated
+     * @throws ApiError
+     */
+    public static postBookingsCompletionToken({
+        id,
+    }: {
+        /**
+         * Booking id
+         */
+        id: string,
+    }): CancelablePromise<BookingCompletionTokenResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/bookings/{id}/completion-token',
+            path: {
+                'id': id,
+            },
+            errors: {
+                400: `Invalid request`,
+                401: `Unauthorized`,
+                404: `Booking not found`,
+                409: `Booking already completed`,
+            },
+        });
+    }
+    /**
+     * Complete booking by token (QR)
+     * Completes booking using QR token. Intended for seller/admin scan flow.
+     * @returns Booking Booking completed
+     * @throws ApiError
+     */
+    public static postBookingsCompleteByToken({
+        xStoreId,
+        id,
+        requestBody,
+    }: {
+        xStoreId: string,
+        id: string,
+        requestBody: {
+            token: string;
+        },
+    }): CancelablePromise<Booking> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/bookings/{id}/complete-by-token',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Invalid token`,
+                403: `Access denied`,
+                404: `Booking not found`,
+                409: `Already completed`,
+            },
+        });
+    }
+    /**
+     * Complete booking by code
+     * Completes booking using manual code input (fallback when QR is unavailable).
+     * @returns Booking Booking completed
+     * @throws ApiError
+     */
+    public static postBookingsCompleteByCode({
+        xStoreId,
+        id,
+        requestBody,
+    }: {
+        xStoreId: string,
+        id: string,
+        requestBody: {
+            code: string;
+        },
+    }): CancelablePromise<Booking> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/bookings/{id}/complete-by-code',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Invalid code`,
+                403: `Access denied`,
+                404: `Booking not found`,
+                409: `Already completed`,
             },
         });
     }

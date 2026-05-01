@@ -1,4 +1,5 @@
 import type { Booking } from '../models/Booking';
+import type { BookingCompletionTokenResponse } from '../models/BookingCompletionTokenResponse';
 import type { BookingListResponse } from '../models/BookingListResponse';
 import type { CreateBookingRequest } from '../models/CreateBookingRequest';
 import type { UpdateBookingRequest } from '../models/UpdateBookingRequest';
@@ -84,6 +85,44 @@ export declare class BookingsService {
          */
         id: string;
         requestBody: UpdateBookingRequest;
+    }): CancelablePromise<Booking>;
+    /**
+     * Generate booking completion token
+     * Generates a short-lived token and code for booking completion. Intended for customer device (QR / code display).
+     * @returns BookingCompletionTokenResponse Completion token generated
+     * @throws ApiError
+     */
+    static postBookingsCompletionToken({ id, }: {
+        /**
+         * Booking id
+         */
+        id: string;
+    }): CancelablePromise<BookingCompletionTokenResponse>;
+    /**
+     * Complete booking by token (QR)
+     * Completes booking using QR token. Intended for seller/admin scan flow.
+     * @returns Booking Booking completed
+     * @throws ApiError
+     */
+    static postBookingsCompleteByToken({ xStoreId, id, requestBody, }: {
+        xStoreId: string;
+        id: string;
+        requestBody: {
+            token: string;
+        };
+    }): CancelablePromise<Booking>;
+    /**
+     * Complete booking by code
+     * Completes booking using manual code input (fallback when QR is unavailable).
+     * @returns Booking Booking completed
+     * @throws ApiError
+     */
+    static postBookingsCompleteByCode({ xStoreId, id, requestBody, }: {
+        xStoreId: string;
+        id: string;
+        requestBody: {
+            code: string;
+        };
     }): CancelablePromise<Booking>;
     /**
      * Cancel booking

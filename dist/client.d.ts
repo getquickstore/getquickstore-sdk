@@ -205,6 +205,13 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         get: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").Booking>;
         update: (id: string, data: any, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").Booking>;
         cancel: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").Booking>;
+        createCompletionToken: (id: string) => import("./generated").CancelablePromise<import("./generated").BookingCompletionTokenResponse>;
+        completeByToken: (id: string, data: {
+            token: string;
+        }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").Booking>;
+        completeByCode: (id: string, data: {
+            code: string;
+        }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").Booking>;
     };
     calendar: {
         getDay: (date: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").CalendarResponse>;

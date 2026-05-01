@@ -53,6 +53,7 @@ export type { BillingStripeConnectStartRequest } from './models/BillingStripeCon
 export type { BillingStripeConnectStartResponse } from './models/BillingStripeConnectStartResponse';
 export type { BillingSubscription } from './models/BillingSubscription';
 export type { Booking } from './models/Booking';
+export type { BookingCompletionTokenResponse } from './models/BookingCompletionTokenResponse';
 export type { BookingError } from './models/BookingError';
 export type { BookingListResponse } from './models/BookingListResponse';
 export type { BookingPaymentCheckoutRequest } from './models/BookingPaymentCheckoutRequest';
