@@ -474,6 +474,19 @@ function createClient({ baseUrl, token, storeId }) {
                 id,
                 xStoreId: customStoreId || undefined,
             }),
+            confirm: (id, customStoreId) => OrdersService_1.OrdersService.postOrdersConfirm({
+                id,
+                xStoreId: customStoreId || requireStoreId(),
+            }),
+            ship: (id, data, customStoreId) => OrdersService_1.OrdersService.postOrdersShip({
+                id,
+                xStoreId: customStoreId || requireStoreId(),
+                requestBody: data,
+            }),
+            confirmReceived: (id, data) => OrdersService_1.OrdersService.postOrdersConfirmReceived({
+                id,
+                requestBody: data || {},
+            }),
             updateStatus: (id, data, customStoreId) => OrdersService_1.OrdersService.patchOrdersStatus({
                 id,
                 xStoreId: customStoreId || requireStoreId(),

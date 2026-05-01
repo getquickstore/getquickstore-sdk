@@ -804,6 +804,8 @@ public: {
           | "PAID"
           | "PROCESSING"
           | "READY_FOR_PICKUP"
+          | "SHIPPED"
+          | "DELIVERED"
           | "FULFILLED"
           | "CANCELLED"
           | "REFUNDED"
@@ -841,15 +843,57 @@ public: {
           xStoreId: customStoreId || undefined,
         }),
 
+      confirm: (id: string, customStoreId?: string) =>
+        OrdersService.postOrdersConfirm({
+          id,
+          xStoreId: customStoreId || requireStoreId(),
+        }),
+
+      ship: (
+        id: string,
+        data: {
+          trackingCarrier?: string | null
+          trackingNumber?: string | null
+          shipmentReceiptUrl?: string | null
+        },
+        customStoreId?: string
+      ) =>
+        OrdersService.postOrdersShip({
+          id,
+          xStoreId: customStoreId || requireStoreId(),
+          requestBody: data,
+        }),
+
+      confirmReceived: (
+        id: string,
+        data?: {
+          deliveryProofUrl?: string | null
+        }
+      ) =>
+        OrdersService.postOrdersConfirmReceived({
+          id,
+          requestBody: data || {},
+        }),
+
       updateStatus: (
         id: string,
-        data: UpdateOrderStatusRequest,
+        data:
+          | UpdateOrderStatusRequest
+          | {
+              status:
+                | "PROCESSING"
+                | "READY_FOR_PICKUP"
+                | "SHIPPED"
+                | "DELIVERED"
+                | "FULFILLED"
+                | "CANCELLED"
+            },
         customStoreId?: string
       ) =>
         OrdersService.patchOrdersStatus({
           id,
           xStoreId: customStoreId || requireStoreId(),
-          requestBody: data,
+          requestBody: data as UpdateOrderStatusRequest,
         }),
 
       cancel: (id: string, customStoreId?: string) =>

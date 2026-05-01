@@ -407,7 +407,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     orders: {
         list: (params?: {
             limit?: number;
-            status?: "PENDING" | "PAID" | "PROCESSING" | "READY_FOR_PICKUP" | "FULFILLED" | "CANCELLED" | "REFUNDED";
+            status?: "PENDING" | "PAID" | "PROCESSING" | "READY_FOR_PICKUP" | "SHIPPED" | "DELIVERED" | "FULFILLED" | "CANCELLED" | "REFUNDED";
             paymentStatus?: "REQUIRES_ACTION" | "PENDING" | "SUCCEEDED" | "FAILED" | "CANCELLED" | "REFUNDED";
             fulfillmentType?: "STANDARD" | "PICKUP";
             customerId?: string;
@@ -417,7 +417,18 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             storeId?: string;
         }) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
         get: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
-        updateStatus: (id: string, data: UpdateOrderStatusRequest, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
+        confirm: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
+        ship: (id: string, data: {
+            trackingCarrier?: string | null;
+            trackingNumber?: string | null;
+            shipmentReceiptUrl?: string | null;
+        }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
+        confirmReceived: (id: string, data?: {
+            deliveryProofUrl?: string | null;
+        }) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
+        updateStatus: (id: string, data: UpdateOrderStatusRequest | {
+            status: "PROCESSING" | "READY_FOR_PICKUP" | "SHIPPED" | "DELIVERED" | "FULFILLED" | "CANCELLED";
+        }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
         cancel: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
     };
     payments: {
