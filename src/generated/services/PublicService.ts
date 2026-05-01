@@ -9,6 +9,7 @@ import type { PublicCategoryListResponse } from '../models/PublicCategoryListRes
 import type { PublicProductListResponse } from '../models/PublicProductListResponse';
 import type { PublicServiceListResponse } from '../models/PublicServiceListResponse';
 import type { PublicStore } from '../models/PublicStore';
+import type { PublicStoreAllReviewListResponse } from '../models/PublicStoreAllReviewListResponse';
 import type { PublicStoreListResponse } from '../models/PublicStoreListResponse';
 import type { PublicStoreNearbyResponse } from '../models/PublicStoreNearbyResponse';
 import type { PublicStoreReviewCreateResponse } from '../models/PublicStoreReviewCreateResponse';
@@ -142,6 +143,36 @@ export class PublicService {
             },
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
+            },
+        });
+    }
+    /**
+     * List aggregated public store reviews
+     * @returns PublicStoreAllReviewListResponse Aggregated store reviews list
+     * @throws ApiError
+     */
+    public static getPublicStoresAllReviews({
+        id,
+        limit = 50,
+        offset,
+    }: {
+        id: string,
+        limit?: number,
+        offset?: number,
+    }): CancelablePromise<PublicStoreAllReviewListResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/public/stores/{id}/all-reviews',
+            path: {
+                'id': id,
+            },
+            query: {
+                'limit': limit,
+                'offset': offset,
+            },
             errors: {
                 404: `Not found`,
                 500: `Internal server error`,

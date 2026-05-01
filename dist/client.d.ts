@@ -238,6 +238,10 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
                 limit?: number;
                 offset?: number;
             }) => import("./generated").CancelablePromise<import("./generated").PublicStoreReviewListResponse>;
+            all: (storeId: string, params?: {
+                limit?: number;
+                offset?: number;
+            }) => import("./generated").CancelablePromise<import("./generated").PublicStoreAllReviewListResponse>;
             create: (storeId: string, data: {
                 rating: number;
                 comment?: string;

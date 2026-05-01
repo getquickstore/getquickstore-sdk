@@ -138,6 +138,8 @@ export type { PublicServiceListResponse } from './models/PublicServiceListRespon
 export type { PublicServiceSlot } from './models/PublicServiceSlot';
 export type { PublicServiceSlotsResponse } from './models/PublicServiceSlotsResponse';
 export type { PublicStore } from './models/PublicStore';
+export type { PublicStoreAllReview } from './models/PublicStoreAllReview';
+export type { PublicStoreAllReviewListResponse } from './models/PublicStoreAllReviewListResponse';
 export type { PublicStoreListResponse } from './models/PublicStoreListResponse';
 export type { PublicStoreNearbyResponse } from './models/PublicStoreNearbyResponse';
 export type { PublicStoreRef } from './models/PublicStoreRef';

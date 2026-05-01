@@ -441,6 +441,17 @@ public: {
         offset: params?.offset,
       }),
 
+
+    all: (
+      storeId: string,
+      params?: { limit?: number; offset?: number }
+    ) =>
+      PublicService.getPublicStoresAllReviews({
+        id: storeId,
+        limit: params?.limit ?? 50,
+        offset: params?.offset,
+      }),
+
     create: (
       storeId: string,
       data: { rating: number; comment?: string }

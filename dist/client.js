@@ -273,6 +273,11 @@ function createClient({ baseUrl, token, storeId }) {
                     limit: params?.limit ?? 20,
                     offset: params?.offset,
                 }),
+                all: (storeId, params) => PublicService_1.PublicService.getPublicStoresAllReviews({
+                    id: storeId,
+                    limit: params?.limit ?? 50,
+                    offset: params?.offset,
+                }),
                 create: (storeId, data) => PublicService_1.PublicService.postPublicStoresReviews({
                     id: storeId,
                     requestBody: data,

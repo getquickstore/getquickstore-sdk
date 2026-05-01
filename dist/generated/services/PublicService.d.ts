@@ -5,6 +5,7 @@ import type { PublicCategoryListResponse } from '../models/PublicCategoryListRes
 import type { PublicProductListResponse } from '../models/PublicProductListResponse';
 import type { PublicServiceListResponse } from '../models/PublicServiceListResponse';
 import type { PublicStore } from '../models/PublicStore';
+import type { PublicStoreAllReviewListResponse } from '../models/PublicStoreAllReviewListResponse';
 import type { PublicStoreListResponse } from '../models/PublicStoreListResponse';
 import type { PublicStoreNearbyResponse } from '../models/PublicStoreNearbyResponse';
 import type { PublicStoreReviewCreateResponse } from '../models/PublicStoreReviewCreateResponse';
@@ -59,6 +60,16 @@ export declare class PublicService {
         id: string;
         requestBody: CreateStoreReviewRequest;
     }): CancelablePromise<PublicStoreReviewCreateResponse>;
+    /**
+     * List aggregated public store reviews
+     * @returns PublicStoreAllReviewListResponse Aggregated store reviews list
+     * @throws ApiError
+     */
+    static getPublicStoresAllReviews({ id, limit, offset, }: {
+        id: string;
+        limit?: number;
+        offset?: number;
+    }): CancelablePromise<PublicStoreAllReviewListResponse>;
     /**
      * Flag public store review
      * @returns OkResponse Store review flagged

@@ -103,6 +103,28 @@ class PublicService {
         });
     }
     /**
+     * List aggregated public store reviews
+     * @returns PublicStoreAllReviewListResponse Aggregated store reviews list
+     * @throws ApiError
+     */
+    static getPublicStoresAllReviews({ id, limit = 50, offset, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/public/stores/{id}/all-reviews',
+            path: {
+                'id': id,
+            },
+            query: {
+                'limit': limit,
+                'offset': offset,
+            },
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
+            },
+        });
+    }
+    /**
      * Flag public store review
      * @returns OkResponse Store review flagged
      * @throws ApiError
