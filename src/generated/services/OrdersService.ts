@@ -2,10 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ConfirmReceivedRequest } from '../models/ConfirmReceivedRequest';
 import type { CreateOrderRequest } from '../models/CreateOrderRequest';
 import type { OrderListResponse } from '../models/OrderListResponse';
 import type { OrderSingleResponse } from '../models/OrderSingleResponse';
 import type { PayOrderResponse } from '../models/PayOrderResponse';
+import type { ShipOrderRequest } from '../models/ShipOrderRequest';
 import type { UpdateOrderStatusRequest } from '../models/UpdateOrderStatusRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -29,7 +31,7 @@ export class OrdersService {
          */
         xStoreId?: string,
         limit?: number,
-        status?: 'PENDING' | 'PAID' | 'PROCESSING' | 'READY_FOR_PICKUP' | 'FULFILLED' | 'CANCELLED' | 'REFUNDED',
+        status?: 'PENDING' | 'PAID' | 'PROCESSING' | 'READY_FOR_PICKUP' | 'SHIPPED' | 'DELIVERED' | 'FULFILLED' | 'CANCELLED' | 'REFUNDED',
         paymentStatus?: 'REQUIRES_ACTION' | 'PENDING' | 'SUCCEEDED' | 'FAILED' | 'CANCELLED' | 'REFUNDED',
         customerId?: string,
         fulfillmentType?: 'STANDARD' | 'PICKUP',
@@ -172,6 +174,106 @@ export class OrdersService {
                 404: `Order not found`,
                 409: `Order cannot be cancelled`,
                 500: `Order cancel failed`,
+            },
+        });
+    }
+    /**
+     * Confirm seller order
+     * Seller confirms paid/pending order and moves it to processing.
+     * @returns OrderSingleResponse Order confirmed
+     * @throws ApiError
+     */
+    public static postOrdersConfirm({
+        id,
+        xStoreId,
+    }: {
+        id: string,
+        /**
+         * Store context id. Required for seller confirmation.
+         */
+        xStoreId: string,
+    }): CancelablePromise<OrderSingleResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/orders/{id}/confirm',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            errors: {
+                403: `Access denied`,
+                404: `Order not found`,
+                409: `Order cannot be confirmed`,
+                500: `Order confirm failed`,
+            },
+        });
+    }
+    /**
+     * Add seller shipment details
+     * Seller adds tracking number and/or shipment receipt photo and marks order as shipped.
+     * @returns OrderSingleResponse Shipment added
+     * @throws ApiError
+     */
+    public static postOrdersShip({
+        id,
+        xStoreId,
+        requestBody,
+    }: {
+        id: string,
+        /**
+         * Store context id. Required for seller shipment update.
+         */
+        xStoreId: string,
+        requestBody: ShipOrderRequest,
+    }): CancelablePromise<OrderSingleResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/orders/{id}/ship',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Shipment info required`,
+                403: `Access denied`,
+                404: `Order not found`,
+                409: `Order cannot be shipped`,
+                500: `Order ship failed`,
+            },
+        });
+    }
+    /**
+     * Confirm buyer received order
+     * Buyer confirms that shipped order was received. This closes the fulfillment flow and unlocks store review.
+     * @returns OrderSingleResponse Order received confirmed
+     * @throws ApiError
+     */
+    public static postOrdersConfirmReceived({
+        id,
+        requestBody,
+    }: {
+        id: string,
+        requestBody?: ConfirmReceivedRequest,
+    }): CancelablePromise<OrderSingleResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/orders/{id}/confirm-received',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                403: `Access denied`,
+                404: `Order not found`,
+                409: `Order cannot be confirmed received`,
+                500: `Order confirm received failed`,
             },
         });
     }

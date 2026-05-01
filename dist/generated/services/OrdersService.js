@@ -119,6 +119,80 @@ class OrdersService {
         });
     }
     /**
+     * Confirm seller order
+     * Seller confirms paid/pending order and moves it to processing.
+     * @returns OrderSingleResponse Order confirmed
+     * @throws ApiError
+     */
+    static postOrdersConfirm({ id, xStoreId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/{id}/confirm',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            errors: {
+                403: `Access denied`,
+                404: `Order not found`,
+                409: `Order cannot be confirmed`,
+                500: `Order confirm failed`,
+            },
+        });
+    }
+    /**
+     * Add seller shipment details
+     * Seller adds tracking number and/or shipment receipt photo and marks order as shipped.
+     * @returns OrderSingleResponse Shipment added
+     * @throws ApiError
+     */
+    static postOrdersShip({ id, xStoreId, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/{id}/ship',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Shipment info required`,
+                403: `Access denied`,
+                404: `Order not found`,
+                409: `Order cannot be shipped`,
+                500: `Order ship failed`,
+            },
+        });
+    }
+    /**
+     * Confirm buyer received order
+     * Buyer confirms that shipped order was received. This closes the fulfillment flow and unlocks store review.
+     * @returns OrderSingleResponse Order received confirmed
+     * @throws ApiError
+     */
+    static postOrdersConfirmReceived({ id, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/{id}/confirm-received',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                403: `Access denied`,
+                404: `Order not found`,
+                409: `Order cannot be confirmed received`,
+                500: `Order confirm received failed`,
+            },
+        });
+    }
+    /**
      * Pay buyer order with mock payment
      * @returns PayOrderResponse Payment succeeded
      * @throws ApiError

@@ -3,6 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type UpdateOrderStatusRequest = {
-    status: 'PROCESSING' | 'READY_FOR_PICKUP' | 'FULFILLED' | 'CANCELLED';
+    status: 'PROCESSING' | 'READY_FOR_PICKUP' | 'SHIPPED' | 'DELIVERED' | 'FULFILLED' | 'CANCELLED';
 };
 
