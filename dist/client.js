@@ -23,6 +23,7 @@ const CatalogService_1 = require("./generated/services/CatalogService");
 const FavoritesService_1 = require("./generated/services/FavoritesService");
 const PublicService_1 = require("./generated/services/PublicService");
 const TagsService_1 = require("./generated/services/TagsService");
+const SeoService_1 = require("./generated/services/SeoService");
 function createClient({ baseUrl, token, storeId }) {
     OpenAPI_1.OpenAPI.BASE = baseUrl;
     OpenAPI_1.OpenAPI.WITH_CREDENTIALS = false;
@@ -313,6 +314,13 @@ function createClient({ baseUrl, token, storeId }) {
                 lng: params.lng,
                 radiusKm: params.radiusKm,
             }),
+            seo: {
+                get: (slug) => SeoService_1.SeoService.getSeo({
+                    slug,
+                }),
+                sitemap: () => SeoService_1.SeoService.getSeoSitemap(),
+                rebuild: () => SeoService_1.SeoService.postSeoRebuild(),
+            },
             storeReviews: {
                 list: (storeId, params) => PublicService_1.PublicService.getPublicStoresReviews({
                     id: storeId,

@@ -287,6 +287,11 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             lng: number;
             radiusKm?: number;
         }) => import("./generated").CancelablePromise<import("./generated").PublicStoreNearbyResponse>;
+        seo: {
+            get: (slug: string) => import("./generated").CancelablePromise<import("./generated").SeoResponse>;
+            sitemap: () => import("./generated").CancelablePromise<import("./generated").SeoSitemapResponse>;
+            rebuild: () => import("./generated").CancelablePromise<import("./generated").SeoRebuildResponse>;
+        };
         storeReviews: {
             list: (storeId: string, params?: {
                 limit?: number;

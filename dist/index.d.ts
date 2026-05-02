@@ -25,6 +25,7 @@ declare const sdk: {
     ProductsService: typeof generated.ProductsService;
     PublicService: typeof generated.PublicService;
     ReviewsService: typeof generated.ReviewsService;
+    SeoService: typeof generated.SeoService;
     ServiceImagesService: typeof generated.ServiceImagesService;
     ServicesService: typeof generated.ServicesService;
     StoresService: typeof generated.StoresService;

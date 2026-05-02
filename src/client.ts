@@ -21,7 +21,7 @@ import { CatalogService } from "./generated/services/CatalogService"
 import { FavoritesService } from "./generated/services/FavoritesService"
 import { PublicService } from "./generated/services/PublicService"
 import { TagsService } from "./generated/services/TagsService"
-
+import { SeoService } from "./generated/services/SeoService"
 
 
 import type { CreateOrderRequest } from "./generated/models/CreateOrderRequest"
@@ -554,6 +554,19 @@ public: {
       lng: params.lng,
       radiusKm: params.radiusKm,
     }),
+
+        seo: {
+      get: (slug: string) =>
+        SeoService.getSeo({
+          slug,
+        }),
+
+      sitemap: () =>
+        SeoService.getSeoSitemap(),
+
+      rebuild: () =>
+        SeoService.postSeoRebuild(),
+    },
 
   storeReviews: {
     list: (
