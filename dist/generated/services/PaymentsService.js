@@ -45,6 +45,26 @@ class PaymentsService {
         });
     }
     /**
+     * Create Stripe Checkout session for booking series
+     * @returns BookingSeriesPaymentCheckoutResponse Booking series checkout session created
+     * @throws ApiError
+     */
+    static postPaymentsBookingsSeriesCheckout({ requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/payments/bookings/series/checkout',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `UNAUTHORIZED`,
+                403: `Access denied`,
+                404: `Booking series not found`,
+                409: `Conflict`,
+            },
+        });
+    }
+    /**
      * Create refund for payment
      * @returns CreateRefundResponse Refund created
      * @throws ApiError

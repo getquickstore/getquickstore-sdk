@@ -3,6 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { BookingPaymentCheckoutRequest } from '../models/BookingPaymentCheckoutRequest';
+import type { BookingSeriesPaymentCheckoutRequest } from '../models/BookingSeriesPaymentCheckoutRequest';
+import type { BookingSeriesPaymentCheckoutResponse } from '../models/BookingSeriesPaymentCheckoutResponse';
 import type { CreateRefundRequest } from '../models/CreateRefundRequest';
 import type { CreateRefundResponse } from '../models/CreateRefundResponse';
 import type { PaymentCheckoutRequest } from '../models/PaymentCheckoutRequest';
@@ -55,6 +57,30 @@ export class PaymentsService {
                 401: `UNAUTHORIZED`,
                 403: `Access denied`,
                 404: `Booking not found`,
+                409: `Conflict`,
+            },
+        });
+    }
+    /**
+     * Create Stripe Checkout session for booking series
+     * @returns BookingSeriesPaymentCheckoutResponse Booking series checkout session created
+     * @throws ApiError
+     */
+    public static postPaymentsBookingsSeriesCheckout({
+        requestBody,
+    }: {
+        requestBody: BookingSeriesPaymentCheckoutRequest,
+    }): CancelablePromise<BookingSeriesPaymentCheckoutResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/payments/bookings/series/checkout',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `UNAUTHORIZED`,
+                403: `Access denied`,
+                404: `Booking series not found`,
                 409: `Conflict`,
             },
         });

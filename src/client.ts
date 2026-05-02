@@ -998,36 +998,49 @@ public: {
         }),
     },
 
-    payments: {
-      bookingCheckout: (data: {
-        bookingId: string
-        successUrl?: string
-        cancelUrl?: string
-      }) =>
-        PaymentsService.postPaymentsBookingsCheckout({
-          requestBody: data,
-        }),
+   payments: {
+  bookingCheckout: (data: {
+    bookingId: string
+    successUrl?: string
+    cancelUrl?: string
+  }) =>
+    PaymentsService.postPaymentsBookingsCheckout({
+      requestBody: data,
+    }),
 
-      checkout: (data: {
-        orderId: string
-        successUrl?: string
-        cancelUrl?: string
-      }) =>
-        PaymentsService.postPaymentsCheckout({
-          requestBody: {
-            orderId: data.orderId,
-            ...(data.successUrl ? { successUrl: data.successUrl } : {}),
-            ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
-          },
-        }),
+  bookingSeriesCheckout: (data: {
+    seriesId: string
+    successUrl?: string
+    cancelUrl?: string
+  }) =>
+    PaymentsService.postPaymentsBookingsSeriesCheckout({
+      requestBody: {
+        seriesId: data.seriesId,
+        ...(data.successUrl ? { successUrl: data.successUrl } : {}),
+        ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
+      },
+    }),
 
-      refund: (paymentId: string, data?: any, customStoreId?: string) =>
-        PaymentsService.postPaymentsRefund({
-          paymentId,
-          requestBody: data,
-          xStoreId: customStoreId || storeId || undefined,
-        }),
-    },
+  checkout: (data: {
+    orderId: string
+    successUrl?: string
+    cancelUrl?: string
+  }) =>
+    PaymentsService.postPaymentsCheckout({
+      requestBody: {
+        orderId: data.orderId,
+        ...(data.successUrl ? { successUrl: data.successUrl } : {}),
+        ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
+      },
+    }),
+
+  refund: (paymentId: string, data?: any, customStoreId?: string) =>
+    PaymentsService.postPaymentsRefund({
+      paymentId,
+      requestBody: data,
+      xStoreId: customStoreId || storeId || undefined,
+    }),
+},
 
 reviews: {
   list: (

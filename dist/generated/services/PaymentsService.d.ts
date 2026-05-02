@@ -1,4 +1,6 @@
 import type { BookingPaymentCheckoutRequest } from '../models/BookingPaymentCheckoutRequest';
+import type { BookingSeriesPaymentCheckoutRequest } from '../models/BookingSeriesPaymentCheckoutRequest';
+import type { BookingSeriesPaymentCheckoutResponse } from '../models/BookingSeriesPaymentCheckoutResponse';
 import type { CreateRefundRequest } from '../models/CreateRefundRequest';
 import type { CreateRefundResponse } from '../models/CreateRefundResponse';
 import type { PaymentCheckoutRequest } from '../models/PaymentCheckoutRequest';
@@ -21,6 +23,14 @@ export declare class PaymentsService {
     static postPaymentsBookingsCheckout({ requestBody, }: {
         requestBody: BookingPaymentCheckoutRequest;
     }): CancelablePromise<PaymentCheckoutResponse>;
+    /**
+     * Create Stripe Checkout session for booking series
+     * @returns BookingSeriesPaymentCheckoutResponse Booking series checkout session created
+     * @throws ApiError
+     */
+    static postPaymentsBookingsSeriesCheckout({ requestBody, }: {
+        requestBody: BookingSeriesPaymentCheckoutRequest;
+    }): CancelablePromise<BookingSeriesPaymentCheckoutResponse>;
     /**
      * Create refund for payment
      * @returns CreateRefundResponse Refund created

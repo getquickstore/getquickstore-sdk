@@ -471,6 +471,11 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             successUrl?: string;
             cancelUrl?: string;
         }) => import("./generated").CancelablePromise<import("./generated").PaymentCheckoutResponse>;
+        bookingSeriesCheckout: (data: {
+            seriesId: string;
+            successUrl?: string;
+            cancelUrl?: string;
+        }) => import("./generated").CancelablePromise<import("./generated").BookingSeriesPaymentCheckoutResponse>;
         checkout: (data: {
             orderId: string;
             successUrl?: string;

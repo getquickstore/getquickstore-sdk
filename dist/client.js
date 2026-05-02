@@ -539,6 +539,13 @@ function createClient({ baseUrl, token, storeId }) {
             bookingCheckout: (data) => PaymentsService_1.PaymentsService.postPaymentsBookingsCheckout({
                 requestBody: data,
             }),
+            bookingSeriesCheckout: (data) => PaymentsService_1.PaymentsService.postPaymentsBookingsSeriesCheckout({
+                requestBody: {
+                    seriesId: data.seriesId,
+                    ...(data.successUrl ? { successUrl: data.successUrl } : {}),
+                    ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
+                },
+            }),
             checkout: (data) => PaymentsService_1.PaymentsService.postPaymentsCheckout({
                 requestBody: {
                     orderId: data.orderId,
