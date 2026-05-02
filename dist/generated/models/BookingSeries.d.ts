@@ -10,14 +10,14 @@ export type BookingSeries = {
     customerEmail?: string | null;
     customerPhone?: string | null;
     notes?: string | null;
-    mode?: 'WEEKLY' | 'CUSTOM_DATES';
-    dates?: Array<BookingSeriesDate>;
+    mode: 'WEEKLY' | 'CUSTOM_DATES';
+    dates: Array<BookingSeriesDate>;
     status: 'PENDING' | 'CONFIRMED' | 'COMPLETED' | 'CANCELLED';
     paymentStatus: 'REQUIRES_ACTION' | 'PENDING' | 'SUCCEEDED' | 'FAILED' | 'CANCELLED' | 'REFUNDED';
     startDate?: string | null;
     endDate?: string | null;
     weekdays: Array<number>;
-    time: string;
+    time?: string | null;
     totalCents: number;
     total: number;
     currency: string;
