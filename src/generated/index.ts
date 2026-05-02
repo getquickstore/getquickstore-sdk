@@ -163,6 +163,7 @@ export type { PublicStoreReview } from './models/PublicStoreReview';
 export type { PublicStoreReviewCreateResponse } from './models/PublicStoreReviewCreateResponse';
 export type { PublicStoreReviewListResponse } from './models/PublicStoreReviewListResponse';
 export type { RefundedPaymentSummary } from './models/RefundedPaymentSummary';
+export type { RefundSummary } from './models/RefundSummary';
 export type { RemoveFavoriteRequest } from './models/RemoveFavoriteRequest';
 export type { RescheduleBookingRequest } from './models/RescheduleBookingRequest';
 export type { ResetPasswordRequest } from './models/ResetPasswordRequest';

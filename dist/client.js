@@ -314,13 +314,6 @@ function createClient({ baseUrl, token, storeId }) {
                 lng: params.lng,
                 radiusKm: params.radiusKm,
             }),
-            seo: {
-                get: (slug) => SeoService_1.SeoService.getSeo({
-                    slug,
-                }),
-                sitemap: () => SeoService_1.SeoService.getSeoSitemap(),
-                rebuild: () => SeoService_1.SeoService.postSeoRebuild(),
-            },
             storeReviews: {
                 list: (storeId, params) => PublicService_1.PublicService.getPublicStoresReviews({
                     id: storeId,
@@ -351,6 +344,13 @@ function createClient({ baseUrl, token, storeId }) {
                 storeId: params?.storeId,
             }),
             catalog: () => PublicService_1.PublicService.getPublicCatalog(),
+        },
+        seo: {
+            get: (slug) => SeoService_1.SeoService.getSeo({
+                slug,
+            }),
+            sitemap: () => SeoService_1.SeoService.getSeoSitemap(),
+            rebuild: () => SeoService_1.SeoService.postSeoRebuild(),
         },
         categories: {
             list: (params) => CategoriesService_1.CategoriesService.getCategories({

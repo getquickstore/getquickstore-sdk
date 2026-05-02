@@ -555,18 +555,7 @@ public: {
       radiusKm: params.radiusKm,
     }),
 
-        seo: {
-      get: (slug: string) =>
-        SeoService.getSeo({
-          slug,
-        }),
-
-      sitemap: () =>
-        SeoService.getSeoSitemap(),
-
-      rebuild: () =>
-        SeoService.postSeoRebuild(),
-    },
+  
 
   storeReviews: {
     list: (
@@ -623,6 +612,21 @@ public: {
 
   catalog: () => PublicService.getPublicCatalog(),
 },
+
+
+      seo: {
+      get: (slug: string) =>
+        SeoService.getSeo({
+          slug,
+        }),
+
+      sitemap: () =>
+        SeoService.getSeoSitemap(),
+
+      rebuild: () =>
+        SeoService.postSeoRebuild(),
+    },
+    
     categories: {
       list: (params?: {
         limit?: number
