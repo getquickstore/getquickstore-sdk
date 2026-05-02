@@ -71,6 +71,133 @@ class BookingsService {
         });
     }
     /**
+     * Preview booking series
+     * Calculates recurring booking slots, conflicts and total price without creating bookings.
+     * @returns BookingSeriesPreviewResponse Series preview
+     * @throws ApiError
+     */
+    static postBookingsSeriesPreview({ requestBody, xStoreId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/bookings/series/preview',
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Invalid request`,
+                404: `Service not found`,
+                500: `Preview failed`,
+            },
+        });
+    }
+    /**
+     * Create booking series
+     * Creates a booking series and all concrete booking slots.
+     * @returns BookingSeries Series created
+     * @throws ApiError
+     */
+    static postBookingsSeries({ requestBody, xStoreId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/bookings/series',
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Invalid request`,
+                409: `Series has conflicts`,
+                500: `Create failed`,
+            },
+        });
+    }
+    /**
+     * List booking series for store
+     * Returns booking series for the current store context.
+     * @returns BookingSeriesListResponse Series list
+     * @throws ApiError
+     */
+    static getBookingsSeries({ xStoreId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/bookings/series',
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            errors: {
+                400: `Invalid request`,
+                403: `Access denied`,
+                500: `List failed`,
+            },
+        });
+    }
+    /**
+     * List my booking series
+     * Returns recurring booking series created by the authenticated customer.
+     * @returns BookingSeriesListResponse Customer series list
+     * @throws ApiError
+     */
+    static getBookingsSeriesMe() {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/bookings/series/me',
+            errors: {
+                401: `Authentication required`,
+                500: `List failed`,
+            },
+        });
+    }
+    /**
+     * Get booking series
+     * Returns one booking series with its concrete bookings.
+     * @returns BookingSeries Series details
+     * @throws ApiError
+     */
+    static getBookingsSeries1({ id, xStoreId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/bookings/series/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            errors: {
+                404: `Series not found`,
+                500: `Get failed`,
+            },
+        });
+    }
+    /**
+     * Cancel booking series
+     * Cancels the series and future active bookings in it.
+     * @returns BookingSeries Series cancelled
+     * @throws ApiError
+     */
+    static postBookingsSeriesCancel({ xStoreId, id, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/bookings/series/{id}/cancel',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            errors: {
+                400: `Invalid request`,
+                403: `Access denied`,
+                404: `Series not found`,
+                409: `Series already cancelled`,
+                500: `Cancel failed`,
+            },
+        });
+    }
+    /**
      * Get booking by id
      * Returns a single booking from the current store context.
      * @returns Booking Booking details
@@ -191,6 +318,33 @@ class BookingsService {
                 403: `Access denied`,
                 404: `Booking not found`,
                 409: `Already completed`,
+            },
+        });
+    }
+    /**
+     * Reschedule booking
+     * Moves a single active booking to another available time slot.
+     * @returns Booking Booking rescheduled
+     * @throws ApiError
+     */
+    static postBookingsReschedule({ xStoreId, id, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/bookings/{id}/reschedule',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Invalid request`,
+                403: `Access denied`,
+                404: `Booking not found`,
+                409: `Slot busy or booking immutable`,
+                500: `Reschedule failed`,
             },
         });
     }

@@ -1,3 +1,4 @@
+import type { ServiceImage } from './ServiceImage';
 export type BookingService = {
     id: string;
     storeId: string;
@@ -9,4 +10,8 @@ export type BookingService = {
     priceCents: number;
     currency: string;
     isActive: boolean;
+    ratingAvg?: number;
+    reviewCount?: number;
+    image?: string | null;
+    images?: Array<ServiceImage>;
 };

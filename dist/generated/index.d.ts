@@ -52,7 +52,12 @@ export type { BookingCompletionTokenResponse } from './models/BookingCompletionT
 export type { BookingError } from './models/BookingError';
 export type { BookingListResponse } from './models/BookingListResponse';
 export type { BookingPaymentCheckoutRequest } from './models/BookingPaymentCheckoutRequest';
+export type { BookingSeries } from './models/BookingSeries';
 export type { BookingSeriesItem } from './models/BookingSeriesItem';
+export type { BookingSeriesListResponse } from './models/BookingSeriesListResponse';
+export type { BookingSeriesPreviewRequest } from './models/BookingSeriesPreviewRequest';
+export type { BookingSeriesPreviewResponse } from './models/BookingSeriesPreviewResponse';
+export type { BookingSeriesSlotPreview } from './models/BookingSeriesSlotPreview';
 export type { BookingService } from './models/BookingService';
 export type { CalendarBookingService } from './models/CalendarBookingService';
 export type { CalendarError } from './models/CalendarError';
@@ -72,6 +77,7 @@ export type { CategoryListResponse } from './models/CategoryListResponse';
 export type { ConfirmOrderResponse } from './models/ConfirmOrderResponse';
 export type { ConfirmReceivedRequest } from './models/ConfirmReceivedRequest';
 export type { CreateBookingRequest } from './models/CreateBookingRequest';
+export type { CreateBookingSeriesRequest } from './models/CreateBookingSeriesRequest';
 export type { CreateCategoryRequest } from './models/CreateCategoryRequest';
 export type { CreateOrderItemInput } from './models/CreateOrderItemInput';
 export type { CreateOrderRequest } from './models/CreateOrderRequest';
@@ -146,6 +152,7 @@ export type { PublicStoreReviewCreateResponse } from './models/PublicStoreReview
 export type { PublicStoreReviewListResponse } from './models/PublicStoreReviewListResponse';
 export type { RefundedPaymentSummary } from './models/RefundedPaymentSummary';
 export type { RemoveFavoriteRequest } from './models/RemoveFavoriteRequest';
+export type { RescheduleBookingRequest } from './models/RescheduleBookingRequest';
 export type { ResetPasswordRequest } from './models/ResetPasswordRequest';
 export type { Review } from './models/Review';
 export type { ReviewListResponse } from './models/ReviewListResponse';

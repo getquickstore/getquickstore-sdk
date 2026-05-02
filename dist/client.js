@@ -238,6 +238,31 @@ function createClient({ baseUrl, token, storeId }) {
                 xStoreId: customStoreId || requireStoreId(),
                 requestBody: data,
             }),
+            previewSeries: (data, customStoreId) => BookingsService_1.BookingsService.postBookingsSeriesPreview({
+                requestBody: data,
+                xStoreId: customStoreId || data.storeId || storeId || undefined,
+            }),
+            createSeries: (data, customStoreId) => BookingsService_1.BookingsService.postBookingsSeries({
+                requestBody: data,
+                xStoreId: customStoreId || data.storeId || storeId || undefined,
+            }),
+            listSeries: (customStoreId) => BookingsService_1.BookingsService.getBookingsSeries({
+                xStoreId: customStoreId || requireStoreId(),
+            }),
+            mySeries: () => BookingsService_1.BookingsService.getBookingsSeriesMe(),
+            getSeries: (id, customStoreId) => BookingsService_1.BookingsService.getBookingsSeries1({
+                id,
+                xStoreId: customStoreId || storeId || undefined,
+            }),
+            cancelSeries: (id, customStoreId) => BookingsService_1.BookingsService.postBookingsSeriesCancel({
+                id,
+                xStoreId: customStoreId || requireStoreId(),
+            }),
+            reschedule: (id, data, customStoreId) => BookingsService_1.BookingsService.postBookingsReschedule({
+                id,
+                requestBody: data,
+                xStoreId: customStoreId || requireStoreId(),
+            }),
         },
         calendar: {
             getDay: (date, customStoreId) => CalendarService_1.CalendarService.getCalendarDay({

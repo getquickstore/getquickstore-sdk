@@ -212,6 +212,33 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         completeByCode: (id: string, data: {
             code: string;
         }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").Booking>;
+        previewSeries: (data: {
+            storeId?: string;
+            serviceId: string;
+            startDate: string;
+            endDate: string;
+            weekdays: number[];
+            time: string;
+        }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").BookingSeriesPreviewResponse>;
+        createSeries: (data: {
+            storeId?: string;
+            serviceId: string;
+            startDate: string;
+            endDate: string;
+            weekdays: number[];
+            time: string;
+            customerName?: string | null;
+            customerEmail?: string | null;
+            customerPhone?: string | null;
+            notes?: string | null;
+        }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").BookingSeries>;
+        listSeries: (customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").BookingSeriesListResponse>;
+        mySeries: () => import("./generated").CancelablePromise<import("./generated").BookingSeriesListResponse>;
+        getSeries: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").BookingSeries>;
+        cancelSeries: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").BookingSeries>;
+        reschedule: (id: string, data: {
+            startAt: string;
+        }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").Booking>;
     };
     calendar: {
         getDay: (date: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").CalendarResponse>;

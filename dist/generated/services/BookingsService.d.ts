@@ -1,7 +1,13 @@
 import type { Booking } from '../models/Booking';
 import type { BookingCompletionTokenResponse } from '../models/BookingCompletionTokenResponse';
 import type { BookingListResponse } from '../models/BookingListResponse';
+import type { BookingSeries } from '../models/BookingSeries';
+import type { BookingSeriesListResponse } from '../models/BookingSeriesListResponse';
+import type { BookingSeriesPreviewRequest } from '../models/BookingSeriesPreviewRequest';
+import type { BookingSeriesPreviewResponse } from '../models/BookingSeriesPreviewResponse';
 import type { CreateBookingRequest } from '../models/CreateBookingRequest';
+import type { CreateBookingSeriesRequest } from '../models/CreateBookingSeriesRequest';
+import type { RescheduleBookingRequest } from '../models/RescheduleBookingRequest';
 import type { UpdateBookingRequest } from '../models/UpdateBookingRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class BookingsService {
@@ -53,6 +59,62 @@ export declare class BookingsService {
      * @throws ApiError
      */
     static getBookingsMe(): CancelablePromise<BookingListResponse>;
+    /**
+     * Preview booking series
+     * Calculates recurring booking slots, conflicts and total price without creating bookings.
+     * @returns BookingSeriesPreviewResponse Series preview
+     * @throws ApiError
+     */
+    static postBookingsSeriesPreview({ requestBody, xStoreId, }: {
+        requestBody: BookingSeriesPreviewRequest;
+        xStoreId?: string;
+    }): CancelablePromise<BookingSeriesPreviewResponse>;
+    /**
+     * Create booking series
+     * Creates a booking series and all concrete booking slots.
+     * @returns BookingSeries Series created
+     * @throws ApiError
+     */
+    static postBookingsSeries({ requestBody, xStoreId, }: {
+        requestBody: CreateBookingSeriesRequest;
+        xStoreId?: string;
+    }): CancelablePromise<BookingSeries>;
+    /**
+     * List booking series for store
+     * Returns booking series for the current store context.
+     * @returns BookingSeriesListResponse Series list
+     * @throws ApiError
+     */
+    static getBookingsSeries({ xStoreId, }: {
+        xStoreId: string;
+    }): CancelablePromise<BookingSeriesListResponse>;
+    /**
+     * List my booking series
+     * Returns recurring booking series created by the authenticated customer.
+     * @returns BookingSeriesListResponse Customer series list
+     * @throws ApiError
+     */
+    static getBookingsSeriesMe(): CancelablePromise<BookingSeriesListResponse>;
+    /**
+     * Get booking series
+     * Returns one booking series with its concrete bookings.
+     * @returns BookingSeries Series details
+     * @throws ApiError
+     */
+    static getBookingsSeries1({ id, xStoreId, }: {
+        id: string;
+        xStoreId?: string;
+    }): CancelablePromise<BookingSeries>;
+    /**
+     * Cancel booking series
+     * Cancels the series and future active bookings in it.
+     * @returns BookingSeries Series cancelled
+     * @throws ApiError
+     */
+    static postBookingsSeriesCancel({ xStoreId, id, }: {
+        xStoreId: string;
+        id: string;
+    }): CancelablePromise<BookingSeries>;
     /**
      * Get booking by id
      * Returns a single booking from the current store context.
@@ -123,6 +185,17 @@ export declare class BookingsService {
         requestBody: {
             code: string;
         };
+    }): CancelablePromise<Booking>;
+    /**
+     * Reschedule booking
+     * Moves a single active booking to another available time slot.
+     * @returns Booking Booking rescheduled
+     * @throws ApiError
+     */
+    static postBookingsReschedule({ xStoreId, id, requestBody, }: {
+        xStoreId: string;
+        id: string;
+        requestBody: RescheduleBookingRequest;
     }): CancelablePromise<Booking>;
     /**
      * Cancel booking

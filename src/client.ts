@@ -394,6 +394,74 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           xStoreId: customStoreId || requireStoreId(),
           requestBody: data,
         }),
+
+              previewSeries: (
+        data: {
+          storeId?: string
+          serviceId: string
+          startDate: string
+          endDate: string
+          weekdays: number[]
+          time: string
+        },
+        customStoreId?: string
+      ) =>
+        BookingsService.postBookingsSeriesPreview({
+          requestBody: data,
+          xStoreId: customStoreId || data.storeId || storeId || undefined,
+        }),
+
+      createSeries: (
+        data: {
+          storeId?: string
+          serviceId: string
+          startDate: string
+          endDate: string
+          weekdays: number[]
+          time: string
+          customerName?: string | null
+          customerEmail?: string | null
+          customerPhone?: string | null
+          notes?: string | null
+        },
+        customStoreId?: string
+      ) =>
+        BookingsService.postBookingsSeries({
+          requestBody: data,
+          xStoreId: customStoreId || data.storeId || storeId || undefined,
+        }),
+
+      listSeries: (customStoreId?: string) =>
+        BookingsService.getBookingsSeries({
+          xStoreId: customStoreId || requireStoreId(),
+        }),
+
+      mySeries: () => BookingsService.getBookingsSeriesMe(),
+
+      getSeries: (id: string, customStoreId?: string) =>
+        BookingsService.getBookingsSeries1({
+          id,
+          xStoreId: customStoreId || storeId || undefined,
+        }),
+
+      cancelSeries: (id: string, customStoreId?: string) =>
+        BookingsService.postBookingsSeriesCancel({
+          id,
+          xStoreId: customStoreId || requireStoreId(),
+        }),
+
+      reschedule: (
+        id: string,
+        data: { startAt: string },
+        customStoreId?: string
+      ) =>
+        BookingsService.postBookingsReschedule({
+          id,
+          requestBody: data,
+          xStoreId: customStoreId || requireStoreId(),
+        }),
+
+        
     },
 
     calendar: {
