@@ -9,5 +9,6 @@ export type BookingSeriesSlotPreview = {
     available: boolean;
     conflictBookingId?: string | null;
     error?: string | null;
+    time?: string | null;
 };
 

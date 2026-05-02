@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Booking } from './Booking';
+import type { BookingSeriesDate } from './BookingSeriesDate';
 import type { BookingService } from './BookingService';
 export type BookingSeries = {
     id: string;
@@ -13,6 +14,8 @@ export type BookingSeries = {
     customerEmail?: string | null;
     customerPhone?: string | null;
     notes?: string | null;
+    mode?: 'WEEKLY' | 'CUSTOM_DATES';
+    dates?: Array<BookingSeriesDate>;
     status: 'PENDING' | 'CONFIRMED' | 'COMPLETED' | 'CANCELLED';
     paymentStatus: 'REQUIRES_ACTION' | 'PENDING' | 'SUCCEEDED' | 'FAILED' | 'CANCELLED' | 'REFUNDED';
     startDate?: string | null;

@@ -71,6 +71,52 @@ class BookingsService {
         });
     }
     /**
+     * Preview custom booking series
+     * Calculates custom date/time booking slots, conflicts and total price without creating bookings.
+     * @returns CustomBookingSeriesPreviewResponse Custom series preview
+     * @throws ApiError
+     */
+    static postBookingsSeriesCustomPreview({ requestBody, xStoreId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/bookings/series/custom/preview',
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Invalid request`,
+                404: `Service not found`,
+                409: `Slot unavailable`,
+                500: `Preview failed`,
+            },
+        });
+    }
+    /**
+     * Create custom booking series
+     * Creates a booking series from explicitly selected dates and times.
+     * @returns BookingSeries Custom series created
+     * @throws ApiError
+     */
+    static postBookingsSeriesCustom({ requestBody, xStoreId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/bookings/series/custom',
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Invalid request`,
+                404: `Service not found`,
+                409: `Series has conflicts`,
+                500: `Create failed`,
+            },
+        });
+    }
+    /**
      * Preview booking series
      * Calculates recurring booking slots, conflicts and total price without creating bookings.
      * @returns BookingSeriesPreviewResponse Series preview

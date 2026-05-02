@@ -411,6 +411,36 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           xStoreId: customStoreId || data.storeId || storeId || undefined,
         }),
 
+        previewCustomSeries: (
+  data: {
+    storeId?: string
+    serviceId: string
+    dates: { date: string; time: string }[]
+  },
+  customStoreId?: string
+) =>
+  BookingsService.postBookingsSeriesCustomPreview({
+    requestBody: data,
+    xStoreId: customStoreId || data.storeId || storeId || undefined,
+  }),
+
+createCustomSeries: (
+  data: {
+    storeId?: string
+    serviceId: string
+    dates: { date: string; time: string }[]
+    customerName?: string | null
+    customerEmail?: string | null
+    customerPhone?: string | null
+    notes?: string | null
+  },
+  customStoreId?: string
+) =>
+  BookingsService.postBookingsSeriesCustom({
+    requestBody: data,
+    xStoreId: customStoreId || data.storeId || storeId || undefined,
+  }),
+
       createSeries: (
         data: {
           storeId?: string

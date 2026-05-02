@@ -11,6 +11,9 @@ import type { BookingSeriesPreviewRequest } from '../models/BookingSeriesPreview
 import type { BookingSeriesPreviewResponse } from '../models/BookingSeriesPreviewResponse';
 import type { CreateBookingRequest } from '../models/CreateBookingRequest';
 import type { CreateBookingSeriesRequest } from '../models/CreateBookingSeriesRequest';
+import type { CreateCustomBookingSeriesRequest } from '../models/CreateCustomBookingSeriesRequest';
+import type { CustomBookingSeriesPreviewRequest } from '../models/CustomBookingSeriesPreviewRequest';
+import type { CustomBookingSeriesPreviewResponse } from '../models/CustomBookingSeriesPreviewResponse';
 import type { RescheduleBookingRequest } from '../models/RescheduleBookingRequest';
 import type { UpdateBookingRequest } from '../models/UpdateBookingRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -116,6 +119,64 @@ export class BookingsService {
             errors: {
                 401: `Authentication required`,
                 500: `Failed to list customer bookings`,
+            },
+        });
+    }
+    /**
+     * Preview custom booking series
+     * Calculates custom date/time booking slots, conflicts and total price without creating bookings.
+     * @returns CustomBookingSeriesPreviewResponse Custom series preview
+     * @throws ApiError
+     */
+    public static postBookingsSeriesCustomPreview({
+        requestBody,
+        xStoreId,
+    }: {
+        requestBody: CustomBookingSeriesPreviewRequest,
+        xStoreId?: string,
+    }): CancelablePromise<CustomBookingSeriesPreviewResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/bookings/series/custom/preview',
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Invalid request`,
+                404: `Service not found`,
+                409: `Slot unavailable`,
+                500: `Preview failed`,
+            },
+        });
+    }
+    /**
+     * Create custom booking series
+     * Creates a booking series from explicitly selected dates and times.
+     * @returns BookingSeries Custom series created
+     * @throws ApiError
+     */
+    public static postBookingsSeriesCustom({
+        requestBody,
+        xStoreId,
+    }: {
+        requestBody: CreateCustomBookingSeriesRequest,
+        xStoreId?: string,
+    }): CancelablePromise<BookingSeries> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/bookings/series/custom',
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Invalid request`,
+                404: `Service not found`,
+                409: `Series has conflicts`,
+                500: `Create failed`,
             },
         });
     }

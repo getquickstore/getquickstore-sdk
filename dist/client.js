@@ -242,6 +242,14 @@ function createClient({ baseUrl, token, storeId }) {
                 requestBody: data,
                 xStoreId: customStoreId || data.storeId || storeId || undefined,
             }),
+            previewCustomSeries: (data, customStoreId) => BookingsService_1.BookingsService.postBookingsSeriesCustomPreview({
+                requestBody: data,
+                xStoreId: customStoreId || data.storeId || storeId || undefined,
+            }),
+            createCustomSeries: (data, customStoreId) => BookingsService_1.BookingsService.postBookingsSeriesCustom({
+                requestBody: data,
+                xStoreId: customStoreId || data.storeId || storeId || undefined,
+            }),
             createSeries: (data, customStoreId) => BookingsService_1.BookingsService.postBookingsSeries({
                 requestBody: data,
                 xStoreId: customStoreId || data.storeId || storeId || undefined,

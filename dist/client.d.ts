@@ -220,6 +220,26 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             weekdays: number[];
             time: string;
         }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").BookingSeriesPreviewResponse>;
+        previewCustomSeries: (data: {
+            storeId?: string;
+            serviceId: string;
+            dates: {
+                date: string;
+                time: string;
+            }[];
+        }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").CustomBookingSeriesPreviewResponse>;
+        createCustomSeries: (data: {
+            storeId?: string;
+            serviceId: string;
+            dates: {
+                date: string;
+                time: string;
+            }[];
+            customerName?: string | null;
+            customerEmail?: string | null;
+            customerPhone?: string | null;
+            notes?: string | null;
+        }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").BookingSeries>;
         createSeries: (data: {
             storeId?: string;
             serviceId: string;
