@@ -203,7 +203,7 @@ function createClient({ baseUrl, token, storeId }) {
         bookings: {
             me: () => BookingsService_1.BookingsService.getBookingsMe(),
             list: (params) => BookingsService_1.BookingsService.getBookings({
-                xStoreId: params?.storeId || storeId || undefined,
+                xStoreId: params?.storeId || requireStoreId(),
                 status: params?.status,
                 serviceId: params?.serviceId,
                 dateFrom: params?.dateFrom,
@@ -211,7 +211,7 @@ function createClient({ baseUrl, token, storeId }) {
             }),
             create: (data, customStoreId) => BookingsService_1.BookingsService.postBookings({
                 requestBody: data,
-                xStoreId: customStoreId || storeId || undefined,
+                xStoreId: customStoreId || data?.storeId || storeId || undefined,
             }),
             get: (id, customStoreId) => BookingsService_1.BookingsService.getBookings1({
                 id,

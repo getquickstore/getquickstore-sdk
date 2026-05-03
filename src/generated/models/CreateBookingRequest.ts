@@ -4,6 +4,10 @@
 /* eslint-disable */
 export type CreateBookingRequest = {
     /**
+     * Store id. Optional if x-store-id header is provided.
+     */
+    storeId?: string | null;
+    /**
      * Service id in the current store
      */
     serviceId: string;

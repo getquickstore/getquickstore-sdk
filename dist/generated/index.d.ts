@@ -49,6 +49,7 @@ export type { BillingStripeConnectStartResponse } from './models/BillingStripeCo
 export type { BillingSubscription } from './models/BillingSubscription';
 export type { Booking } from './models/Booking';
 export type { BookingCompletionTokenResponse } from './models/BookingCompletionTokenResponse';
+export type { BookingCustomer } from './models/BookingCustomer';
 export type { BookingError } from './models/BookingError';
 export type { BookingListResponse } from './models/BookingListResponse';
 export type { BookingPaymentCheckoutRequest } from './models/BookingPaymentCheckoutRequest';

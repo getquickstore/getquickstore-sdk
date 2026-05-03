@@ -76,19 +76,19 @@ export class BookingsService {
     }
     /**
      * Create booking
-     * Creates a booking for a store service. Requires authenticated customer and x-store-id. Customer does not need seller access to the store. End time is calculated automatically from service duration.
+     * Creates a booking for a store service. Authenticated customer is linked to Booking.userId and Customer. Store can be provided by x-store-id or request body storeId. End time is calculated automatically from service duration.
      * @returns Booking Booking created
      * @throws ApiError
      */
     public static postBookings({
-        xStoreId,
         requestBody,
+        xStoreId,
     }: {
+        requestBody: CreateBookingRequest,
         /**
          * Store context id.
          */
-        xStoreId: string,
-        requestBody: CreateBookingRequest,
+        xStoreId?: string,
     }): CancelablePromise<Booking> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -108,7 +108,7 @@ export class BookingsService {
     }
     /**
      * List my bookings
-     * Returns bookings created by the authenticated customer across all stores. Does not require x-store-id.
+     * Returns bookings for the authenticated customer across all stores. Matches by Booking.userId, linked Customer.userId, and customer email. Does not require x-store-id.
      * @returns BookingListResponse Customer booking list
      * @throws ApiError
      */

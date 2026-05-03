@@ -2,12 +2,15 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { BookingCustomer } from './BookingCustomer';
 import type { BookingService } from './BookingService';
 export type Booking = {
     id: string;
     storeId: string;
     serviceId: string;
     userId?: string | null;
+    customerId?: string | null;
+    customer?: BookingCustomer | null;
     customerName?: string | null;
     customerEmail?: string | null;
     customerPhone?: string | null;

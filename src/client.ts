@@ -336,17 +336,17 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         storeId?: string
       }) =>
         BookingsService.getBookings({
-          xStoreId: params?.storeId || storeId || undefined,
+          xStoreId: params?.storeId || requireStoreId(),
           status: params?.status,
           serviceId: params?.serviceId,
           dateFrom: params?.dateFrom,
           dateTo: params?.dateTo,
         }),
-
+      
       create: (data: any, customStoreId?: string) =>
         BookingsService.postBookings({
           requestBody: data,
-          xStoreId: customStoreId || storeId || undefined,
+          xStoreId: customStoreId || data?.storeId || storeId || undefined,
         }),
 
       get: (id: string, customStoreId?: string) =>
