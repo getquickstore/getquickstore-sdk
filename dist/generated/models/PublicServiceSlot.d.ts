@@ -1,5 +1,6 @@
 export type PublicServiceSlot = {
     start: string;
+    blockedType: 'BOOKING' | 'BREAK' | null;
     end: string;
     startAt: string;
     endAt: string;
@@ -7,9 +8,9 @@ export type PublicServiceSlot = {
     /**
      * Existing booking id when this slot is busy.
      */
-    bookingId?: string | null;
+    bookingId: string | null;
     /**
      * Service id of the booking that blocks this slot.
      */
-    conflictServiceId?: string | null;
+    conflictServiceId: string | null;
 };

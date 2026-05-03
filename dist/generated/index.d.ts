@@ -24,6 +24,7 @@ export type { AuthStoreBrief } from './models/AuthStoreBrief';
 export type { AuthSuccessResponse } from './models/AuthSuccessResponse';
 export type { AuthTokenPairOnlyResponse } from './models/AuthTokenPairOnlyResponse';
 export type { AuthUser } from './models/AuthUser';
+export type { AvailabilityBreak } from './models/AvailabilityBreak';
 export type { AvailabilityBulkRequest } from './models/AvailabilityBulkRequest';
 export type { AvailabilityError } from './models/AvailabilityError';
 export type { AvailabilityItemResponse } from './models/AvailabilityItemResponse';
@@ -33,6 +34,7 @@ export type { AvailabilityPublicService } from './models/AvailabilityPublicServi
 export type { AvailabilitySlot } from './models/AvailabilitySlot';
 export type { AvailabilityUpsertRequest } from './models/AvailabilityUpsertRequest';
 export type { AvailabilityWindow } from './models/AvailabilityWindow';
+export type { AvailabilityWorkBlock } from './models/AvailabilityWorkBlock';
 export type { BillingCancelRequest } from './models/BillingCancelRequest';
 export type { BillingCancelResponse } from './models/BillingCancelResponse';
 export type { BillingCheckoutRequest } from './models/BillingCheckoutRequest';
