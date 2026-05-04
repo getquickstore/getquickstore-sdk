@@ -1101,16 +1101,21 @@ reviews: {
       offset: params?.offset,
     }),
 
-  create: (
-    productId: string,
-    data: { rating: number; comment?: string; body?: string | null; orderItemId?: string | null },
-    customStoreId?: string
-  ) =>
-    ReviewsService.postProductsReviews({
-      id: productId,
-      xStoreId: customStoreId || requireStoreId(),
-      requestBody: data,
-    }),
+create: (
+  productId: string,
+  data: {
+    rating: number
+    comment?: string
+    body?: string | null
+    orderItemId?: string | null
+  },
+  customStoreId?: string
+) =>
+  ReviewsService.postProductsReviews({
+    id: productId,
+    xStoreId: customStoreId || requireStoreId(),
+    requestBody: data,
+  }),
 
   flag: (productId: string, reviewId: string, customStoreId?: string) =>
     ReviewsService.postProductsReviewsFlag({
