@@ -513,12 +513,14 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             limit?: number;
             offset?: number;
             storeId?: string;
-        }) => import("./generated").CancelablePromise<import("./generated").ReviewListResponse>;
+        }) => import("./generated").CancelablePromise<import("./generated").ProductReviewListResponse>;
         create: (productId: string, data: {
             rating: number;
             comment?: string;
-        }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").Review>;
-        flag: (productId: string, reviewId: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").FlagReviewResponse>;
+            body?: string | null;
+            orderItemId?: string | null;
+        }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").CreateProductReviewResponse>;
+        flag: (productId: string, reviewId: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").FlagProductReviewResponse>;
     };
     serviceReviews: {
         list: (serviceId: string, params?: {
@@ -529,6 +531,8 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         create: (serviceId: string, data: {
             rating: number;
             comment?: string;
+            body?: string | null;
+            bookingId?: string | null;
         }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").ServiceReviewCreateResponse>;
         flag: (serviceId: string, reviewId: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OkResponse>;
     };

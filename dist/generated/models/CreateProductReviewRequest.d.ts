@@ -1,4 +1,4 @@
-export type CreateServiceReviewRequest = {
+export type CreateProductReviewRequest = {
     rating: number;
     comment?: string | null;
     /**
@@ -6,7 +6,7 @@ export type CreateServiceReviewRequest = {
      */
     body?: string | null;
     /**
-     * Booking ID for verified completed service review
+     * Order item ID for verified purchase review
      */
-    bookingId?: string | null;
+    orderItemId?: string | null;
 };

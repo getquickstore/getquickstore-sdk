@@ -1,7 +1,7 @@
-export type ServiceReview = {
+export type ProductReview = {
     id: string;
-    serviceId: string;
-    bookingId: string | null;
+    productId: string;
+    orderItemId?: string | null;
     userId?: string | null;
     rating: number;
     comment?: string | null;

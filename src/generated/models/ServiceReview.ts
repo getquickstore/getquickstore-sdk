@@ -5,6 +5,7 @@
 export type ServiceReview = {
     id: string;
     serviceId: string;
+    bookingId: string | null;
     userId?: string | null;
     rating: number;
     comment?: string | null;

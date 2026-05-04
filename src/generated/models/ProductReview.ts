@@ -2,12 +2,13 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Review = {
+export type ProductReview = {
     id: string;
     productId: string;
-    userId: string | null;
+    orderItemId?: string | null;
+    userId?: string | null;
     rating: number;
-    comment: string | null;
+    comment?: string | null;
     isFlagged: boolean;
     createdAt: string;
     updatedAt: string;

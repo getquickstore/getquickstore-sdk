@@ -6,7 +6,7 @@ const request_1 = require("../core/request");
 class ReviewsService {
     /**
      * List product reviews
-     * @returns ReviewListResponse Review list
+     * @returns ProductReviewListResponse Product review list
      * @throws ApiError
      */
     static getProductsReviews({ id, xStoreId, limit = 20, offset, }) {
@@ -32,7 +32,7 @@ class ReviewsService {
     }
     /**
      * Create product review
-     * @returns Review Review created
+     * @returns CreateProductReviewResponse Product review created
      * @throws ApiError
      */
     static postProductsReviews({ id, xStoreId, requestBody, }) {
@@ -55,8 +55,8 @@ class ReviewsService {
         });
     }
     /**
-     * Flag review
-     * @returns FlagReviewResponse Review flagged
+     * Flag product review
+     * @returns FlagProductReviewResponse Product review flagged
      * @throws ApiError
      */
     static postProductsReviewsFlag({ id, rid, xStoreId, }) {

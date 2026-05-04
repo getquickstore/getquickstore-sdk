@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Review } from './Review';
-export type ReviewListResponse = {
-    items: Array<Review>;
+import type { ProductReview } from './ProductReview';
+export type ProductReviewListResponse = {
+    ok: boolean;
+    items: Array<ProductReview>;
     total: number;
     limit: number;
     offset: number;

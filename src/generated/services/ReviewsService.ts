@@ -2,17 +2,17 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CreateReviewRequest } from '../models/CreateReviewRequest';
-import type { FlagReviewResponse } from '../models/FlagReviewResponse';
-import type { Review } from '../models/Review';
-import type { ReviewListResponse } from '../models/ReviewListResponse';
+import type { CreateProductReviewRequest } from '../models/CreateProductReviewRequest';
+import type { CreateProductReviewResponse } from '../models/CreateProductReviewResponse';
+import type { FlagProductReviewResponse } from '../models/FlagProductReviewResponse';
+import type { ProductReviewListResponse } from '../models/ProductReviewListResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class ReviewsService {
     /**
      * List product reviews
-     * @returns ReviewListResponse Review list
+     * @returns ProductReviewListResponse Product review list
      * @throws ApiError
      */
     public static getProductsReviews({
@@ -29,15 +29,9 @@ export class ReviewsService {
          * Store context id
          */
         xStoreId: string,
-        /**
-         * Maximum number of reviews to return
-         */
         limit?: number,
-        /**
-         * Pagination offset
-         */
         offset?: number,
-    }): CancelablePromise<ReviewListResponse> {
+    }): CancelablePromise<ProductReviewListResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/products/{id}/reviews',
@@ -60,7 +54,7 @@ export class ReviewsService {
     }
     /**
      * Create product review
-     * @returns Review Review created
+     * @returns CreateProductReviewResponse Product review created
      * @throws ApiError
      */
     public static postProductsReviews({
@@ -76,8 +70,8 @@ export class ReviewsService {
          * Store context id
          */
         xStoreId: string,
-        requestBody: CreateReviewRequest,
-    }): CancelablePromise<Review> {
+        requestBody: CreateProductReviewRequest,
+    }): CancelablePromise<CreateProductReviewResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/products/{id}/reviews',
@@ -97,8 +91,8 @@ export class ReviewsService {
         });
     }
     /**
-     * Flag review
-     * @returns FlagReviewResponse Review flagged
+     * Flag product review
+     * @returns FlagProductReviewResponse Product review flagged
      * @throws ApiError
      */
     public static postProductsReviewsFlag({
@@ -118,7 +112,7 @@ export class ReviewsService {
          * Store context id
          */
         xStoreId: string,
-    }): CancelablePromise<FlagReviewResponse> {
+    }): CancelablePromise<FlagProductReviewResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/products/{id}/reviews/{rid}/flag',

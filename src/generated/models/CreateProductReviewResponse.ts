@@ -2,10 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type FlagReviewResponse = {
+import type { ProductReview } from './ProductReview';
+export type CreateProductReviewResponse = {
     ok: boolean;
-    productId: string;
-    reviewId: string;
-    flagged: boolean;
+    review: ProductReview;
 };
 

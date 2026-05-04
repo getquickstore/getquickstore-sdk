@@ -1103,7 +1103,7 @@ reviews: {
 
   create: (
     productId: string,
-    data: { rating: number; comment?: string },
+    data: { rating: number; comment?: string; body?: string | null; orderItemId?: string | null },
     customStoreId?: string
   ) =>
     ReviewsService.postProductsReviews({
@@ -1134,7 +1134,7 @@ serviceReviews: {
 
   create: (
     serviceId: string,
-    data: { rating: number; comment?: string },
+    data: { rating: number; comment?: string; body?: string | null; bookingId?: string | null },
     customStoreId?: string
   ) =>
     ServicesService.postServicesReviews({
