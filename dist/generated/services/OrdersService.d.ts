@@ -69,15 +69,6 @@ export declare class OrdersService {
         xStoreId?: string;
     }): CancelablePromise<OrderSingleResponse>;
     /**
-     * Cancel buyer order after abandoned checkout
-     * Marks a pending unpaid buyer order as cancelled when checkout was abandoned or cancelled before payment.
-     * @returns OrderSingleResponse Order checkout cancelled
-     * @throws ApiError
-     */
-    static postOrdersCheckoutCancel({ id, }: {
-        id: string;
-    }): CancelablePromise<OrderSingleResponse>;
-    /**
      * Confirm seller order
      * Seller confirms paid/pending order and moves it to processing.
      * @returns OrderSingleResponse Order confirmed

@@ -550,9 +550,6 @@ function createClient({ baseUrl, token, storeId }) {
                 id,
                 xStoreId: customStoreId || undefined,
             }),
-            checkoutCancel: (id) => OrdersService_1.OrdersService.postOrdersCheckoutCancel({
-                id,
-            }),
         },
         payments: {
             bookingCheckout: (data) => PaymentsService_1.PaymentsService.postPaymentsBookingsCheckout({

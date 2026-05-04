@@ -1043,11 +1043,7 @@ public: {
           id,
           xStoreId: customStoreId || undefined,
         }),
-
-        checkoutCancel: (id: string) =>
-  OrdersService.postOrdersCheckoutCancel({
-    id,
-  }),
+        
     },
 
    payments: {

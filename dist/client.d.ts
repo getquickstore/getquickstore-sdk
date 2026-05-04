@@ -489,7 +489,6 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             status: "PROCESSING" | "READY_FOR_PICKUP" | "SHIPPED" | "DELIVERED" | "FULFILLED" | "CANCELLED";
         }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
         cancel: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
-        checkoutCancel: (id: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
     };
     payments: {
         bookingCheckout: (data: {
