@@ -178,6 +178,31 @@ export class OrdersService {
         });
     }
     /**
+     * Cancel buyer order after abandoned checkout
+     * Marks a pending unpaid buyer order as cancelled when checkout was abandoned or cancelled before payment.
+     * @returns OrderSingleResponse Order checkout cancelled
+     * @throws ApiError
+     */
+    public static postOrdersCheckoutCancel({
+        id,
+    }: {
+        id: string,
+    }): CancelablePromise<OrderSingleResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/orders/{id}/checkout-cancel',
+            path: {
+                'id': id,
+            },
+            errors: {
+                403: `Access denied`,
+                404: `Order not found`,
+                409: `Order cannot be cancelled after payment or non-pending state`,
+                500: `Order checkout cancel failed`,
+            },
+        });
+    }
+    /**
      * Confirm seller order
      * Seller confirms paid/pending order and moves it to processing.
      * @returns OrderSingleResponse Order confirmed
