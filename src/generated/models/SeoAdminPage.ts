@@ -2,8 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type SeoError = {
-    ok?: boolean;
-    error: string;
-};
+import type { SeoPageInfo } from './SeoPageInfo';
+export type SeoAdminPage = SeoPageInfo;
 

@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { SeoImage } from './SeoImage';
 import type { SeoStore } from './SeoStore';
+import type { SeoTag } from './SeoTag';
 export type SeoServiceItem = {
     id?: string;
     storeId?: string;
@@ -19,6 +20,7 @@ export type SeoServiceItem = {
     isActive?: boolean;
     image?: string | null;
     images?: Array<SeoImage>;
+    tags?: Array<SeoTag>;
     store?: SeoStore | null;
 };
 

@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type SeoError = {
-    ok?: boolean;
-    error: string;
+export type SeoTag = {
+    id?: string;
+    name?: string;
+    slug?: string;
 };
 
