@@ -26,8 +26,10 @@ const TagsService_1 = require("./generated/services/TagsService");
 const SeoService_1 = require("./generated/services/SeoService");
 function createClient({ baseUrl, token, storeId }) {
     OpenAPI_1.OpenAPI.BASE = baseUrl;
-    OpenAPI_1.OpenAPI.WITH_CREDENTIALS = false;
-    OpenAPI_1.OpenAPI.CREDENTIALS = "omit";
+    const isWeb = typeof window !== "undefined" &&
+        typeof document !== "undefined";
+    OpenAPI_1.OpenAPI.WITH_CREDENTIALS = isWeb;
+    OpenAPI_1.OpenAPI.CREDENTIALS = isWeb ? "include" : "omit";
     OpenAPI_1.OpenAPI.TOKEN = token || undefined;
     OpenAPI_1.OpenAPI.HEADERS = async () => {
         const headers = {};

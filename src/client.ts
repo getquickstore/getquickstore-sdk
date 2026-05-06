@@ -35,8 +35,12 @@ type ClientConfig = {
 
 export function createClient({ baseUrl, token, storeId }: ClientConfig) {
   OpenAPI.BASE = baseUrl
-  OpenAPI.WITH_CREDENTIALS = false
-  OpenAPI.CREDENTIALS = "omit"
+  const isWeb =
+    typeof window !== "undefined" &&
+    typeof document !== "undefined"
+  
+  OpenAPI.WITH_CREDENTIALS = isWeb
+  OpenAPI.CREDENTIALS = isWeb ? "include" : "omit"
 
   OpenAPI.TOKEN = token || undefined
 
