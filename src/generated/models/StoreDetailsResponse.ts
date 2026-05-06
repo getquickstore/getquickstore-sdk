@@ -16,5 +16,8 @@ export type StoreDetailsResponse = {
     updatedAt: string;
     role: 'OWNER';
     isPublic: boolean;
+    coverUrl?: string | null;
+    coverKey?: string | null;
+    logoUrl?: string | null;
 };
 

@@ -137,6 +137,69 @@ class StoresService {
         });
     }
     /**
+     * Create store cover upload URL
+     * @returns StoreCoverPresignResponse Upload URL created
+     * @throws ApiError
+     */
+    static postStoresCoverPresign({ id, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/stores/{id}/cover/presign',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `Missing or invalid token`,
+                404: `Store not found`,
+                500: `Store cover presign failed`,
+            },
+        });
+    }
+    /**
+     * Attach uploaded store cover
+     * @returns StoreCoverResponse Store cover updated
+     * @throws ApiError
+     */
+    static postStoresCover({ id, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/stores/{id}/cover',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `Missing or invalid token`,
+                404: `Store not found`,
+                500: `Store cover update failed`,
+            },
+        });
+    }
+    /**
+     * Delete store cover
+     * @returns StoreCoverDeleteResponse Store cover deleted
+     * @throws ApiError
+     */
+    static deleteStoresCover({ id, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'DELETE',
+            url: '/stores/{id}/cover',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Missing or invalid token`,
+                404: `Store not found`,
+                500: `Store cover delete failed`,
+            },
+        });
+    }
+    /**
      * Toggle store public visibility
      * @returns UpdateStoreVisibilityResponse Store visibility updated
      * @throws ApiError

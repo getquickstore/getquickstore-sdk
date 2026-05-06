@@ -345,6 +345,16 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         create: (data: any) => import("./generated").CancelablePromise<import("./generated").CreateStoreResponse>;
         me: () => import("./generated").CancelablePromise<import("./generated").StoresMeResponse>;
         getById: (id: string) => import("./generated").CancelablePromise<import("./generated").StoreDetailsResponse>;
+        coverPresign: (id: string, data: {
+            filename: string;
+            contentType: "image/jpeg" | "image/png" | "image/webp" | "image/avif";
+        }) => import("./generated").CancelablePromise<import("./generated").StoreCoverPresignResponse>;
+        coverAttach: (id: string, data: {
+            key: string;
+            url?: string | null;
+            publicUrl?: string | null;
+        }) => import("./generated").CancelablePromise<import("./generated").StoreCoverResponse>;
+        coverDelete: (id: string) => import("./generated").CancelablePromise<import("./generated").StoreCoverDeleteResponse>;
         update: (id: string, data: {
             name?: string;
         }) => import("./generated").CancelablePromise<import("./generated").UpdateStoreResponse>;

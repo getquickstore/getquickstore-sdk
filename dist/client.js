@@ -402,6 +402,17 @@ function createClient({ baseUrl, token, storeId }) {
             }),
             me: () => StoresService_1.StoresService.getStoresMe(),
             getById: (id) => StoresService_1.StoresService.getStores1({ id }),
+            coverPresign: (id, data) => StoresService_1.StoresService.postStoresCoverPresign({
+                id,
+                requestBody: data,
+            }),
+            coverAttach: (id, data) => StoresService_1.StoresService.postStoresCover({
+                id,
+                requestBody: data,
+            }),
+            coverDelete: (id) => StoresService_1.StoresService.deleteStoresCover({
+                id,
+            }),
             update: (id, data) => StoresService_1.StoresService.patchStores({
                 id,
                 requestBody: data,

@@ -199,6 +199,12 @@ export type { ServiceReviewListResponse } from './models/ServiceReviewListRespon
 export type { ServiceTag } from './models/ServiceTag';
 export type { ShipOrderRequest } from './models/ShipOrderRequest';
 export type { StoreBillingSummary } from './models/StoreBillingSummary';
+export type { StoreCoverAttachRequest } from './models/StoreCoverAttachRequest';
+export type { StoreCoverDeleteResponse } from './models/StoreCoverDeleteResponse';
+export type { StoreCoverPresignRequest } from './models/StoreCoverPresignRequest';
+export type { StoreCoverPresignResponse } from './models/StoreCoverPresignResponse';
+export type { StoreCoverResponse } from './models/StoreCoverResponse';
+export type { StoreCoverView } from './models/StoreCoverView';
 export type { StoreDeleteResponse } from './models/StoreDeleteResponse';
 export type { StoreDetailsResponse } from './models/StoreDetailsResponse';
 export type { StoreError } from './models/StoreError';

@@ -1,5 +1,10 @@
 import type { CreateStoreRequest } from '../models/CreateStoreRequest';
 import type { CreateStoreResponse } from '../models/CreateStoreResponse';
+import type { StoreCoverAttachRequest } from '../models/StoreCoverAttachRequest';
+import type { StoreCoverDeleteResponse } from '../models/StoreCoverDeleteResponse';
+import type { StoreCoverPresignRequest } from '../models/StoreCoverPresignRequest';
+import type { StoreCoverPresignResponse } from '../models/StoreCoverPresignResponse';
+import type { StoreCoverResponse } from '../models/StoreCoverResponse';
 import type { StoreDeleteResponse } from '../models/StoreDeleteResponse';
 import type { StoreDetailsResponse } from '../models/StoreDetailsResponse';
 import type { StoreListResponse } from '../models/StoreListResponse';
@@ -77,6 +82,41 @@ export declare class StoresService {
          */
         id: string;
     }): CancelablePromise<StoreSelectResponse>;
+    /**
+     * Create store cover upload URL
+     * @returns StoreCoverPresignResponse Upload URL created
+     * @throws ApiError
+     */
+    static postStoresCoverPresign({ id, requestBody, }: {
+        /**
+         * Store id
+         */
+        id: string;
+        requestBody: StoreCoverPresignRequest;
+    }): CancelablePromise<StoreCoverPresignResponse>;
+    /**
+     * Attach uploaded store cover
+     * @returns StoreCoverResponse Store cover updated
+     * @throws ApiError
+     */
+    static postStoresCover({ id, requestBody, }: {
+        /**
+         * Store id
+         */
+        id: string;
+        requestBody: StoreCoverAttachRequest;
+    }): CancelablePromise<StoreCoverResponse>;
+    /**
+     * Delete store cover
+     * @returns StoreCoverDeleteResponse Store cover deleted
+     * @throws ApiError
+     */
+    static deleteStoresCover({ id, }: {
+        /**
+         * Store id
+         */
+        id: string;
+    }): CancelablePromise<StoreCoverDeleteResponse>;
     /**
      * Toggle store public visibility
      * @returns UpdateStoreVisibilityResponse Store visibility updated

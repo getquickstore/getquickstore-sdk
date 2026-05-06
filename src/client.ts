@@ -710,6 +710,36 @@ public: {
 
       getById: (id: string) => StoresService.getStores1({ id }),
 
+      coverPresign: (
+      id: string,
+      data: {
+        filename: string
+        contentType: "image/jpeg" | "image/png" | "image/webp" | "image/avif"
+      }
+    ) =>
+      StoresService.postStoresCoverPresign({
+        id,
+        requestBody: data,
+      }),
+    
+    coverAttach: (
+      id: string,
+      data: {
+        key: string
+        url?: string | null
+        publicUrl?: string | null
+      }
+    ) =>
+      StoresService.postStoresCover({
+        id,
+        requestBody: data,
+      }),
+    
+    coverDelete: (id: string) =>
+      StoresService.deleteStoresCover({
+        id,
+      }),
+
       update: (id: string, data: { name?: string }) =>
         StoresService.patchStores({
           id,
