@@ -33,6 +33,16 @@ type ClientConfig = {
   storeId?: string | null
 }
 
+type StoreSchemaType =
+  | "LocalBusiness"
+  | "Store"
+  | "Restaurant"
+  | "BeautySalon"
+  | "AutoRepair"
+  | "MedicalBusiness"
+  | "Electrician"
+  | "RealEstateAgent"
+
 export function createClient({ baseUrl, token, storeId }: ClientConfig) {
   OpenAPI.BASE = baseUrl
   const isWeb =
@@ -647,11 +657,48 @@ seo: {
       id,
     }),
 
-  updateStoreStructuredData: (id: string, data: any) =>
-    SeoService.patchSeoStoresStructuredData({
-      id,
-      requestBody: data,
-    }),
+updateStoreStructuredData: (
+  id: string,
+  data: {
+    schemaType?: StoreSchemaType
+
+    businessType?: string | null
+    businessName?: string | null
+    businessUrl?: string | null
+    businessImageUrl?: string | null
+    businessDescription?: string | null
+    descriptionSource?: string | null
+
+    phone?: string | null
+    email?: string | null
+    website?: string | null
+
+    addressLocality?: string | null
+    addressCountry?: string | null
+    streetAddress?: string | null
+    postalCode?: string | null
+
+    latitude?: number | null
+    longitude?: number | null
+
+    openingHours?: any
+    openingHoursSpecification?: any
+    sameAs?: any
+    socialLinksJson?: any
+
+    priceRange?: string | null
+    paymentAccepted?: string | null
+    currency?: string | null
+
+    aggregateRatingJson?: any
+    reviewsJson?: any
+    faqJson?: any
+  }
+) =>
+  SeoService.patchSeoStoresStructuredData({
+    id,
+    requestBody: data,
+  }),
 
   generateStoreStructuredData: (id: string) =>
     SeoService.postSeoStoresStructuredDataGenerate({

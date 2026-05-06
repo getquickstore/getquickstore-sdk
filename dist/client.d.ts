@@ -5,6 +5,7 @@ type ClientConfig = {
     token?: string | null;
     storeId?: string | null;
 };
+type StoreSchemaType = "LocalBusiness" | "Store" | "Restaurant" | "BeautySalon" | "AutoRepair" | "MedicalBusiness" | "Electrician" | "RealEstateAgent";
 export declare function createClient({ baseUrl, token, storeId }: ClientConfig): {
     auth: {
         login: (email: string, password: string) => import("./generated").CancelablePromise<import("./generated").AuthSuccessResponse>;
@@ -325,7 +326,34 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             noindex?: boolean;
         }) => import("./generated").CancelablePromise<import("./generated").StoreSeoSettingsResponse>;
         getStoreStructuredData: (id: string) => import("./generated").CancelablePromise<import("./generated").StoreStructuredDataResponse>;
-        updateStoreStructuredData: (id: string, data: any) => import("./generated").CancelablePromise<import("./generated").StoreStructuredDataResponse>;
+        updateStoreStructuredData: (id: string, data: {
+            schemaType?: StoreSchemaType;
+            businessType?: string | null;
+            businessName?: string | null;
+            businessUrl?: string | null;
+            businessImageUrl?: string | null;
+            businessDescription?: string | null;
+            descriptionSource?: string | null;
+            phone?: string | null;
+            email?: string | null;
+            website?: string | null;
+            addressLocality?: string | null;
+            addressCountry?: string | null;
+            streetAddress?: string | null;
+            postalCode?: string | null;
+            latitude?: number | null;
+            longitude?: number | null;
+            openingHours?: any;
+            openingHoursSpecification?: any;
+            sameAs?: any;
+            socialLinksJson?: any;
+            priceRange?: string | null;
+            paymentAccepted?: string | null;
+            currency?: string | null;
+            aggregateRatingJson?: any;
+            reviewsJson?: any;
+            faqJson?: any;
+        }) => import("./generated").CancelablePromise<import("./generated").StoreStructuredDataResponse>;
         generateStoreStructuredData: (id: string) => import("./generated").CancelablePromise<import("./generated").StoreStructuredDataResponse>;
         sitemap: () => import("./generated").CancelablePromise<import("./generated").SeoSitemapResponse>;
         rebuild: () => import("./generated").CancelablePromise<import("./generated").SeoRebuildResponse>;
