@@ -7,7 +7,9 @@ import type { SeoRebuildResponse } from '../models/SeoRebuildResponse';
 import type { SeoResponse } from '../models/SeoResponse';
 import type { SeoSitemapResponse } from '../models/SeoSitemapResponse';
 import type { StoreSeoSettingsResponse } from '../models/StoreSeoSettingsResponse';
+import type { StoreStructuredDataResponse } from '../models/StoreStructuredDataResponse';
 import type { UpdateStoreSeoSettingsRequest } from '../models/UpdateStoreSeoSettingsRequest';
+import type { UpdateStoreStructuredDataRequest } from '../models/UpdateStoreStructuredDataRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -128,6 +130,84 @@ export class SeoService {
                 403: `Forbidden`,
                 404: `Store not found`,
                 500: `Store SEO update failed`,
+            },
+        });
+    }
+    /**
+     * Get store structured data settings
+     * @returns StoreStructuredDataResponse Store structured data settings
+     * @throws ApiError
+     */
+    public static getSeoStoresStructuredData({
+        id,
+    }: {
+        id: string,
+    }): CancelablePromise<StoreStructuredDataResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/seo/stores/{id}/structured-data',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store structured data get failed`,
+            },
+        });
+    }
+    /**
+     * Update store structured data settings
+     * @returns StoreStructuredDataResponse Store structured data updated
+     * @throws ApiError
+     */
+    public static patchSeoStoresStructuredData({
+        id,
+        requestBody,
+    }: {
+        id: string,
+        requestBody: UpdateStoreStructuredDataRequest,
+    }): CancelablePromise<StoreStructuredDataResponse> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/seo/stores/{id}/structured-data',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Empty or invalid update`,
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store structured data update failed`,
+            },
+        });
+    }
+    /**
+     * Generate store structured data
+     * Generates LocalBusiness JSON-LD, completeness score, validation warnings and rich result signals from store/profile/SEO data.
+     * @returns StoreStructuredDataResponse Store structured data generated
+     * @throws ApiError
+     */
+    public static postSeoStoresStructuredDataGenerate({
+        id,
+    }: {
+        id: string,
+    }): CancelablePromise<StoreStructuredDataResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/seo/stores/{id}/structured-data/generate',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store structured data generate failed`,
             },
         });
     }

@@ -222,6 +222,8 @@ export type { StoresMeResponse } from './models/StoresMeResponse';
 export type { StoreStripeNotReadyError } from './models/StoreStripeNotReadyError';
 export type { StoreStripeState } from './models/StoreStripeState';
 export type { StoreStripeSummary } from './models/StoreStripeSummary';
+export type { StoreStructuredData } from './models/StoreStructuredData';
+export type { StoreStructuredDataResponse } from './models/StoreStructuredDataResponse';
 export type { StoreSummary } from './models/StoreSummary';
 export type { StoreVisibilityView } from './models/StoreVisibilityView';
 export type { StripeConnectStartResponse } from './models/StripeConnectStartResponse';
@@ -236,6 +238,7 @@ export type { UpdateServiceRequest } from './models/UpdateServiceRequest';
 export type { UpdateStoreRequest } from './models/UpdateStoreRequest';
 export type { UpdateStoreResponse } from './models/UpdateStoreResponse';
 export type { UpdateStoreSeoSettingsRequest } from './models/UpdateStoreSeoSettingsRequest';
+export type { UpdateStoreStructuredDataRequest } from './models/UpdateStoreStructuredDataRequest';
 export type { UpdateStoreVisibilityRequest } from './models/UpdateStoreVisibilityRequest';
 export type { UpdateStoreVisibilityResponse } from './models/UpdateStoreVisibilityResponse';
 

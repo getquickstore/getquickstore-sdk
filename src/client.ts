@@ -629,20 +629,33 @@ seo: {
       id,
     }),
 
-  updateStoreSeo: (
-    id: string,
-    data: {
-      metaTitle?: string | null
-      metaDescription?: string | null
-      h1?: string | null
-      seoImageUrl?: string | null
-      canonicalUrl?: string | null
-      noindex?: boolean
-    }
-  ) =>
+  updateStoreSeo: (id: string, data: {
+    metaTitle?: string | null
+    metaDescription?: string | null
+    h1?: string | null
+    seoImageUrl?: string | null
+    canonicalUrl?: string | null
+    noindex?: boolean
+  }) =>
     SeoService.patchSeoStores({
       id,
       requestBody: data,
+    }),
+
+  getStoreStructuredData: (id: string) =>
+    SeoService.getSeoStoresStructuredData({
+      id,
+    }),
+
+  updateStoreStructuredData: (id: string, data: any) =>
+    SeoService.patchSeoStoresStructuredData({
+      id,
+      requestBody: data,
+    }),
+
+  generateStoreStructuredData: (id: string) =>
+    SeoService.postSeoStoresStructuredDataGenerate({
+      id,
     }),
 
   sitemap: () =>

@@ -3,7 +3,9 @@ import type { SeoRebuildResponse } from '../models/SeoRebuildResponse';
 import type { SeoResponse } from '../models/SeoResponse';
 import type { SeoSitemapResponse } from '../models/SeoSitemapResponse';
 import type { StoreSeoSettingsResponse } from '../models/StoreSeoSettingsResponse';
+import type { StoreStructuredDataResponse } from '../models/StoreStructuredDataResponse';
 import type { UpdateStoreSeoSettingsRequest } from '../models/UpdateStoreSeoSettingsRequest';
+import type { UpdateStoreStructuredDataRequest } from '../models/UpdateStoreStructuredDataRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class SeoService {
     /**
@@ -50,6 +52,32 @@ export declare class SeoService {
         id: string;
         requestBody: UpdateStoreSeoSettingsRequest;
     }): CancelablePromise<StoreSeoSettingsResponse>;
+    /**
+     * Get store structured data settings
+     * @returns StoreStructuredDataResponse Store structured data settings
+     * @throws ApiError
+     */
+    static getSeoStoresStructuredData({ id, }: {
+        id: string;
+    }): CancelablePromise<StoreStructuredDataResponse>;
+    /**
+     * Update store structured data settings
+     * @returns StoreStructuredDataResponse Store structured data updated
+     * @throws ApiError
+     */
+    static patchSeoStoresStructuredData({ id, requestBody, }: {
+        id: string;
+        requestBody: UpdateStoreStructuredDataRequest;
+    }): CancelablePromise<StoreStructuredDataResponse>;
+    /**
+     * Generate store structured data
+     * Generates LocalBusiness JSON-LD, completeness score, validation warnings and rich result signals from store/profile/SEO data.
+     * @returns StoreStructuredDataResponse Store structured data generated
+     * @throws ApiError
+     */
+    static postSeoStoresStructuredDataGenerate({ id, }: {
+        id: string;
+    }): CancelablePromise<StoreStructuredDataResponse>;
     /**
      * Get SEO page by slug
      * Returns generated SEO metadata and page payload for store, product, service, search or micro-search pages.

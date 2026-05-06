@@ -324,6 +324,9 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             canonicalUrl?: string | null;
             noindex?: boolean;
         }) => import("./generated").CancelablePromise<import("./generated").StoreSeoSettingsResponse>;
+        getStoreStructuredData: (id: string) => import("./generated").CancelablePromise<import("./generated").StoreStructuredDataResponse>;
+        updateStoreStructuredData: (id: string, data: any) => import("./generated").CancelablePromise<import("./generated").StoreStructuredDataResponse>;
+        generateStoreStructuredData: (id: string) => import("./generated").CancelablePromise<import("./generated").StoreStructuredDataResponse>;
         sitemap: () => import("./generated").CancelablePromise<import("./generated").SeoSitemapResponse>;
         rebuild: () => import("./generated").CancelablePromise<import("./generated").SeoRebuildResponse>;
     };

@@ -358,6 +358,16 @@ function createClient({ baseUrl, token, storeId }) {
                 id,
                 requestBody: data,
             }),
+            getStoreStructuredData: (id) => SeoService_1.SeoService.getSeoStoresStructuredData({
+                id,
+            }),
+            updateStoreStructuredData: (id, data) => SeoService_1.SeoService.patchSeoStoresStructuredData({
+                id,
+                requestBody: data,
+            }),
+            generateStoreStructuredData: (id) => SeoService_1.SeoService.postSeoStoresStructuredDataGenerate({
+                id,
+            }),
             sitemap: () => SeoService_1.SeoService.getSeoSitemap(),
             rebuild: () => SeoService_1.SeoService.postSeoRebuild(),
         },

@@ -102,6 +102,70 @@ class SeoService {
         });
     }
     /**
+     * Get store structured data settings
+     * @returns StoreStructuredDataResponse Store structured data settings
+     * @throws ApiError
+     */
+    static getSeoStoresStructuredData({ id, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/seo/stores/{id}/structured-data',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store structured data get failed`,
+            },
+        });
+    }
+    /**
+     * Update store structured data settings
+     * @returns StoreStructuredDataResponse Store structured data updated
+     * @throws ApiError
+     */
+    static patchSeoStoresStructuredData({ id, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'PATCH',
+            url: '/seo/stores/{id}/structured-data',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Empty or invalid update`,
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store structured data update failed`,
+            },
+        });
+    }
+    /**
+     * Generate store structured data
+     * Generates LocalBusiness JSON-LD, completeness score, validation warnings and rich result signals from store/profile/SEO data.
+     * @returns StoreStructuredDataResponse Store structured data generated
+     * @throws ApiError
+     */
+    static postSeoStoresStructuredDataGenerate({ id, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/seo/stores/{id}/structured-data/generate',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store structured data generate failed`,
+            },
+        });
+    }
+    /**
      * Get SEO page by slug
      * Returns generated SEO metadata and page payload for store, product, service, search or micro-search pages.
      * @returns SeoResponse SEO page response
