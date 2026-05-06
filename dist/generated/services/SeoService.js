@@ -59,6 +59,49 @@ class SeoService {
         });
     }
     /**
+     * Get store SEO settings
+     * @returns StoreSeoSettingsResponse Store SEO settings
+     * @throws ApiError
+     */
+    static getSeoStores({ id, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/seo/stores/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store SEO get failed`,
+            },
+        });
+    }
+    /**
+     * Update store SEO settings
+     * @returns StoreSeoSettingsResponse Store SEO settings updated
+     * @throws ApiError
+     */
+    static patchSeoStores({ id, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'PATCH',
+            url: '/seo/stores/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Empty or invalid update`,
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store SEO update failed`,
+            },
+        });
+    }
+    /**
      * Get SEO page by slug
      * Returns generated SEO metadata and page payload for store, product, service, search or micro-search pages.
      * @returns SeoResponse SEO page response

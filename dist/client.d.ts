@@ -315,6 +315,15 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     };
     seo: {
         get: (slug: string) => import("./generated").CancelablePromise<import("./generated").SeoResponse>;
+        getStoreSeo: (id: string) => import("./generated").CancelablePromise<import("./generated").StoreSeoSettingsResponse>;
+        updateStoreSeo: (id: string, data: {
+            metaTitle?: string | null;
+            metaDescription?: string | null;
+            h1?: string | null;
+            seoImageUrl?: string | null;
+            canonicalUrl?: string | null;
+            noindex?: boolean;
+        }) => import("./generated").CancelablePromise<import("./generated").StoreSeoSettingsResponse>;
         sitemap: () => import("./generated").CancelablePromise<import("./generated").SeoSitemapResponse>;
         rebuild: () => import("./generated").CancelablePromise<import("./generated").SeoRebuildResponse>;
     };

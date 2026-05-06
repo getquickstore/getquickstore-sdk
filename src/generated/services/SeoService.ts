@@ -6,6 +6,8 @@ import type { SeoAdminPagesResponse } from '../models/SeoAdminPagesResponse';
 import type { SeoRebuildResponse } from '../models/SeoRebuildResponse';
 import type { SeoResponse } from '../models/SeoResponse';
 import type { SeoSitemapResponse } from '../models/SeoSitemapResponse';
+import type { StoreSeoSettingsResponse } from '../models/StoreSeoSettingsResponse';
+import type { UpdateStoreSeoSettingsRequest } from '../models/UpdateStoreSeoSettingsRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -73,6 +75,59 @@ export class SeoService {
             errors: {
                 403: `Access denied`,
                 500: `Failed to rebuild SEO pages`,
+            },
+        });
+    }
+    /**
+     * Get store SEO settings
+     * @returns StoreSeoSettingsResponse Store SEO settings
+     * @throws ApiError
+     */
+    public static getSeoStores({
+        id,
+    }: {
+        id: string,
+    }): CancelablePromise<StoreSeoSettingsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/seo/stores/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store SEO get failed`,
+            },
+        });
+    }
+    /**
+     * Update store SEO settings
+     * @returns StoreSeoSettingsResponse Store SEO settings updated
+     * @throws ApiError
+     */
+    public static patchSeoStores({
+        id,
+        requestBody,
+    }: {
+        id: string,
+        requestBody: UpdateStoreSeoSettingsRequest,
+    }): CancelablePromise<StoreSeoSettingsResponse> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/seo/stores/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Empty or invalid update`,
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store SEO update failed`,
             },
         });
     }

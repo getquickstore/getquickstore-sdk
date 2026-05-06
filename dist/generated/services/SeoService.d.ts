@@ -2,6 +2,8 @@ import type { SeoAdminPagesResponse } from '../models/SeoAdminPagesResponse';
 import type { SeoRebuildResponse } from '../models/SeoRebuildResponse';
 import type { SeoResponse } from '../models/SeoResponse';
 import type { SeoSitemapResponse } from '../models/SeoSitemapResponse';
+import type { StoreSeoSettingsResponse } from '../models/StoreSeoSettingsResponse';
+import type { UpdateStoreSeoSettingsRequest } from '../models/UpdateStoreSeoSettingsRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class SeoService {
     /**
@@ -31,6 +33,23 @@ export declare class SeoService {
      * @throws ApiError
      */
     static postSeoRebuild(): CancelablePromise<SeoRebuildResponse>;
+    /**
+     * Get store SEO settings
+     * @returns StoreSeoSettingsResponse Store SEO settings
+     * @throws ApiError
+     */
+    static getSeoStores({ id, }: {
+        id: string;
+    }): CancelablePromise<StoreSeoSettingsResponse>;
+    /**
+     * Update store SEO settings
+     * @returns StoreSeoSettingsResponse Store SEO settings updated
+     * @throws ApiError
+     */
+    static patchSeoStores({ id, requestBody, }: {
+        id: string;
+        requestBody: UpdateStoreSeoSettingsRequest;
+    }): CancelablePromise<StoreSeoSettingsResponse>;
     /**
      * Get SEO page by slug
      * Returns generated SEO metadata and page payload for store, product, service, search or micro-search pages.

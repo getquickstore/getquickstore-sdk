@@ -618,18 +618,39 @@ public: {
 },
 
 
-      seo: {
-      get: (slug: string) =>
-        SeoService.getSeo({
-          slug,
-        }),
+seo: {
+  get: (slug: string) =>
+    SeoService.getSeo({
+      slug,
+    }),
 
-      sitemap: () =>
-        SeoService.getSeoSitemap(),
+  getStoreSeo: (id: string) =>
+    SeoService.getSeoStores({
+      id,
+    }),
 
-      rebuild: () =>
-        SeoService.postSeoRebuild(),
-    },
+  updateStoreSeo: (
+    id: string,
+    data: {
+      metaTitle?: string | null
+      metaDescription?: string | null
+      h1?: string | null
+      seoImageUrl?: string | null
+      canonicalUrl?: string | null
+      noindex?: boolean
+    }
+  ) =>
+    SeoService.patchSeoStores({
+      id,
+      requestBody: data,
+    }),
+
+  sitemap: () =>
+    SeoService.getSeoSitemap(),
+
+  rebuild: () =>
+    SeoService.postSeoRebuild(),
+},
     
     categories: {
       list: (params?: {
