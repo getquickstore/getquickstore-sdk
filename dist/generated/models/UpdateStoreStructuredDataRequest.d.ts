@@ -1,10 +1,11 @@
 export type UpdateStoreStructuredDataRequest = {
-    schemaType?: string;
+    schemaType?: 'LocalBusiness' | 'Store' | 'Restaurant' | 'BeautySalon' | 'AutoRepair' | 'MedicalBusiness' | 'Electrician' | 'RealEstateAgent';
     businessType?: string | null;
     businessName?: string | null;
     businessUrl?: string | null;
     businessImageUrl?: string | null;
     businessDescription?: string | null;
+    descriptionSource?: string | null;
     phone?: string | null;
     email?: string | null;
     website?: string | null;
@@ -15,8 +16,11 @@ export type UpdateStoreStructuredDataRequest = {
     latitude?: number | null;
     longitude?: number | null;
     openingHours?: Record<string, any> | null;
+    openingHoursSpecification?: Record<string, any> | null;
     sameAs?: Record<string, any> | null;
+    socialLinksJson?: Record<string, any> | null;
     priceRange?: string | null;
+    paymentAccepted?: string | null;
     currency?: string | null;
     aggregateRatingJson?: Record<string, any> | null;
     reviewsJson?: Record<string, any> | null;
