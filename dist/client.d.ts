@@ -192,6 +192,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             refreshUrl: string;
         }) => import("./generated").CancelablePromise<import("./generated").BillingStripeConnectStartResponse>;
         sync: () => import("./generated").CancelablePromise<import("./generated").StripeConnectStatusResponse>;
+        reuseExistingAccount: (id: string, sourceStoreId: string) => import("./generated").CancelablePromise<import("./generated").StripeConnectReuseResponse>;
     };
     bookings: {
         me: () => import("./generated").CancelablePromise<import("./generated").BookingListResponse>;

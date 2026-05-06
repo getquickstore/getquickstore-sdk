@@ -24,6 +24,7 @@ const FavoritesService_1 = require("./generated/services/FavoritesService");
 const PublicService_1 = require("./generated/services/PublicService");
 const TagsService_1 = require("./generated/services/TagsService");
 const SeoService_1 = require("./generated/services/SeoService");
+const StripeConnectService_1 = require("./generated/services/StripeConnectService");
 function createClient({ baseUrl, token, storeId }) {
     OpenAPI_1.OpenAPI.BASE = baseUrl;
     const isWeb = typeof window !== "undefined" &&
@@ -200,6 +201,10 @@ function createClient({ baseUrl, token, storeId }) {
             }),
             sync: () => BillingConnectService_1.BillingConnectService.postBillingStoresStripeConnectSync({
                 id: requireStoreId(),
+            }),
+            reuseExistingAccount: (id, sourceStoreId) => StripeConnectService_1.StripeConnectService.postBillingStoresStripeConnectReuse({
+                id,
+                requestBody: { sourceStoreId },
             }),
         },
         bookings: {

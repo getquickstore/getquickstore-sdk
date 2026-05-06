@@ -29,6 +29,7 @@ declare const sdk: {
     ServiceImagesService: typeof generated.ServiceImagesService;
     ServicesService: typeof generated.ServicesService;
     StoresService: typeof generated.StoresService;
+    StripeConnectService: typeof generated.StripeConnectService;
     TagsService: typeof generated.TagsService;
 };
 export default sdk;

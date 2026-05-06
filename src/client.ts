@@ -22,7 +22,7 @@ import { FavoritesService } from "./generated/services/FavoritesService"
 import { PublicService } from "./generated/services/PublicService"
 import { TagsService } from "./generated/services/TagsService"
 import { SeoService } from "./generated/services/SeoService"
-
+import { StripeConnectService } from "./generated/services/StripeConnectService"
 
 import type { CreateOrderRequest } from "./generated/models/CreateOrderRequest"
 import type { UpdateOrderStatusRequest } from "./generated/models/UpdateOrderStatusRequest"
@@ -336,6 +336,11 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
       sync: () =>
         BillingConnectService.postBillingStoresStripeConnectSync({
           id: requireStoreId(),
+        }),
+           reuseExistingAccount: (id: string, sourceStoreId: string) =>
+        StripeConnectService.postBillingStoresStripeConnectReuse({
+          id,
+          requestBody: { sourceStoreId },
         }),
     },
 
