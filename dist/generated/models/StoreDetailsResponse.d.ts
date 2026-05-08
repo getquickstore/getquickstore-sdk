@@ -1,3 +1,4 @@
+import type { StoreSettingsView } from './StoreSettingsView';
 export type StoreDetailsResponse = {
     id: string;
     name: string;
@@ -15,4 +16,5 @@ export type StoreDetailsResponse = {
     coverUrl?: string | null;
     coverKey?: string | null;
     logoUrl?: string | null;
+    settings?: StoreSettingsView;
 };

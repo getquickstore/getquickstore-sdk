@@ -118,6 +118,67 @@ class StoresService {
         });
     }
     /**
+     * Get store settings
+     * @returns StoreSettingsResponse Store settings
+     * @throws ApiError
+     */
+    static getStoresSettings({ id, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/stores/{id}/settings',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Missing or invalid token`,
+                404: `Store not found`,
+                500: `Store settings get failed`,
+            },
+        });
+    }
+    /**
+     * Update store settings
+     * @returns StoreSettingsResponse Store settings updated
+     * @throws ApiError
+     */
+    static patchStoresSettings({ id, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'PATCH',
+            url: '/stores/{id}/settings',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `Missing or invalid token`,
+                404: `Store not found`,
+                500: `Store settings update failed`,
+            },
+        });
+    }
+    /**
+     * Sync store tax settings from Stripe connected account
+     * @returns StoreTaxSettingsSyncStripeResponse Tax settings synced from Stripe
+     * @throws ApiError
+     */
+    static postStoresTaxSettingsSyncStripe({ id, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/stores/{id}/tax-settings/sync-stripe',
+            path: {
+                'id': id,
+            },
+            errors: {
+                400: `Stripe account is not connected`,
+                401: `Missing or invalid token`,
+                404: `Store not found`,
+                500: `Store tax sync from Stripe failed`,
+            },
+        });
+    }
+    /**
      * Select default store
      * @returns StoreSelectResponse Default store updated
      * @throws ApiError

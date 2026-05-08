@@ -13,9 +13,12 @@ import type { StoreDeleteResponse } from '../models/StoreDeleteResponse';
 import type { StoreDetailsResponse } from '../models/StoreDetailsResponse';
 import type { StoreListResponse } from '../models/StoreListResponse';
 import type { StoreSelectResponse } from '../models/StoreSelectResponse';
+import type { StoreSettingsResponse } from '../models/StoreSettingsResponse';
 import type { StoresMeResponse } from '../models/StoresMeResponse';
+import type { StoreTaxSettingsSyncStripeResponse } from '../models/StoreTaxSettingsSyncStripeResponse';
 import type { UpdateStoreRequest } from '../models/UpdateStoreRequest';
 import type { UpdateStoreResponse } from '../models/UpdateStoreResponse';
+import type { UpdateStoreSettingsRequest } from '../models/UpdateStoreSettingsRequest';
 import type { UpdateStoreVisibilityRequest } from '../models/UpdateStoreVisibilityRequest';
 import type { UpdateStoreVisibilityResponse } from '../models/UpdateStoreVisibilityResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -159,6 +162,90 @@ export class StoresService {
                 401: `Missing or invalid token`,
                 404: `Store not found`,
                 500: `Store archive failed`,
+            },
+        });
+    }
+    /**
+     * Get store settings
+     * @returns StoreSettingsResponse Store settings
+     * @throws ApiError
+     */
+    public static getStoresSettings({
+        id,
+    }: {
+        /**
+         * Store id
+         */
+        id: string,
+    }): CancelablePromise<StoreSettingsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/stores/{id}/settings',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Missing or invalid token`,
+                404: `Store not found`,
+                500: `Store settings get failed`,
+            },
+        });
+    }
+    /**
+     * Update store settings
+     * @returns StoreSettingsResponse Store settings updated
+     * @throws ApiError
+     */
+    public static patchStoresSettings({
+        id,
+        requestBody,
+    }: {
+        /**
+         * Store id
+         */
+        id: string,
+        requestBody: UpdateStoreSettingsRequest,
+    }): CancelablePromise<StoreSettingsResponse> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/stores/{id}/settings',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `Missing or invalid token`,
+                404: `Store not found`,
+                500: `Store settings update failed`,
+            },
+        });
+    }
+    /**
+     * Sync store tax settings from Stripe connected account
+     * @returns StoreTaxSettingsSyncStripeResponse Tax settings synced from Stripe
+     * @throws ApiError
+     */
+    public static postStoresTaxSettingsSyncStripe({
+        id,
+    }: {
+        /**
+         * Store id
+         */
+        id: string,
+    }): CancelablePromise<StoreTaxSettingsSyncStripeResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/stores/{id}/tax-settings/sync-stripe',
+            path: {
+                'id': id,
+            },
+            errors: {
+                400: `Stripe account is not connected`,
+                401: `Missing or invalid token`,
+                404: `Store not found`,
+                500: `Store tax sync from Stripe failed`,
             },
         });
     }

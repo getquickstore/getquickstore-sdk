@@ -796,6 +796,18 @@ updateStoreStructuredData: (
 
       getById: (id: string) => StoresService.getStores1({ id }),
 
+      getSettings: (id: string) =>
+  StoresService.getStoresSettings({ id }),
+
+updateSettings: (id: string, data: any) =>
+  StoresService.patchStoresSettings({
+    id,
+    requestBody: data,
+  }),
+
+syncTaxSettingsFromStripe: (id: string) =>
+  StoresService.postStoresTaxSettingsSyncStripe({ id }),
+
       coverPresign: (
       id: string,
       data: {

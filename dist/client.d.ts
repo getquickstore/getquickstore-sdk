@@ -386,6 +386,9 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         create: (data: any) => import("./generated").CancelablePromise<import("./generated").CreateStoreResponse>;
         me: () => import("./generated").CancelablePromise<import("./generated").StoresMeResponse>;
         getById: (id: string) => import("./generated").CancelablePromise<import("./generated").StoreDetailsResponse>;
+        getSettings: (id: string) => import("./generated").CancelablePromise<import("./generated").StoreSettingsResponse>;
+        updateSettings: (id: string, data: any) => import("./generated").CancelablePromise<import("./generated").StoreSettingsResponse>;
+        syncTaxSettingsFromStripe: (id: string) => import("./generated").CancelablePromise<import("./generated").StoreTaxSettingsSyncStripeResponse>;
         coverPresign: (id: string, data: {
             filename: string;
             contentType: "image/jpeg" | "image/png" | "image/webp" | "image/avif";

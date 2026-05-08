@@ -424,6 +424,12 @@ function createClient({ baseUrl, token, storeId }) {
             }),
             me: () => StoresService_1.StoresService.getStoresMe(),
             getById: (id) => StoresService_1.StoresService.getStores1({ id }),
+            getSettings: (id) => StoresService_1.StoresService.getStoresSettings({ id }),
+            updateSettings: (id, data) => StoresService_1.StoresService.patchStoresSettings({
+                id,
+                requestBody: data,
+            }),
+            syncTaxSettingsFromStripe: (id) => StoresService_1.StoresService.postStoresTaxSettingsSyncStripe({ id }),
             coverPresign: (id, data) => StoresService_1.StoresService.postStoresCoverPresign({
                 id,
                 requestBody: data,

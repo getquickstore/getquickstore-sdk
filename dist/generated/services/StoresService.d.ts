@@ -9,9 +9,12 @@ import type { StoreDeleteResponse } from '../models/StoreDeleteResponse';
 import type { StoreDetailsResponse } from '../models/StoreDetailsResponse';
 import type { StoreListResponse } from '../models/StoreListResponse';
 import type { StoreSelectResponse } from '../models/StoreSelectResponse';
+import type { StoreSettingsResponse } from '../models/StoreSettingsResponse';
 import type { StoresMeResponse } from '../models/StoresMeResponse';
+import type { StoreTaxSettingsSyncStripeResponse } from '../models/StoreTaxSettingsSyncStripeResponse';
 import type { UpdateStoreRequest } from '../models/UpdateStoreRequest';
 import type { UpdateStoreResponse } from '../models/UpdateStoreResponse';
+import type { UpdateStoreSettingsRequest } from '../models/UpdateStoreSettingsRequest';
 import type { UpdateStoreVisibilityRequest } from '../models/UpdateStoreVisibilityRequest';
 import type { UpdateStoreVisibilityResponse } from '../models/UpdateStoreVisibilityResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -71,6 +74,40 @@ export declare class StoresService {
          */
         id: string;
     }): CancelablePromise<StoreDeleteResponse>;
+    /**
+     * Get store settings
+     * @returns StoreSettingsResponse Store settings
+     * @throws ApiError
+     */
+    static getStoresSettings({ id, }: {
+        /**
+         * Store id
+         */
+        id: string;
+    }): CancelablePromise<StoreSettingsResponse>;
+    /**
+     * Update store settings
+     * @returns StoreSettingsResponse Store settings updated
+     * @throws ApiError
+     */
+    static patchStoresSettings({ id, requestBody, }: {
+        /**
+         * Store id
+         */
+        id: string;
+        requestBody: UpdateStoreSettingsRequest;
+    }): CancelablePromise<StoreSettingsResponse>;
+    /**
+     * Sync store tax settings from Stripe connected account
+     * @returns StoreTaxSettingsSyncStripeResponse Tax settings synced from Stripe
+     * @throws ApiError
+     */
+    static postStoresTaxSettingsSyncStripe({ id, }: {
+        /**
+         * Store id
+         */
+        id: string;
+    }): CancelablePromise<StoreTaxSettingsSyncStripeResponse>;
     /**
      * Select default store
      * @returns StoreSelectResponse Default store updated
