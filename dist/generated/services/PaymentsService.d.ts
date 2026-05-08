@@ -3,10 +3,20 @@ import type { BookingSeriesPaymentCheckoutRequest } from '../models/BookingSerie
 import type { BookingSeriesPaymentCheckoutResponse } from '../models/BookingSeriesPaymentCheckoutResponse';
 import type { CreateRefundRequest } from '../models/CreateRefundRequest';
 import type { CreateRefundResponse } from '../models/CreateRefundResponse';
+import type { PaymentCheckoutPreviewRequest } from '../models/PaymentCheckoutPreviewRequest';
+import type { PaymentCheckoutPreviewResponse } from '../models/PaymentCheckoutPreviewResponse';
 import type { PaymentCheckoutRequest } from '../models/PaymentCheckoutRequest';
 import type { PaymentCheckoutResponse } from '../models/PaymentCheckoutResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class PaymentsService {
+    /**
+     * Preview checkout totals before Stripe checkout
+     * @returns PaymentCheckoutPreviewResponse Checkout preview calculated
+     * @throws ApiError
+     */
+    static postPaymentsCheckoutPreview({ requestBody, }: {
+        requestBody: PaymentCheckoutPreviewRequest;
+    }): CancelablePromise<PaymentCheckoutPreviewResponse>;
     /**
      * Create Stripe Checkout session for buyer order
      * @returns PaymentCheckoutResponse Checkout session created

@@ -137,6 +137,8 @@ export type { OrderSingleResponse } from './models/OrderSingleResponse';
 export type { OrderStoreRef } from './models/OrderStoreRef';
 export type { OrderVariantRef } from './models/OrderVariantRef';
 export type { Payment } from './models/Payment';
+export type { PaymentCheckoutPreviewRequest } from './models/PaymentCheckoutPreviewRequest';
+export type { PaymentCheckoutPreviewResponse } from './models/PaymentCheckoutPreviewResponse';
 export type { PaymentCheckoutRequest } from './models/PaymentCheckoutRequest';
 export type { PaymentCheckoutResponse } from './models/PaymentCheckoutResponse';
 export type { PaymentConflictError } from './models/PaymentConflictError';

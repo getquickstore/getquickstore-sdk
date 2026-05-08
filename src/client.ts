@@ -1253,6 +1253,24 @@ syncTaxSettingsFromStripe: (id: string) =>
     },
 
    payments: {
+
+    checkoutPreview: (data: {
+  orderId: string
+  fulfillmentType?: "STANDARD" | "PICKUP"
+  shippingAddressId?: string | null
+}) =>
+  PaymentsService.postPaymentsCheckoutPreview({
+    requestBody: {
+      orderId: data.orderId,
+      ...(data.fulfillmentType
+        ? { fulfillmentType: data.fulfillmentType }
+        : {}),
+      ...(data.shippingAddressId
+        ? { shippingAddressId: data.shippingAddressId }
+        : {}),
+    },
+  }),
+  
   bookingCheckout: (data: {
     bookingId: string
     successUrl?: string

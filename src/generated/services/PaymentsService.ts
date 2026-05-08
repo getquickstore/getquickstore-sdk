@@ -7,12 +7,38 @@ import type { BookingSeriesPaymentCheckoutRequest } from '../models/BookingSerie
 import type { BookingSeriesPaymentCheckoutResponse } from '../models/BookingSeriesPaymentCheckoutResponse';
 import type { CreateRefundRequest } from '../models/CreateRefundRequest';
 import type { CreateRefundResponse } from '../models/CreateRefundResponse';
+import type { PaymentCheckoutPreviewRequest } from '../models/PaymentCheckoutPreviewRequest';
+import type { PaymentCheckoutPreviewResponse } from '../models/PaymentCheckoutPreviewResponse';
 import type { PaymentCheckoutRequest } from '../models/PaymentCheckoutRequest';
 import type { PaymentCheckoutResponse } from '../models/PaymentCheckoutResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class PaymentsService {
+    /**
+     * Preview checkout totals before Stripe checkout
+     * @returns PaymentCheckoutPreviewResponse Checkout preview calculated
+     * @throws ApiError
+     */
+    public static postPaymentsCheckoutPreview({
+        requestBody,
+    }: {
+        requestBody: PaymentCheckoutPreviewRequest,
+    }): CancelablePromise<PaymentCheckoutPreviewResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/payments/checkout-preview',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `UNAUTHORIZED`,
+                403: `Access denied`,
+                404: `Order not found`,
+                409: `Conflict`,
+            },
+        });
+    }
     /**
      * Create Stripe Checkout session for buyer order
      * @returns PaymentCheckoutResponse Checkout session created

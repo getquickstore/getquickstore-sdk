@@ -619,6 +619,17 @@ function createClient({ baseUrl, token, storeId }) {
             }),
         },
         payments: {
+            checkoutPreview: (data) => PaymentsService_1.PaymentsService.postPaymentsCheckoutPreview({
+                requestBody: {
+                    orderId: data.orderId,
+                    ...(data.fulfillmentType
+                        ? { fulfillmentType: data.fulfillmentType }
+                        : {}),
+                    ...(data.shippingAddressId
+                        ? { shippingAddressId: data.shippingAddressId }
+                        : {}),
+                },
+            }),
             bookingCheckout: (data) => PaymentsService_1.PaymentsService.postPaymentsBookingsCheckout({
                 requestBody: data,
             }),
