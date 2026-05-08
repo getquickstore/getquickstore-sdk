@@ -21,5 +21,11 @@ export type StoreDetailsResponse = {
     coverKey?: string | null;
     logoUrl?: string | null;
     settings?: StoreSettingsView;
+    stripeAccountId?: string | null;
+    stripeOnboardingComplete: boolean;
+    stripeDetailsSubmitted: boolean;
+    stripeChargesEnabled: boolean;
+    stripePayoutsEnabled: boolean;
+    stripeStatus: string;
 };
 
