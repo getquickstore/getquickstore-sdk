@@ -25,6 +25,7 @@ const PublicService_1 = require("./generated/services/PublicService");
 const TagsService_1 = require("./generated/services/TagsService");
 const SeoService_1 = require("./generated/services/SeoService");
 const StripeConnectService_1 = require("./generated/services/StripeConnectService");
+const ProfileService_1 = require("./generated/services/ProfileService");
 function createClient({ baseUrl, token, storeId }) {
     OpenAPI_1.OpenAPI.BASE = baseUrl;
     const isWeb = typeof window !== "undefined" &&
@@ -416,6 +417,31 @@ function createClient({ baseUrl, token, storeId }) {
                 id,
                 xStoreId: customStoreId || storeId || undefined,
             }),
+        },
+        profile: {
+            get: () => ProfileService_1.ProfileService.getProfile(),
+            update: (data) => ProfileService_1.ProfileService.patchProfile({
+                requestBody: data,
+            }),
+            addresses: {
+                list: () => ProfileService_1.ProfileService.getProfileAddresses(),
+                create: (data) => ProfileService_1.ProfileService.postProfileAddresses({
+                    requestBody: data,
+                }),
+                update: (id, data) => ProfileService_1.ProfileService.patchProfileAddresses({
+                    id,
+                    requestBody: data,
+                }),
+                delete: (id) => ProfileService_1.ProfileService.deleteProfileAddresses({
+                    id,
+                }),
+                setDefaultShipping: (id) => ProfileService_1.ProfileService.postProfileAddressesDefaultShipping({
+                    id,
+                }),
+                setDefaultBilling: (id) => ProfileService_1.ProfileService.postProfileAddressesDefaultBilling({
+                    id,
+                }),
+            },
         },
         stores: {
             list: () => StoresService_1.StoresService.getStores(),

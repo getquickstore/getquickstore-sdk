@@ -23,6 +23,7 @@ import { PublicService } from "./generated/services/PublicService"
 import { TagsService } from "./generated/services/TagsService"
 import { SeoService } from "./generated/services/SeoService"
 import { StripeConnectService } from "./generated/services/StripeConnectService"
+import { ProfileService } from "./generated/services/ProfileService"
 
 import type { CreateOrderRequest } from "./generated/models/CreateOrderRequest"
 import type { UpdateOrderStatusRequest } from "./generated/models/UpdateOrderStatusRequest"
@@ -782,6 +783,79 @@ updateStoreStructuredData: (
       id,
       xStoreId: customStoreId || storeId || undefined,
     }),
+},
+
+profile: {
+  get: () =>
+    ProfileService.getProfile(),
+
+  update: (data: {
+    firstName?: string
+    lastName?: string
+    fullName?: string
+    phone?: string
+    avatarUrl?: string
+    locale?: string
+    timezone?: string
+    currency?: string
+  }) =>
+    ProfileService.patchProfile({
+      requestBody: data,
+    }),
+
+  addresses: {
+    list: () =>
+      ProfileService.getProfileAddresses(),
+
+    create: (data: {
+      line1: string
+      line2?: string
+      city: string
+      region?: string
+      country: string
+      postalCode?: string
+      type?: string
+      isDefaultShipping?: boolean
+      isDefaultBilling?: boolean
+    }) =>
+      ProfileService.postProfileAddresses({
+        requestBody: data,
+      }),
+
+    update: (
+      id: string,
+      data: {
+        line1: string
+        line2?: string
+        city: string
+        region?: string
+        country: string
+        postalCode?: string
+        type?: string
+        isDefaultShipping?: boolean
+        isDefaultBilling?: boolean
+      }
+    ) =>
+      ProfileService.patchProfileAddresses({
+        id,
+        requestBody: data,
+      }),
+
+    delete: (id: string) =>
+      ProfileService.deleteProfileAddresses({
+        id,
+      }),
+
+    setDefaultShipping: (id: string) =>
+      ProfileService.postProfileAddressesDefaultShipping({
+        id,
+      }),
+
+    setDefaultBilling: (id: string) =>
+      ProfileService.postProfileAddressesDefaultBilling({
+        id,
+      }),
+  },
 },
 
     stores: {

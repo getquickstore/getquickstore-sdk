@@ -381,6 +381,47 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         generate: (data: any, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").GeneratedTagsResponse>;
         delete: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OkResponse>;
     };
+    profile: {
+        get: () => import("./generated").CancelablePromise<import("./generated").ProfileResponse>;
+        update: (data: {
+            firstName?: string;
+            lastName?: string;
+            fullName?: string;
+            phone?: string;
+            avatarUrl?: string;
+            locale?: string;
+            timezone?: string;
+            currency?: string;
+        }) => import("./generated").CancelablePromise<import("./generated").ProfileOnlyResponse>;
+        addresses: {
+            list: () => import("./generated").CancelablePromise<import("./generated").ProfileAddressesResponse>;
+            create: (data: {
+                line1: string;
+                line2?: string;
+                city: string;
+                region?: string;
+                country: string;
+                postalCode?: string;
+                type?: string;
+                isDefaultShipping?: boolean;
+                isDefaultBilling?: boolean;
+            }) => import("./generated").CancelablePromise<import("./generated").ProfileAddressResponse>;
+            update: (id: string, data: {
+                line1: string;
+                line2?: string;
+                city: string;
+                region?: string;
+                country: string;
+                postalCode?: string;
+                type?: string;
+                isDefaultShipping?: boolean;
+                isDefaultBilling?: boolean;
+            }) => import("./generated").CancelablePromise<import("./generated").ProfileAddressResponse>;
+            delete: (id: string) => import("./generated").CancelablePromise<import("./generated").ProfileOkResponse>;
+            setDefaultShipping: (id: string) => import("./generated").CancelablePromise<import("./generated").ProfileAddressResponse>;
+            setDefaultBilling: (id: string) => import("./generated").CancelablePromise<import("./generated").ProfileAddressResponse>;
+        };
+    };
     stores: {
         list: () => import("./generated").CancelablePromise<import("./generated").StoreListResponse>;
         create: (data: any) => import("./generated").CancelablePromise<import("./generated").CreateStoreResponse>;
