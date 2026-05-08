@@ -529,22 +529,22 @@ createCustomSeries: (
 
     cart: {
       get: () => CartService.getCart(),
-
+    
       add: (data: any) =>
         CartService.postCartAdd({
           requestBody: data,
         }),
-
+      
       setQty: (data: any) =>
         CartService.postCartSetQty({
           requestBody: data,
         }),
-
+      
       remove: (data: any) =>
         CartService.postCartRemove({
           requestBody: data,
         }),
-
+      
       clear: () => CartService.postCartClear(),
     },
 

@@ -4,11 +4,17 @@ export type CartItem = {
     id: string;
     productId: string;
     variantId: string | null;
+    storeId: string | null;
+    storeName: string | null;
+    storeSlug: string | null;
     qty: number;
     priceCents: number;
     sku: string | null;
     meta: Record<string, any> | null;
     lineTotalCents: number;
+    taxCode: string | null;
+    taxBehavior: 'inclusive' | 'exclusive' | null;
+    taxLabel: string | null;
     product: CartProductMini;
     variant: CartVariantMini | null;
     createdAt: string;

@@ -6,4 +6,6 @@ export type CartProductMini = {
     status: string;
     priceCents: number;
     currency: string;
+    taxCode: string | null;
+    taxBehavior: 'inclusive' | 'exclusive' | null;
 };
