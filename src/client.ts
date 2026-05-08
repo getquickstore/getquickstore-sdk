@@ -563,6 +563,11 @@ public: {
       q: params?.q,
     }),
 
+      checkoutOrderPreview: (orderId: string) =>
+    PublicService.getPublicCheckoutOrdersPreview({
+      orderId,
+    }),
+
   store: (slug: string) =>
     PublicService.getPublicStores1({
       slug,
@@ -1270,7 +1275,7 @@ syncTaxSettingsFromStripe: (id: string) =>
         : {}),
     },
   }),
-  
+
   bookingCheckout: (data: {
     bookingId: string
     successUrl?: string

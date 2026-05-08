@@ -169,6 +169,8 @@ export type { ProfileUpdateInput } from './models/ProfileUpdateInput';
 export type { ProfileUser } from './models/ProfileUser';
 export type { PublicCategory } from './models/PublicCategory';
 export type { PublicCategoryListResponse } from './models/PublicCategoryListResponse';
+export type { PublicCheckoutAddress } from './models/PublicCheckoutAddress';
+export type { PublicCheckoutOrderPreviewResponse } from './models/PublicCheckoutOrderPreviewResponse';
 export type { PublicProductListResponse } from './models/PublicProductListResponse';
 export type { PublicProductResponse } from './models/PublicProductResponse';
 export type { PublicServiceListResponse } from './models/PublicServiceListResponse';

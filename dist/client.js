@@ -314,6 +314,9 @@ function createClient({ baseUrl, token, storeId }) {
             stores: (params) => PublicService_1.PublicService.getPublicStores({
                 q: params?.q,
             }),
+            checkoutOrderPreview: (orderId) => PublicService_1.PublicService.getPublicCheckoutOrdersPreview({
+                orderId,
+            }),
             store: (slug) => PublicService_1.PublicService.getPublicStores1({
                 slug,
             }),

@@ -2,6 +2,7 @@ import type { CreateStoreReviewRequest } from '../models/CreateStoreReviewReques
 import type { MarketplaceCatalogResponse } from '../models/MarketplaceCatalogResponse';
 import type { OkResponse } from '../models/OkResponse';
 import type { PublicCategoryListResponse } from '../models/PublicCategoryListResponse';
+import type { PublicCheckoutOrderPreviewResponse } from '../models/PublicCheckoutOrderPreviewResponse';
 import type { PublicProductListResponse } from '../models/PublicProductListResponse';
 import type { PublicServiceListResponse } from '../models/PublicServiceListResponse';
 import type { PublicStore } from '../models/PublicStore';
@@ -101,6 +102,14 @@ export declare class PublicService {
      * @throws ApiError
      */
     static getPublicCatalog(): CancelablePromise<MarketplaceCatalogResponse>;
+    /**
+     * Get public checkout order preview
+     * @returns PublicCheckoutOrderPreviewResponse Checkout order preview
+     * @throws ApiError
+     */
+    static getPublicCheckoutOrdersPreview({ orderId, }: {
+        orderId: string;
+    }): CancelablePromise<PublicCheckoutOrderPreviewResponse>;
     /**
      * List public categories
      * @returns PublicCategoryListResponse Public categories list

@@ -195,6 +195,24 @@ class PublicService {
         });
     }
     /**
+     * Get public checkout order preview
+     * @returns PublicCheckoutOrderPreviewResponse Checkout order preview
+     * @throws ApiError
+     */
+    static getPublicCheckoutOrdersPreview({ orderId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/public/checkout/orders/{orderId}/preview',
+            path: {
+                'orderId': orderId,
+            },
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
+            },
+        });
+    }
+    /**
      * List public categories
      * @returns PublicCategoryListResponse Public categories list
      * @throws ApiError

@@ -6,6 +6,7 @@ import type { CreateStoreReviewRequest } from '../models/CreateStoreReviewReques
 import type { MarketplaceCatalogResponse } from '../models/MarketplaceCatalogResponse';
 import type { OkResponse } from '../models/OkResponse';
 import type { PublicCategoryListResponse } from '../models/PublicCategoryListResponse';
+import type { PublicCheckoutOrderPreviewResponse } from '../models/PublicCheckoutOrderPreviewResponse';
 import type { PublicProductListResponse } from '../models/PublicProductListResponse';
 import type { PublicServiceListResponse } from '../models/PublicServiceListResponse';
 import type { PublicStore } from '../models/PublicStore';
@@ -257,6 +258,28 @@ export class PublicService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/public/catalog',
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
+            },
+        });
+    }
+    /**
+     * Get public checkout order preview
+     * @returns PublicCheckoutOrderPreviewResponse Checkout order preview
+     * @throws ApiError
+     */
+    public static getPublicCheckoutOrdersPreview({
+        orderId,
+    }: {
+        orderId: string,
+    }): CancelablePromise<PublicCheckoutOrderPreviewResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/public/checkout/orders/{orderId}/preview',
+            path: {
+                'orderId': orderId,
+            },
             errors: {
                 404: `Not found`,
                 500: `Internal server error`,
