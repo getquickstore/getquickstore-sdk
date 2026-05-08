@@ -10,5 +10,7 @@ export type PublicCheckoutAddress = {
     country?: string | null;
     postalCode?: string | null;
     type?: string | null;
+    latitude?: number | null;
+    longitude?: number | null;
 };
 

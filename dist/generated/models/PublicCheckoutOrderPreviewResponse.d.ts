@@ -19,10 +19,16 @@ export type PublicCheckoutOrderPreviewResponse = {
         id?: string;
         name?: string;
         slug?: string | null;
+        publicUrl?: string | null;
         logoUrl?: string | null;
         supportEmail?: string | null;
         supportPhone?: string | null;
+        website?: string | null;
+        description?: string | null;
         address?: PublicCheckoutAddress;
+        tax?: {
+            vatNumber?: string | null;
+        };
     };
     buyer: {
         name?: string | null;
