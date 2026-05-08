@@ -95,9 +95,6 @@ export class PaymentsService {
         xStoreId,
         requestBody,
     }: {
-        /**
-         * Payment id
-         */
         paymentId: string,
         /**
          * Store context id. If provided, must match the payment store.

@@ -37,9 +37,6 @@ export declare class PaymentsService {
      * @throws ApiError
      */
     static postPaymentsRefund({ paymentId, xStoreId, requestBody, }: {
-        /**
-         * Payment id
-         */
         paymentId: string;
         /**
          * Store context id. If provided, must match the payment store.

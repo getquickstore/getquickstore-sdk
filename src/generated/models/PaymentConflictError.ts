@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { PaymentStatus } from './PaymentStatus';
 export type PaymentConflictError = {
     ok: boolean;
     error: string;
-    paymentStatus?: 'REQUIRES_ACTION' | 'PENDING' | 'SUCCEEDED' | 'FAILED' | 'CANCELLED' | 'REFUNDED' | null;
+    paymentStatus?: PaymentStatus | null;
 };
 

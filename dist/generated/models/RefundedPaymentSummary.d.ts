@@ -1,5 +1,12 @@
+import type { PaymentStatus } from './PaymentStatus';
 export type RefundedPaymentSummary = {
     id: string;
-    status: 'REQUIRES_ACTION' | 'PENDING' | 'SUCCEEDED' | 'FAILED' | 'CANCELLED' | 'REFUNDED';
+    status: PaymentStatus;
     refundedCents: number;
+    subtotalCents?: number;
+    taxCents?: number;
+    totalCents?: number;
+    stripeCheckoutSessionId?: string | null;
+    stripePaymentIntentId?: string | null;
+    stripeTaxTransactionId?: string | null;
 };
