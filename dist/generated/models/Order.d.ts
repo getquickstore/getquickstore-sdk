@@ -1,6 +1,7 @@
 import type { Address } from './Address';
 import type { OrderCustomer } from './OrderCustomer';
 import type { OrderItem } from './OrderItem';
+import type { OrderPickupInfo } from './OrderPickupInfo';
 import type { OrderStoreRef } from './OrderStoreRef';
 import type { Payment } from './Payment';
 export type Order = {
@@ -16,6 +17,7 @@ export type Order = {
     fulfillmentMeta?: any;
     pickupAt?: string | null;
     pickupReadyAt?: string | null;
+    pickup?: OrderPickupInfo | null;
     completedAt?: string | null;
     trackingCarrier?: string | null;
     trackingNumber?: string | null;

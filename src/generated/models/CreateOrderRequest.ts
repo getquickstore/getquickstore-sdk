@@ -18,6 +18,10 @@ export type CreateOrderRequest = {
      */
     pickupAt?: string | null;
     /**
+     * Pickup window end time when fulfillmentType is PICKUP
+     */
+    pickupReadyAt?: string | null;
+    /**
      * Optional fulfillment metadata
      */
     fulfillmentMeta?: any;

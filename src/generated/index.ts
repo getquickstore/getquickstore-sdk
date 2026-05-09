@@ -131,6 +131,8 @@ export type { Order } from './models/Order';
 export type { OrderCustomer } from './models/OrderCustomer';
 export type { OrderItem } from './models/OrderItem';
 export type { OrderListResponse } from './models/OrderListResponse';
+export type { OrderPickupInfo } from './models/OrderPickupInfo';
+export type { OrderPickupToken } from './models/OrderPickupToken';
 export type { OrderProductImage } from './models/OrderProductImage';
 export type { OrderProductRef } from './models/OrderProductRef';
 export type { OrderSingleResponse } from './models/OrderSingleResponse';

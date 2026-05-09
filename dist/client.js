@@ -581,7 +581,7 @@ function createClient({ baseUrl, token, storeId }) {
         },
         orders: {
             list: (params) => OrdersService_1.OrdersService.getOrders({
-                xStoreId: params?.storeId || undefined,
+                xStoreId: params?.storeId || storeId || undefined,
                 limit: params?.limit,
                 status: params?.status,
                 paymentStatus: params?.paymentStatus,
@@ -596,7 +596,7 @@ function createClient({ baseUrl, token, storeId }) {
             }),
             get: (id, customStoreId) => OrdersService_1.OrdersService.getOrders1({
                 id,
-                xStoreId: customStoreId || undefined,
+                xStoreId: customStoreId || storeId || undefined,
             }),
             confirm: (id, customStoreId) => OrdersService_1.OrdersService.postOrdersConfirm({
                 id,
@@ -625,12 +625,10 @@ function createClient({ baseUrl, token, storeId }) {
             checkoutPreview: (data) => PaymentsService_1.PaymentsService.postPaymentsCheckoutPreview({
                 requestBody: {
                     orderId: data.orderId,
-                    ...(data.fulfillmentType
-                        ? { fulfillmentType: data.fulfillmentType }
-                        : {}),
-                    ...(data.shippingAddressId
-                        ? { shippingAddressId: data.shippingAddressId }
-                        : {}),
+                    ...(data.fulfillmentType ? { fulfillmentType: data.fulfillmentType } : {}),
+                    ...(data.shippingAddressId ? { shippingAddressId: data.shippingAddressId } : {}),
+                    ...(data.pickupAt ? { pickupAt: data.pickupAt } : {}),
+                    ...(data.pickupReadyAt ? { pickupReadyAt: data.pickupReadyAt } : {}),
                 },
             }),
             bookingCheckout: (data) => PaymentsService_1.PaymentsService.postPaymentsBookingsCheckout({
@@ -650,6 +648,8 @@ function createClient({ baseUrl, token, storeId }) {
                     ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
                     ...(data.fulfillmentType ? { fulfillmentType: data.fulfillmentType } : {}),
                     ...(data.shippingAddressId ? { shippingAddressId: data.shippingAddressId } : {}),
+                    ...(data.pickupAt ? { pickupAt: data.pickupAt } : {}),
+                    ...(data.pickupReadyAt ? { pickupReadyAt: data.pickupReadyAt } : {}),
                 },
             }),
             refund: (paymentId, data, customStoreId) => PaymentsService_1.PaymentsService.postPaymentsRefund({

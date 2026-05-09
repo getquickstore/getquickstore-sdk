@@ -591,6 +591,8 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             orderId: string;
             fulfillmentType?: "STANDARD" | "PICKUP";
             shippingAddressId?: string | null;
+            pickupAt?: string | null;
+            pickupReadyAt?: string | null;
         }) => import("./generated").CancelablePromise<import("./generated").PaymentCheckoutPreviewResponse>;
         bookingCheckout: (data: {
             bookingId: string;
@@ -608,6 +610,8 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             cancelUrl?: string;
             fulfillmentType?: "STANDARD" | "PICKUP";
             shippingAddressId?: string | null;
+            pickupAt?: string | null;
+            pickupReadyAt?: string | null;
         }) => import("./generated").CancelablePromise<import("./generated").PaymentCheckoutResponse>;
         refund: (paymentId: string, data?: any, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").CreateRefundResponse>;
     };

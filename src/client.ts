@@ -1174,7 +1174,7 @@ syncTaxSettingsFromStripe: (id: string) =>
         storeId?: string
       }) =>
         OrdersService.getOrders({
-          xStoreId: params?.storeId || undefined,
+          xStoreId: params?.storeId || storeId || undefined,
           limit: params?.limit,
           status: params?.status,
           paymentStatus: params?.paymentStatus,
@@ -1193,7 +1193,7 @@ syncTaxSettingsFromStripe: (id: string) =>
       get: (id: string, customStoreId?: string) =>
         OrdersService.getOrders1({
           id,
-          xStoreId: customStoreId || undefined,
+          xStoreId: customStoreId || storeId || undefined,
         }),
 
       confirm: (id: string, customStoreId?: string) =>
@@ -1259,20 +1259,20 @@ syncTaxSettingsFromStripe: (id: string) =>
 
    payments: {
 
-    checkoutPreview: (data: {
+checkoutPreview: (data: {
   orderId: string
   fulfillmentType?: "STANDARD" | "PICKUP"
   shippingAddressId?: string | null
+  pickupAt?: string | null
+  pickupReadyAt?: string | null
 }) =>
   PaymentsService.postPaymentsCheckoutPreview({
     requestBody: {
       orderId: data.orderId,
-      ...(data.fulfillmentType
-        ? { fulfillmentType: data.fulfillmentType }
-        : {}),
-      ...(data.shippingAddressId
-        ? { shippingAddressId: data.shippingAddressId }
-        : {}),
+      ...(data.fulfillmentType ? { fulfillmentType: data.fulfillmentType } : {}),
+      ...(data.shippingAddressId ? { shippingAddressId: data.shippingAddressId } : {}),
+      ...(data.pickupAt ? { pickupAt: data.pickupAt } : {}),
+      ...(data.pickupReadyAt ? { pickupReadyAt: data.pickupReadyAt } : {}),
     },
   }),
 
@@ -1304,6 +1304,8 @@ checkout: (data: {
   cancelUrl?: string
   fulfillmentType?: "STANDARD" | "PICKUP"
   shippingAddressId?: string | null
+  pickupAt?: string | null
+  pickupReadyAt?: string | null
 }) =>
   PaymentsService.postPaymentsCheckout({
     requestBody: {
@@ -1312,6 +1314,8 @@ checkout: (data: {
       ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
       ...(data.fulfillmentType ? { fulfillmentType: data.fulfillmentType } : {}),
       ...(data.shippingAddressId ? { shippingAddressId: data.shippingAddressId } : {}),
+      ...(data.pickupAt ? { pickupAt: data.pickupAt } : {}),
+      ...(data.pickupReadyAt ? { pickupReadyAt: data.pickupReadyAt } : {}),
     },
   }),
 
