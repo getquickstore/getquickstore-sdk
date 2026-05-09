@@ -1,6 +1,8 @@
 import type { BookingPaymentCheckoutPreviewRequest } from '../models/BookingPaymentCheckoutPreviewRequest';
 import type { BookingPaymentCheckoutPreviewResponse } from '../models/BookingPaymentCheckoutPreviewResponse';
 import type { BookingPaymentCheckoutRequest } from '../models/BookingPaymentCheckoutRequest';
+import type { BookingSeriesCustomPaymentCheckoutPreviewRequest } from '../models/BookingSeriesCustomPaymentCheckoutPreviewRequest';
+import type { BookingSeriesCustomPaymentCheckoutPreviewResponse } from '../models/BookingSeriesCustomPaymentCheckoutPreviewResponse';
 import type { BookingSeriesPaymentCheckoutPreviewRequest } from '../models/BookingSeriesPaymentCheckoutPreviewRequest';
 import type { BookingSeriesPaymentCheckoutPreviewResponse } from '../models/BookingSeriesPaymentCheckoutPreviewResponse';
 import type { BookingSeriesPaymentCheckoutRequest } from '../models/BookingSeriesPaymentCheckoutRequest';
@@ -53,6 +55,14 @@ export declare class PaymentsService {
     static postPaymentsBookingsCheckout({ requestBody, }: {
         requestBody: BookingPaymentCheckoutRequest;
     }): CancelablePromise<PaymentCheckoutResponse>;
+    /**
+     * Preview custom booking series checkout totals before Stripe checkout
+     * @returns BookingSeriesCustomPaymentCheckoutPreviewResponse Custom booking series checkout preview calculated
+     * @throws ApiError
+     */
+    static postPaymentsBookingsSeriesCustomPreview({ requestBody, }: {
+        requestBody: BookingSeriesCustomPaymentCheckoutPreviewRequest;
+    }): CancelablePromise<BookingSeriesCustomPaymentCheckoutPreviewResponse>;
     /**
      * Create Stripe Checkout session for booking series
      * @returns BookingSeriesPaymentCheckoutResponse Booking series checkout session created

@@ -103,6 +103,24 @@ class PaymentsService {
         });
     }
     /**
+     * Preview custom booking series checkout totals before Stripe checkout
+     * @returns BookingSeriesCustomPaymentCheckoutPreviewResponse Custom booking series checkout preview calculated
+     * @throws ApiError
+     */
+    static postPaymentsBookingsSeriesCustomPreview({ requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/payments/bookings/series/custom-preview',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `UNAUTHORIZED`,
+                404: `Service not found`,
+            },
+        });
+    }
+    /**
      * Create Stripe Checkout session for booking series
      * @returns BookingSeriesPaymentCheckoutResponse Booking series checkout session created
      * @throws ApiError

@@ -607,6 +607,14 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         bookingSeriesCheckoutPreview: (data: {
             seriesId: string;
         }) => import("./generated").CancelablePromise<import("./generated").BookingSeriesPaymentCheckoutPreviewResponse>;
+        bookingSeriesCustomCheckoutPreview: (data: {
+            storeId?: string;
+            serviceId: string;
+            dates: {
+                date: string;
+                time: string;
+            }[];
+        }) => import("./generated").CancelablePromise<import("./generated").BookingSeriesCustomPaymentCheckoutPreviewResponse>;
         bookingCheckout: (data: {
             bookingId: string;
             successUrl?: string;

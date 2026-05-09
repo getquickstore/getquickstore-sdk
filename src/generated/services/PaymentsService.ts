@@ -5,6 +5,8 @@
 import type { BookingPaymentCheckoutPreviewRequest } from '../models/BookingPaymentCheckoutPreviewRequest';
 import type { BookingPaymentCheckoutPreviewResponse } from '../models/BookingPaymentCheckoutPreviewResponse';
 import type { BookingPaymentCheckoutRequest } from '../models/BookingPaymentCheckoutRequest';
+import type { BookingSeriesCustomPaymentCheckoutPreviewRequest } from '../models/BookingSeriesCustomPaymentCheckoutPreviewRequest';
+import type { BookingSeriesCustomPaymentCheckoutPreviewResponse } from '../models/BookingSeriesCustomPaymentCheckoutPreviewResponse';
 import type { BookingSeriesPaymentCheckoutPreviewRequest } from '../models/BookingSeriesPaymentCheckoutPreviewRequest';
 import type { BookingSeriesPaymentCheckoutPreviewResponse } from '../models/BookingSeriesPaymentCheckoutPreviewResponse';
 import type { BookingSeriesPaymentCheckoutRequest } from '../models/BookingSeriesPaymentCheckoutRequest';
@@ -134,6 +136,28 @@ export class PaymentsService {
                 403: `Access denied`,
                 404: `Booking not found`,
                 409: `Conflict`,
+            },
+        });
+    }
+    /**
+     * Preview custom booking series checkout totals before Stripe checkout
+     * @returns BookingSeriesCustomPaymentCheckoutPreviewResponse Custom booking series checkout preview calculated
+     * @throws ApiError
+     */
+    public static postPaymentsBookingsSeriesCustomPreview({
+        requestBody,
+    }: {
+        requestBody: BookingSeriesCustomPaymentCheckoutPreviewRequest,
+    }): CancelablePromise<BookingSeriesCustomPaymentCheckoutPreviewResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/payments/bookings/series/custom-preview',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `UNAUTHORIZED`,
+                404: `Service not found`,
             },
         });
     }

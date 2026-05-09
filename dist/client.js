@@ -654,6 +654,13 @@ function createClient({ baseUrl, token, storeId }) {
                     seriesId: data.seriesId,
                 },
             }),
+            bookingSeriesCustomCheckoutPreview: (data) => PaymentsService_1.PaymentsService.postPaymentsBookingsSeriesCustomPreview({
+                requestBody: {
+                    ...(data.storeId ? { storeId: data.storeId } : {}),
+                    serviceId: data.serviceId,
+                    dates: data.dates,
+                },
+            }),
             bookingCheckout: (data) => PaymentsService_1.PaymentsService.postPaymentsBookingsCheckout({
                 requestBody: data,
             }),

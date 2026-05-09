@@ -60,6 +60,8 @@ export type { BookingPaymentCheckoutPreviewRequest } from './models/BookingPayme
 export type { BookingPaymentCheckoutPreviewResponse } from './models/BookingPaymentCheckoutPreviewResponse';
 export type { BookingPaymentCheckoutRequest } from './models/BookingPaymentCheckoutRequest';
 export type { BookingSeries } from './models/BookingSeries';
+export type { BookingSeriesCustomPaymentCheckoutPreviewRequest } from './models/BookingSeriesCustomPaymentCheckoutPreviewRequest';
+export type { BookingSeriesCustomPaymentCheckoutPreviewResponse } from './models/BookingSeriesCustomPaymentCheckoutPreviewResponse';
 export type { BookingSeriesDate } from './models/BookingSeriesDate';
 export type { BookingSeriesItem } from './models/BookingSeriesItem';
 export type { BookingSeriesListResponse } from './models/BookingSeriesListResponse';

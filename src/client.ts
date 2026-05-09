@@ -1321,6 +1321,19 @@ bookingSeriesCheckoutPreview: (data: {
     },
   }),
 
+  bookingSeriesCustomCheckoutPreview: (data: {
+  storeId?: string
+  serviceId: string
+  dates: { date: string; time: string }[]
+}) =>
+  PaymentsService.postPaymentsBookingsSeriesCustomPreview({
+    requestBody: {
+      ...(data.storeId ? { storeId: data.storeId } : {}),
+      serviceId: data.serviceId,
+      dates: data.dates,
+    },
+  }),
+
   bookingCheckout: (data: {
     bookingId: string
     successUrl?: string
