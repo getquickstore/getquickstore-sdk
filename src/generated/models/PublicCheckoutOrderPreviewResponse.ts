@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { PublicCheckoutAddress } from './PublicCheckoutAddress';
+import type { PublicStoreAvailability } from './PublicStoreAvailability';
 export type PublicCheckoutOrderPreviewResponse = {
     ok: boolean;
     order: {
@@ -30,8 +31,14 @@ export type PublicCheckoutOrderPreviewResponse = {
         website?: string | null;
         description?: string | null;
         address?: PublicCheckoutAddress;
+        availability?: Array<PublicStoreAvailability>;
         tax?: {
             vatNumber?: string | null;
+            enabled?: boolean;
+            liability?: 'SELLER' | 'PLATFORM';
+            behavior?: 'inclusive' | 'exclusive';
+            businessCountry?: string | null;
+            businessCity?: string | null;
         };
     };
     buyer: {

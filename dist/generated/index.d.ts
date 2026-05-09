@@ -176,6 +176,7 @@ export type { PublicServiceSlotsResponse } from './models/PublicServiceSlotsResp
 export type { PublicStore } from './models/PublicStore';
 export type { PublicStoreAllReview } from './models/PublicStoreAllReview';
 export type { PublicStoreAllReviewListResponse } from './models/PublicStoreAllReviewListResponse';
+export type { PublicStoreAvailability } from './models/PublicStoreAvailability';
 export type { PublicStoreListResponse } from './models/PublicStoreListResponse';
 export type { PublicStoreNearbyResponse } from './models/PublicStoreNearbyResponse';
 export type { PublicStoreRef } from './models/PublicStoreRef';
