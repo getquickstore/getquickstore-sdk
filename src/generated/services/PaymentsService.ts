@@ -2,7 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { BookingPaymentCheckoutPreviewRequest } from '../models/BookingPaymentCheckoutPreviewRequest';
+import type { BookingPaymentCheckoutPreviewResponse } from '../models/BookingPaymentCheckoutPreviewResponse';
 import type { BookingPaymentCheckoutRequest } from '../models/BookingPaymentCheckoutRequest';
+import type { BookingSeriesPaymentCheckoutPreviewRequest } from '../models/BookingSeriesPaymentCheckoutPreviewRequest';
+import type { BookingSeriesPaymentCheckoutPreviewResponse } from '../models/BookingSeriesPaymentCheckoutPreviewResponse';
 import type { BookingSeriesPaymentCheckoutRequest } from '../models/BookingSeriesPaymentCheckoutRequest';
 import type { BookingSeriesPaymentCheckoutResponse } from '../models/BookingSeriesPaymentCheckoutResponse';
 import type { CreateRefundRequest } from '../models/CreateRefundRequest';
@@ -60,6 +64,52 @@ export class PaymentsService {
                 403: `Access denied`,
                 404: `Order not found`,
                 409: `Conflict`,
+            },
+        });
+    }
+    /**
+     * Preview booking checkout totals before Stripe checkout
+     * @returns BookingPaymentCheckoutPreviewResponse Booking checkout preview calculated
+     * @throws ApiError
+     */
+    public static postPaymentsBookingsCheckoutPreview({
+        requestBody,
+    }: {
+        requestBody: BookingPaymentCheckoutPreviewRequest,
+    }): CancelablePromise<BookingPaymentCheckoutPreviewResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/payments/bookings/checkout-preview',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `UNAUTHORIZED`,
+                403: `Access denied`,
+                404: `Booking not found`,
+            },
+        });
+    }
+    /**
+     * Preview booking series checkout totals before Stripe checkout
+     * @returns BookingSeriesPaymentCheckoutPreviewResponse Booking series checkout preview calculated
+     * @throws ApiError
+     */
+    public static postPaymentsBookingsSeriesCheckoutPreview({
+        requestBody,
+    }: {
+        requestBody: BookingSeriesPaymentCheckoutPreviewRequest,
+    }): CancelablePromise<BookingSeriesPaymentCheckoutPreviewResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/payments/bookings/series/checkout-preview',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `UNAUTHORIZED`,
+                403: `Access denied`,
+                404: `Booking series not found`,
             },
         });
     }

@@ -644,6 +644,16 @@ function createClient({ baseUrl, token, storeId }) {
                     ...(data.pickupReadyAt ? { pickupReadyAt: data.pickupReadyAt } : {}),
                 },
             }),
+            bookingCheckoutPreview: (data) => PaymentsService_1.PaymentsService.postPaymentsBookingsCheckoutPreview({
+                requestBody: {
+                    bookingId: data.bookingId,
+                },
+            }),
+            bookingSeriesCheckoutPreview: (data) => PaymentsService_1.PaymentsService.postPaymentsBookingsSeriesCheckoutPreview({
+                requestBody: {
+                    seriesId: data.seriesId,
+                },
+            }),
             bookingCheckout: (data) => PaymentsService_1.PaymentsService.postPaymentsBookingsCheckout({
                 requestBody: data,
             }),

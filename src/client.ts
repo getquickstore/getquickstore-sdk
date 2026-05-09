@@ -1303,6 +1303,24 @@ checkoutPreview: (data: {
     },
   }),
 
+  bookingCheckoutPreview: (data: {
+  bookingId: string
+}) =>
+  PaymentsService.postPaymentsBookingsCheckoutPreview({
+    requestBody: {
+      bookingId: data.bookingId,
+    },
+  }),
+
+bookingSeriesCheckoutPreview: (data: {
+  seriesId: string
+}) =>
+  PaymentsService.postPaymentsBookingsSeriesCheckoutPreview({
+    requestBody: {
+      seriesId: data.seriesId,
+    },
+  }),
+
   bookingCheckout: (data: {
     bookingId: string
     successUrl?: string

@@ -45,6 +45,44 @@ class PaymentsService {
         });
     }
     /**
+     * Preview booking checkout totals before Stripe checkout
+     * @returns BookingPaymentCheckoutPreviewResponse Booking checkout preview calculated
+     * @throws ApiError
+     */
+    static postPaymentsBookingsCheckoutPreview({ requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/payments/bookings/checkout-preview',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `UNAUTHORIZED`,
+                403: `Access denied`,
+                404: `Booking not found`,
+            },
+        });
+    }
+    /**
+     * Preview booking series checkout totals before Stripe checkout
+     * @returns BookingSeriesPaymentCheckoutPreviewResponse Booking series checkout preview calculated
+     * @throws ApiError
+     */
+    static postPaymentsBookingsSeriesCheckoutPreview({ requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/payments/bookings/series/checkout-preview',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation error`,
+                401: `UNAUTHORIZED`,
+                403: `Access denied`,
+                404: `Booking series not found`,
+            },
+        });
+    }
+    /**
      * Create Stripe Checkout session for booking
      * @returns PaymentCheckoutResponse Booking checkout session created
      * @throws ApiError

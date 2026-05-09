@@ -1,0 +1,23 @@
+export type BookingPayment = {
+    id: string;
+    storeId: string;
+    orderId?: string | null;
+    bookingId?: string | null;
+    bookingSeriesId?: string | null;
+    provider: string;
+    status: 'REQUIRES_ACTION' | 'PENDING' | 'SUCCEEDED' | 'FAILED' | 'CANCELLED' | 'REFUNDED';
+    amountCents: number;
+    amount: number;
+    subtotalCents: number;
+    subtotal: number;
+    taxCents: number;
+    tax: number;
+    totalCents: number;
+    total: number;
+    currency: string;
+    externalId?: string | null;
+    refundedCents: number;
+    refunded: number;
+    createdAt?: string | null;
+    updatedAt?: string | null;
+};

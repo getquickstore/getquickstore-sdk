@@ -60,11 +60,16 @@ export type { BookingCompletionTokenResponse } from './models/BookingCompletionT
 export type { BookingCustomer } from './models/BookingCustomer';
 export type { BookingError } from './models/BookingError';
 export type { BookingListResponse } from './models/BookingListResponse';
+export type { BookingPayment } from './models/BookingPayment';
+export type { BookingPaymentCheckoutPreviewRequest } from './models/BookingPaymentCheckoutPreviewRequest';
+export type { BookingPaymentCheckoutPreviewResponse } from './models/BookingPaymentCheckoutPreviewResponse';
 export type { BookingPaymentCheckoutRequest } from './models/BookingPaymentCheckoutRequest';
 export type { BookingSeries } from './models/BookingSeries';
 export type { BookingSeriesDate } from './models/BookingSeriesDate';
 export type { BookingSeriesItem } from './models/BookingSeriesItem';
 export type { BookingSeriesListResponse } from './models/BookingSeriesListResponse';
+export type { BookingSeriesPaymentCheckoutPreviewRequest } from './models/BookingSeriesPaymentCheckoutPreviewRequest';
+export type { BookingSeriesPaymentCheckoutPreviewResponse } from './models/BookingSeriesPaymentCheckoutPreviewResponse';
 export type { BookingSeriesPaymentCheckoutRequest } from './models/BookingSeriesPaymentCheckoutRequest';
 export type { BookingSeriesPaymentCheckoutResponse } from './models/BookingSeriesPaymentCheckoutResponse';
 export type { BookingSeriesPreviewRequest } from './models/BookingSeriesPreviewRequest';

@@ -14,4 +14,10 @@ export type BookingService = {
     reviewCount?: number;
     image?: string | null;
     images?: Array<ServiceImage>;
+    taxCode?: string | null;
+    taxBehavior?: 'inclusive' | 'exclusive' | null;
+    subtotalCents: number;
+    subtotal: number;
+    taxCents: number;
+    tax: number;
 };

@@ -1,4 +1,8 @@
+import type { BookingPaymentCheckoutPreviewRequest } from '../models/BookingPaymentCheckoutPreviewRequest';
+import type { BookingPaymentCheckoutPreviewResponse } from '../models/BookingPaymentCheckoutPreviewResponse';
 import type { BookingPaymentCheckoutRequest } from '../models/BookingPaymentCheckoutRequest';
+import type { BookingSeriesPaymentCheckoutPreviewRequest } from '../models/BookingSeriesPaymentCheckoutPreviewRequest';
+import type { BookingSeriesPaymentCheckoutPreviewResponse } from '../models/BookingSeriesPaymentCheckoutPreviewResponse';
 import type { BookingSeriesPaymentCheckoutRequest } from '../models/BookingSeriesPaymentCheckoutRequest';
 import type { BookingSeriesPaymentCheckoutResponse } from '../models/BookingSeriesPaymentCheckoutResponse';
 import type { CreateRefundRequest } from '../models/CreateRefundRequest';
@@ -25,6 +29,22 @@ export declare class PaymentsService {
     static postPaymentsCheckout({ requestBody, }: {
         requestBody: PaymentCheckoutRequest;
     }): CancelablePromise<PaymentCheckoutResponse>;
+    /**
+     * Preview booking checkout totals before Stripe checkout
+     * @returns BookingPaymentCheckoutPreviewResponse Booking checkout preview calculated
+     * @throws ApiError
+     */
+    static postPaymentsBookingsCheckoutPreview({ requestBody, }: {
+        requestBody: BookingPaymentCheckoutPreviewRequest;
+    }): CancelablePromise<BookingPaymentCheckoutPreviewResponse>;
+    /**
+     * Preview booking series checkout totals before Stripe checkout
+     * @returns BookingSeriesPaymentCheckoutPreviewResponse Booking series checkout preview calculated
+     * @throws ApiError
+     */
+    static postPaymentsBookingsSeriesCheckoutPreview({ requestBody, }: {
+        requestBody: BookingSeriesPaymentCheckoutPreviewRequest;
+    }): CancelablePromise<BookingSeriesPaymentCheckoutPreviewResponse>;
     /**
      * Create Stripe Checkout session for booking
      * @returns PaymentCheckoutResponse Booking checkout session created

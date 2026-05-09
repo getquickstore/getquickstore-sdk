@@ -4,4 +4,8 @@ export type CheckoutTaxContext = {
     behavior?: 'inclusive' | 'exclusive';
     provider?: string | null;
     automaticTax?: boolean | null;
+    taxStatus?: 'CALCULATED' | 'STRIPE_REQUIRED' | 'DISABLED' | 'ADDRESS_REQUIRED' | null;
+    taxCents?: number | null;
+    totalCents?: number | null;
+    stripeTaxCalculationId?: string | null;
 };

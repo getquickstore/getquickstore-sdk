@@ -1,4 +1,5 @@
 import type { BookingCustomer } from './BookingCustomer';
+import type { BookingPayment } from './BookingPayment';
 import type { BookingService } from './BookingService';
 export type Booking = {
     id: string;
@@ -12,6 +13,7 @@ export type Booking = {
     customerPhone?: string | null;
     notes?: string | null;
     status: 'PENDING' | 'CONFIRMED' | 'COMPLETED' | 'CANCELLED';
+    payments: Array<BookingPayment>;
     paymentStatus: 'REQUIRES_ACTION' | 'PENDING' | 'SUCCEEDED' | 'FAILED' | 'CANCELLED' | 'REFUNDED';
     startAt: string;
     endAt: string;
