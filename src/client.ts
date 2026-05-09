@@ -1228,6 +1228,33 @@ syncTaxSettingsFromStripe: (id: string) =>
           requestBody: data || {},
         }),
 
+              createPickupToken: (id: string) =>
+        OrdersService.postOrdersPickupToken({
+          id,
+        }),
+
+      completePickupByToken: (
+        id: string,
+        data: { token: string },
+        customStoreId?: string
+      ) =>
+        OrdersService.postOrdersCompleteByToken({
+          id,
+          xStoreId: customStoreId || requireStoreId(),
+          requestBody: data,
+        }),
+
+      completePickupByCode: (
+        id: string,
+        data: { code: string },
+        customStoreId?: string
+      ) =>
+        OrdersService.postOrdersCompleteByCode({
+          id,
+          xStoreId: customStoreId || requireStoreId(),
+          requestBody: data,
+        }),
+
       updateStatus: (
         id: string,
         data:

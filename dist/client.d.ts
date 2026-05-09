@@ -581,6 +581,13 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         confirmReceived: (id: string, data?: {
             deliveryProofUrl?: string | null;
         }) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
+        createPickupToken: (id: string) => import("./generated").CancelablePromise<import("./generated").CreatePickupTokenResponse>;
+        completePickupByToken: (id: string, data: {
+            token: string;
+        }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
+        completePickupByCode: (id: string, data: {
+            code: string;
+        }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
         updateStatus: (id: string, data: UpdateOrderStatusRequest | {
             status: "PROCESSING" | "READY_FOR_PICKUP" | "SHIPPED" | "DELIVERED" | "FULFILLED" | "CANCELLED";
         }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;

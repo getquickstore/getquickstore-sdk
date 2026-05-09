@@ -611,6 +611,19 @@ function createClient({ baseUrl, token, storeId }) {
                 id,
                 requestBody: data || {},
             }),
+            createPickupToken: (id) => OrdersService_1.OrdersService.postOrdersPickupToken({
+                id,
+            }),
+            completePickupByToken: (id, data, customStoreId) => OrdersService_1.OrdersService.postOrdersCompleteByToken({
+                id,
+                xStoreId: customStoreId || requireStoreId(),
+                requestBody: data,
+            }),
+            completePickupByCode: (id, data, customStoreId) => OrdersService_1.OrdersService.postOrdersCompleteByCode({
+                id,
+                xStoreId: customStoreId || requireStoreId(),
+                requestBody: data,
+            }),
             updateStatus: (id, data, customStoreId) => OrdersService_1.OrdersService.patchOrdersStatus({
                 id,
                 xStoreId: customStoreId || requireStoreId(),

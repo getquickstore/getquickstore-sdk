@@ -1,5 +1,8 @@
+import type { CompletePickupByCodeRequest } from '../models/CompletePickupByCodeRequest';
+import type { CompletePickupByTokenRequest } from '../models/CompletePickupByTokenRequest';
 import type { ConfirmReceivedRequest } from '../models/ConfirmReceivedRequest';
 import type { CreateOrderRequest } from '../models/CreateOrderRequest';
+import type { CreatePickupTokenResponse } from '../models/CreatePickupTokenResponse';
 import type { OrderListResponse } from '../models/OrderListResponse';
 import type { OrderSingleResponse } from '../models/OrderSingleResponse';
 import type { PayOrderResponse } from '../models/PayOrderResponse';
@@ -104,6 +107,43 @@ export declare class OrdersService {
     static postOrdersConfirmReceived({ id, requestBody, }: {
         id: string;
         requestBody?: ConfirmReceivedRequest;
+    }): CancelablePromise<OrderSingleResponse>;
+    /**
+     * Create or refresh pickup token
+     * Buyer creates or refreshes a pickup QR token and 6-digit code for a pickup order.
+     * @returns CreatePickupTokenResponse Pickup token created
+     * @throws ApiError
+     */
+    static postOrdersPickupToken({ id, }: {
+        id: string;
+    }): CancelablePromise<CreatePickupTokenResponse>;
+    /**
+     * Complete pickup order by QR token
+     * Seller scans buyer QR token and completes a pickup order.
+     * @returns OrderSingleResponse Pickup order completed
+     * @throws ApiError
+     */
+    static postOrdersCompleteByToken({ id, xStoreId, requestBody, }: {
+        id: string;
+        /**
+         * Store context id. Required for seller pickup completion.
+         */
+        xStoreId: string;
+        requestBody: CompletePickupByTokenRequest;
+    }): CancelablePromise<OrderSingleResponse>;
+    /**
+     * Complete pickup order by 6-digit code
+     * Seller enters buyer 6-digit pickup code and completes a pickup order.
+     * @returns OrderSingleResponse Pickup order completed
+     * @throws ApiError
+     */
+    static postOrdersCompleteByCode({ id, xStoreId, requestBody, }: {
+        id: string;
+        /**
+         * Store context id. Required for seller pickup completion.
+         */
+        xStoreId: string;
+        requestBody: CompletePickupByCodeRequest;
     }): CancelablePromise<OrderSingleResponse>;
     /**
      * Pay buyer order with mock payment

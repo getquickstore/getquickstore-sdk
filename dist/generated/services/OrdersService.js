@@ -193,6 +193,80 @@ class OrdersService {
         });
     }
     /**
+     * Create or refresh pickup token
+     * Buyer creates or refreshes a pickup QR token and 6-digit code for a pickup order.
+     * @returns CreatePickupTokenResponse Pickup token created
+     * @throws ApiError
+     */
+    static postOrdersPickupToken({ id, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/{id}/pickup-token',
+            path: {
+                'id': id,
+            },
+            errors: {
+                404: `Order not found`,
+                409: `Pickup token not available`,
+                500: `Pickup token creation failed`,
+            },
+        });
+    }
+    /**
+     * Complete pickup order by QR token
+     * Seller scans buyer QR token and completes a pickup order.
+     * @returns OrderSingleResponse Pickup order completed
+     * @throws ApiError
+     */
+    static postOrdersCompleteByToken({ id, xStoreId, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/{id}/complete-by-token',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Token required`,
+                403: `Access denied`,
+                404: `Order or pickup token not found`,
+                409: `Invalid or expired pickup token`,
+                500: `Pickup completion by token failed`,
+            },
+        });
+    }
+    /**
+     * Complete pickup order by 6-digit code
+     * Seller enters buyer 6-digit pickup code and completes a pickup order.
+     * @returns OrderSingleResponse Pickup order completed
+     * @throws ApiError
+     */
+    static postOrdersCompleteByCode({ id, xStoreId, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/{id}/complete-by-code',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Code required`,
+                403: `Access denied`,
+                404: `Order or pickup token not found`,
+                409: `Invalid or expired pickup code`,
+                500: `Pickup completion by code failed`,
+            },
+        });
+    }
+    /**
      * Pay buyer order with mock payment
      * @returns PayOrderResponse Payment succeeded
      * @throws ApiError

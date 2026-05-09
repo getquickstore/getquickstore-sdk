@@ -2,8 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CompletePickupByCodeRequest } from '../models/CompletePickupByCodeRequest';
+import type { CompletePickupByTokenRequest } from '../models/CompletePickupByTokenRequest';
 import type { ConfirmReceivedRequest } from '../models/ConfirmReceivedRequest';
 import type { CreateOrderRequest } from '../models/CreateOrderRequest';
+import type { CreatePickupTokenResponse } from '../models/CreatePickupTokenResponse';
 import type { OrderListResponse } from '../models/OrderListResponse';
 import type { OrderSingleResponse } from '../models/OrderSingleResponse';
 import type { PayOrderResponse } from '../models/PayOrderResponse';
@@ -274,6 +277,106 @@ export class OrdersService {
                 404: `Order not found`,
                 409: `Order cannot be confirmed received`,
                 500: `Order confirm received failed`,
+            },
+        });
+    }
+    /**
+     * Create or refresh pickup token
+     * Buyer creates or refreshes a pickup QR token and 6-digit code for a pickup order.
+     * @returns CreatePickupTokenResponse Pickup token created
+     * @throws ApiError
+     */
+    public static postOrdersPickupToken({
+        id,
+    }: {
+        id: string,
+    }): CancelablePromise<CreatePickupTokenResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/orders/{id}/pickup-token',
+            path: {
+                'id': id,
+            },
+            errors: {
+                404: `Order not found`,
+                409: `Pickup token not available`,
+                500: `Pickup token creation failed`,
+            },
+        });
+    }
+    /**
+     * Complete pickup order by QR token
+     * Seller scans buyer QR token and completes a pickup order.
+     * @returns OrderSingleResponse Pickup order completed
+     * @throws ApiError
+     */
+    public static postOrdersCompleteByToken({
+        id,
+        xStoreId,
+        requestBody,
+    }: {
+        id: string,
+        /**
+         * Store context id. Required for seller pickup completion.
+         */
+        xStoreId: string,
+        requestBody: CompletePickupByTokenRequest,
+    }): CancelablePromise<OrderSingleResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/orders/{id}/complete-by-token',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Token required`,
+                403: `Access denied`,
+                404: `Order or pickup token not found`,
+                409: `Invalid or expired pickup token`,
+                500: `Pickup completion by token failed`,
+            },
+        });
+    }
+    /**
+     * Complete pickup order by 6-digit code
+     * Seller enters buyer 6-digit pickup code and completes a pickup order.
+     * @returns OrderSingleResponse Pickup order completed
+     * @throws ApiError
+     */
+    public static postOrdersCompleteByCode({
+        id,
+        xStoreId,
+        requestBody,
+    }: {
+        id: string,
+        /**
+         * Store context id. Required for seller pickup completion.
+         */
+        xStoreId: string,
+        requestBody: CompletePickupByCodeRequest,
+    }): CancelablePromise<OrderSingleResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/orders/{id}/complete-by-code',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Code required`,
+                403: `Access denied`,
+                404: `Order or pickup token not found`,
+                409: `Invalid or expired pickup code`,
+                500: `Pickup completion by code failed`,
             },
         });
     }
