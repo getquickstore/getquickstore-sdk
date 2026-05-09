@@ -648,6 +648,8 @@ function createClient({ baseUrl, token, storeId }) {
                     orderId: data.orderId,
                     ...(data.successUrl ? { successUrl: data.successUrl } : {}),
                     ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
+                    ...(data.fulfillmentType ? { fulfillmentType: data.fulfillmentType } : {}),
+                    ...(data.shippingAddressId ? { shippingAddressId: data.shippingAddressId } : {}),
                 },
             }),
             refund: (paymentId, data, customStoreId) => PaymentsService_1.PaymentsService.postPaymentsRefund({

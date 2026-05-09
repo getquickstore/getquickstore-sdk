@@ -1298,18 +1298,22 @@ syncTaxSettingsFromStripe: (id: string) =>
       },
     }),
 
-  checkout: (data: {
-    orderId: string
-    successUrl?: string
-    cancelUrl?: string
-  }) =>
-    PaymentsService.postPaymentsCheckout({
-      requestBody: {
-        orderId: data.orderId,
-        ...(data.successUrl ? { successUrl: data.successUrl } : {}),
-        ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
-      },
-    }),
+checkout: (data: {
+  orderId: string
+  successUrl?: string
+  cancelUrl?: string
+  fulfillmentType?: "STANDARD" | "PICKUP"
+  shippingAddressId?: string | null
+}) =>
+  PaymentsService.postPaymentsCheckout({
+    requestBody: {
+      orderId: data.orderId,
+      ...(data.successUrl ? { successUrl: data.successUrl } : {}),
+      ...(data.cancelUrl ? { cancelUrl: data.cancelUrl } : {}),
+      ...(data.fulfillmentType ? { fulfillmentType: data.fulfillmentType } : {}),
+      ...(data.shippingAddressId ? { shippingAddressId: data.shippingAddressId } : {}),
+    },
+  }),
 
   refund: (paymentId: string, data?: any, customStoreId?: string) =>
     PaymentsService.postPaymentsRefund({

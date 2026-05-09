@@ -606,6 +606,8 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             orderId: string;
             successUrl?: string;
             cancelUrl?: string;
+            fulfillmentType?: "STANDARD" | "PICKUP";
+            shippingAddressId?: string | null;
         }) => import("./generated").CancelablePromise<import("./generated").PaymentCheckoutResponse>;
         refund: (paymentId: string, data?: any, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").CreateRefundResponse>;
     };
