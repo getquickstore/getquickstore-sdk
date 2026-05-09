@@ -17,5 +17,7 @@ export type PaymentCheckoutPreviewResponse = {
     taxEnabled: boolean;
     taxBehavior: 'inclusive' | 'exclusive';
     taxLiability: 'SELLER' | 'PLATFORM';
+    pickupAt: string | null;
+    pickupReadyAt: string | null;
 };
 
