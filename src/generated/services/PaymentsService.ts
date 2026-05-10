@@ -193,6 +193,7 @@ export class PaymentsService {
     public static postPaymentsRefund({
         paymentId,
         xStoreId,
+        idempotencyKey,
         requestBody,
     }: {
         paymentId: string,
@@ -200,6 +201,10 @@ export class PaymentsService {
          * Store context id. If provided, must match the payment store.
          */
         xStoreId?: string,
+        /**
+         * Prevents duplicate refund execution on retries or double clicks.
+         */
+        idempotencyKey?: string,
         requestBody?: CreateRefundRequest,
     }): CancelablePromise<CreateRefundResponse> {
         return __request(OpenAPI, {
@@ -210,6 +215,7 @@ export class PaymentsService {
             },
             headers: {
                 'x-store-id': xStoreId,
+                'Idempotency-Key': idempotencyKey,
             },
             body: requestBody,
             mediaType: 'application/json',

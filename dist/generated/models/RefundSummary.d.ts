@@ -5,5 +5,6 @@ export type RefundSummary = {
     taxRefundedCents?: number;
     stripeTaxTransactionReversalId?: string | null;
     reason?: string | null;
+    status: 'PENDING' | 'SUCCEEDED' | 'FAILED' | 'CANCELLED';
     createdAt: string;
 };

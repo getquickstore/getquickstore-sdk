@@ -634,7 +634,10 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             pickupAt?: string | null;
             pickupReadyAt?: string | null;
         }) => import("./generated").CancelablePromise<import("./generated").PaymentCheckoutResponse>;
-        refund: (paymentId: string, data?: any, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").CreateRefundResponse>;
+        refund: (paymentId: string, data?: {
+            amountCents?: number | null;
+            reason?: "duplicate" | "fraudulent" | "requested_by_customer" | null;
+        }, customStoreId?: string, idempotencyKey?: string) => import("./generated").CancelablePromise<import("./generated").CreateRefundResponse>;
     };
     reviews: {
         list: (productId: string, params?: {

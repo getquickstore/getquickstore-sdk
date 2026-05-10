@@ -1377,12 +1377,21 @@ checkout: (data: {
     },
   }),
 
-  refund: (paymentId: string, data?: any, customStoreId?: string) =>
-    PaymentsService.postPaymentsRefund({
-      paymentId,
-      requestBody: data,
-      xStoreId: customStoreId || storeId || undefined,
-    }),
+ refund: (
+  paymentId: string,
+  data?: {
+    amountCents?: number | null
+    reason?: "duplicate" | "fraudulent" | "requested_by_customer" | null
+  },
+  customStoreId?: string,
+  idempotencyKey?: string
+) =>
+  PaymentsService.postPaymentsRefund({
+    paymentId,
+    requestBody: data || {},
+    xStoreId: customStoreId || storeId || undefined,
+    idempotencyKey,
+  } as any),
 },
 
 reviews: {

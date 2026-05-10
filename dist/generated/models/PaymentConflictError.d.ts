@@ -3,4 +3,5 @@ export type PaymentConflictError = {
     ok: boolean;
     error: string;
     paymentStatus?: PaymentStatus | null;
+    refundableLeft?: number | null;
 };

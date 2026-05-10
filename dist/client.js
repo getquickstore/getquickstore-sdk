@@ -682,10 +682,11 @@ function createClient({ baseUrl, token, storeId }) {
                     ...(data.pickupReadyAt ? { pickupReadyAt: data.pickupReadyAt } : {}),
                 },
             }),
-            refund: (paymentId, data, customStoreId) => PaymentsService_1.PaymentsService.postPaymentsRefund({
+            refund: (paymentId, data, customStoreId, idempotencyKey) => PaymentsService_1.PaymentsService.postPaymentsRefund({
                 paymentId,
-                requestBody: data,
+                requestBody: data || {},
                 xStoreId: customStoreId || storeId || undefined,
+                idempotencyKey,
             }),
         },
         reviews: {

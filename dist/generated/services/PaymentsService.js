@@ -145,7 +145,7 @@ class PaymentsService {
      * @returns CreateRefundResponse Refund created
      * @throws ApiError
      */
-    static postPaymentsRefund({ paymentId, xStoreId, requestBody, }) {
+    static postPaymentsRefund({ paymentId, xStoreId, idempotencyKey, requestBody, }) {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'POST',
             url: '/payments/{paymentId}/refund',
@@ -154,6 +154,7 @@ class PaymentsService {
             },
             headers: {
                 'x-store-id': xStoreId,
+                'Idempotency-Key': idempotencyKey,
             },
             body: requestBody,
             mediaType: 'application/json',

@@ -76,12 +76,16 @@ export declare class PaymentsService {
      * @returns CreateRefundResponse Refund created
      * @throws ApiError
      */
-    static postPaymentsRefund({ paymentId, xStoreId, requestBody, }: {
+    static postPaymentsRefund({ paymentId, xStoreId, idempotencyKey, requestBody, }: {
         paymentId: string;
         /**
          * Store context id. If provided, must match the payment store.
          */
         xStoreId?: string;
+        /**
+         * Prevents duplicate refund execution on retries or double clicks.
+         */
+        idempotencyKey?: string;
         requestBody?: CreateRefundRequest;
     }): CancelablePromise<CreateRefundResponse>;
 }
