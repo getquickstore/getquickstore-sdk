@@ -37,6 +37,28 @@ class BillingService {
         });
     }
     /**
+     * Get live billing status for the user's current or latest owned store
+     * Alias of /billing/current for success-page polling after Stripe Checkout. This endpoint must be treated as live state and should not be cached.
+     * @returns BillingCurrentResponse Live billing status
+     * @throws ApiError
+     */
+    static getBillingStatus({ xStoreId, storeId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/billing/status',
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            query: {
+                'storeId': storeId,
+            },
+            errors: {
+                401: `Missing or invalid token`,
+                404: `Store not found`,
+            },
+        });
+    }
+    /**
      * Get current billing state for a specific store
      * @returns BillingCurrentResponse Current billing state
      * @throws ApiError
@@ -45,6 +67,25 @@ class BillingService {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'GET',
             url: '/billing/stores/{id}/current',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Missing or invalid token`,
+                404: `Store not found`,
+            },
+        });
+    }
+    /**
+     * Get live billing status for a specific store
+     * Alias of /billing/stores/{id}/current for success-page polling after Stripe Checkout. This endpoint must be treated as live state and should not be cached.
+     * @returns BillingCurrentResponse Live billing status
+     * @throws ApiError
+     */
+    static getBillingStoresStatus({ id, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/billing/stores/{id}/status',
             path: {
                 'id': id,
             },

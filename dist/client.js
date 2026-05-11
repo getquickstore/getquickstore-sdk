@@ -170,6 +170,11 @@ function createClient({ baseUrl, token, storeId }) {
                 xStoreId: storeId || undefined,
                 storeId: storeId || undefined,
             }),
+            status: () => BillingService_1.BillingService.getBillingStatus({
+                xStoreId: storeId || undefined,
+                storeId: storeId || undefined,
+            }),
+            storeStatus: (id) => BillingService_1.BillingService.getBillingStoresStatus({ id }),
             storeCurrent: (id) => BillingService_1.BillingService.getBillingStoresCurrent({ id }),
             checkout: (data) => BillingService_1.BillingService.postBillingCheckout({
                 requestBody: {

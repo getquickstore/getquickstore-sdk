@@ -157,6 +157,8 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     };
     billing: {
         current: () => import("./generated").CancelablePromise<import("./generated").BillingCurrentResponse>;
+        status: () => import("./generated").CancelablePromise<import("./generated").BillingCurrentResponse>;
+        storeStatus: (id: string) => import("./generated").CancelablePromise<import("./generated").BillingCurrentResponse>;
         storeCurrent: (id: string) => import("./generated").CancelablePromise<import("./generated").BillingCurrentResponse>;
         checkout: (data: {
             storeId?: string;

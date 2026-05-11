@@ -284,6 +284,15 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           storeId: storeId || undefined,
         }),
 
+              status: () =>
+        BillingService.getBillingStatus({
+          xStoreId: storeId || undefined,
+          storeId: storeId || undefined,
+        }),
+
+      storeStatus: (id: string) =>
+        BillingService.getBillingStoresStatus({ id }),
+
       storeCurrent: (id: string) =>
         BillingService.getBillingStoresCurrent({ id }),
 

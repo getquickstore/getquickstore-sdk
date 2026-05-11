@@ -32,11 +32,39 @@ export declare class BillingService {
         storeId?: string;
     }): CancelablePromise<BillingCurrentResponse>;
     /**
+     * Get live billing status for the user's current or latest owned store
+     * Alias of /billing/current for success-page polling after Stripe Checkout. This endpoint must be treated as live state and should not be cached.
+     * @returns BillingCurrentResponse Live billing status
+     * @throws ApiError
+     */
+    static getBillingStatus({ xStoreId, storeId, }: {
+        /**
+         * Store context id. Can also be passed as query param storeId.
+         */
+        xStoreId?: string;
+        /**
+         * Store id. Optional if x-store-id header or user defaultStoreId is available.
+         */
+        storeId?: string;
+    }): CancelablePromise<BillingCurrentResponse>;
+    /**
      * Get current billing state for a specific store
      * @returns BillingCurrentResponse Current billing state
      * @throws ApiError
      */
     static getBillingStoresCurrent({ id, }: {
+        /**
+         * Store id
+         */
+        id: string;
+    }): CancelablePromise<BillingCurrentResponse>;
+    /**
+     * Get live billing status for a specific store
+     * Alias of /billing/stores/{id}/current for success-page polling after Stripe Checkout. This endpoint must be treated as live state and should not be cached.
+     * @returns BillingCurrentResponse Live billing status
+     * @throws ApiError
+     */
+    static getBillingStoresStatus({ id, }: {
         /**
          * Store id
          */
