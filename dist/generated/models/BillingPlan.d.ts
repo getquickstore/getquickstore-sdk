@@ -7,4 +7,6 @@ export type BillingPlan = {
     graceDays: number;
     isActive: boolean;
     isUnlimited: boolean;
+    stripePriceId?: string | null;
+    stripeProductId?: string | null;
 };

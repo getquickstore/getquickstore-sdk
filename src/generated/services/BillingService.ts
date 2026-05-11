@@ -17,7 +17,7 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class BillingService {
     /**
-     * List available billing plans
+     * List available billing plans from Stripe Price configuration
      * @returns BillingPlansResponse Available plans
      * @throws ApiError
      */

@@ -11,7 +11,7 @@ import type { BillingStripeConnectStartResponse } from '../models/BillingStripeC
 import type { CancelablePromise } from '../core/CancelablePromise';
 export declare class BillingService {
     /**
-     * List available billing plans
+     * List available billing plans from Stripe Price configuration
      * @returns BillingPlansResponse Available plans
      * @throws ApiError
      */

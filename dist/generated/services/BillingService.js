@@ -5,7 +5,7 @@ const OpenAPI_1 = require("../core/OpenAPI");
 const request_1 = require("../core/request");
 class BillingService {
     /**
-     * List available billing plans
+     * List available billing plans from Stripe Price configuration
      * @returns BillingPlansResponse Available plans
      * @throws ApiError
      */
