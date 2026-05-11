@@ -4,7 +4,7 @@ exports.OpenAPI = void 0;
 exports.OpenAPI = {
     BASE: 'http://localhost:4001',
     VERSION: '1.0.0',
-    WITH_CREDENTIALS: false,
+    WITH_CREDENTIALS: true,
     CREDENTIALS: 'include',
     TOKEN: undefined,
     USERNAME: undefined,
