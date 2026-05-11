@@ -2,6 +2,7 @@ import type { SeoAdminPagesResponse } from '../models/SeoAdminPagesResponse';
 import type { SeoRebuildResponse } from '../models/SeoRebuildResponse';
 import type { SeoResponse } from '../models/SeoResponse';
 import type { SeoSitemapResponse } from '../models/SeoSitemapResponse';
+import type { StoreSeoRebuildResponse } from '../models/StoreSeoRebuildResponse';
 import type { StoreSeoSettingsResponse } from '../models/StoreSeoSettingsResponse';
 import type { StoreStructuredDataResponse } from '../models/StoreStructuredDataResponse';
 import type { UpdateStoreSeoSettingsRequest } from '../models/UpdateStoreSeoSettingsRequest';
@@ -78,6 +79,15 @@ export declare class SeoService {
     static postSeoStoresStructuredDataGenerate({ id, }: {
         id: string;
     }): CancelablePromise<StoreStructuredDataResponse>;
+    /**
+     * Rebuild public SEO page for one store
+     * Builds or rebuilds the generated public SEO page for a single store. Requires authenticated store OWNER.
+     * @returns StoreSeoRebuildResponse Store SEO page rebuilt
+     * @throws ApiError
+     */
+    static postSeoStoresRebuild({ id, }: {
+        id: string;
+    }): CancelablePromise<StoreSeoRebuildResponse>;
     /**
      * Get SEO page by slug
      * Returns generated SEO metadata and page payload for store, product, service, search or micro-search pages.

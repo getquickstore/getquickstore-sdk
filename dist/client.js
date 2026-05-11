@@ -365,6 +365,9 @@ function createClient({ baseUrl, token, storeId }) {
             get: (slug) => SeoService_1.SeoService.getSeo({
                 slug,
             }),
+            rebuildStoreSeo: (id) => SeoService_1.SeoService.postSeoStoresRebuild({
+                id,
+            }),
             getStoreSeo: (id) => SeoService_1.SeoService.getSeoStores({
                 id,
             }),

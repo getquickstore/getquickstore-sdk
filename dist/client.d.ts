@@ -320,6 +320,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     };
     seo: {
         get: (slug: string) => import("./generated").CancelablePromise<import("./generated").SeoResponse>;
+        rebuildStoreSeo: (id: string) => import("./generated").CancelablePromise<import("./generated").StoreSeoRebuildResponse>;
         getStoreSeo: (id: string) => import("./generated").CancelablePromise<import("./generated").StoreSeoSettingsResponse>;
         updateStoreSeo: (id: string, data: {
             metaTitle?: string | null;

@@ -6,6 +6,7 @@ import type { SeoAdminPagesResponse } from '../models/SeoAdminPagesResponse';
 import type { SeoRebuildResponse } from '../models/SeoRebuildResponse';
 import type { SeoResponse } from '../models/SeoResponse';
 import type { SeoSitemapResponse } from '../models/SeoSitemapResponse';
+import type { StoreSeoRebuildResponse } from '../models/StoreSeoRebuildResponse';
 import type { StoreSeoSettingsResponse } from '../models/StoreSeoSettingsResponse';
 import type { StoreStructuredDataResponse } from '../models/StoreStructuredDataResponse';
 import type { UpdateStoreSeoSettingsRequest } from '../models/UpdateStoreSeoSettingsRequest';
@@ -208,6 +209,32 @@ export class SeoService {
                 403: `Forbidden`,
                 404: `Store not found`,
                 500: `Store structured data generate failed`,
+            },
+        });
+    }
+    /**
+     * Rebuild public SEO page for one store
+     * Builds or rebuilds the generated public SEO page for a single store. Requires authenticated store OWNER.
+     * @returns StoreSeoRebuildResponse Store SEO page rebuilt
+     * @throws ApiError
+     */
+    public static postSeoStoresRebuild({
+        id,
+    }: {
+        id: string,
+    }): CancelablePromise<StoreSeoRebuildResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/seo/stores/{id}/rebuild',
+            path: {
+                'id': id,
+            },
+            errors: {
+                400: `Store is not public or cannot be rebuilt`,
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store SEO rebuild failed`,
             },
         });
     }

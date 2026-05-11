@@ -166,6 +166,28 @@ class SeoService {
         });
     }
     /**
+     * Rebuild public SEO page for one store
+     * Builds or rebuilds the generated public SEO page for a single store. Requires authenticated store OWNER.
+     * @returns StoreSeoRebuildResponse Store SEO page rebuilt
+     * @throws ApiError
+     */
+    static postSeoStoresRebuild({ id, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/seo/stores/{id}/rebuild',
+            path: {
+                'id': id,
+            },
+            errors: {
+                400: `Store is not public or cannot be rebuilt`,
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Store not found`,
+                500: `Store SEO rebuild failed`,
+            },
+        });
+    }
+    /**
      * Get SEO page by slug
      * Returns generated SEO metadata and page payload for store, product, service, search or micro-search pages.
      * @returns SeoResponse SEO page response

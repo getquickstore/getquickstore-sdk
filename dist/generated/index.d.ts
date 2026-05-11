@@ -241,6 +241,8 @@ export type { StoreError } from './models/StoreError';
 export type { StoreListResponse } from './models/StoreListResponse';
 export type { StoreOwnerView } from './models/StoreOwnerView';
 export type { StoreSelectResponse } from './models/StoreSelectResponse';
+export type { StoreSeoRebuildBuild } from './models/StoreSeoRebuildBuild';
+export type { StoreSeoRebuildResponse } from './models/StoreSeoRebuildResponse';
 export type { StoreSeoSettings } from './models/StoreSeoSettings';
 export type { StoreSeoSettingsResponse } from './models/StoreSeoSettingsResponse';
 export type { StoreSettingsResponse } from './models/StoreSettingsResponse';

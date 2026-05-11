@@ -654,6 +654,11 @@ seo: {
       slug,
     }),
 
+    rebuildStoreSeo: (id: string) =>
+  SeoService.postSeoStoresRebuild({
+    id,
+  }),
+
   getStoreSeo: (id: string) =>
     SeoService.getSeoStores({
       id,
