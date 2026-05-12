@@ -9,10 +9,14 @@ export type ExportJob = {
     type?: string;
     format?: string;
     status?: string;
+    provider?: string | null;
     dateFrom?: string | null;
     dateTo?: string | null;
     fileKey?: string | null;
     fileUrl?: string | null;
+    downloadUrl?: string | null;
+    spreadsheetId?: string | null;
+    spreadsheetUrl?: string | null;
     rowsCount?: number;
     filters?: Record<string, any> | null;
     meta?: Record<string, any> | null;

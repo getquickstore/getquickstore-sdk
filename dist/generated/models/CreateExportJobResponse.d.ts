@@ -3,9 +3,9 @@ import type { ExportSummary } from './ExportSummary';
 export type CreateExportJobResponse = {
     ok: boolean;
     item: ExportJob;
-    preview: {
+    preview?: {
         total?: number;
         summary?: ExportSummary;
         items?: Array<Record<string, any>>;
-    };
+    } | null;
 };

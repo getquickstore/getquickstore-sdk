@@ -154,20 +154,22 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             dateFrom?: string;
             dateTo?: string;
         }) => import("./generated").CancelablePromise<import("./generated").ExportResponse>;
-        listJobs: () => import("./generated").CancelablePromise<import("./generated").ExportJobListResponse>;
-        createJob: (data: {
-            type: "ORDERS" | "BOOKINGS" | "BOOKING_SERIES" | "PAYMENTS" | "REFUNDS" | "TAX_SUMMARY" | "FINANCIAL_SUMMARY";
-            format: "CSV" | "XLSX" | "JSON" | "GOOGLE_SHEETS";
-            dateFrom?: string | null;
-            dateTo?: string | null;
-            filters?: any;
-            meta?: any;
-        }) => import("./generated").CancelablePromise<import("./generated").CreateExportJobResponse>;
-        getJob: (id: string) => import("./generated").CancelablePromise<import("./generated").ExportJobResponse>;
         jobs: {
             list: () => import("./generated").CancelablePromise<import("./generated").ExportJobListResponse>;
-            create: (data: any) => import("./generated").CancelablePromise<import("./generated").CreateExportJobResponse>;
+            create: (data: {
+                type: "ORDERS" | "BOOKINGS" | "BOOKING_SERIES" | "PAYMENTS" | "REFUNDS" | "TAX_SUMMARY" | "FINANCIAL_SUMMARY" | "FULL_FINANCIAL_REPORT";
+                format: "CSV" | "XLSX" | "JSON" | "GOOGLE_SHEETS";
+                dateFrom?: string | null;
+                dateTo?: string | null;
+                filters?: any;
+            }) => import("./generated").CancelablePromise<import("./generated").CreateExportJobResponse>;
             get: (id: string) => import("./generated").CancelablePromise<import("./generated").ExportJobResponse>;
+            download: (id: string) => import("./generated").CancelablePromise<Blob>;
+        };
+        google: {
+            status: () => import("./generated").CancelablePromise<import("./generated").ExportGoogleStatusResponse>;
+            connect: () => import("./generated").CancelablePromise<import("./generated").ExportGoogleConnectResponse>;
+            disconnect: () => import("./generated").CancelablePromise<import("./generated").ExportGoogleStatusResponse>;
         };
     };
     availability: {

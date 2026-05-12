@@ -250,47 +250,50 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           dateFrom: params?.dateFrom,
           dateTo: params?.dateTo,
         }),
-      
-      listJobs: () =>
-        ExportsService.getExportsJobs(),
-    
-      createJob: (data: {
-        type:
-          | "ORDERS"
-          | "BOOKINGS"
-          | "BOOKING_SERIES"
-          | "PAYMENTS"
-          | "REFUNDS"
-          | "TAX_SUMMARY"
-          | "FINANCIAL_SUMMARY"
-        format: "CSV" | "XLSX" | "JSON" | "GOOGLE_SHEETS"
-        dateFrom?: string | null
-        dateTo?: string | null
-        filters?: any
-        meta?: any
-      }) =>
-        ExportsService.postExportsJobs({
-          requestBody: data as any,
-        }),
-      
-      getJob: (id: string) =>
-        ExportsService.getExportsJobs1({
-          id,
-        }),
-      
+
       jobs: {
         list: () =>
           ExportsService.getExportsJobs(),
-      
-        create: (data: any) =>
+
+        create: (data: {
+          type:
+            | "ORDERS"
+            | "BOOKINGS"
+            | "BOOKING_SERIES"
+            | "PAYMENTS"
+            | "REFUNDS"
+            | "TAX_SUMMARY"
+            | "FINANCIAL_SUMMARY"
+            | "FULL_FINANCIAL_REPORT"
+          format: "CSV" | "XLSX" | "JSON" | "GOOGLE_SHEETS"
+          dateFrom?: string | null
+          dateTo?: string | null
+          filters?: any
+        }) =>
           ExportsService.postExportsJobs({
-            requestBody: data,
+            requestBody: data as any,
           }),
-        
+
         get: (id: string) =>
           ExportsService.getExportsJobs1({
             id,
           }),
+
+        download: (id: string) =>
+          ExportsService.getExportsJobsDownload({
+            id,
+          }),
+      },
+
+      google: {
+        status: () =>
+          ExportsService.getExportsGoogleStatus(),
+
+        connect: () =>
+          ExportsService.postExportsGoogleConnect(),
+
+        disconnect: () =>
+          ExportsService.postExportsGoogleDisconnect(),
       },
     },
 

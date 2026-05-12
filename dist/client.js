@@ -145,13 +145,6 @@ function createClient({ baseUrl, token, storeId }) {
                 dateFrom: params?.dateFrom,
                 dateTo: params?.dateTo,
             }),
-            listJobs: () => ExportsService_1.ExportsService.getExportsJobs(),
-            createJob: (data) => ExportsService_1.ExportsService.postExportsJobs({
-                requestBody: data,
-            }),
-            getJob: (id) => ExportsService_1.ExportsService.getExportsJobs1({
-                id,
-            }),
             jobs: {
                 list: () => ExportsService_1.ExportsService.getExportsJobs(),
                 create: (data) => ExportsService_1.ExportsService.postExportsJobs({
@@ -160,6 +153,14 @@ function createClient({ baseUrl, token, storeId }) {
                 get: (id) => ExportsService_1.ExportsService.getExportsJobs1({
                     id,
                 }),
+                download: (id) => ExportsService_1.ExportsService.getExportsJobsDownload({
+                    id,
+                }),
+            },
+            google: {
+                status: () => ExportsService_1.ExportsService.getExportsGoogleStatus(),
+                connect: () => ExportsService_1.ExportsService.postExportsGoogleConnect(),
+                disconnect: () => ExportsService_1.ExportsService.postExportsGoogleDisconnect(),
             },
         },
         availability: {

@@ -1,5 +1,7 @@
 import type { CreateExportJobRequest } from '../models/CreateExportJobRequest';
 import type { CreateExportJobResponse } from '../models/CreateExportJobResponse';
+import type { ExportGoogleConnectResponse } from '../models/ExportGoogleConnectResponse';
+import type { ExportGoogleStatusResponse } from '../models/ExportGoogleStatusResponse';
 import type { ExportJobListResponse } from '../models/ExportJobListResponse';
 import type { ExportJobResponse } from '../models/ExportJobResponse';
 import type { ExportResponse } from '../models/ExportResponse';
@@ -37,4 +39,30 @@ export declare class ExportsService {
     static getExportsJobs1({ id, }: {
         id: string;
     }): CancelablePromise<ExportJobResponse>;
+    /**
+     * Download export job file
+     * @returns binary Export file download
+     * @throws ApiError
+     */
+    static getExportsJobsDownload({ id, }: {
+        id: string;
+    }): CancelablePromise<Blob>;
+    /**
+     * Get Google Sheets export connection status
+     * @returns ExportGoogleStatusResponse Google Sheets connection status
+     * @throws ApiError
+     */
+    static getExportsGoogleStatus(): CancelablePromise<ExportGoogleStatusResponse>;
+    /**
+     * Start Google Sheets connection flow
+     * @returns ExportGoogleConnectResponse Google Sheets connect response
+     * @throws ApiError
+     */
+    static postExportsGoogleConnect(): CancelablePromise<ExportGoogleConnectResponse>;
+    /**
+     * Disconnect Google Sheets integration
+     * @returns ExportGoogleStatusResponse Google Sheets disconnected
+     * @throws ApiError
+     */
+    static postExportsGoogleDisconnect(): CancelablePromise<ExportGoogleStatusResponse>;
 }

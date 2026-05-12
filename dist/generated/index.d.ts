@@ -118,6 +118,8 @@ export type { CustomBookingSeriesDateInput } from './models/CustomBookingSeriesD
 export type { CustomBookingSeriesPreviewRequest } from './models/CustomBookingSeriesPreviewRequest';
 export type { CustomBookingSeriesPreviewResponse } from './models/CustomBookingSeriesPreviewResponse';
 export type { ErrorResponse } from './models/ErrorResponse';
+export type { ExportGoogleConnectResponse } from './models/ExportGoogleConnectResponse';
+export type { ExportGoogleStatusResponse } from './models/ExportGoogleStatusResponse';
 export type { ExportJob } from './models/ExportJob';
 export type { ExportJobListResponse } from './models/ExportJobListResponse';
 export type { ExportJobResponse } from './models/ExportJobResponse';

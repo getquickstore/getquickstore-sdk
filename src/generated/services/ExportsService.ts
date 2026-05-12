@@ -4,6 +4,8 @@
 /* eslint-disable */
 import type { CreateExportJobRequest } from '../models/CreateExportJobRequest';
 import type { CreateExportJobResponse } from '../models/CreateExportJobResponse';
+import type { ExportGoogleConnectResponse } from '../models/ExportGoogleConnectResponse';
+import type { ExportGoogleStatusResponse } from '../models/ExportGoogleStatusResponse';
 import type { ExportJobListResponse } from '../models/ExportJobListResponse';
 import type { ExportJobResponse } from '../models/ExportJobResponse';
 import type { ExportResponse } from '../models/ExportResponse';
@@ -95,6 +97,75 @@ export class ExportsService {
                 401: `Unauthorized`,
                 404: `Export job not found`,
                 500: `Export job get failed`,
+            },
+        });
+    }
+    /**
+     * Download export job file
+     * @returns binary Export file download
+     * @throws ApiError
+     */
+    public static getExportsJobsDownload({
+        id,
+    }: {
+        id: string,
+    }): CancelablePromise<Blob> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/exports/jobs/{id}/download',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Unauthorized`,
+                404: `Export file not found`,
+                500: `Export job download failed`,
+            },
+        });
+    }
+    /**
+     * Get Google Sheets export connection status
+     * @returns ExportGoogleStatusResponse Google Sheets connection status
+     * @throws ApiError
+     */
+    public static getExportsGoogleStatus(): CancelablePromise<ExportGoogleStatusResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/exports/google/status',
+            errors: {
+                401: `Unauthorized`,
+                500: `Google Sheets status failed`,
+            },
+        });
+    }
+    /**
+     * Start Google Sheets connection flow
+     * @returns ExportGoogleConnectResponse Google Sheets connect response
+     * @throws ApiError
+     */
+    public static postExportsGoogleConnect(): CancelablePromise<ExportGoogleConnectResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/exports/google/connect',
+            errors: {
+                401: `Unauthorized`,
+                500: `Google Sheets connect failed`,
+                501: `Google OAuth not implemented`,
+            },
+        });
+    }
+    /**
+     * Disconnect Google Sheets integration
+     * @returns ExportGoogleStatusResponse Google Sheets disconnected
+     * @throws ApiError
+     */
+    public static postExportsGoogleDisconnect(): CancelablePromise<ExportGoogleStatusResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/exports/google/disconnect',
+            errors: {
+                401: `Unauthorized`,
+                500: `Google Sheets disconnect failed`,
             },
         });
     }

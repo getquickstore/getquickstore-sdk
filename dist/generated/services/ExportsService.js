@@ -75,5 +75,70 @@ class ExportsService {
             },
         });
     }
+    /**
+     * Download export job file
+     * @returns binary Export file download
+     * @throws ApiError
+     */
+    static getExportsJobsDownload({ id, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/exports/jobs/{id}/download',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Unauthorized`,
+                404: `Export file not found`,
+                500: `Export job download failed`,
+            },
+        });
+    }
+    /**
+     * Get Google Sheets export connection status
+     * @returns ExportGoogleStatusResponse Google Sheets connection status
+     * @throws ApiError
+     */
+    static getExportsGoogleStatus() {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/exports/google/status',
+            errors: {
+                401: `Unauthorized`,
+                500: `Google Sheets status failed`,
+            },
+        });
+    }
+    /**
+     * Start Google Sheets connection flow
+     * @returns ExportGoogleConnectResponse Google Sheets connect response
+     * @throws ApiError
+     */
+    static postExportsGoogleConnect() {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/exports/google/connect',
+            errors: {
+                401: `Unauthorized`,
+                500: `Google Sheets connect failed`,
+                501: `Google OAuth not implemented`,
+            },
+        });
+    }
+    /**
+     * Disconnect Google Sheets integration
+     * @returns ExportGoogleStatusResponse Google Sheets disconnected
+     * @throws ApiError
+     */
+    static postExportsGoogleDisconnect() {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/exports/google/disconnect',
+            errors: {
+                401: `Unauthorized`,
+                500: `Google Sheets disconnect failed`,
+            },
+        });
+    }
 }
 exports.ExportsService = ExportsService;
