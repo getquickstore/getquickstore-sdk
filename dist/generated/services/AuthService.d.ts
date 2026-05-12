@@ -106,17 +106,23 @@ export declare class AuthService {
     }>;
     /**
      * Confirm password reset
-     * Resets the user password using a valid reset token and revokes active tokens/sessions.
+     * Resets the user password using a valid reset token, marks the reset token as used, updates password metadata, and revokes active refresh tokens.
      * @returns any Password reset confirmed
      * @throws ApiError
      */
     static postAuthPasswordResetConfirm({ requestBody, }: {
         requestBody: {
+            /**
+             * Password reset token received by email.
+             */
             token: string;
+            /**
+             * New password. Must be at least 8 characters.
+             */
             newPassword: string;
         };
     }): CancelablePromise<{
-        ok?: boolean;
+        ok: boolean;
     }>;
     /**
      * Change password
@@ -331,7 +337,7 @@ export declare class AuthService {
     /**
      * Verify login 2FA challenge
      * Verifies a login challenge using TOTP or email OTP and returns a new token pair.
-     * @returns any 2FA challenge verified
+     * @returns any 2FA challenge verified and auth tokens returned
      * @throws ApiError
      */
     static postAuthLogin2FaVerify({ requestBody, }: {
@@ -343,8 +349,15 @@ export declare class AuthService {
         };
     }): CancelablePromise<{
         ok: boolean;
+        /**
+         * JWT access token for mobile/native clients
+         */
         accessToken: string;
+        /**
+         * Refresh token for mobile/native clients
+         */
         refreshToken: string;
+        tokenType: string;
     }>;
     /**
      * Resend login email OTP challenge

@@ -24,6 +24,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             ok: boolean;
             accessToken: string;
             refreshToken: string;
+            tokenType: string;
         }>;
         resendLoginTwoFactor: (challengeId: string) => import("./generated").CancelablePromise<{
             ok: boolean;
@@ -54,7 +55,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             token: string;
             newPassword: string;
         }) => import("./generated").CancelablePromise<{
-            ok?: boolean;
+            ok: boolean;
         }>;
         getTwoFactorStatus: () => import("./generated").CancelablePromise<{
             ok?: boolean;

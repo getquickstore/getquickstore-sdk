@@ -247,7 +247,7 @@ export class AuthService {
     }
     /**
      * Confirm password reset
-     * Resets the user password using a valid reset token and revokes active tokens/sessions.
+     * Resets the user password using a valid reset token, marks the reset token as used, updates password metadata, and revokes active refresh tokens.
      * @returns any Password reset confirmed
      * @throws ApiError
      */
@@ -255,11 +255,17 @@ export class AuthService {
         requestBody,
     }: {
         requestBody: {
+            /**
+             * Password reset token received by email.
+             */
             token: string;
+            /**
+             * New password. Must be at least 8 characters.
+             */
             newPassword: string;
         },
     }): CancelablePromise<{
-        ok?: boolean;
+        ok: boolean;
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -267,8 +273,8 @@ export class AuthService {
             body: requestBody,
             mediaType: 'application/json',
             errors: {
-                400: `Invalid request or expired token`,
-                404: `User not found`,
+                400: `Invalid request, weak password, or expired token`,
+                404: `User not found for reset token email`,
             },
         });
     }
@@ -657,7 +663,7 @@ export class AuthService {
     /**
      * Verify login 2FA challenge
      * Verifies a login challenge using TOTP or email OTP and returns a new token pair.
-     * @returns any 2FA challenge verified
+     * @returns any 2FA challenge verified and auth tokens returned
      * @throws ApiError
      */
     public static postAuthLogin2FaVerify({
@@ -671,8 +677,15 @@ export class AuthService {
         },
     }): CancelablePromise<{
         ok: boolean;
+        /**
+         * JWT access token for mobile/native clients
+         */
         accessToken: string;
+        /**
+         * Refresh token for mobile/native clients
+         */
         refreshToken: string;
+        tokenType: string;
     }> {
         return __request(OpenAPI, {
             method: 'POST',

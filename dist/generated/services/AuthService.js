@@ -189,7 +189,7 @@ class AuthService {
     }
     /**
      * Confirm password reset
-     * Resets the user password using a valid reset token and revokes active tokens/sessions.
+     * Resets the user password using a valid reset token, marks the reset token as used, updates password metadata, and revokes active refresh tokens.
      * @returns any Password reset confirmed
      * @throws ApiError
      */
@@ -200,8 +200,8 @@ class AuthService {
             body: requestBody,
             mediaType: 'application/json',
             errors: {
-                400: `Invalid request or expired token`,
-                404: `User not found`,
+                400: `Invalid request, weak password, or expired token`,
+                404: `User not found for reset token email`,
             },
         });
     }
@@ -456,7 +456,7 @@ class AuthService {
     /**
      * Verify login 2FA challenge
      * Verifies a login challenge using TOTP or email OTP and returns a new token pair.
-     * @returns any 2FA challenge verified
+     * @returns any 2FA challenge verified and auth tokens returned
      * @throws ApiError
      */
     static postAuthLogin2FaVerify({ requestBody, }) {
