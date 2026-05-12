@@ -139,8 +139,8 @@ export class ExportsService {
         });
     }
     /**
-     * Start Google Sheets connection flow
-     * @returns ExportGoogleConnectResponse Google Sheets connect response
+     * Start Google Sheets OAuth connection flow
+     * @returns ExportGoogleConnectResponse Google Sheets OAuth connect URL
      * @throws ApiError
      */
     public static postExportsGoogleConnect(): CancelablePromise<ExportGoogleConnectResponse> {
@@ -150,7 +150,34 @@ export class ExportsService {
             errors: {
                 401: `Unauthorized`,
                 500: `Google Sheets connect failed`,
-                501: `Google OAuth not implemented`,
+            },
+        });
+    }
+    /**
+     * Google Sheets OAuth callback
+     * @returns void
+     * @throws ApiError
+     */
+    public static getExportsGoogleCallback({
+        code,
+        state,
+        error,
+    }: {
+        code?: string,
+        state?: string,
+        error?: string,
+    }): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/exports/google/callback',
+            query: {
+                'code': code,
+                'state': state,
+                'error': error,
+            },
+            errors: {
+                302: `Redirect to app success or error URL`,
+                500: `Google Sheets callback failed`,
             },
         });
     }

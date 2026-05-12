@@ -3,12 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 export type ExportGoogleConnectResponse = {
-    ok?: boolean;
+    ok: boolean;
+    connected: boolean;
+    provider: string;
+    connectUrl: string | null;
     error?: string | null;
     errorCode?: string | null;
     message?: string | null;
-    connectUrl?: string | null;
-    connected?: boolean | null;
-    provider?: string | null;
 };
 

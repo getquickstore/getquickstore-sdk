@@ -3,4 +3,5 @@ export type ExportGoogleStatusResponse = {
     connected: boolean;
     provider: string;
     integrationId?: string | null;
+    status?: string;
 };

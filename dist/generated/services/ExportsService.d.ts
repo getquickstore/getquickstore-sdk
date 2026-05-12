@@ -54,11 +54,21 @@ export declare class ExportsService {
      */
     static getExportsGoogleStatus(): CancelablePromise<ExportGoogleStatusResponse>;
     /**
-     * Start Google Sheets connection flow
-     * @returns ExportGoogleConnectResponse Google Sheets connect response
+     * Start Google Sheets OAuth connection flow
+     * @returns ExportGoogleConnectResponse Google Sheets OAuth connect URL
      * @throws ApiError
      */
     static postExportsGoogleConnect(): CancelablePromise<ExportGoogleConnectResponse>;
+    /**
+     * Google Sheets OAuth callback
+     * @returns void
+     * @throws ApiError
+     */
+    static getExportsGoogleCallback({ code, state, error, }: {
+        code?: string;
+        state?: string;
+        error?: string;
+    }): CancelablePromise<void>;
     /**
      * Disconnect Google Sheets integration
      * @returns ExportGoogleStatusResponse Google Sheets disconnected
