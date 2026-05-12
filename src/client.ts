@@ -24,6 +24,7 @@ import { TagsService } from "./generated/services/TagsService"
 import { SeoService } from "./generated/services/SeoService"
 import { StripeConnectService } from "./generated/services/StripeConnectService"
 import { ProfileService } from "./generated/services/ProfileService"
+import { ExportsService } from "./generated/services/ExportsService"
 
 import type { CreateOrderRequest } from "./generated/models/CreateOrderRequest"
 import type { UpdateOrderStatusRequest } from "./generated/models/UpdateOrderStatusRequest"
@@ -236,6 +237,48 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           xStoreId: params?.storeId || requireStoreId(),
           range: params?.range,
         }),
+    },
+
+        exports: {
+      preview: (params?: {
+        type?: "all" | "orders" | "bookings" | "booking_series" | "refunds" | "payments"
+        dateFrom?: string
+        dateTo?: string
+      }) =>
+        ExportsService.getExports({
+          type: params?.type || "all",
+          dateFrom: params?.dateFrom,
+          dateTo: params?.dateTo,
+        }),
+
+      jobs: {
+        list: () =>
+          ExportsService.getExportsJobs(),
+
+        create: (data: {
+          type:
+            | "ORDERS"
+            | "BOOKINGS"
+            | "BOOKING_SERIES"
+            | "PAYMENTS"
+            | "REFUNDS"
+            | "TAX_SUMMARY"
+            | "FINANCIAL_SUMMARY"
+          format: "CSV" | "XLSX" | "JSON" | "GOOGLE_SHEETS"
+          dateFrom?: string | null
+          dateTo?: string | null
+          filters?: any
+          meta?: any
+        }) =>
+          ExportsService.postExportsJobs({
+            requestBody: data as any,
+          }),
+
+        get: (id: string) =>
+          ExportsService.getExportsJobs1({
+            id,
+          }),
+      },
     },
 
     availability: {

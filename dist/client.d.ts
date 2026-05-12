@@ -148,6 +148,25 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             storeId?: string;
         }) => import("./generated").CancelablePromise<import("./generated").AnalyticsOverviewResponse>;
     };
+    exports: {
+        preview: (params?: {
+            type?: "all" | "orders" | "bookings" | "booking_series" | "refunds" | "payments";
+            dateFrom?: string;
+            dateTo?: string;
+        }) => import("./generated").CancelablePromise<import("./generated").ExportResponse>;
+        jobs: {
+            list: () => import("./generated").CancelablePromise<import("./generated").ExportJobListResponse>;
+            create: (data: {
+                type: "ORDERS" | "BOOKINGS" | "BOOKING_SERIES" | "PAYMENTS" | "REFUNDS" | "TAX_SUMMARY" | "FINANCIAL_SUMMARY";
+                format: "CSV" | "XLSX" | "JSON" | "GOOGLE_SHEETS";
+                dateFrom?: string | null;
+                dateTo?: string | null;
+                filters?: any;
+                meta?: any;
+            }) => import("./generated").CancelablePromise<import("./generated").CreateExportJobResponse>;
+            get: (id: string) => import("./generated").CancelablePromise<import("./generated").ExportJobResponse>;
+        };
+    };
     availability: {
         list: (customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").AvailabilityListResponse>;
         upsert: (data: any, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").AvailabilityItemResponse>;

@@ -26,6 +26,7 @@ const TagsService_1 = require("./generated/services/TagsService");
 const SeoService_1 = require("./generated/services/SeoService");
 const StripeConnectService_1 = require("./generated/services/StripeConnectService");
 const ProfileService_1 = require("./generated/services/ProfileService");
+const ExportsService_1 = require("./generated/services/ExportsService");
 function createClient({ baseUrl, token, storeId }) {
     OpenAPI_1.OpenAPI.BASE = baseUrl;
     const isWeb = typeof window !== "undefined" &&
@@ -137,6 +138,22 @@ function createClient({ baseUrl, token, storeId }) {
                 xStoreId: params?.storeId || requireStoreId(),
                 range: params?.range,
             }),
+        },
+        exports: {
+            preview: (params) => ExportsService_1.ExportsService.getExports({
+                type: params?.type || "all",
+                dateFrom: params?.dateFrom,
+                dateTo: params?.dateTo,
+            }),
+            jobs: {
+                list: () => ExportsService_1.ExportsService.getExportsJobs(),
+                create: (data) => ExportsService_1.ExportsService.postExportsJobs({
+                    requestBody: data,
+                }),
+                get: (id) => ExportsService_1.ExportsService.getExportsJobs1({
+                    id,
+                }),
+            },
         },
         availability: {
             list: (customStoreId) => AvailabilityService_1.AvailabilityService.getAvailability({
