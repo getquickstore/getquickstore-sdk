@@ -145,6 +145,13 @@ function createClient({ baseUrl, token, storeId }) {
                 dateFrom: params?.dateFrom,
                 dateTo: params?.dateTo,
             }),
+            listJobs: () => ExportsService_1.ExportsService.getExportsJobs(),
+            createJob: (data) => ExportsService_1.ExportsService.postExportsJobs({
+                requestBody: data,
+            }),
+            getJob: (id) => ExportsService_1.ExportsService.getExportsJobs1({
+                id,
+            }),
             jobs: {
                 list: () => ExportsService_1.ExportsService.getExportsJobs(),
                 create: (data) => ExportsService_1.ExportsService.postExportsJobs({

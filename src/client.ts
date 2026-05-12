@@ -239,7 +239,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         }),
     },
 
-        exports: {
+    exports: {
       preview: (params?: {
         type?: "all" | "orders" | "bookings" | "booking_series" | "refunds" | "payments"
         dateFrom?: string
@@ -250,30 +250,43 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           dateFrom: params?.dateFrom,
           dateTo: params?.dateTo,
         }),
-
+      
+      listJobs: () =>
+        ExportsService.getExportsJobs(),
+    
+      createJob: (data: {
+        type:
+          | "ORDERS"
+          | "BOOKINGS"
+          | "BOOKING_SERIES"
+          | "PAYMENTS"
+          | "REFUNDS"
+          | "TAX_SUMMARY"
+          | "FINANCIAL_SUMMARY"
+        format: "CSV" | "XLSX" | "JSON" | "GOOGLE_SHEETS"
+        dateFrom?: string | null
+        dateTo?: string | null
+        filters?: any
+        meta?: any
+      }) =>
+        ExportsService.postExportsJobs({
+          requestBody: data as any,
+        }),
+      
+      getJob: (id: string) =>
+        ExportsService.getExportsJobs1({
+          id,
+        }),
+      
       jobs: {
         list: () =>
           ExportsService.getExportsJobs(),
-
-        create: (data: {
-          type:
-            | "ORDERS"
-            | "BOOKINGS"
-            | "BOOKING_SERIES"
-            | "PAYMENTS"
-            | "REFUNDS"
-            | "TAX_SUMMARY"
-            | "FINANCIAL_SUMMARY"
-          format: "CSV" | "XLSX" | "JSON" | "GOOGLE_SHEETS"
-          dateFrom?: string | null
-          dateTo?: string | null
-          filters?: any
-          meta?: any
-        }) =>
+      
+        create: (data: any) =>
           ExportsService.postExportsJobs({
-            requestBody: data as any,
+            requestBody: data,
           }),
-
+        
         get: (id: string) =>
           ExportsService.getExportsJobs1({
             id,
