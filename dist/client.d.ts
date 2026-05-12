@@ -311,6 +311,9 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         products: (params?: {
             storeId?: string;
         }) => import("./generated").CancelablePromise<import("./generated").PublicProductListResponse>;
+        product: (id: string, params: {
+            storeId: string;
+        }) => import("./generated").CancelablePromise<import("./generated").PublicProductResponse>;
         services: (params?: {
             storeId?: string;
         }) => import("./generated").CancelablePromise<import("./generated").PublicServiceListResponse>;

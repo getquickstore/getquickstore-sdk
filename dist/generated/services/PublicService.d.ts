@@ -4,6 +4,7 @@ import type { OkResponse } from '../models/OkResponse';
 import type { PublicCategoryListResponse } from '../models/PublicCategoryListResponse';
 import type { PublicCheckoutOrderPreviewResponse } from '../models/PublicCheckoutOrderPreviewResponse';
 import type { PublicProductListResponse } from '../models/PublicProductListResponse';
+import type { PublicProductResponse } from '../models/PublicProductResponse';
 import type { PublicServiceListResponse } from '../models/PublicServiceListResponse';
 import type { PublicStore } from '../models/PublicStore';
 import type { PublicStoreAllReviewListResponse } from '../models/PublicStoreAllReviewListResponse';
@@ -88,6 +89,15 @@ export declare class PublicService {
     static getPublicProducts({ storeId, }: {
         storeId?: string;
     }): CancelablePromise<PublicProductListResponse>;
+    /**
+     * Get public product by id
+     * @returns PublicProductResponse Public product details
+     * @throws ApiError
+     */
+    static getPublicProducts1({ id, storeId, }: {
+        id: string;
+        storeId: string;
+    }): CancelablePromise<PublicProductResponse>;
     /**
      * List public services
      * @returns PublicServiceListResponse Public services list

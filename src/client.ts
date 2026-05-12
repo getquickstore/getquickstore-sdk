@@ -565,6 +565,7 @@ createCustomSeries: (
           q: params?.q,
         }),
     },
+    
 
 public: {
   stores: (params?: { q?: string }) =>
@@ -632,6 +633,12 @@ public: {
   products: (params?: { storeId?: string }) =>
     PublicService.getPublicProducts({
       storeId: params?.storeId,
+    }),
+
+      product: (id: string, params: { storeId: string }) =>
+    PublicService.getPublicProducts1({
+      id,
+      storeId: params.storeId,
     }),
 
   services: (params?: { storeId?: string }) =>

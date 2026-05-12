@@ -353,6 +353,10 @@ function createClient({ baseUrl, token, storeId }) {
             products: (params) => PublicService_1.PublicService.getPublicProducts({
                 storeId: params?.storeId,
             }),
+            product: (id, params) => PublicService_1.PublicService.getPublicProducts1({
+                id,
+                storeId: params.storeId,
+            }),
             services: (params) => PublicService_1.PublicService.getPublicServices({
                 storeId: params?.storeId,
             }),

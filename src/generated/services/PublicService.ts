@@ -8,6 +8,7 @@ import type { OkResponse } from '../models/OkResponse';
 import type { PublicCategoryListResponse } from '../models/PublicCategoryListResponse';
 import type { PublicCheckoutOrderPreviewResponse } from '../models/PublicCheckoutOrderPreviewResponse';
 import type { PublicProductListResponse } from '../models/PublicProductListResponse';
+import type { PublicProductResponse } from '../models/PublicProductResponse';
 import type { PublicServiceListResponse } from '../models/PublicServiceListResponse';
 import type { PublicStore } from '../models/PublicStore';
 import type { PublicStoreAllReviewListResponse } from '../models/PublicStoreAllReviewListResponse';
@@ -218,6 +219,33 @@ export class PublicService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/public/products',
+            query: {
+                'storeId': storeId,
+            },
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
+            },
+        });
+    }
+    /**
+     * Get public product by id
+     * @returns PublicProductResponse Public product details
+     * @throws ApiError
+     */
+    public static getPublicProducts1({
+        id,
+        storeId,
+    }: {
+        id: string,
+        storeId: string,
+    }): CancelablePromise<PublicProductResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/public/products/{id}',
+            path: {
+                'id': id,
+            },
             query: {
                 'storeId': storeId,
             },

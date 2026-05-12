@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { PublicProductImage } from './PublicProductImage';
 export type MarketplaceProduct = {
     id: string;
     title: string;
@@ -17,5 +18,6 @@ export type MarketplaceProduct = {
     status?: string | null;
     ratingAvg: number;
     reviewCount: number;
+    images?: Array<PublicProductImage>;
 };
 

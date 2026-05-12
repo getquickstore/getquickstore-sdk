@@ -162,6 +162,27 @@ class PublicService {
         });
     }
     /**
+     * Get public product by id
+     * @returns PublicProductResponse Public product details
+     * @throws ApiError
+     */
+    static getPublicProducts1({ id, storeId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/public/products/{id}',
+            path: {
+                'id': id,
+            },
+            query: {
+                'storeId': storeId,
+            },
+            errors: {
+                404: `Not found`,
+                500: `Internal server error`,
+            },
+        });
+    }
+    /**
      * List public services
      * @returns PublicServiceListResponse Public services list
      * @throws ApiError
