@@ -153,23 +153,18 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             type?: "all" | "orders" | "bookings" | "booking_series" | "refunds" | "payments";
             dateFrom?: string;
             dateTo?: string;
+            storeId?: string;
         }) => import("./generated").CancelablePromise<import("./generated").ExportResponse>;
         jobs: {
-            list: () => import("./generated").CancelablePromise<import("./generated").ExportJobListResponse>;
-            create: (data: {
-                type: "ORDERS" | "BOOKINGS" | "BOOKING_SERIES" | "PAYMENTS" | "REFUNDS" | "TAX_SUMMARY" | "FINANCIAL_SUMMARY" | "FULL_FINANCIAL_REPORT";
-                format: "CSV" | "XLSX" | "JSON" | "GOOGLE_SHEETS";
-                dateFrom?: string | null;
-                dateTo?: string | null;
-                filters?: any;
-            }) => import("./generated").CancelablePromise<import("./generated").CreateExportJobResponse>;
-            get: (id: string) => import("./generated").CancelablePromise<import("./generated").ExportJobResponse>;
-            download: (id: string) => import("./generated").CancelablePromise<Blob>;
+            list: (customStoreId?: string) => any;
+            create: (data: any, customStoreId?: string) => any;
+            get: (id: string, customStoreId?: string) => any;
+            download: (id: string, customStoreId?: string) => any;
         };
         google: {
-            status: () => import("./generated").CancelablePromise<import("./generated").ExportGoogleStatusResponse>;
-            connect: () => import("./generated").CancelablePromise<import("./generated").ExportGoogleConnectResponse>;
-            disconnect: () => import("./generated").CancelablePromise<import("./generated").ExportGoogleStatusResponse>;
+            status: (customStoreId?: string) => any;
+            connect: (customStoreId?: string) => any;
+            disconnect: (customStoreId?: string) => any;
         };
     };
     availability: {

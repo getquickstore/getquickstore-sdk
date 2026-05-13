@@ -244,57 +244,60 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
         type?: "all" | "orders" | "bookings" | "booking_series" | "refunds" | "payments"
         dateFrom?: string
         dateTo?: string
+        storeId?: string
       }) =>
         ExportsService.getExports({
+          storeId: params?.storeId || requireStoreId(),
           type: params?.type || "all",
           dateFrom: params?.dateFrom,
           dateTo: params?.dateTo,
+        } as any),
+
+    jobs: {
+      list: (customStoreId?: string) =>
+        (ExportsService.getExportsJobs as any)({
+          storeId: customStoreId || requireStoreId(),
         }),
-
-      jobs: {
-        list: () =>
-          ExportsService.getExportsJobs(),
-
-        create: (data: {
-          type:
-            | "ORDERS"
-            | "BOOKINGS"
-            | "BOOKING_SERIES"
-            | "PAYMENTS"
-            | "REFUNDS"
-            | "TAX_SUMMARY"
-            | "FINANCIAL_SUMMARY"
-            | "FULL_FINANCIAL_REPORT"
-          format: "CSV" | "XLSX" | "JSON" | "GOOGLE_SHEETS"
-          dateFrom?: string | null
-          dateTo?: string | null
-          filters?: any
-        }) =>
-          ExportsService.postExportsJobs({
-            requestBody: data as any,
-          }),
-
-        get: (id: string) =>
-          ExportsService.getExportsJobs1({
-            id,
-          }),
-
-        download: (id: string) =>
-          ExportsService.getExportsJobsDownload({
-            id,
-          }),
+      
+      create: (data: any, customStoreId?: string) => {
+        const resolvedStoreId =
+          customStoreId || data?.filters?.storeId || requireStoreId()
+      
+        return (ExportsService.postExportsJobs as any)({
+          storeId: resolvedStoreId,
+          requestBody: data,
+        })
       },
-
-      google: {
-        status: () =>
-          ExportsService.getExportsGoogleStatus(),
-
-        connect: () =>
-          ExportsService.postExportsGoogleConnect(),
-
-        disconnect: () =>
-          ExportsService.postExportsGoogleDisconnect(),
-      },
+    
+      get: (id: string, customStoreId?: string) =>
+        (ExportsService.getExportsJobs1 as any)({
+          id,
+          storeId: customStoreId || requireStoreId(),
+        }),
+      
+      download: (id: string, customStoreId?: string) =>
+        (ExportsService.getExportsJobsDownload as any)({
+          id,
+          storeId: customStoreId || requireStoreId(),
+        }),
+    },
+    
+    google: {
+      status: (customStoreId?: string) =>
+        (ExportsService.getExportsGoogleStatus as any)({
+          storeId: customStoreId || requireStoreId(),
+        }),
+      
+      connect: (customStoreId?: string) =>
+        (ExportsService.postExportsGoogleConnect as any)({
+          storeId: customStoreId || requireStoreId(),
+        }),
+      
+      disconnect: (customStoreId?: string) =>
+        (ExportsService.postExportsGoogleDisconnect as any)({
+          storeId: customStoreId || requireStoreId(),
+        }),
+    },
     },
 
     availability: {
