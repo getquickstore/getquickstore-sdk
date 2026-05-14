@@ -29,9 +29,6 @@ export class ServicesService {
          * Store context id.
          */
         xStoreId: string,
-        /**
-         * Include inactive services. Only applied for seller/admin users with store access.
-         */
         includeInactive?: boolean,
     }): CancelablePromise<ServiceListResponse> {
         return __request(OpenAPI, {
@@ -52,7 +49,7 @@ export class ServicesService {
     }
     /**
      * Create service
-     * Creates a bookable service. Requires seller/admin access to the current store. Supports tagIds for existing tags and tagNames for creating/reusing tags by name.
+     * Creates a bookable service. Requires seller/admin access to the current store.
      * @returns Service Service created
      * @throws ApiError
      */
@@ -83,7 +80,7 @@ export class ServicesService {
     }
     /**
      * Update service
-     * Updates a bookable service. Requires seller/admin access to the current store. If tagIds or tagNames are provided, service tags are replaced with the resolved tag set.
+     * Updates a bookable service. Requires seller/admin access to the current store.
      * @returns Service Service updated
      * @throws ApiError
      */
@@ -186,10 +183,16 @@ export class ServicesService {
                 'limit': limit,
                 'offset': offset,
             },
+            errors: {
+                400: `Store id is required`,
+                404: `Service not found`,
+                500: `Service reviews list failed`,
+            },
         });
     }
     /**
      * Create service review
+     * Creates a review for a completed paid booking. One booking can be reviewed only once.
      * @returns ServiceReviewCreateResponse Service review created
      * @throws ApiError
      */
@@ -213,6 +216,13 @@ export class ServicesService {
             },
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                400: `Validation failed`,
+                403: `Booking is not reviewable`,
+                404: `Service not found`,
+                409: `Booking already reviewed`,
+                500: `Service review create failed`,
+            },
         });
     }
     /**

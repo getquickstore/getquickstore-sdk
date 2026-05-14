@@ -20,14 +20,11 @@ export declare class ServicesService {
          * Store context id.
          */
         xStoreId: string;
-        /**
-         * Include inactive services. Only applied for seller/admin users with store access.
-         */
         includeInactive?: boolean;
     }): CancelablePromise<ServiceListResponse>;
     /**
      * Create service
-     * Creates a bookable service. Requires seller/admin access to the current store. Supports tagIds for existing tags and tagNames for creating/reusing tags by name.
+     * Creates a bookable service. Requires seller/admin access to the current store.
      * @returns Service Service created
      * @throws ApiError
      */
@@ -40,7 +37,7 @@ export declare class ServicesService {
     }): CancelablePromise<Service>;
     /**
      * Update service
-     * Updates a bookable service. Requires seller/admin access to the current store. If tagIds or tagNames are provided, service tags are replaced with the resolved tag set.
+     * Updates a bookable service. Requires seller/admin access to the current store.
      * @returns Service Service updated
      * @throws ApiError
      */
@@ -84,6 +81,7 @@ export declare class ServicesService {
     }): CancelablePromise<ServiceReviewListResponse>;
     /**
      * Create service review
+     * Creates a review for a completed paid booking. One booking can be reviewed only once.
      * @returns ServiceReviewCreateResponse Service review created
      * @throws ApiError
      */
