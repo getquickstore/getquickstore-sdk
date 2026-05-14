@@ -684,6 +684,68 @@ function createClient({ baseUrl, token, storeId }) {
                 xStoreId: customStoreId || requireStoreId(),
                 requestBody: data,
             }),
+            returns: {
+                listMine: (params) => OrdersService_1.OrdersService.getOrdersReturnsMe({
+                    limit: params?.limit,
+                    status: params?.status,
+                }),
+                get: (returnId, customStoreId) => OrdersService_1.OrdersService.getOrdersReturns({
+                    returnId,
+                    xStoreId: customStoreId || storeId || undefined,
+                }),
+                request: (orderId, data) => OrdersService_1.OrdersService.postOrdersReturns({
+                    id: orderId,
+                    requestBody: data,
+                }),
+                submitShipment: (returnId, data) => OrdersService_1.OrdersService.postOrdersReturnsShipment({
+                    returnId,
+                    requestBody: data,
+                }),
+                cancel: (returnId) => OrdersService_1.OrdersService.postOrdersReturnsCancel({
+                    returnId,
+                }),
+                createPickupToken: (returnId) => OrdersService_1.OrdersService.postOrdersReturnsPickupToken({
+                    returnId,
+                }),
+                adminList: (params) => OrdersService_1.OrdersService.getOrdersAdminReturns({
+                    xStoreId: params?.storeId || requireStoreId(),
+                    limit: params?.limit,
+                    status: params?.status,
+                    orderId: params?.orderId,
+                }),
+                adminApprove: (returnId, data, customStoreId) => OrdersService_1.OrdersService.postOrdersAdminReturnsApprove({
+                    returnId,
+                    xStoreId: customStoreId || requireStoreId(),
+                    requestBody: data,
+                }),
+                adminReject: (returnId, data, customStoreId) => OrdersService_1.OrdersService.postOrdersAdminReturnsReject({
+                    returnId,
+                    xStoreId: customStoreId || requireStoreId(),
+                    requestBody: data,
+                }),
+                adminConfirmReceived: (returnId, customStoreId) => OrdersService_1.OrdersService.postOrdersAdminReturnsReceived({
+                    returnId,
+                    xStoreId: customStoreId || requireStoreId(),
+                }),
+                adminRefund: (returnId, customStoreId) => OrdersService_1.OrdersService.postOrdersAdminReturnsRefund({
+                    returnId,
+                    xStoreId: customStoreId || requireStoreId(),
+                }),
+                adminRefundDirect: (returnId, customStoreId) => OrdersService_1.OrdersService.postOrdersAdminReturnsRefundDirect({
+                    returnId,
+                    xStoreId: customStoreId || requireStoreId(),
+                }),
+                adminCompleteByToken: (returnId, data, customStoreId) => OrdersService_1.OrdersService.postOrdersAdminReturnsCompleteByToken({
+                    returnId,
+                    xStoreId: customStoreId || requireStoreId(),
+                    requestBody: data,
+                }),
+                adminCompleteByCode: (returnId, data, customStoreId) => OrdersService_1.OrdersService.postOrdersAdminReturnsCompleteByCode({
+                    returnId,
+                    xStoreId: customStoreId || requireStoreId(),
+                    requestBody: data,
+                }),
+            },
             cancel: (id, customStoreId) => OrdersService_1.OrdersService.postOrdersCancel({
                 id,
                 xStoreId: customStoreId || undefined,

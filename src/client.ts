@@ -25,6 +25,11 @@ import { SeoService } from "./generated/services/SeoService"
 import { StripeConnectService } from "./generated/services/StripeConnectService"
 import { ProfileService } from "./generated/services/ProfileService"
 import { ExportsService } from "./generated/services/ExportsService"
+import type { CreateOrderReturnRequest } from "./generated/models/CreateOrderReturnRequest"
+import type { SubmitReturnShipmentRequest } from "./generated/models/SubmitReturnShipmentRequest"
+import type { ReturnDecisionCommentRequest } from "./generated/models/ReturnDecisionCommentRequest"
+import type { RejectReturnRequest } from "./generated/models/RejectReturnRequest"
+import type { OrderReturnStatus } from "./generated/models/OrderReturnStatus"
 
 import type { CreateOrderRequest } from "./generated/models/CreateOrderRequest"
 import type { UpdateOrderStatusRequest } from "./generated/models/UpdateOrderStatusRequest"
@@ -1365,6 +1370,134 @@ syncTaxSettingsFromStripe: (id: string) =>
           xStoreId: customStoreId || requireStoreId(),
           requestBody: data as UpdateOrderStatusRequest,
         }),
+
+        returns: {
+  listMine: (params?: {
+    limit?: number
+    status?: OrderReturnStatus
+  }) =>
+    OrdersService.getOrdersReturnsMe({
+      limit: params?.limit,
+      status: params?.status,
+    }),
+
+  get: (returnId: string, customStoreId?: string) =>
+    OrdersService.getOrdersReturns({
+      returnId,
+      xStoreId: customStoreId || storeId || undefined,
+    }),
+
+  request: (orderId: string, data: CreateOrderReturnRequest) =>
+    OrdersService.postOrdersReturns({
+      id: orderId,
+      requestBody: data,
+    }),
+
+  submitShipment: (
+    returnId: string,
+    data: SubmitReturnShipmentRequest
+  ) =>
+    OrdersService.postOrdersReturnsShipment({
+      returnId,
+      requestBody: data,
+    }),
+
+  cancel: (returnId: string) =>
+    OrdersService.postOrdersReturnsCancel({
+      returnId,
+    }),
+
+  createPickupToken: (returnId: string) =>
+    OrdersService.postOrdersReturnsPickupToken({
+      returnId,
+    }),
+
+  adminList: (
+    params?: {
+      limit?: number
+      status?: OrderReturnStatus
+      orderId?: string
+      storeId?: string
+    }
+  ) =>
+    OrdersService.getOrdersAdminReturns({
+      xStoreId: params?.storeId || requireStoreId(),
+      limit: params?.limit,
+      status: params?.status,
+      orderId: params?.orderId,
+    }),
+
+  adminApprove: (
+    returnId: string,
+    data?: ReturnDecisionCommentRequest,
+    customStoreId?: string
+  ) =>
+    OrdersService.postOrdersAdminReturnsApprove({
+      returnId,
+      xStoreId: customStoreId || requireStoreId(),
+      requestBody: data,
+    }),
+
+  adminReject: (
+    returnId: string,
+    data?: RejectReturnRequest,
+    customStoreId?: string
+  ) =>
+    OrdersService.postOrdersAdminReturnsReject({
+      returnId,
+      xStoreId: customStoreId || requireStoreId(),
+      requestBody: data,
+    }),
+
+  adminConfirmReceived: (
+    returnId: string,
+    customStoreId?: string
+  ) =>
+    OrdersService.postOrdersAdminReturnsReceived({
+      returnId,
+      xStoreId: customStoreId || requireStoreId(),
+    }),
+
+  adminRefund: (
+    returnId: string,
+    customStoreId?: string
+  ) =>
+    OrdersService.postOrdersAdminReturnsRefund({
+      returnId,
+      xStoreId: customStoreId || requireStoreId(),
+    }),
+
+  adminRefundDirect: (
+    returnId: string,
+    customStoreId?: string
+  ) =>
+    OrdersService.postOrdersAdminReturnsRefundDirect({
+      returnId,
+      xStoreId: customStoreId || requireStoreId(),
+    }),
+
+  adminCompleteByToken: (
+    returnId: string,
+    data: { token: string },
+    customStoreId?: string
+  ) =>
+    OrdersService.postOrdersAdminReturnsCompleteByToken({
+      returnId,
+      xStoreId: customStoreId || requireStoreId(),
+      requestBody: data,
+    }),
+
+  adminCompleteByCode: (
+    returnId: string,
+    data: { code: string },
+    customStoreId?: string
+  ) =>
+    OrdersService.postOrdersAdminReturnsCompleteByCode({
+      returnId,
+      xStoreId: customStoreId || requireStoreId(),
+      requestBody: data,
+    }),
+},
 
       cancel: (id: string, customStoreId?: string) =>
         OrdersService.postOrdersCancel({

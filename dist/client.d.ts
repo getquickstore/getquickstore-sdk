@@ -1,3 +1,8 @@
+import type { CreateOrderReturnRequest } from "./generated/models/CreateOrderReturnRequest";
+import type { SubmitReturnShipmentRequest } from "./generated/models/SubmitReturnShipmentRequest";
+import type { ReturnDecisionCommentRequest } from "./generated/models/ReturnDecisionCommentRequest";
+import type { RejectReturnRequest } from "./generated/models/RejectReturnRequest";
+import type { OrderReturnStatus } from "./generated/models/OrderReturnStatus";
 import type { CreateOrderRequest } from "./generated/models/CreateOrderRequest";
 import type { UpdateOrderStatusRequest } from "./generated/models/UpdateOrderStatusRequest";
 type ClientConfig = {
@@ -618,6 +623,34 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
         updateStatus: (id: string, data: UpdateOrderStatusRequest | {
             status: "PROCESSING" | "READY_FOR_PICKUP" | "SHIPPED" | "DELIVERED" | "FULFILLED" | "CANCELLED";
         }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
+        returns: {
+            listMine: (params?: {
+                limit?: number;
+                status?: OrderReturnStatus;
+            }) => import("./generated").CancelablePromise<import("./generated").OrderReturnListResponse>;
+            get: (returnId: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderReturnSingleResponse>;
+            request: (orderId: string, data: CreateOrderReturnRequest) => import("./generated").CancelablePromise<import("./generated").OrderReturnSingleResponse>;
+            submitShipment: (returnId: string, data: SubmitReturnShipmentRequest) => import("./generated").CancelablePromise<import("./generated").OrderReturnSingleResponse>;
+            cancel: (returnId: string) => import("./generated").CancelablePromise<import("./generated").OrderReturnSingleResponse>;
+            createPickupToken: (returnId: string) => import("./generated").CancelablePromise<import("./generated").CreatePickupTokenResponse>;
+            adminList: (params?: {
+                limit?: number;
+                status?: OrderReturnStatus;
+                orderId?: string;
+                storeId?: string;
+            }) => import("./generated").CancelablePromise<import("./generated").OrderReturnListResponse>;
+            adminApprove: (returnId: string, data?: ReturnDecisionCommentRequest, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderReturnSingleResponse>;
+            adminReject: (returnId: string, data?: RejectReturnRequest, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderReturnSingleResponse>;
+            adminConfirmReceived: (returnId: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderReturnSingleResponse>;
+            adminRefund: (returnId: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderReturnRefundResponse>;
+            adminRefundDirect: (returnId: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderReturnRefundResponse>;
+            adminCompleteByToken: (returnId: string, data: {
+                token: string;
+            }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderReturnSingleResponse>;
+            adminCompleteByCode: (returnId: string, data: {
+                code: string;
+            }, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderReturnSingleResponse>;
+        };
         cancel: (id: string, customStoreId?: string) => import("./generated").CancelablePromise<import("./generated").OrderSingleResponse>;
     };
     payments: {

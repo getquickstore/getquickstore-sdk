@@ -49,6 +49,285 @@ class OrdersService {
         });
     }
     /**
+     * List current buyer return requests
+     * @returns OrderReturnListResponse Return list
+     * @throws ApiError
+     */
+    static getOrdersReturnsMe({ limit = 20, status, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/orders/returns/me',
+            query: {
+                'limit': limit,
+                'status': status,
+            },
+            errors: {
+                500: `Return list failed`,
+            },
+        });
+    }
+    /**
+     * Get return request by id
+     * @returns OrderReturnSingleResponse Return details
+     * @throws ApiError
+     */
+    static getOrdersReturns({ returnId, xStoreId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/orders/returns/{returnId}',
+            path: {
+                'returnId': returnId,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            errors: {
+                404: `Return not found`,
+                500: `Return get failed`,
+            },
+        });
+    }
+    /**
+     * List store return requests
+     * @returns OrderReturnListResponse Store return list
+     * @throws ApiError
+     */
+    static getOrdersAdminReturns({ xStoreId, limit = 50, status, orderId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'GET',
+            url: '/orders/admin/returns',
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            query: {
+                'limit': limit,
+                'status': status,
+                'orderId': orderId,
+            },
+            errors: {
+                403: `Access denied`,
+                500: `Admin return list failed`,
+            },
+        });
+    }
+    /**
+     * Request return for completed order
+     * @returns OrderReturnSingleResponse Return requested
+     * @throws ApiError
+     */
+    static postOrdersReturns({ id, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/{id}/returns',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Validation failed`,
+                404: `Order not found`,
+                409: `Return not available`,
+            },
+        });
+    }
+    /**
+     * Submit buyer return shipment details
+     * @returns OrderReturnSingleResponse Return shipment submitted
+     * @throws ApiError
+     */
+    static postOrdersReturnsShipment({ returnId, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/returns/{returnId}/shipment',
+            path: {
+                'returnId': returnId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Shipment info required`,
+                409: `Return shipment not allowed`,
+            },
+        });
+    }
+    /**
+     * Cancel buyer return request
+     * @returns OrderReturnSingleResponse Return cancelled
+     * @throws ApiError
+     */
+    static postOrdersReturnsCancel({ returnId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/returns/{returnId}/cancel',
+            path: {
+                'returnId': returnId,
+            },
+            errors: {
+                409: `Return cannot be cancelled`,
+            },
+        });
+    }
+    /**
+     * Create or refresh return pickup token
+     * @returns CreatePickupTokenResponse Return pickup token created
+     * @throws ApiError
+     */
+    static postOrdersReturnsPickupToken({ returnId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/returns/{returnId}/pickup-token',
+            path: {
+                'returnId': returnId,
+            },
+            errors: {
+                409: `Return pickup token not available`,
+            },
+        });
+    }
+    /**
+     * Approve return request
+     * @returns OrderReturnSingleResponse Return approved
+     * @throws ApiError
+     */
+    static postOrdersAdminReturnsApprove({ returnId, xStoreId, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/admin/returns/{returnId}/approve',
+            path: {
+                'returnId': returnId,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                409: `Return cannot be approved`,
+            },
+        });
+    }
+    /**
+     * Reject return request
+     * @returns OrderReturnSingleResponse Return rejected
+     * @throws ApiError
+     */
+    static postOrdersAdminReturnsReject({ returnId, xStoreId, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/admin/returns/{returnId}/reject',
+            path: {
+                'returnId': returnId,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                409: `Return cannot be rejected`,
+            },
+        });
+    }
+    /**
+     * Confirm returned item received by seller
+     * @returns OrderReturnSingleResponse Return received
+     * @throws ApiError
+     */
+    static postOrdersAdminReturnsReceived({ returnId, xStoreId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/admin/returns/{returnId}/received',
+            path: {
+                'returnId': returnId,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            errors: {
+                409: `Return cannot be received`,
+            },
+        });
+    }
+    /**
+     * Create refund after returned item was received
+     * @returns OrderReturnRefundResponse Return refund created
+     * @throws ApiError
+     */
+    static postOrdersAdminReturnsRefund({ returnId, xStoreId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/admin/returns/{returnId}/refund',
+            path: {
+                'returnId': returnId,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            errors: {
+                409: `Return refund not allowed`,
+            },
+        });
+    }
+    /**
+     * Refund buyer without requiring returned item
+     * @returns OrderReturnRefundResponse Direct return refund created
+     * @throws ApiError
+     */
+    static postOrdersAdminReturnsRefundDirect({ returnId, xStoreId, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/admin/returns/{returnId}/refund-direct',
+            path: {
+                'returnId': returnId,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            errors: {
+                409: `Direct return refund not allowed`,
+            },
+        });
+    }
+    /**
+     * Complete return pickup by QR token
+     * @returns OrderReturnSingleResponse Return pickup completed
+     * @throws ApiError
+     */
+    static postOrdersAdminReturnsCompleteByToken({ returnId, xStoreId, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/admin/returns/{returnId}/complete-by-token',
+            path: {
+                'returnId': returnId,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * Complete return pickup by 6-digit code
+     * @returns OrderReturnSingleResponse Return pickup completed
+     * @throws ApiError
+     */
+    static postOrdersAdminReturnsCompleteByCode({ returnId, xStoreId, requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/orders/admin/returns/{returnId}/complete-by-code',
+            path: {
+                'returnId': returnId,
+            },
+            headers: {
+                'x-store-id': xStoreId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
      * Get order by id
      * @returns OrderSingleResponse Order details
      * @throws ApiError
