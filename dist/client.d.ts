@@ -189,6 +189,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             storeId?: string;
             returnUrl?: string;
         }) => import("./generated").CancelablePromise<import("./generated").BillingPortalResponse>;
+        cancelMe: (id: string) => import("./generated").CancelablePromise<import("./generated").Booking>;
         cancel: (data: {
             storeId?: string;
         }) => import("./generated").CancelablePromise<import("./generated").BillingCancelResponse>;

@@ -395,6 +395,27 @@ class BookingsService {
         });
     }
     /**
+     * Cancel my booking
+     * Cancels an unpaid booking created by the authenticated customer. Paid bookings must go through refund flow.
+     * @returns Booking Booking cancelled by customer
+     * @throws ApiError
+     */
+    static postBookingsCancelMe({ id, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/bookings/{id}/cancel-me',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Authentication required`,
+                404: `Booking not found`,
+                409: `Booking cannot be cancelled directly`,
+                500: `Failed to cancel booking`,
+            },
+        });
+    }
+    /**
      * Cancel booking
      * Marks booking as CANCELLED.
      * @returns Booking Booking cancelled

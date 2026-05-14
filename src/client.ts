@@ -379,6 +379,11 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           },
         }),
 
+        cancelMe: (id: string) =>
+  BookingsService.postBookingsCancelMe({
+    id,
+  }),
+
       cancel: (data: { storeId?: string }) =>
         BillingService.postBillingCancel({
           requestBody: {

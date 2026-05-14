@@ -229,6 +229,9 @@ function createClient({ baseUrl, token, storeId }) {
                     ...(data.returnUrl ? { returnUrl: data.returnUrl } : {}),
                 },
             }),
+            cancelMe: (id) => BookingsService_1.BookingsService.postBookingsCancelMe({
+                id,
+            }),
             cancel: (data) => BillingService_1.BillingService.postBillingCancel({
                 requestBody: {
                     storeId: requireStoreId(data.storeId),

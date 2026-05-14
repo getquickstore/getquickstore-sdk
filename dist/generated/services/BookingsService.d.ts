@@ -221,6 +221,18 @@ export declare class BookingsService {
         requestBody: RescheduleBookingRequest;
     }): CancelablePromise<Booking>;
     /**
+     * Cancel my booking
+     * Cancels an unpaid booking created by the authenticated customer. Paid bookings must go through refund flow.
+     * @returns Booking Booking cancelled by customer
+     * @throws ApiError
+     */
+    static postBookingsCancelMe({ id, }: {
+        /**
+         * Booking id
+         */
+        id: string;
+    }): CancelablePromise<Booking>;
+    /**
      * Cancel booking
      * Marks booking as CANCELLED.
      * @returns Booking Booking cancelled
