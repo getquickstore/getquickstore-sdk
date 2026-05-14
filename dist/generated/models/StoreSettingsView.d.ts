@@ -7,6 +7,10 @@ export type StoreSettingsView = {
     inventoryEnabled: boolean;
     taxesIncluded: boolean;
     pickupEnabled: boolean;
+    returnsEnabled: boolean;
+    returnWindowDays?: number | null;
+    buyerPaysReturnShipping: boolean;
+    returnPolicyText?: string | null;
     taxEnabled: boolean;
     taxLiability: 'SELLER' | 'PLATFORM';
     taxBehavior: 'inclusive' | 'exclusive';

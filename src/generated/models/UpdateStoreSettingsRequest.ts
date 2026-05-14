@@ -13,5 +13,9 @@ export type UpdateStoreSettingsRequest = {
     vatNumber?: string | null;
     defaultProductTaxCode?: string | null;
     defaultServiceTaxCode?: string | null;
+    returnsEnabled?: boolean;
+    returnWindowDays?: number | null;
+    buyerPaysReturnShipping?: boolean;
+    returnPolicyText?: string | null;
 };
 
