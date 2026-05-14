@@ -229,9 +229,6 @@ function createClient({ baseUrl, token, storeId }) {
                     ...(data.returnUrl ? { returnUrl: data.returnUrl } : {}),
                 },
             }),
-            cancelMe: (id) => BookingsService_1.BookingsService.postBookingsCancelMe({
-                id,
-            }),
             cancel: (data) => BillingService_1.BillingService.postBillingCancel({
                 requestBody: {
                     storeId: requireStoreId(data.storeId),
@@ -258,6 +255,9 @@ function createClient({ baseUrl, token, storeId }) {
         },
         bookings: {
             me: () => BookingsService_1.BookingsService.getBookingsMe(),
+            cancelMe: (id) => BookingsService_1.BookingsService.postBookingsCancelMe({
+                id,
+            }),
             list: (params) => BookingsService_1.BookingsService.getBookings({
                 xStoreId: params?.storeId || requireStoreId(),
                 status: params?.status,

@@ -379,10 +379,7 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
           },
         }),
 
-        cancelMe: (id: string) =>
-  BookingsService.postBookingsCancelMe({
-    id,
-  }),
+
 
       cancel: (data: { storeId?: string }) =>
         BillingService.postBillingCancel({
@@ -423,6 +420,11 @@ export function createClient({ baseUrl, token, storeId }: ClientConfig) {
 
     bookings: {
       me: () => BookingsService.getBookingsMe(),
+
+        cancelMe: (id: string) =>
+    BookingsService.postBookingsCancelMe({
+      id,
+    }),
 
       list: (params?: {
         status?: "PENDING" | "CONFIRMED" | "COMPLETED" | "CANCELLED"

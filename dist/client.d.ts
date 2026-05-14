@@ -189,7 +189,6 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             storeId?: string;
             returnUrl?: string;
         }) => import("./generated").CancelablePromise<import("./generated").BillingPortalResponse>;
-        cancelMe: (id: string) => import("./generated").CancelablePromise<import("./generated").Booking>;
         cancel: (data: {
             storeId?: string;
         }) => import("./generated").CancelablePromise<import("./generated").BillingCancelResponse>;
@@ -219,6 +218,7 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
     };
     bookings: {
         me: () => import("./generated").CancelablePromise<import("./generated").BookingListResponse>;
+        cancelMe: (id: string) => import("./generated").CancelablePromise<import("./generated").Booking>;
         list: (params?: {
             status?: "PENDING" | "CONFIRMED" | "COMPLETED" | "CANCELLED";
             serviceId?: string;
