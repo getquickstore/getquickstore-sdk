@@ -149,6 +149,7 @@ export type { OkResponse } from './models/OkResponse';
 export type { Order } from './models/Order';
 export type { OrderCustomer } from './models/OrderCustomer';
 export type { OrderItem } from './models/OrderItem';
+export type { OrderItemReview } from './models/OrderItemReview';
 export type { OrderListResponse } from './models/OrderListResponse';
 export type { OrderPickupInfo } from './models/OrderPickupInfo';
 export type { OrderPickupToken } from './models/OrderPickupToken';

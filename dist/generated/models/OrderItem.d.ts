@@ -1,3 +1,4 @@
+import type { OrderItemReview } from './OrderItemReview';
 import type { OrderProductRef } from './OrderProductRef';
 import type { OrderVariantRef } from './OrderVariantRef';
 export type OrderItem = {
@@ -13,4 +14,9 @@ export type OrderItem = {
     createdAt: string;
     product?: OrderProductRef;
     variant?: OrderVariantRef | null;
+    /**
+     * True when current buyer already reviewed this order item.
+     */
+    reviewed?: boolean;
+    review?: OrderItemReview | null;
 };
