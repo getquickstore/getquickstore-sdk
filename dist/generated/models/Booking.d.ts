@@ -1,6 +1,7 @@
 import type { BookingCustomer } from './BookingCustomer';
 import type { BookingPayment } from './BookingPayment';
 import type { BookingService } from './BookingService';
+import type { BookingServiceReview } from './BookingServiceReview';
 export type Booking = {
     id: string;
     storeId: string;
@@ -23,4 +24,5 @@ export type Booking = {
     updatedAt?: string | null;
     completedAt?: string | null;
     service?: BookingService | null;
+    serviceReview?: BookingServiceReview | null;
 };

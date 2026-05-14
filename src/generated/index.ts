@@ -78,6 +78,7 @@ export type { BookingSeriesPreviewRequest } from './models/BookingSeriesPreviewR
 export type { BookingSeriesPreviewResponse } from './models/BookingSeriesPreviewResponse';
 export type { BookingSeriesSlotPreview } from './models/BookingSeriesSlotPreview';
 export type { BookingService } from './models/BookingService';
+export type { BookingServiceReview } from './models/BookingServiceReview';
 export type { CalendarBookingService } from './models/CalendarBookingService';
 export type { CalendarError } from './models/CalendarError';
 export type { CalendarItem } from './models/CalendarItem';
