@@ -918,6 +918,22 @@ profile: {
     }),
 },
 
+  registerPushDevice: (data: {
+    token: string
+    provider?: string
+    platform?: string
+    nativeToken?: string | null
+    deviceId?: string | null
+    deviceName?: string | null
+    appVersion?: string | null
+    locale?: string | null
+    timezone?: string | null
+    storeId?: string | null
+  }) =>
+    ProfileService.postProfilePushDeviceRegister({
+      requestBody: data,
+    }),
+
 updatePushPreferences: (data: {
   ordersEnabled?: boolean
   bookingsEnabled?: boolean

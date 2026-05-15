@@ -486,6 +486,9 @@ function createClient({ baseUrl, token, storeId }) {
                     requestBody: data,
                 }),
             },
+            registerPushDevice: (data) => ProfileService_1.ProfileService.postProfilePushDeviceRegister({
+                requestBody: data,
+            }),
             updatePushPreferences: (data) => ProfileService_1.ProfileService.patchProfilePushPreferences({
                 requestBody: data,
             }),

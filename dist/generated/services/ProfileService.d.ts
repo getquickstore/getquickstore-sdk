@@ -3,6 +3,8 @@ import type { ProfileAddressInput } from '../models/ProfileAddressInput';
 import type { ProfileAddressResponse } from '../models/ProfileAddressResponse';
 import type { ProfileOkResponse } from '../models/ProfileOkResponse';
 import type { ProfileOnlyResponse } from '../models/ProfileOnlyResponse';
+import type { ProfilePushDeviceRegisterInput } from '../models/ProfilePushDeviceRegisterInput';
+import type { ProfilePushDeviceResponse } from '../models/ProfilePushDeviceResponse';
 import type { ProfilePushPreferencesInput } from '../models/ProfilePushPreferencesInput';
 import type { ProfilePushPreferencesResponse } from '../models/ProfilePushPreferencesResponse';
 import type { ProfileResponse } from '../models/ProfileResponse';
@@ -31,6 +33,14 @@ export declare class ProfileService {
     static patchProfilePushPreferences({ requestBody, }: {
         requestBody: ProfilePushPreferencesInput;
     }): CancelablePromise<ProfilePushPreferencesResponse>;
+    /**
+     * Register current user push device
+     * @returns ProfilePushDeviceResponse Push device registered
+     * @throws ApiError
+     */
+    static postProfilePushDeviceRegister({ requestBody, }: {
+        requestBody: ProfilePushDeviceRegisterInput;
+    }): CancelablePromise<ProfilePushDeviceResponse>;
     /**
      * List current user addresses
      * @returns ProfileAddressesResponse User addresses

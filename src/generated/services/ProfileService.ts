@@ -7,6 +7,8 @@ import type { ProfileAddressInput } from '../models/ProfileAddressInput';
 import type { ProfileAddressResponse } from '../models/ProfileAddressResponse';
 import type { ProfileOkResponse } from '../models/ProfileOkResponse';
 import type { ProfileOnlyResponse } from '../models/ProfileOnlyResponse';
+import type { ProfilePushDeviceRegisterInput } from '../models/ProfilePushDeviceRegisterInput';
+import type { ProfilePushDeviceResponse } from '../models/ProfilePushDeviceResponse';
 import type { ProfilePushPreferencesInput } from '../models/ProfilePushPreferencesInput';
 import type { ProfilePushPreferencesResponse } from '../models/ProfilePushPreferencesResponse';
 import type { ProfileResponse } from '../models/ProfileResponse';
@@ -56,6 +58,23 @@ export class ProfileService {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/profile/push-preferences',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * Register current user push device
+     * @returns ProfilePushDeviceResponse Push device registered
+     * @throws ApiError
+     */
+    public static postProfilePushDeviceRegister({
+        requestBody,
+    }: {
+        requestBody: ProfilePushDeviceRegisterInput,
+    }): CancelablePromise<ProfilePushDeviceResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/profile/push-device/register',
             body: requestBody,
             mediaType: 'application/json',
         });

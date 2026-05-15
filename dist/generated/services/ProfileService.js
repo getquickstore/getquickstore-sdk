@@ -42,6 +42,19 @@ class ProfileService {
         });
     }
     /**
+     * Register current user push device
+     * @returns ProfilePushDeviceResponse Push device registered
+     * @throws ApiError
+     */
+    static postProfilePushDeviceRegister({ requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'POST',
+            url: '/profile/push-device/register',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
      * List current user addresses
      * @returns ProfileAddressesResponse User addresses
      * @throws ApiError

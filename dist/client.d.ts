@@ -437,6 +437,18 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
                 systemEnabled?: boolean;
             }) => import("./generated").CancelablePromise<import("./generated").ProfilePushPreferencesResponse>;
         };
+        registerPushDevice: (data: {
+            token: string;
+            provider?: string;
+            platform?: string;
+            nativeToken?: string | null;
+            deviceId?: string | null;
+            deviceName?: string | null;
+            appVersion?: string | null;
+            locale?: string | null;
+            timezone?: string | null;
+            storeId?: string | null;
+        }) => import("./generated").CancelablePromise<import("./generated").ProfilePushDeviceResponse>;
         updatePushPreferences: (data: {
             ordersEnabled?: boolean;
             bookingsEnabled?: boolean;
