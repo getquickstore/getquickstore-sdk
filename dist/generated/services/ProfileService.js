@@ -5,8 +5,8 @@ const OpenAPI_1 = require("../core/OpenAPI");
 const request_1 = require("../core/request");
 class ProfileService {
     /**
-     * Get current user profile and addresses
-     * @returns ProfileResponse Current user profile with addresses
+     * Get current user profile, addresses and push preferences
+     * @returns ProfileResponse Current user profile with addresses and push preferences
      * @throws ApiError
      */
     static getProfile() {
@@ -24,6 +24,19 @@ class ProfileService {
         return (0, request_1.request)(OpenAPI_1.OpenAPI, {
             method: 'PATCH',
             url: '/profile',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * Update current user global push preferences
+     * @returns ProfilePushPreferencesResponse Push preferences updated
+     * @throws ApiError
+     */
+    static patchProfilePushPreferences({ requestBody, }) {
+        return (0, request_1.request)(OpenAPI_1.OpenAPI, {
+            method: 'PATCH',
+            url: '/profile/push-preferences',
             body: requestBody,
             mediaType: 'application/json',
         });

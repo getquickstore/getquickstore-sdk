@@ -481,6 +481,14 @@ function createClient({ baseUrl, token, storeId }) {
             update: (data) => ProfileService_1.ProfileService.patchProfile({
                 requestBody: data,
             }),
+            pushPreferences: {
+                update: (data) => ProfileService_1.ProfileService.patchProfilePushPreferences({
+                    requestBody: data,
+                }),
+            },
+            updatePushPreferences: (data) => ProfileService_1.ProfileService.patchProfilePushPreferences({
+                requestBody: data,
+            }),
             addresses: {
                 list: () => ProfileService_1.ProfileService.getProfileAddresses(),
                 create: (data) => ProfileService_1.ProfileService.postProfileAddresses({

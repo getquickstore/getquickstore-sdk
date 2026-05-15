@@ -903,6 +903,34 @@ profile: {
       requestBody: data,
     }),
 
+    pushPreferences: {
+  update: (data: {
+    ordersEnabled?: boolean
+    bookingsEnabled?: boolean
+    paymentsEnabled?: boolean
+    refundsEnabled?: boolean
+    reviewsEnabled?: boolean
+    marketingEnabled?: boolean
+    systemEnabled?: boolean
+  }) =>
+    ProfileService.patchProfilePushPreferences({
+      requestBody: data,
+    }),
+},
+
+updatePushPreferences: (data: {
+  ordersEnabled?: boolean
+  bookingsEnabled?: boolean
+  paymentsEnabled?: boolean
+  refundsEnabled?: boolean
+  reviewsEnabled?: boolean
+  marketingEnabled?: boolean
+  systemEnabled?: boolean
+}) =>
+  ProfileService.patchProfilePushPreferences({
+    requestBody: data,
+  }),
+
   addresses: {
     list: () =>
       ProfileService.getProfileAddresses(),

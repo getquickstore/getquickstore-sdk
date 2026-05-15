@@ -426,6 +426,26 @@ export declare function createClient({ baseUrl, token, storeId }: ClientConfig):
             timezone?: string;
             currency?: string;
         }) => import("./generated").CancelablePromise<import("./generated").ProfileOnlyResponse>;
+        pushPreferences: {
+            update: (data: {
+                ordersEnabled?: boolean;
+                bookingsEnabled?: boolean;
+                paymentsEnabled?: boolean;
+                refundsEnabled?: boolean;
+                reviewsEnabled?: boolean;
+                marketingEnabled?: boolean;
+                systemEnabled?: boolean;
+            }) => import("./generated").CancelablePromise<import("./generated").ProfilePushPreferencesResponse>;
+        };
+        updatePushPreferences: (data: {
+            ordersEnabled?: boolean;
+            bookingsEnabled?: boolean;
+            paymentsEnabled?: boolean;
+            refundsEnabled?: boolean;
+            reviewsEnabled?: boolean;
+            marketingEnabled?: boolean;
+            systemEnabled?: boolean;
+        }) => import("./generated").CancelablePromise<import("./generated").ProfilePushPreferencesResponse>;
         addresses: {
             list: () => import("./generated").CancelablePromise<import("./generated").ProfileAddressesResponse>;
             create: (data: {

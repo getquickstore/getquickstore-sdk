@@ -2,13 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProfileAddress } from './ProfileAddress';
 import type { ProfilePushPreferences } from './ProfilePushPreferences';
-import type { ProfileUser } from './ProfileUser';
-export type ProfileResponse = {
+export type ProfilePushPreferencesResponse = {
     ok?: boolean;
-    profile?: ProfileUser;
-    addresses?: Array<ProfileAddress>;
+    preferences?: ProfilePushPreferences;
     pushPreferences?: ProfilePushPreferences;
 };
 

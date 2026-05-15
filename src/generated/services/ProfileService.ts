@@ -7,6 +7,8 @@ import type { ProfileAddressInput } from '../models/ProfileAddressInput';
 import type { ProfileAddressResponse } from '../models/ProfileAddressResponse';
 import type { ProfileOkResponse } from '../models/ProfileOkResponse';
 import type { ProfileOnlyResponse } from '../models/ProfileOnlyResponse';
+import type { ProfilePushPreferencesInput } from '../models/ProfilePushPreferencesInput';
+import type { ProfilePushPreferencesResponse } from '../models/ProfilePushPreferencesResponse';
 import type { ProfileResponse } from '../models/ProfileResponse';
 import type { ProfileUpdateInput } from '../models/ProfileUpdateInput';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -14,8 +16,8 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class ProfileService {
     /**
-     * Get current user profile and addresses
-     * @returns ProfileResponse Current user profile with addresses
+     * Get current user profile, addresses and push preferences
+     * @returns ProfileResponse Current user profile with addresses and push preferences
      * @throws ApiError
      */
     public static getProfile(): CancelablePromise<ProfileResponse> {
@@ -37,6 +39,23 @@ export class ProfileService {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/profile',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * Update current user global push preferences
+     * @returns ProfilePushPreferencesResponse Push preferences updated
+     * @throws ApiError
+     */
+    public static patchProfilePushPreferences({
+        requestBody,
+    }: {
+        requestBody: ProfilePushPreferencesInput,
+    }): CancelablePromise<ProfilePushPreferencesResponse> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/profile/push-preferences',
             body: requestBody,
             mediaType: 'application/json',
         });
