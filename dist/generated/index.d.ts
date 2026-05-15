@@ -262,6 +262,7 @@ export type { StoreDetailsResponse } from './models/StoreDetailsResponse';
 export type { StoreError } from './models/StoreError';
 export type { StoreListResponse } from './models/StoreListResponse';
 export type { StoreOwnerView } from './models/StoreOwnerView';
+export type { StoreReturnPolicy } from './models/StoreReturnPolicy';
 export type { StoreSelectResponse } from './models/StoreSelectResponse';
 export type { StoreSeoRebuildBuild } from './models/StoreSeoRebuildBuild';
 export type { StoreSeoRebuildResponse } from './models/StoreSeoRebuildResponse';
