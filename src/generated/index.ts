@@ -158,6 +158,7 @@ export type { OrderPickupToken } from './models/OrderPickupToken';
 export type { OrderProductImage } from './models/OrderProductImage';
 export type { OrderProductRef } from './models/OrderProductRef';
 export type { OrderReturn } from './models/OrderReturn';
+export type { OrderReturnConflictResponse } from './models/OrderReturnConflictResponse';
 export type { OrderReturnListResponse } from './models/OrderReturnListResponse';
 export type { OrderReturnRefundResponse } from './models/OrderReturnRefundResponse';
 export type { OrderReturnSingleResponse } from './models/OrderReturnSingleResponse';
