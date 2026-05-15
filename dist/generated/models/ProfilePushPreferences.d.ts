@@ -3,6 +3,7 @@ export type ProfilePushPreferences = {
     userId?: string;
     storeId?: string | null;
     scope?: 'GLOBAL' | 'STORE';
+    scopeKey?: string;
     ordersEnabled?: boolean;
     bookingsEnabled?: boolean;
     paymentsEnabled?: boolean;
